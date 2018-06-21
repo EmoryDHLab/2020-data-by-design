@@ -5,18 +5,22 @@
       v-for='n in 9'
       :key='n'
       :style='styles(n)'
-      :sizes='sizes'/>
+      :settings='settings'
+      :dataset='getEventData(n)'/>
   </g>
 </template>
 <script>
 import EventSquare from '@/components/vis/peabody/EventSquare'
 
 export default {
-  props: ['sizes'],
+  props: ['settings', 'dataset'],
   components: {
     'event-square': EventSquare
   },
   computed: {
+    sizes () {
+      return this.settings.sizes
+    },
     evtWidth () {
       return this.sizes.rect + this.sizes.line.sm
     },
@@ -38,6 +42,9 @@ export default {
           + this.getEventYFromIndex(n-1) + 'px)'
       }
     },
+    getEventData (n) {
+      return this.dataset[n-1] || []
+    }
   }
 }
 </script>
