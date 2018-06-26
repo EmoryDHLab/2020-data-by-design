@@ -1,47 +1,24 @@
 <template>
-  <div class="hello">
-    <div v-if='isLoading'>Loading</div>
-    <div v-if='error.isActive'>{{ error.message }}</div>
-    <peabody-grid
-      width='100vh'
-      height='100vh'
-      :dataset='peabodyData'/>
-  </div>
+  <section class='chapter'>
+    <h1>{{chapter.title}}</h1>
+    <chapter-section
+      v-for='section in chapter.section'
+      :title='section.title'
+      :body='section.body'
+    />
+
+  </section>
 </template>
 
 <script>
+import DataWrap from './vis/DataWrap'
 import PeabodyGrid from '@/components/vis/peabody/PeabodyGrid'
-import axios from 'axios'
 
 export default {
   name: 'HelloWorld',
   components: {
-    'peabody-grid': PeabodyGrid
-  },
-  data: () => ({
-    isLoading: false,
-    error: {
-      isActive: false,
-      message: ''
-    },
-    peabodyData: {}
-  }),
-  created: function () {
-    this.error.isActive = false
-    this.isLoading = true
-    axios.get('/api/data/2')
-      .then(function(response) {
-        console.log(response)
-        this.peabodyData = Object.assign({}, this.peabodyData, response.data)
-      }.bind(this))
-      .catch(function(err) {
-        console.log(err)
-        this.error.isActive = true
-        this.error.message = err.response.data
-      }.bind(this))
-      .finally(function() {
-        this.isLoading = false
-      }.bind(this))
+    DataWrap,
+    PeabodyGrid
   }
 }
 </script>

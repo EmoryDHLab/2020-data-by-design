@@ -1,5 +1,5 @@
 <template>
-  <g>
+  <g @click='selectEvents'>
     <rect
       :width='sizes.rect'
       :height='sizes.rect'
@@ -32,7 +32,8 @@ export default {
     color (i) {
       if (this.dataset[i])
         return this.dataset[i].color
-    }
+    },
+    selectEvents (e) {}
   }
 }
 </script>
