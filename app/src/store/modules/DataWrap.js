@@ -1,16 +1,14 @@
-import axios from 'axios'
+import api from '@/api'
 
 const state = () => {
   return {
     dataset: {},
-    metadata: {
-      
-    },
+    config: {},
     error: {
       isActive: false,
       message: ''
     },
-    isLoading: false
+    isLoading: false,
   }
 }
 
@@ -42,10 +40,9 @@ const mutations = {
 
 const actions = {
   loadData ({ commit }, payload) {
-    console.log("init")
     commit('clearError')
     commit('startLoad')
-    return axios.get('/api/data/' + payload.dataId)
+    return api.getDataset('peabody', payload.dataId)
       .then(function(response) {
         commit('setDataset', response.data)
       })
@@ -58,6 +55,8 @@ const actions = {
     })
   }
 }
+
+// self registers when used
 
 const NAME = 'DataWrap'
 

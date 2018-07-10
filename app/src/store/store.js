@@ -2,10 +2,16 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import DataWrap from './modules/DataWrap'
+import vis from './vis/index.js'
+import data from './data/index.js'
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
+  modules: {
+    vis,
+    data
+  },
   state: {
     dataWraps: {},
     errors: []

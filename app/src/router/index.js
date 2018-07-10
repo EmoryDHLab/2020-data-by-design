@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import ChapterSection from '@/components/ChapterSection'
+import ThePeabodyChapter from '@/components/ThePeabodyChapter'
 
 Vue.use(Router)
 
@@ -9,7 +9,7 @@ export default new Router({
     {
       path: '/',
       name: 'Chapter 1',
-      component: ChapterSection
+      component: ThePeabodyChapter
     }
   ]
 })

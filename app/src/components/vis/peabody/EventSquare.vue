@@ -8,11 +8,14 @@
   </g>
 </template>
 <script>
+import VisStateMixin from '@/mixins/vis/VisStateMixin'
+
 export default {
-  props: ['settings', 'dataset'],
+  mixins: [VisStateMixin],
+  props: ['year', 'type'],
   computed: {
     sizes () {
-      return this.settings.sizes
+      return this.config.sizes
     },
     checker () {
       if (this.dataset.length > 2) {

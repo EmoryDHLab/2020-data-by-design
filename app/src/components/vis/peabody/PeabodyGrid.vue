@@ -6,36 +6,53 @@
         v-for='n in 100'
         :key='n-1'
         :style='translateYear(n)'
-        :dataset='getYearData(n)'
-        :settings='settings'/>
+        :year=getYear(n)
+        :vId='vId'/>
     </g>
   </svg>
 </template>
 
 <script>
 import YearSquare from '@/components/vis/peabody/YearSquare'
+import VisStateMixin from '@/mixins/vis/VisStateMixin'
+import { mapMutations } from 'vuex'
+const DEFAULT_CONFIG = {
+  sizes: {
+    line: {
+      sm: 1,
+      md: 2,
+      lg: 20
+    },
+    rect: 16
+  }
+}
+
 export default {
-  props: ['width', 'height', 'dataset'],
+  props: {
+    width: String,
+    height: String,
+    datasetId: {
+      type: String,
+      required: true
+    }
+  },
+  mixins: [VisStateMixin],
   components: {
     'year-square': YearSquare
   },
-  data: function () {
-    return {
-      settings: {
-        sizes: {
-          line: {
-            sm: 1,
-            md: 2,
-            lg: 20
-          },
-          rect: 16
-        }
-      }
+  data: () => ({
+    dataFormatter (d) {
+      return Object.values(d).reduce((formattedData, curr) => {
+        if (!formattedData[curr.year]) { formattedData[curr.year] = {} }
+        if (!formattedData[curr.year][curr.eventType]) { formattedData[curr.year][curr.eventType] = [] }
+        formattedData[curr.year][curr.eventType].push(curr)
+        return formattedData
+      }, {})
     }
-  },
+  }),
   computed: {
     sizes () {
-      return this.settings.sizes
+      return this.config.sizes
     },
     evtWidth () {
       return this.sizes.rect + this.sizes.line.sm
@@ -56,14 +73,18 @@ export default {
         + this.sizes.line.lg * 3).toString()
     },
     startYear () {
-      return Math.min(...Object.keys(this.dataset))
+      return Math.min(...Object.keys(this.formattedData))
     },
     getViewBox () {
       let width = this.getSVGWidth
       return '0 0 ' + width + ' ' + width
-    }
+    },
   },
   methods: {
+    ...mapMutations('vis', ['addVis']),
+    getYear (n) {
+      return this.startYear + n - 1
+    },
     getYearXFromIndex (ind) {
       let j = ind % 10
       return j * (this.yearWidth) + ((j > 4) ? 20 - this.sizes.line.md : 0)
@@ -78,11 +99,12 @@ export default {
         + this.getYearXFromIndex(n - 1) + 'px,'
         + this.getYearYFromIndex(n - 1) + 'px)'
       }
-    },
-    getYearData(n) {
-      let year = n - 1 + this.startYear
-      return this.dataset[year] || {}
     }
+  },
+  created () {
+    if (this.getVis(this.vId)) throw new Error('Vis id conflict');
+    console.log("Adding vis");
+    this.addVis({ id: this.vId, config: DEFAULT_CONFIG, datasetId: this.datasetId, dataFormatter: this.dataFormatter })
   }
 }
 </script>
