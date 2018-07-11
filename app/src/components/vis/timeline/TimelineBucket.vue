@@ -12,6 +12,7 @@
 <script>
 import TimelineEvent from './TimelineEvent'
 export default {
+  inject: ['options'],
   components: {
     TimelineEvent
   },
@@ -33,7 +34,8 @@ export default {
         transform: 'translate('
           + 0
           + 'px, -'
-          + (key * (this.config.timelineEvent.gap + this.config.timelineEvent.height))
+          + (key * (this.options.styles.timelineEvent.gap 
+            + this.options.styles.timelineEvent.height))
           + 'px)'
       }
     }

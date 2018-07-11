@@ -5,7 +5,12 @@ import getters from './getters'
 const state = () => {
   return {
     datasets: {
-      "0": {}
+      "0": {
+        options: {},
+        data: [
+          {year: 1800, actor: 'spain', eventType: 1, color:'#ff0000'}
+        ]
+      }
     },
   }
 }

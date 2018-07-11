@@ -7,55 +7,88 @@
           :key='timelineBucket.id'
           :bucketId='timelineBucket.id'
           :dataset='timelineBucket.events'
-          :style='placeBucket(timelineBucket)'
-          :config='config'/>
+          :style='placeBucket(timelineBucket)'/>
       </g>
-      <g v-show='config.showTicks' class='axis' :style='axisTransform' v-axis:x='getScale'></g>
+      <g v-show='options.showTicks' class='axis' :style='axisTransform' v-axis:x='getScale'></g>
     </g>
   </svg>
 </template>
 
 <script>
+import VisualizationMixin from '@/mixins/vis/VisualizationMixin'
 import TimelineBucket from './TimelineBucket'
 import * as d3 from 'd3'
+
+const DEFAULT_OPTIONS = {
+  styles: {
+    width: 500,
+    height: 50,
+    margin: {
+      top: 10,
+      left: 10,
+      bottom: 10,
+      right: 10
+    },
+    timelineEvent: {
+      width: 5,
+      height: 5,
+      gap: 1
+    },
+  },
+  showTicks: true,
+  getPosition: (event) => event.year,
+  getColor: (event) => event.color
+}
 export default {
   components: {
     TimelineBucket
   },
+  mixins: [VisualizationMixin],
   props: {
     width: String,
     height: String,
-    dataset: Object
-  },
-  data () {
-    return {
-      config: {
-        width: 500,
-        height: 50,
-        margin: {
-          top: 10,
-          left: 10,
-          bottom: 10,
-          right: 10
-        },
-        showTicks: true,
-        timelineEvent: {
-          width: 5,
-          height: 5,
-          gap: 1
-        },
-        getPosition: (event) => event.year,
-        getColor: (event) => event.color
-      },
-      scale: () => {}
+    options: {
+      type: Object,
+      required: false,
+      default: () => DEFAULT_OPTIONS
     }
   },
   computed: {
-    formattedData () {
-      const data = Object.values(this.dataset)
+    innerWidth () {
+      return this.styles.width - this.styles.margin.left - this.styles.margin.right
+    },
+    innerHeight () {
+      return this.styles.height - this.styles.margin.top - this.styles.margin.bottom
+    },
+    marginTransform () {
+      return { transform: 'translate('
+        + this.styles.margin.left + 'px, '
+        + this.styles.margin.top + 'px)' }
+    },
+    axisTransform () {
+      return { transform: 'translateY(' + (this.innerHeight) + 'px)'}
+    },
+    getViewBox () {
+      return '0 0 ' + this.styles.width + ' ' + this.styles.height
+    },
+    startPoint () {
+      return Math.min(...this.formattedData.map(bucket => bucket.id))
+    },
+    endPoint () {
+      return Math.max(...this.formattedData.map(bucket => bucket.id))
+    },
+    getScale() {
+      return d3.scaleLinear()
+        .domain([this.startPoint, this.endPoint])
+        .range([this.styles.margin.left, this.innerWidth]);
+    }
+  },
+  methods: {
+    dataFormatter (d) {
+      const data = Object.values(d)
         .map(evt => ({
-          position: this.config.getPosition(evt),
-          color: this.config.getColor(evt),
+          position: this.options.getPosition(evt),
+          color: this.options.getColor(evt),
           ...evt
         }))
         .reduce((buckets, evt) => {
@@ -67,44 +100,14 @@ export default {
         }, {})
       return Object.values(data)
     },
-    innerWidth () {
-      return this.config.width - this.config.margin.left - this.config.margin.right
-    },
-    innerHeight () {
-      return this.config.height - this.config.margin.top - this.config.margin.bottom
-    },
-    marginTransform () {
-      return { transform: 'translate('
-        + this.config.margin.left + 'px, '
-        + this.config.margin.top + 'px)' }
-    },
-    axisTransform () {
-      return { transform: 'translateY(' + (this.innerHeight) + 'px)'}
-    },
-    getViewBox () {
-      return '0 0 ' + this.config.width + ' ' + this.config.height
-    },
-    startPoint () {
-      return Math.min(...this.formattedData.map(bucket => bucket.id))
-    },
-    endPoint () {
-      return Math.max(...this.formattedData.map(bucket => bucket.id))
-    },
-    getScale() {
-      return d3.scaleLinear()
-        .domain([this.startPoint, this.endPoint])
-        .range([this.config.margin.left, this.innerWidth]);
-    }
-  },
-  methods: {
     placeBucket (bucket) {
       // console.log(this.getScale(bucket.id));
       return {transform: 'translate('
-        + (this.getScale(bucket.id) - (this.config.timelineEvent.width / 2))
+        + (this.getScale(bucket.id) - (this.styles.timelineEvent.width / 2))
         + 'px, '
-        + (this.innerHeight - (this.config.timelineEvent.height + this.config.timelineEvent.gap))
+        + (this.innerHeight - (this.styles.timelineEvent.height + this.styles.timelineEvent.gap))
         + 'px)'}
-    }
+    },
   },
   directives: {
     axis(el, binding) {

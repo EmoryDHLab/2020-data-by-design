@@ -13,12 +13,6 @@ const getters = {
       return rootGetters[DATA_MODULE_NAME + '/getDataset'](getters.getVis(id).datasetId)
     }
   },
-  getFormattedData: (state, getters) => {
-    return id => state.visualizations[id].dataFormatter(getters.getDataset(id))
-  },
-  getConfig: (state, getters) => {
-    return id => getters.getVis(id).config
-  },
   count: (state) => {
     return Object.keys(state.visualizations).length
   }

@@ -6,17 +6,18 @@
     <template slot="content">
       <p>This talk departs from a seemingly simple question: “What is the story we tell about the origins of modern data visualization?” And as a set of follow-ups, “What alternate histories might emerge, what new visual forms might we imagine, and what new arguments might we make, if we told that story differently?”</p>
       <p>To begin to answer these questions, I’ll focus on the work of one visualization designer from the nineteenth century, <a href='https://en.wikipedia.org/wiki/Elizabeth_Peabody'>Elizabeth Palmer Peabody</a>, whose images are rarely considered in the standard story we tell about the emergence of modern visualization techniques. When they are mentioned at all, they are typically described as strange—and sometimes even as failures. You can see one of them just below.</p>
-      <data-wrap class='left-float aligned' :datasetId='currentDataset'>
-        <template slot-scope='{ dataset }'>
-          <!-- <input type='number' v-model.number='currentDataset'/> -->
-          <peabody-grid height='45vh' width='45vh' :datasetId='currentDataset.toString()' vId='vis1'/>
-        </template>
-      </data-wrap>
+      <peabody-grid
+        id='peabody-vis-1'
+        class='left-float aligned'
+        width='45vh'
+        height='45vh'
+        :datasetId='currentDataset.toString()'
+        />
       <p>To us today, accustomed to the charts and graphs of Microsoft Excel, or the interactive graphics that we find on <a href='https://www.nytimes.com/'>The New York Times</a> (dot com) on any given day, we perceive schemas like this as opaque and illegible. They do none of the things that we think that visualization should do: be clear and intuitive, yield immediate insight, or facilitate making sense of the underlying data. But further questions remain: why have we become conditioned to think that visualization should do these things, and only these things? How has this perspective come to be embedded in our visual culture? And most importantly for us here today, what would it mean if we could view images like these, from the archive of data visualization, instead as pathways to alternate futures? What additional visual schemas could we envision, and what additional stories could we tell, if we did?</p>
       <data-wrap :datasetId='currentDataset'>
         <template slot-scope='{ dataset }'>
           <!-- <input type='number' v-model.number='currentDataset'/> -->
-          <timeline-vis height='200px' width='100%' :dataset='dataset' id='vis2'/>
+          <timeline-vis height='200px' width='100%' :datasetId='currentDataset.toString()' id='vis2'/>
         </template>
       </data-wrap>
       <p>So I’m going to inhabit my method, and frame my talk today in terms of an alternate history. First, I’ll walk you through the visual schema that you see above-left, proposed by Peabody in 1856. Then I’ll talk about some of the more speculative work I’ve done in attempting to reimagine her schema in both digital and physical form. And then I’ll try to explain what I’m after by describing this work, as you saw in the title of this talk, as feminist—</p>
@@ -57,6 +58,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
 import ChapterScaffold from './ChapterScaffold'
 import DataWrap from './vis/DataWrap'
 import TimelineVis from './vis/timeline/TimelineVis'
@@ -71,8 +73,23 @@ export default {
   },
   data () {
     return {
-      currentDataset: 0
+      currentDataset: 0,
+      datasets: [0, 1, 2, 3]
     }
+  },
+  methods: {
+    ...mapActions('data',['loadDataset']),
+    ...mapGetters('data',['getDataset']),
+    mountDatasets () {
+      const vm = this
+      this.datasets
+        .forEach((dataId) => {
+          vm.loadDataset({dataId})
+        })
+    }
+  },
+  created () {
+    this.mountDatasets()
   }
 }
 </script>

@@ -1,17 +1,24 @@
+import api from '@/api'
+
 const actions = {
-  loadData ({ commit }, payload) {
-    commit('clearError')
-    commit('startLoad')
-    return api.getDataset('peabody', payload.dataId)
+  loadDataset ({ commit }, payload) {
+    console.log('loading dataset');
+    const { dataId, options } = payload
+    return api.getDataset('peabody', dataId)
       .then(function(response) {
-        commit('setDataset', response.data)
+        commit('setDataset', {
+          id: dataId,
+          dataset: {
+            options: options || {},
+            data: response.data
+          }
+        })
       })
       .catch(function(err) {
         console.log(err)
-        commit('setError', err.response)
     })
     .finally(function() {
-      commit('endLoad')
+      console.log('Load complete')
     })
   }
 }

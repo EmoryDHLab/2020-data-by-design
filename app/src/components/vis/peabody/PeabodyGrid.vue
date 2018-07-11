@@ -6,17 +6,17 @@
         v-for='n in 100'
         :key='n-1'
         :style='translateYear(n)'
-        :year=getYear(n)
-        :vId='vId'/>
+        :yearData='getYearData(n)'
+        :year='getYear(n)'/>
     </g>
   </svg>
 </template>
 
 <script>
 import YearSquare from '@/components/vis/peabody/YearSquare'
-import VisStateMixin from '@/mixins/vis/VisStateMixin'
+import VisualizationMixin from '@/mixins/vis/VisualizationMixin'
 import { mapMutations } from 'vuex'
-const DEFAULT_CONFIG = {
+const DEFAULT_OPTIONS = {
   sizes: {
     line: {
       sm: 1,
@@ -31,28 +31,23 @@ export default {
   props: {
     width: String,
     height: String,
+    options: { // styles and other internal visualization stuff
+      type: Object,
+      required: false,
+      default: () => DEFAULT_OPTIONS
+    },
     datasetId: {
       type: String,
       required: true
     }
   },
-  mixins: [VisStateMixin],
+  mixins: [VisualizationMixin],
   components: {
     'year-square': YearSquare
   },
-  data: () => ({
-    dataFormatter (d) {
-      return Object.values(d).reduce((formattedData, curr) => {
-        if (!formattedData[curr.year]) { formattedData[curr.year] = {} }
-        if (!formattedData[curr.year][curr.eventType]) { formattedData[curr.year][curr.eventType] = [] }
-        formattedData[curr.year][curr.eventType].push(curr)
-        return formattedData
-      }, {})
-    }
-  }),
   computed: {
     sizes () {
-      return this.config.sizes
+      return this.options.sizes
     },
     evtWidth () {
       return this.sizes.rect + this.sizes.line.sm
@@ -78,12 +73,14 @@ export default {
     getViewBox () {
       let width = this.getSVGWidth
       return '0 0 ' + width + ' ' + width
-    },
+    }
   },
   methods: {
-    ...mapMutations('vis', ['addVis']),
     getYear (n) {
       return this.startYear + n - 1
+    },
+    getYearData (n) {
+      return this.formattedData[this.getYear(n)] || {}
     },
     getYearXFromIndex (ind) {
       let j = ind % 10
@@ -99,12 +96,23 @@ export default {
         + this.getYearXFromIndex(n - 1) + 'px,'
         + this.getYearYFromIndex(n - 1) + 'px)'
       }
+    },
+    dataFormatter (d) {
+      return Object.values(d).reduce((formattedData, curr) => {
+        if (!formattedData[curr.year]) { formattedData[curr.year] = {} }
+        if (!formattedData[curr.year][curr.eventType]) { formattedData[curr.year][curr.eventType] = [] }
+        formattedData[curr.year][curr.eventType].push(curr)
+        return formattedData
+      }, {})
     }
   },
   created () {
-    if (this.getVis(this.vId)) throw new Error('Vis id conflict');
-    console.log("Adding vis");
-    this.addVis({ id: this.vId, config: DEFAULT_CONFIG, datasetId: this.datasetId, dataFormatter: this.dataFormatter })
+    this.localBus.on('event-clicked', event => {
+      if (!event) {
+        alert('No events here!')
+      }
+      alert(`${event.year}, ${event.eventType}`);
+    })
   }
 }
 </script>

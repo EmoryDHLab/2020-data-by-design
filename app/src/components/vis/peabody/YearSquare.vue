@@ -5,33 +5,45 @@
       v-for='n in 9'
       :key='n'
       :style='styles(n)'
-      :year='year'
       :type='n'
-      :vId='vId'/>
+      :eventsData='getEventData(n)'/>
   </g>
 </template>
 <script>
 import EventSquare from '@/components/vis/peabody/EventSquare'
-import VisStateMixin from '@/mixins/vis/VisStateMixin'
 
+/*
+  {
+    year: 1800,
+    events: {
+
+    }
+  }
+*/
 export default {
-  mixins: [VisStateMixin],
-  props: ['year'],
+  inject: ['options'],
+  props: {
+    yearData: {
+      type: Object,
+      required: true
+    },
+    year: {
+      type: Number,
+      required: true
+    }
+  },
   components: {
     'event-square': EventSquare
   },
   computed: {
     sizes () {
-      return this.config.sizes
+      return this.options.sizes
     },
     evtWidth () {
       return this.sizes.rect + this.sizes.line.sm
     },
     bgSize () {
       return this.sizes.rect * 3 + 2 * this.sizes.line.sm
-    },
-    yearData () {
-      return this.formattedData[this.year] || {}
     }
   },
   methods: {
@@ -47,6 +59,9 @@ export default {
           + this.getEventXFromIndex(n-1) + 'px,'
           + this.getEventYFromIndex(n-1) + 'px)'
       }
+    },
+    getEventData (n) {
+      return this.yearData[n - 1] || []
     }
   }
 }

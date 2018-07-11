@@ -1,27 +1,33 @@
 <template>
-  <g @click='selectEvents'>
-    <rect
+  <g>
+    <rect @click='clickedEvent(0)'
       :width='sizes.rect'
       :height='sizes.rect'
       :fill='color(0)'/>
-    <polygon v-if='dataset.length == 2' :points='trianglePoints' :fill='color(1)'/>
+    <polygon @click='clickedEvent(1)'
+      v-if='eventsData.length == 2'
+      :points='trianglePoints'
+      :fill='color(1)'/>
   </g>
 </template>
 <script>
-import VisStateMixin from '@/mixins/vis/VisStateMixin'
-
 export default {
-  mixins: [VisStateMixin],
-  props: ['year', 'type'],
+  inject: ['localBus', 'options'],
+  props: {
+    eventsData: {
+      type: Array,
+      required: true
+    },
+  },
   computed: {
     sizes () {
-      return this.config.sizes
+      return this.options.sizes
     },
     checker () {
-      if (this.dataset.length > 2) {
-        console.log(this.dataset[0], this.dataset.length);
+      if (this.eventsData.length > 2) {
+        console.log(this.eventsData[0], this.eventsData.length);
       }
-      return this.dataset.length
+      return this.eventsData.length
     },
     trianglePoints () {
       return (
@@ -32,11 +38,17 @@ export default {
     }
   },
   methods: {
-    color (i) {
-      if (this.dataset[i])
-        return this.dataset[i].color
+    getEvent (i) {
+      return this.eventsData[i]
     },
-    selectEvents (e) {}
+    color (i) {
+      const event = this.getEvent(i)
+      if (event)
+        return event.color
+    },
+    clickedEvent (i) {
+      this.localBus.fire('event-clicked', this.getEvent(i))
+    }
   }
 }
 </script>

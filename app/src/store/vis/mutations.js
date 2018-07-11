@@ -5,11 +5,10 @@ const mutations = {
   setDataset (state, payload) {
     state.visualizations[payload.id].datasetId = payload.datasetId
   },
-  // payload should be { id: "", config: {}, datasetId: 0 }
+  // payload should be { id: "", datasetId: 0 }
   addVis (state, payload) {
     Vue.set(state.visualizations, payload.id, {
         id: payload.id,
-        config: payload.config,
         datasetId: payload.datasetId,
         dataFormatter: payload.dataFormatter
       }) // done explicitly in case payload is messed up
