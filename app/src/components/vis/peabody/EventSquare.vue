@@ -14,6 +14,14 @@
 export default {
   inject: ['localBus', 'options'],
   props: {
+    year: {
+      type: Number,
+      required: true,
+    },
+    type: {
+      type: Number,
+      required: true
+    },
     eventsData: {
       type: Array,
       required: true
@@ -47,7 +55,11 @@ export default {
         return event.color
     },
     clickedEvent (i) {
-      this.localBus.fire('event-clicked', this.getEvent(i))
+      this.localBus.fire('event-clicked', {
+        year: this.year,
+        type: this.type,
+        data: this.getEvent(i)
+      })
     }
   }
 }

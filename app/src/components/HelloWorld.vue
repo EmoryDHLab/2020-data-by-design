@@ -1,24 +1,45 @@
 <template>
-  <section class='chapter'>
-    <h1>{{chapter.title}}</h1>
-    <chapter-section
-      v-for='section in chapter.section'
-      :title='section.title'
-      :body='section.body'
-    />
+  <section>
+    <button @click="bus1.fire('clicked', 'fizz')">Fizz</button>
+    <button @click="bus2.fire('clicked', 'buzz')">Buzz</button>
 
+    <peabody-grid
+      id='peabody-vis-1'
+      class='left-float aligned'
+      width='45vh'
+      height='45vh'
+      :datasetId='"0"'
+      :subscribers= "[{ bus: bus3, events: bus3Events}]"
+      />
+
+    <p>{{ message }}</p>
   </section>
 </template>
 
 <script>
-import DataWrap from './vis/DataWrap'
-import PeabodyGrid from '@/components/vis/peabody/PeabodyGrid'
-
+import EventBus from '@/helpers/EventBus'
+import PeabodyGrid from './vis/peabody/PeabodyGrid'
 export default {
   name: 'HelloWorld',
   components: {
-    DataWrap,
     PeabodyGrid
+  },
+  data: () => ({
+    bus1: new EventBus("bus1"),
+    bus2: new EventBus("bus2"),
+    bus3: new EventBus("bus3"),
+    message: "Hello",
+  }),
+  methods: {
+    setMessage (message = "") {
+      this.message = message
+    }
+  },
+  created () {
+    this.bus1.on('clicked', this.setMessage)
+    this.bus2.on('clicked', (p) => (console.log("f2:", p)))
+    this.bus1.subscribe(this.bus2, "bus2")
+    this.bus1.on('bus2/clicked', this.setMessage)
   }
 }
 </script>

@@ -25,8 +25,9 @@ const store = new Vuex.Store({
     [types.ADD_DATASET] (state, payload) {
       const { id, data, options } = payload,
         cleanOptions = { isMutable: false, ...options },
-        isMutable = cleanOptions.isMutable;
-      Vue.set(state.datasets, id, { isMutable, data })
+        isMutable = cleanOptions.isMutable,
+        nextId = Object.keys(data).length;
+      Vue.set(state.datasets, id, { isMutable, nextId, data })
       state.datasetList.push(id)
     },
     [types.REMOVE_DATASET] (state, payload) {
@@ -35,19 +36,22 @@ const store = new Vuex.Store({
       state.datasetList = state.datasetList.filter(item => item !== id)
     },
     [types.DUPLICATE_DATASET] (state, payload) {
-      const { id, fromId, options } = payload;
-      const cleanOptions = { isMutable: false, ...options };
-      const isMutable = cleanOptions.isMutable;
+      const { id, fromId, options } = payload,
+        cleanOptions = { isMutable: false, ...options },
+        isMutable = cleanOptions.isMutable,
+        { nextId } = state.datasets[fromId];
       const clonedData = cloneDeep(state.datasets[fromId].data);
-      Vue.set(state.datasets, id, { isMutable, data: clonedData })
+      Vue.set(state.datasets, id, { isMutable, nextId, data: clonedData })
     },
     [types.ADD_DATA] (state, payload) {
       const { id, data } = payload;
+      console.log(Object.keys(state.datasets[id].data).length);
       const identifiedData = {
-        id: Object.keys(state.datasets[id].data).length,
+        id: state.datasets[id].nextId,
         ...data
       }
-      Vue.set(state.datasets[id].data, data.id, data)
+      Vue.set(state.datasets[id].data, identifiedData.id, identifiedData)
+      state.datasets[id].nextId++
     },
     [types.REMOVE_DATA] (state, payload) {
       const { id, data } = payload;

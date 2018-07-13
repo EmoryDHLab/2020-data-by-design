@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import VisualizationMixin from '@/mixins/vis/VisualizationMixin'
+import Visualization from '@/mixins/vis/Visualization'
 import TimelineBucket from './TimelineBucket'
 import * as d3 from 'd3'
 
@@ -43,7 +43,7 @@ export default {
   components: {
     TimelineBucket
   },
-  mixins: [VisualizationMixin],
+  mixins: [Visualization],
   props: {
     width: String,
     height: String,

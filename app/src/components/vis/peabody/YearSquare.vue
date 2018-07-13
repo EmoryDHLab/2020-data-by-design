@@ -5,7 +5,8 @@
       v-for='n in 9'
       :key='n'
       :style='styles(n)'
-      :type='n'
+      :type='n - 1'
+      :year='year'
       :eventsData='getEventData(n)'/>
   </g>
 </template>

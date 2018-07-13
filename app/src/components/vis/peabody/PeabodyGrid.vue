@@ -14,7 +14,7 @@
 
 <script>
 import YearSquare from '@/components/vis/peabody/YearSquare'
-import VisualizationMixin from '@/mixins/vis/VisualizationMixin'
+import Visualization from '@/mixins/vis/Visualization'
 import { mapMutations } from 'vuex'
 const DEFAULT_OPTIONS = {
   sizes: {
@@ -41,7 +41,7 @@ export default {
       required: true
     }
   },
-  mixins: [VisualizationMixin],
+  mixins: [Visualization],
   components: {
     'year-square': YearSquare
   },
@@ -67,7 +67,11 @@ export default {
         + this.sizes.line.md * 8
         + this.sizes.line.lg * 3).toString()
     },
-    startYear () {
+    isEmpty () {
+      return Object.keys(this.formattedData).length === 0
+    },
+    startYear () { // TODO change this to not change unless the datasetId does
+      if (this.isEmpty) return 0;
       return Math.min(...Object.keys(this.formattedData))
     },
     getViewBox () {
@@ -107,13 +111,23 @@ export default {
     }
   },
   created () {
-    this.localBus.on('event-clicked', event => {
-      if (!event) {
-        alert('No events here!')
+    const vm = this
+    this.localBus.on('event-clicked', ({year, type, data}) => {
+      if (!data) {
+        vm.addData({
+          year,
+          eventType: type,
+          desc:"imposter",
+          color:"#fd1f00"
+        })
         return
+      } else {
+        vm.removeData(data)
       }
-      alert(`${event.year}, ${event.eventType}`);
+      //alert(`${data.year}, ${data.eventType}`);
     })
+    this.localBus.on('event-hover-start', ({ data }) => {})
+    this.localBus.on('event-hover-end', ({ data }) => {})
   }
 }
 </script>

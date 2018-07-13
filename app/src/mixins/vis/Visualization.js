@@ -1,7 +1,9 @@
 import { mapGetters, mapMutations } from 'vuex'
 import EventBus from '@/helpers/EventBus'
+import DataMutator from './DataMutator'
 // This mixin helps the visualization interface with vuex to get its data
-const VisualizationMixin = {
+const Visualization = {
+  mixins: [DataMutator],
   props: {
     id: { // the id of the visualization (used to locate it in vuex)
       type: String,
@@ -16,9 +18,9 @@ const VisualizationMixin = {
       required: false,
       default: () => ({})
     },
-    busses: {
+    subscribers: {
       type: Array,
-      default: () => []
+      default: () => ([])
     }
   },
   provide () {
@@ -29,7 +31,7 @@ const VisualizationMixin = {
   },
   data () {
     return {
-      localBus: new EventBus(),
+      localBus: new EventBus(this.id),
     }
   },
   methods: {
@@ -48,6 +50,9 @@ const VisualizationMixin = {
       }
       return {}
     },
+    isMutable () {
+      return (this.rawDataset) ? this.rawDataset.isMutable : false
+    },
     formattedData () {
       return this.dataFormatter(this.dataset)
     },
@@ -57,8 +62,11 @@ const VisualizationMixin = {
   },
   created () {
     let self = this;
-    this.busses.forEach(bus => bus.register(self.localBus))
+    this.subscribers.forEach(({bus, events}) => {
+      bus.subscribe(self.localBus, self.id, events)
+      console.log(`Subscribed ${bus.getName()} to ${self.localBus.getName()}`);
+    })
   }
 }
 
-export default VisualizationMixin
+export default Visualization
