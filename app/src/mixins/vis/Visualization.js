@@ -42,11 +42,11 @@ const Visualization = {
   },
   computed: {
     rawDataset () {
-      return this.$store.state.datasets[this.datasetId]
+      return this.$store.state.dataset.datasets[this.datasetId]
     },
     dataset () {
       if (this.rawDataset){
-        return this.$store.state.datasets[this.datasetId].data
+        return this.$store.state.dataset.datasets[this.datasetId].data
       }
       return {}
     },

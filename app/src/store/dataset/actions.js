@@ -1,25 +1,11 @@
 import api from '@/api'
+import types from './types'
 
 const actions = {
-  loadDataset ({ commit }, payload) {
-    console.log('loading dataset');
-    const { dataId, options } = payload
-    return api.getDataset('peabody', dataId)
-      .then(function(response) {
-        commit('setDataset', {
-          id: dataId,
-          dataset: {
-            options: options || {},
-            data: response.data
-          }
-        })
-      })
-      .catch(function(err) {
-        console.log(err)
-    })
-    .finally(function() {
-      console.log('Load complete')
-    })
+  loadDatasets ({ commit }, ids) {
+    return api.getDatasets()
+      .then(datasets => Object.entries(datasets)
+        .forEach(([id, data]) => commit(types.ADD_DATASET, { id, data })))
   }
 }
 

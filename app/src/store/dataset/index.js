@@ -4,21 +4,12 @@ import getters from './getters'
 
 const state = () => {
   return {
-    datasets: {
-      "0": {
-        options: {},
-        data: [
-          {year: 1800, actor: 'spain', eventType: 1, color:'#ff0000'}
-        ]
-      }
-    },
+    datasets: {}, // ids for keys here
+    datasetList: [0], // array of ids for sorting
   }
 }
 
-export const MODULE_NAME = "dataset"
-
 export default {
-  namespaced: true,
   state,
   getters,
   mutations,

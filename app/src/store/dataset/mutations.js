@@ -1,28 +1,42 @@
 import Vue from 'vue'
+import types from './types'
+const cloneDeep = require('clone-deep')
 
 const mutations = {
-  // {dataset: , id:}
-  setDataset (state, payload) {
-    const {id, dataset} = payload
-    state.datasets[id] = Object.assign({}, {}, dataset)
+  [types.ADD_DATASET] (state, payload) {
+    const { id, data, options } = payload,
+      cleanOptions = { isMutable: false, ...options },
+      isMutable = cleanOptions.isMutable,
+      nextId = Object.keys(data).length;
+    Vue.set(state.datasets, id, { isMutable, nextId, data })
+    state.datasetList.push(id)
   },
-  removeData (state, payload) {
-    const {id, dataId} = payload
-    Vue.delete(state.datasets[id], dataId)
+  [types.REMOVE_DATASET] (state, payload) {
+    const { id } = payload;
+    Vue.delete(state.datasets, id)
+    state.datasetList = state.datasetList.filter(item => item !== id)
   },
-  setError (state, err) {
-    state.error.isActive = true
-    state.error.message = err.data
+  [types.DUPLICATE_DATASET] (state, payload) {
+    const { id, fromId, options } = payload,
+      cleanOptions = { isMutable: false, ...options },
+      isMutable = cleanOptions.isMutable,
+      { nextId } = state.datasets[fromId];
+    const clonedData = cloneDeep(state.datasets[fromId].data);
+    Vue.set(state.datasets, id, { isMutable, nextId, data: clonedData })
   },
-  clearError (state) {
-    state.error.isActive = false
-    state.error.message = ''
+  [types.ADD_DATA] (state, payload) {
+    const { id, data } = payload;
+    console.log(Object.keys(state.datasets[id].data).length);
+    const identifiedData = {
+      id: state.datasets[id].nextId,
+      ...data
+    }
+    Vue.set(state.datasets[id].data, identifiedData.id, identifiedData)
+    state.datasets[id].nextId++
   },
-  startLoad (state) {
-    state.isLoading = true
-  },
-  endLoad (state) {
-    state.isLoading = false
+  [types.REMOVE_DATA] (state, payload) {
+    const { id, data } = payload;
+    Vue.delete(state.datasets[id].data, data.id)
   }
 }
 
