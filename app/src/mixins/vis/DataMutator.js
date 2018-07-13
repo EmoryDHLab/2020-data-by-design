@@ -1,5 +1,6 @@
 import { mapGetters, mapMutations } from 'vuex'
 import EventBus from '@/helpers/EventBus'
+import mutations from '@/store/dataset/types'
 
 const DataMutator = {
   props: {
@@ -11,11 +12,11 @@ const DataMutator = {
   methods: {
     addData (data) {
       if (!this.isMutable) return;
-      this.$store.commit('ADD_DATA', { id: this.datasetId, data })
+      this.$store.commit(mutations.ADD_DATA, { id: this.datasetId, data })
     },
     removeData(data) {
       if (!this.isMutable) return;
-      this.$store.commit('REMOVE_DATA', { id: this.datasetId, data })
+      this.$store.commit(mutations.REMOVE_DATA, { id: this.datasetId, data })
     }
   },
   computed: {

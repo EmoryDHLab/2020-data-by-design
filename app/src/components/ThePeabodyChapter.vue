@@ -59,6 +59,7 @@ import { mapActions, mapGetters } from 'vuex'
 import ChapterScaffold from './ChapterScaffold'
 import TimelineVis from './vis/timeline/TimelineVis'
 import PeabodyGrid from './vis/peabody/PeabodyGrid'
+import mutations from '@/store/dataset/types'
 export default {
   name: 'ThePeabodyChapter',
   components: {
@@ -84,10 +85,10 @@ export default {
       return this.$store.dispatch('loadDatasets')
     },
     addData (data) {
-      this.$store.commit('ADD_DATA', { id: this.currentDataset, data })
+      this.$store.commit(mutations.ADD_DATA, { id: this.currentDataset, data })
     },
     removeData(data) {
-      this.$store.commit('REMOVE_DATA', { id: this.currentDataset, data })
+      this.$store.commit(mutations.REMOVE_DATA, { id: this.currentDataset, data })
     }
   },
   created () {
