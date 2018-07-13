@@ -15,7 +15,7 @@ const state = () => {
   }
 }
 
-export const MODULE_NAME = "data"
+export const MODULE_NAME = "dataset"
 
 export default {
   namespaced: true,

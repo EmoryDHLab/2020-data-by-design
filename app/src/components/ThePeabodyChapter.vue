@@ -6,6 +6,8 @@
     <template slot="content">
       <p>This talk departs from a seemingly simple question: “What is the story we tell about the origins of modern data visualization?” And as a set of follow-ups, “What alternate histories might emerge, what new visual forms might we imagine, and what new arguments might we make, if we told that story differently?”</p>
       <p>To begin to answer these questions, I’ll focus on the work of one visualization designer from the nineteenth century, <a href='https://en.wikipedia.org/wiki/Elizabeth_Peabody'>Elizabeth Palmer Peabody</a>, whose images are rarely considered in the standard story we tell about the emergence of modern visualization techniques. When they are mentioned at all, they are typically described as strange—and sometimes even as failures. You can see one of them just below.</p>
+      <button @click='addData(imposter)'>Add Imposter</button>
+      <button @click='removeData(imposter)'>Remove Imposter</button>
       <peabody-grid
         id='peabody-vis-1'
         class='left-float aligned'
@@ -14,12 +16,7 @@
         :datasetId='currentDataset.toString()'
         />
       <p>To us today, accustomed to the charts and graphs of Microsoft Excel, or the interactive graphics that we find on <a href='https://www.nytimes.com/'>The New York Times</a> (dot com) on any given day, we perceive schemas like this as opaque and illegible. They do none of the things that we think that visualization should do: be clear and intuitive, yield immediate insight, or facilitate making sense of the underlying data. But further questions remain: why have we become conditioned to think that visualization should do these things, and only these things? How has this perspective come to be embedded in our visual culture? And most importantly for us here today, what would it mean if we could view images like these, from the archive of data visualization, instead as pathways to alternate futures? What additional visual schemas could we envision, and what additional stories could we tell, if we did?</p>
-      <data-wrap :datasetId='currentDataset'>
-        <template slot-scope='{ dataset }'>
-          <!-- <input type='number' v-model.number='currentDataset'/> -->
-          <timeline-vis height='200px' width='100%' :datasetId='currentDataset.toString()' id='vis2'/>
-        </template>
-      </data-wrap>
+      <timeline-vis height='200px' width='100%' :datasetId='currentDataset.toString()' id='vis2'/>
       <p>So I’m going to inhabit my method, and frame my talk today in terms of an alternate history. First, I’ll walk you through the visual schema that you see above-left, proposed by Peabody in 1856. Then I’ll talk about some of the more speculative work I’ve done in attempting to reimagine her schema in both digital and physical form. And then I’ll try to explain what I’m after by describing this work, as you saw in the title of this talk, as feminist—</p>
       <p>More specifically, I’ll show how Peabody’s visual method replaces the hierarchical mode of knowledge transmission that standard visualization techniques rest upon with a more horizontal mode, one that locates the source of knowledge in the interplay between viewer, image, and text. I’ll demonstrate how this horizontal mode of knowledge transmission encourages interpretations that are multiple, rather than singular, and how it places affective and embodied ways of knowing on an equal plane with more seemingly “objective” measures. And finally, I’ll suggest that this method, when reimagined for the present, raises the stakes for a series of enduring questions—about the issue of labor (and its relation to knowledge work), the nature of embodiment (and how it might be better attached to digital methods), and the role of interpretation (and how is not only bound to perception, but also design).</p>
       <p>But I think that’s enough of a preamble. So, to begin.</p>
@@ -60,13 +57,11 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import ChapterScaffold from './ChapterScaffold'
-import DataWrap from './vis/DataWrap'
 import TimelineVis from './vis/timeline/TimelineVis'
 import PeabodyGrid from './vis/peabody/PeabodyGrid'
 export default {
   name: 'ThePeabodyChapter',
   components: {
-    DataWrap,
     PeabodyGrid,
     ChapterScaffold,
     TimelineVis
@@ -74,22 +69,37 @@ export default {
   data () {
     return {
       currentDataset: 0,
-      datasets: [0, 1, 2, 3]
+      imposter: {
+        color: "#ff00ff",
+        year: 1570,
+        desc: "imposter",
+        eventType: 3,
+        actor: 'England',
+        id: 300
+      }
     }
   },
   methods: {
-    ...mapActions('data',['loadDataset']),
-    ...mapGetters('data',['getDataset']),
     mountDatasets () {
-      const vm = this
-      this.datasets
-        .forEach((dataId) => {
-          vm.loadDataset({dataId})
-        })
+      return this.$store.dispatch('loadDatasets')
+    },
+    addData (data) {
+      this.$store.commit('ADD_DATA', { id: this.currentDataset, data })
+    },
+    removeData(data) {
+      this.$store.commit('REMOVE_DATA', { id: this.currentDataset, data })
     }
   },
   created () {
+    const self = this
     this.mountDatasets()
+      .then(() => {
+        const id = "helloWorld",
+          fromId = self.currentDataset,
+          options = { isMutable: true }
+        self.$store.commit('DUPLICATE_DATASET', { id, fromId, options })
+        self.currentDataset = "helloWorld"
+      })
   }
 }
 </script>

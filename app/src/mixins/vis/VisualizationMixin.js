@@ -15,6 +15,10 @@ const VisualizationMixin = {
       type: Object,
       required: false,
       default: () => ({})
+    },
+    busses: {
+      type: Array,
+      default: () => []
     }
   },
   provide () {
@@ -29,16 +33,20 @@ const VisualizationMixin = {
     }
   },
   methods: {
-    ...mapMutations('vis', ['addVis']),
+    // ...mapMutations('vis', ['addVis']),
     dataFormatter (d) {
       return d
     }
   },
   computed: {
-    ...mapGetters('vis', ['getVis', 'getFormattedData']),
-    ...mapGetters('data', ['getDataset']),
+    rawDataset () {
+      return this.$store.state.datasets[this.datasetId]
+    },
     dataset () {
-      return this.getDataset(this.datasetId)
+      if (this.rawDataset){
+        return this.$store.state.datasets[this.datasetId].data
+      }
+      return {}
     },
     formattedData () {
       return this.dataFormatter(this.dataset)
@@ -48,11 +56,8 @@ const VisualizationMixin = {
     }
   },
   created () {
-    if (this.getVis(this.id)) throw new Error('Vis id conflict');
-    this.addVis({
-      id: this.id,
-      datasetId: this.datasetId
-    })
+    let self = this;
+    this.busses.forEach(bus => bus.register(self.localBus))
   }
 }
 

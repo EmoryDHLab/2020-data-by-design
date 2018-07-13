@@ -1,37 +1,64 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
-import DataWrap from './modules/DataWrap'
-import vis from './vis/index.js'
-import data from './data/index.js'
+const cloneDeep = require('clone-deep')
+import api from '@/api'
 
 Vue.use(Vuex)
 
+const types = {
+  ADD_DATASET: 'ADD_DATASET',
+  REMOVE_DATASET: 'REMOVE_DATASET',
+  DUPLICATE_DATASET: 'DUPLICATE_DATASET',
+  ADD_DATA: 'ADD_DATA',
+  REMOVE_DATA: 'REMOVE_DATA'
+}
+
+
 const store = new Vuex.Store({
-  modules: {
-    vis,
-    data
-  },
   state: {
-    dataWraps: {},
+    datasets: {}, // ids for keys here
+    datasetList: [0], // array of ids for sorting
     errors: []
   },
-  getters: {
-    dataWraps (state) {
-      return state.dataWraps
+  getters: {},
+  mutations: {
+    [types.ADD_DATASET] (state, payload) {
+      const { id, data, options } = payload,
+        cleanOptions = { isMutable: false, ...options },
+        isMutable = cleanOptions.isMutable;
+      Vue.set(state.datasets, id, { isMutable, data })
+      state.datasetList.push(id)
     },
-    nextId (state) {
-      return Object.keys(state.dataWraps).length + 1
+    [types.REMOVE_DATASET] (state, payload) {
+      const { id } = payload;
+      Vue.delete(state.datasets, id)
+      state.datasetList = state.datasetList.filter(item => item !== id)
     },
-    dataWrap (state) {
-      return (id) => { console.log(id); return state.dataWraps[id] }
+    [types.DUPLICATE_DATASET] (state, payload) {
+      const { id, fromId, options } = payload;
+      const cleanOptions = { isMutable: false, ...options };
+      const isMutable = cleanOptions.isMutable;
+      const clonedData = cloneDeep(state.datasets[fromId].data);
+      Vue.set(state.datasets, id, { isMutable, data: clonedData })
+    },
+    [types.ADD_DATA] (state, payload) {
+      const { id, data } = payload;
+      const identifiedData = {
+        id: Object.keys(state.datasets[id].data).length,
+        ...data
+      }
+      Vue.set(state.datasets[id].data, data.id, data)
+    },
+    [types.REMOVE_DATA] (state, payload) {
+      const { id, data } = payload;
+      Vue.delete(state.datasets[id].data, data.id)
     }
   },
-  mutations: {
-    addDataWrap (state, id) {
-      let dataWrap = DataWrap()
-      dataWrap.register(store, id)
-      Vue.set(state.dataWraps, dataWrap.id(), dataWrap)
+  actions: {
+    loadDatasets ({ commit }, ids) {
+      return api.getDatasets()
+        .then(datasets => Object.entries(datasets)
+          .forEach(([id, data]) => commit(types.ADD_DATASET, { id, data })))
     }
   }
 })

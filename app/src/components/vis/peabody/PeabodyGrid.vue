@@ -110,6 +110,7 @@ export default {
     this.localBus.on('event-clicked', event => {
       if (!event) {
         alert('No events here!')
+        return
       }
       alert(`${event.year}, ${event.eventType}`);
     })
