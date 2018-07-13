@@ -21,7 +21,7 @@ const DataMutator = {
   },
   computed: {
     rawDataset () {
-      return this.$store.state.datasets[this.datasetId]
+      return this.$store.state.dataset.datasets[this.datasetId]
     },
     isMutable () {
       return (this.rawDataset) ? new Boolean(this.rawDataset.isMutable) : false

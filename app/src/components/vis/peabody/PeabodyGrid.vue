@@ -36,9 +36,9 @@ export default {
       required: false,
       default: () => DEFAULT_OPTIONS
     },
-    datasetId: {
-      type: String,
-      required: true
+    dynamicStartYear: {
+      type: Boolean,
+      default: false
     }
   },
   mixins: [Visualization],
@@ -70,7 +70,7 @@ export default {
     isEmpty () {
       return Object.keys(this.formattedData).length === 0
     },
-    startYear () { // TODO change this to not change unless the datasetId does
+    startYear () {
       if (this.isEmpty) return 0;
       return Math.min(...Object.keys(this.formattedData))
     },
@@ -109,25 +109,6 @@ export default {
         return formattedData
       }, {})
     }
-  },
-  created () {
-    const vm = this
-    this.localBus.on('event-clicked', ({year, type, data}) => {
-      if (!data) {
-        vm.addData({
-          year,
-          eventType: type,
-          desc:"imposter",
-          color:"#fd1f00"
-        })
-        return
-      } else {
-        vm.removeData(data)
-      }
-      //alert(`${data.year}, ${data.eventType}`);
-    })
-    this.localBus.on('event-hover-start', ({ data }) => {})
-    this.localBus.on('event-hover-end', ({ data }) => {})
   }
 }
 </script>
