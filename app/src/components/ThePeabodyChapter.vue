@@ -13,9 +13,18 @@
           (It's actually a wrap aroud the other vis which extends its functionality)</h3></li>
         <li><h3>The timeline is tied to this mutable dataset on the right</h3></li>
       </ul>
-      <timeline-vis height='200px' width='100%' :datasetId='currentDataset.toString()' id='vis2'/>
+      <timeline-vis
+        id='vis2'
+        height='200px'
+        width='100%'
+        :datasetId='currentDataset.toString()'
+        @hover-start="hoverStart"
+        @hover-end="hoverEnd"
+        />
       <div style="display:flex;">
         <peabody-grid
+        @hover-start="hoverStart"
+        @hover-end="hoverEnd"
         id='peabody-vis-1'
         style='flex: 1'
         width='45vh'
@@ -98,8 +107,11 @@ export default {
     }
   },
   methods: {
-    peabodyData () {
-      console.log("Hi")
+    hoverStart (payload) {
+      console.log("hover start:", payload.data)
+    },
+    hoverEnd (payload) {
+      console.log("hover end:", payload.data)
     },
     mountDatasets () {
       return this.$store.dispatch('loadDatasets')

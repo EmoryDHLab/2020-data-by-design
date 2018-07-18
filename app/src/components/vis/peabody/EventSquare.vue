@@ -1,6 +1,9 @@
 <template>
   <g>
-    <rect @click='clickedEvent(0)'
+    <rect
+      @mouseenter='hoverStart(0)'
+      @mouseleave='hoverEnd(0)'
+      @click='clickedEvent(0)'
       :width='sizes.rect'
       :height='sizes.rect'
       :fill='color(0)'/>
@@ -56,6 +59,20 @@ export default {
     },
     clickedEvent (i) {
       this.localBus.fire('event-clicked', {
+        year: this.year,
+        type: this.type,
+        data: this.getEvent(i)
+      })
+    },
+    hoverStart (i) {
+      this.localBus.fire('hover-start', {
+        year: this.year,
+        type: this.type,
+        data: this.getEvent(i)
+      })
+    },
+    hoverEnd (i) {
+      this.localBus.fire('hover-end', {
         year: this.year,
         type: this.type,
         data: this.getEvent(i)

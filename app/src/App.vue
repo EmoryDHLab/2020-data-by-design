@@ -1,12 +1,17 @@
 <template>
   <div id="app">
-    <router-view/>
+    <the-header class="header"/>
+    <router-view class="main-content"/>
   </div>
 </template>
 
 <script>
+import TheHeader from '@/components/TheHeader'
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    TheHeader
+  }
 }
 </script>
 
@@ -32,5 +37,17 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+  padding-left: 32px;
+  padding-right: 32px;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 80px auto;
+  height: 100vh;
+}
+.router-link-active.--allow-inexact {
+  color: rgb(219, 136, 42) !important;
+}
+.router-link-exact-active {
+  color: rgb(219, 136, 42) !important;
 }
 </style>

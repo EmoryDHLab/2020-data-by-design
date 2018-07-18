@@ -14,6 +14,10 @@ const Visualization = {
     options: { // will be overridden!
       type: Object,
       default: () => ({})
+    },
+    externalBus: {
+      type: Object,
+      required: false
     }
   },
   provide () {
@@ -57,7 +61,12 @@ const Visualization = {
     const vm = this
     console.log(this.$listeners);
     Object.keys(this.$listeners).forEach(event => { // expose all events
-      vm.localBus.on(event, (payload) => { vm.$emit(event, payload) })
+      vm.localBus.on(event, (payload) => {
+        vm.$emit(event, payload);
+        if (vm.externalBus) {
+          vm.externalBus.fire(event, payload)
+        }
+      })
     })
   }
 }

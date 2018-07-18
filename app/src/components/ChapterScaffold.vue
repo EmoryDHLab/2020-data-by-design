@@ -1,16 +1,24 @@
 <template lang="html">
-  <section class='chapter'>
-    <h1 class='chapter__title'>
-      <slot name='title'>
-        Title
-      </slot>
-    </h1>
-    <section class='chapter__content'>
-      <slot name='content'>
-        <p>No content found!</p>
-      </slot>
+  <main>
+    <nav class="chapter-nav">
+      <h3 class="chapter-nav__header">Chapters:</h3>
+      <router-link class="chapter-nav__nav__link" to="/chapters/shape-of-history">1. Shape of History</router-link>
+      <router-link class="chapter-nav__nav__link" to="/chapters/dubois">2. Du Bois</router-link>
+      <router-link class="chapter-nav__nav__link" to="/chapters/mapping">3. Mapping</router-link>
+    </nav>
+    <section class='chapter'>
+      <h1 class='chapter__title'>
+        <slot name='title'>
+          Title
+        </slot>
+      </h1>
+      <section class='chapter__content'>
+        <slot name='content'>
+          <p>No content found!</p>
+        </slot>
+      </section>
     </section>
-  </section>
+  </main>
 </template>
 
 <script>
@@ -21,6 +29,44 @@ export default {
 </script>
 
 <style scoped>
+.chapter-nav {
+  position: relative;
+  text-align: center;
+  display: flex;
+  flex: 1;
+  justify-content: flex-start;
+  font-family: 'Raleway', sans-serif;
+  align-items: baseline;
+  box-sizing: border-box;
+  border-top: 2px solid grey;
+  border-bottom: 2px solid grey;
+  max-width: calc(100vw - 64px);
+  overflow-x: auto;
+}
+.chapter-nav__header {
+  font-weight: bold;
+  margin: 0;
+  padding: 4px 12px;
+  padding-left: 0;
+  box-sizing: border-box;
+  border-right: 4px solid grey;
+  text-align: right;
+}
+.chapter-nav__nav__link {
+  font-size: 1.2em;
+  flex: 0 0 auto;
+  vertical-align: baseline;
+  padding: 4px 16px;
+  color: #2c3e50;
+  font-family: 'Raleway', sans-serif;
+  text-decoration: none;
+  border-right: 2px solid grey;
+}
+
+.chapter-nav__nav__link:hover {
+  text-decoration: underline;
+}
+
 .chapter {
   display: grid;
   grid-template-columns: 15% 60% 25%;
