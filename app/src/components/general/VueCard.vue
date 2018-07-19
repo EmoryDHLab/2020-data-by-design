@@ -51,6 +51,9 @@ export default {
   padding: 24px;
   padding-top: 30px;
   box-sizing: border-box;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-around;
 }
 
 .card__content {

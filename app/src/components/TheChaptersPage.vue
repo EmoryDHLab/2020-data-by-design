@@ -46,19 +46,22 @@ export default {
 
   .card-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(20vw, 300px));
-    grid-gap: 2rem;
-    justify-content: space-around;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 2em;
+    justify-items: center;
   }
   .card-grid__card {
+    break-inside: avoid;
+    max-width: 500px;
     width: 20vw;
     min-width: 300px;
     height: 60vh;
     min-height: 424px;
   }
-  .card-grid__card__title {
-    margin-top: 0;
-    margin-bottom: 16px;
+  @media (max-width: 1024px) {
+    .card-grid {
+      grid-template-columns: 1fr;
+    }
   }
   .card-grid__card__subtitle {
     color: grey;
