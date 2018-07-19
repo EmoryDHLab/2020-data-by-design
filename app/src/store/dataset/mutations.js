@@ -34,6 +34,14 @@ const mutations = {
     Vue.set(state.datasets[id].data, identifiedData.id, identifiedData)
     state.datasets[id].nextId++
   },
+  [types.HIGHLIGHT_DATA] (state, payload) {
+    const { id, data } = payload;
+    Vue.set(state.datasets[id].data[data.id], 'highlighted', true)
+  },
+  [types.UNHIGHLIGHT_DATA] (state, payload) {
+    const { id, data } = payload;
+    Vue.set(state.datasets[id].data[data.id], 'highlighted', false)
+  },
   [types.REMOVE_DATA] (state, payload) {
     const { id, data } = payload;
     Vue.delete(state.datasets[id].data, data.id)

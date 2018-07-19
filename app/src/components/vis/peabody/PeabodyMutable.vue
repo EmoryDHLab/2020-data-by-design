@@ -1,6 +1,7 @@
 <template>
   <PeabodyGrid
     v-bind="$attrs"
+    v-on="$listeners"
     :datasetId="datasetId"
     @event-clicked="handleEventClick"
     />

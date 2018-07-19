@@ -5,7 +5,8 @@
       @mouseleave='hoverEnd'
       :width='options.styles.timelineEvent.width'
       :height='options.styles.timelineEvent.height'
-      :style='getStyle'/>
+      :style='getStyle'
+      :class='getClasses'/>
     <!-- <vis-tooltip :active='isHovered'>{{ dataset.desc }}</vis-tooltip> -->
   </g>
 </template>
@@ -29,6 +30,11 @@ export default {
       return {
         fill: this.dataset.color
       }
+    },
+    getClasses () {
+      return {
+        highlight: this.dataset.highlighted === true
+      }
     }
   },
   methods: {
@@ -51,4 +57,8 @@ export default {
 </script>
 
 <style scoped>
+.highlight {
+  stroke: gold;
+  stroke-width: 1px;
+}
 </style>

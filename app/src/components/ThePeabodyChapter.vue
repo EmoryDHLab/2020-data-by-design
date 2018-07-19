@@ -36,7 +36,9 @@
         style='flex: 1'
         width='45vh'
         height='45vh'
-        :datasetId='"helloWorld"'
+        :datasetId='currentDataset.toString()'
+        @hover-start="hoverStart"
+        @hover-end="hoverEnd"
         />
       </div>
       <p>To us today, accustomed to the charts and graphs of Microsoft Excel, or the interactive graphics that we find on <a href='https://www.nytimes.com/'>The New York Times</a> (dot com) on any given day, we perceive schemas like this as opaque and illegible. They do none of the things that we think that visualization should do: be clear and intuitive, yield immediate insight, or facilitate making sense of the underlying data. But further questions remain: why have we become conditioned to think that visualization should do these things, and only these things? How has this perspective come to be embedded in our visual culture? And most importantly for us here today, what would it mean if we could view images like these, from the archive of data visualization, instead as pathways to alternate futures? What additional visual schemas could we envision, and what additional stories could we tell, if we did?</p>
@@ -108,10 +110,14 @@ export default {
   },
   methods: {
     hoverStart (payload) {
-      console.log("hover start:", payload.data)
+      console.log("hover start:", payload.datasetId)
+      if (!payload.data) return;
+      this.$store.commit(mutations.HIGHLIGHT_DATA, { id: payload.datasetId, data: payload.data })
     },
     hoverEnd (payload) {
-      console.log("hover end:", payload.data)
+      console.log("hover end:", payload.datasetId)
+      if (!payload.data) return;
+      this.$store.commit(mutations.UNHIGHLIGHT_DATA, { id: payload.datasetId, data: payload.data })
     },
     mountDatasets () {
       return this.$store.dispatch('loadDatasets')

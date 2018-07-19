@@ -1,16 +1,22 @@
 <template>
   <g>
-    <rect
+    <rect v-if='eventsData.length < 2'
       @mouseenter='hoverStart(0)'
       @mouseleave='hoverEnd(0)'
       @click='clickedEvent(0)'
       :width='sizes.rect'
       :height='sizes.rect'
-      :fill='color(0)'/>
-    <polygon @click='clickedEvent(1)'
-      v-if='eventsData.length == 2'
-      :points='trianglePoints'
-      :fill='color(1)'/>
+      :fill='color(0)'
+      :class='classes(0)'/>
+    <g v-if='eventsData.length > 1'>
+      <polygon v-for="n in 2"
+        @click='clickedEvent(n - 1)'
+        @mouseenter='hoverStart(n - 1)'
+        @mouseleave='hoverEnd(n - 1)'
+        :points='trianglePoints(n - 1)'
+        :fill='color(n - 1)'
+        :class='classes(n - 1)'/>
+    </g>
   </g>
 </template>
 <script>
@@ -40,13 +46,6 @@ export default {
       }
       return this.eventsData.length
     },
-    trianglePoints () {
-      return (
-        '0,' + this.sizes.rect + ' '
-        + '0,0 '
-        + this.sizes.rect + ',0'
-      )
-    }
   },
   methods: {
     getEvent (i) {
@@ -56,6 +55,10 @@ export default {
       const event = this.getEvent(i)
       if (event)
         return event.color
+    },
+    trianglePoints (i) {
+      const sz = this.sizes.rect
+      return [`0,${sz} 0,0 ${sz},0`, `0,${sz} ${sz},${sz} ${sz},0`][i]
     },
     clickedEvent (i) {
       this.localBus.fire('event-clicked', {
@@ -77,8 +80,17 @@ export default {
         type: this.type,
         data: this.getEvent(i)
       })
+    },
+    classes (i) {
+      return {
+        'highlight': this.highlight(i)
+      }
+    },
+    highlight (i) {
+      if (!this.getEvent(i)) return false;
+      return this.getEvent(i).highlighted === true;
     }
-  }
+  },
 }
 </script>
 <style scoped>
@@ -87,5 +99,9 @@ export default {
   }
   rect:not([fill]):hover {
     fill: #d8d8d8;
+  }
+  .highlight {
+    stroke: gold;
+    stroke-width: 3px;
   }
 </style>

@@ -15,10 +15,6 @@ const Visualization = {
       type: Object,
       default: () => ({})
     },
-    externalBus: {
-      type: Object,
-      required: false
-    }
   },
   provide () {
     return {
@@ -62,10 +58,7 @@ const Visualization = {
     console.log(this.$listeners);
     Object.keys(this.$listeners).forEach(event => { // expose all events
       vm.localBus.on(event, (payload) => {
-        vm.$emit(event, payload);
-        if (vm.externalBus) {
-          vm.externalBus.fire(event, payload)
-        }
+        vm.$emit(event, {datasetId:this.datasetId, ...payload});
       })
     })
   }
