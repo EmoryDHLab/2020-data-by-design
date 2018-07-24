@@ -4,8 +4,7 @@
       v-for='(timelineEvent, key) in dataset'
       :key='timelineEvent.id'
       :dataset='timelineEvent'
-      :style='placeEvent(timelineEvent, key)'
-      :config='config'/>
+      :style='placeEvent(timelineEvent, key)'/>
   </g>
 </template>
 
@@ -18,8 +17,7 @@ export default {
   },
   props: {
     bucketId: Number,
-    dataset: Array,
-    config: Object
+    dataset: Array
   },
   computed: {
     getStyle () {
@@ -34,7 +32,7 @@ export default {
         transform: 'translate('
           + 0
           + 'px, -'
-          + (key * (this.options.styles.timelineEvent.gap 
+          + (key * (this.options.styles.timelineEvent.gap
             + this.options.styles.timelineEvent.height))
           + 'px)'
       }
@@ -43,5 +41,5 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style scoped>
 </style>

@@ -23,6 +23,7 @@ const mutations = {
       { nextId } = state.datasets[fromId];
     const clonedData = cloneDeep(state.datasets[fromId].data);
     Vue.set(state.datasets, id, { isMutable, nextId, data: clonedData })
+    state.datasetList.push(id)
   },
   [types.ADD_DATA] (state, payload) {
     const { id, data } = payload;

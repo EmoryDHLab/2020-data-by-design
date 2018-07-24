@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import Visualization from '@/mixins/vis/Visualization'
+import MetaVisualization from '@/mixins/vis/MetaVisualization'
 import TimelineBucket from './TimelineBucket'
 import * as d3 from 'd3'
 
@@ -35,15 +35,13 @@ const DEFAULT_OPTIONS = {
       gap: 1
     },
   },
-  showTicks: true,
-  getPosition: (event) => event.year,
-  getColor: (event) => event.color
+  showTicks: true
 }
 export default {
   components: {
     TimelineBucket
   },
-  mixins: [Visualization],
+  mixins: [MetaVisualization],
   props: {
     width: String,
     height: String,
@@ -54,6 +52,9 @@ export default {
     }
   },
   computed: {
+    formattedData () {
+      return this.dataFormatter(this.dataset) || {range:[0,10], data: {}}
+    },
     innerWidth () {
       return this.styles.width - this.styles.margin.left - this.styles.margin.right
     },
@@ -72,10 +73,10 @@ export default {
       return '0 0 ' + this.styles.width + ' ' + this.styles.height
     },
     startPoint () {
-      return Math.min(...this.formattedData.map(bucket => bucket.id))
+      return this.dataset.startPoint
     },
     endPoint () {
-      return Math.max(...this.formattedData.map(bucket => bucket.id))
+      return this.dataset.endPoint
     },
     getScale() {
       return d3.scaleLinear()
@@ -85,10 +86,9 @@ export default {
   },
   methods: {
     dataFormatter (d) {
-      const data = Object.values(d)
+      const data = Object.values(d.data)
         .map(evt => ({
-          position: this.options.getPosition(evt),
-          color: this.options.getColor(evt),
+          color: "black",
           ...evt
         }))
         .reduce((buckets, evt) => {
@@ -101,7 +101,7 @@ export default {
       return Object.values(data)
     },
     placeBucket (bucket) {
-      // console.log(this.getScale(bucket.id));
+      console.log(this.getScale(bucket.id));
       return {transform: 'translate('
         + (this.getScale(bucket.id) - (this.styles.timelineEvent.width / 2))
         + 'px, '
@@ -122,4 +122,7 @@ export default {
 </script>
 
 <style scoped>
+  svg {
+    transform: rotateX(90);
+  }
 </style>

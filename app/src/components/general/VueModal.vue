@@ -1,18 +1,22 @@
 <template lang="html">
   <div class="modal is-active">
     <div class="modal-background" @click="close()"></div>
-    <div class="modal-content">
+    <base-card class="modal-content">
       <div class="box">
         <slot></slot>
       </div>
-    </div>
+    </base-card>
     <button class='modal-close' @click="close()">X</button>
   </div>
 </template>
 
 <script>
+import BaseCard from './BaseCard'
 export default {
   name: "VueModal",
+  components: {
+    BaseCard
+  },
   methods: {
     close () {
       this.$emit('close')
@@ -33,8 +37,8 @@ export default {
   z-index: 1000;
   top: 0;
   left: 0;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
 }
 
 .modal-background {
@@ -46,13 +50,11 @@ export default {
 }
 
 .modal-content {
-  background-color: white;
-  border-radius: 4px;
   min-width: 200px;
   min-height: 200px;
-  padding: 16px;
-  box-sizing: border-box;
   z-index: 1;
+  padding: 16px;
+
 }
 
 .modal-close {

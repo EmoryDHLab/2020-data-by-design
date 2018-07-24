@@ -1,5 +1,8 @@
 <template>
-  <svg :width='width' :height='height' :viewBox='getViewBox'>
+  <svg
+    :width='width'
+    :height='height'
+    :viewBox='getViewBox'>
     <rect class='bg' :width='getSVGWidth' :height='getSVGWidth'/>
     <g :style='translateCentury'>
       <year-square

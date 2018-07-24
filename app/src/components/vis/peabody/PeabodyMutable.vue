@@ -2,6 +2,7 @@
   <PeabodyGrid
     v-bind="$attrs"
     v-on="$listeners"
+    :id="id"
     :datasetId="datasetId"
     @event-clicked="handleEventClick"
     />
@@ -14,6 +15,7 @@ import DataMutator from '@/mixins/vis/DataMutator'
 import PeabodyGrid from './PeabodyGrid'
 
 export default {
+  inheritAttrs: false,
   components: {
     PeabodyGrid
   },
@@ -21,8 +23,15 @@ export default {
   props: {
     color: {
       type: String
+    },
+    id: {
+      type: String,
+      required: true
     }
   },
+  data: () => ({
+    isVis: true
+  }),
   methods: {
     handleEventClick({year, type, data}) {
       if (!data) {

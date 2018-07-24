@@ -1,5 +1,6 @@
 <template lang="html">
   <base-input
+    class="text-input"
     type="text"
     v-on="inputListeners"
     :value="value"
@@ -27,5 +28,5 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style scoped>
 </style>

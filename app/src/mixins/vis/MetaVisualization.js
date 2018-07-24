@@ -7,8 +7,8 @@ const Visualization = {
       type: String,
       required: true
     },
-    datasetId: {
-      type: String,
+    dataset: {
+      type: Object,
       required: true
     },
     options: { // will be overridden!
@@ -24,7 +24,6 @@ const Visualization = {
   },
   data () {
     return {
-      isVis: true,
       localBus: new EventBus(this.id),
     }
   },
@@ -35,18 +34,6 @@ const Visualization = {
     }
   },
   computed: {
-    rawDataset () {
-      return this.$store.state.dataset.datasets[this.datasetId]
-    },
-    dataset () {
-      if (this.rawDataset){
-        return this.$store.state.dataset.datasets[this.datasetId].data
-      }
-      return {}
-    },
-    isMutable () {
-      return (this.rawDataset) ? this.rawDataset.isMutable : false
-    },
     formattedData () {
       return this.dataFormatter(this.dataset)
     },

@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="card">
+  <base-card class="card">
     <div class="card__image" :style="imageStyles"></div>
     <div class="card__main">
       <h2 class="card__title">
@@ -7,12 +7,16 @@
       </h2>
       <slot></slot>
     </div>
-  </div>
+  </base-card>
 </template>
 
 <script>
+import BaseCard from './BaseCard'
 export default {
   name: "VueCard",
+  components: {
+    BaseCard
+  },
   props: {
     src: {
       type: String,
@@ -31,11 +35,7 @@ export default {
 
 <style scoped>
 .card {
-  overflow: hidden;
   text-align: center;
-  box-sizing: border-box;
-  border-radius: 4px;
-  box-shadow: 0px 0px 20px 1px grey;
 }
 .card__image {
   /* background-color: black; */

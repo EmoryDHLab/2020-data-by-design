@@ -20,7 +20,6 @@ export default {
   },
   props: {
     dataset: Object,
-    config: Object,
   },
   data: () => ({
     isHovered: false

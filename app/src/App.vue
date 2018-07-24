@@ -37,13 +37,23 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  padding-left: 32px;
-  padding-right: 32px;
+  padding: 32px;
+  padding-top: 0px;
   display: grid;
   grid-template-columns: auto;
-  grid-template-rows: 80px auto;
-  height: 100vh;
+  grid-template-rows: auto 1fr;
+  /* height: 100vh; */
 }
+
+.main-content {
+  position: relative;
+}
+
+a.router-link-active.--ignore-highlight,
+a.router-link-exact-active.--ignore-highlight {
+  color: inherit !important;
+}
+
 .router-link-active.--allow-inexact {
   color: rgb(219, 136, 42) !important;
 }

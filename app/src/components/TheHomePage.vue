@@ -1,13 +1,5 @@
 <template lang="html">
   <main>
-    <vue-modal
-      v-show="modalIsOpen"
-      @close="modalIsOpen=false">
-      <div class="conf">
-        <h1>Welcome!</h1>
-        <button @click="modalIsOpen=false">Go</button>
-      </div>
-    </vue-modal>
     <h1 class="title">Data by Design</h1>
     <h3 class="subtitle">These features are still under development, but feel free to look around!</h3>
     <div class="card-grid">
@@ -36,16 +28,12 @@
 
 <script>
 import VueCard from './general/VueCard'
-import VueModal from './general/VueModal'
-
+import BaseButton from './forms/BaseButton'
 export default {
   components: {
     VueCard,
-    VueModal
-  },
-  data: () => ({
-    modalIsOpen: true
-  })
+    BaseButton
+  }
 }
 </script>
 

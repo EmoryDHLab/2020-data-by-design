@@ -4,6 +4,7 @@ import ThePeabodyChapter from '@/components/ThePeabodyChapter'
 import Sandbox from '@/components/HelloWorld'
 import TheHomePage from '@/components/TheHomePage'
 import TheSignUpPage from '@/components/TheSignUpPage'
+import TheSignInPage from '@/components/TheSignInPage'
 import TheCreditsPage from '@/components/TheCreditsPage'
 import TheChaptersPage from '@/components/TheChaptersPage'
 import TheFeaturesPage from '@/components/TheFeaturesPage'
@@ -41,6 +42,11 @@ export default new Router({
       path: '/signup',
       name: 'Sign Up',
       component: TheSignUpPage
+    },
+    {
+      path: '/signin',
+      name: 'Sign In',
+      component: TheSignInPage
     },
     {
       path: '/credits',

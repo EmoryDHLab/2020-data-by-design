@@ -10,6 +10,7 @@
       :class='classes(0)'/>
     <g v-if='eventsData.length > 1'>
       <polygon v-for="n in 2"
+        :key="n-1"
         @click='clickedEvent(n - 1)'
         @mouseenter='hoverStart(n - 1)'
         @mouseleave='hoverEnd(n - 1)'
