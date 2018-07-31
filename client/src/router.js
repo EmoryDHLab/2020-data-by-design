@@ -6,6 +6,7 @@ import SignIn from './views/SignIn.vue'
 import Credits from './views/Credits.vue'
 import Chapters from './views/Chapters.vue'
 import Home from './views/Home.vue'
+import Sandbox from './views/Sandbox.vue'
 import Features from './views/Features.vue'
 Vue.use(Router)
 
@@ -16,6 +17,11 @@ export default new Router({
       path: '/',
       name: 'Home',
       component: Home
+    },
+    {
+      path: '/sandbox',
+      name: 'Sandbox',
+      component: Sandbox
     },
     {
       path: '/chapters',

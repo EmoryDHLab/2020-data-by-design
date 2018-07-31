@@ -28,7 +28,7 @@
           </slot>
         </h1>
         <section class='chapter__main__content'>
-          <slot name='content'>
+          <slot>
             <p>No content found!</p>
           </slot>
         </section>
