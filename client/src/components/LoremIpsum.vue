@@ -3,6 +3,10 @@
 </template>
 
 <script>
+/**
+ * A basic lorem ipsum paragraph for use in faking content
+ */
+
 export default {
   name: 'LoremIpsum'
 }

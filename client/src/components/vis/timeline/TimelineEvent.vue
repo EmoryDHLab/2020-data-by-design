@@ -7,17 +7,12 @@
       :height='options.styles.timelineEvent.height'
       :style='getStyle'
       :class='getClasses'/>
-    <!-- <vis-tooltip :active='isHovered'>{{ dataset.desc }}</vis-tooltip> -->
   </g>
 </template>
 
 <script>
-import VisTooltip from '../VisTooltip'
 export default {
   inject: ['options', 'localBus'],
-  components: {
-    VisTooltip
-  },
   props: {
     dataset: Object,
   },

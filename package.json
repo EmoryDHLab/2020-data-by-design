@@ -25,6 +25,7 @@
     "loopback": "^3.19.0",
     "loopback-boot": "^2.6.5",
     "loopback-component-explorer": "^6.0.0",
+    "loopback-connector-mysql": "^2.4.1",
     "register-service-worker": "^1.0.0",
     "serve-favicon": "^2.0.1",
     "stickybits": "^3.4.1",

@@ -17,6 +17,11 @@
 </template>
 
 <script>
+/**
+ * This component is the header for the entire site. It shows up on every page.
+ * TODO user login makes navbar sign in sign up go away and get replaced by drop down
+ */
+
 import VueNav from './general/VueNav'
 
 export default {

@@ -38,10 +38,22 @@
 </template>
 
 <script>
+/**
+ * This component acts as a scaffold for a chapter layout. It has 3 columns,
+ * a chapter navigation bar to go between chapters, and a title section.
+ * The title is given through a slot named 'title'. The chapter content a
+ * default slot.
+ *
+ * On load, the chapter parses its content for visualizations to add as data for
+ * the chapter timeline. TODO: make it easy to add any element to the timeline
+ */
+
+
 import DOM from '@/helpers/DOM'
 import LoremIpsum from './LoremIpsum'
 import NavlineVis from './vis/navline/NavlineVis'
 import stickybits from 'stickybits'
+// polyfill for css position:sticky
 stickybits('.--stick', { useStickyClasses: true })
 
 export default {
@@ -50,14 +62,18 @@ export default {
     NavlineVis
   },
   data: () => ({
-    timelineData: {}
+    timelineData: {} // the data which will be fed into the timeline
   }),
   mounted () {
+    // get the mounding box of the chapter
     const mainBox = DOM.getBox(this.$el)
+    // get all visualizations in the chapter and map them to position and link
     const data = this.$children.filter(c => c.isVis).map(c => ({
       position: DOM.getY(c.$el),
       link: c.id }))
+    // set the calculated range in the timeline data
     this.$set(this.timelineData, "range", [0, mainBox.bottom - mainBox.top])
+    // set the datapoints in the timeline data
     this.$set(this.timelineData, "data", data)
   }
 }

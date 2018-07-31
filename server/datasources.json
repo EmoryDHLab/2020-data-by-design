@@ -2,5 +2,15 @@
   "db": {
     "name": "db",
     "connector": "memory"
+  },
+  "mysqlDs": {
+    "host": "localhost",
+    "port": 3306,
+    "url": "",
+    "database": "dxd_production",
+    "password": "${DXD_PASSWORD}",
+    "name": "mysqlDs",
+    "user": "${DXD_USERNAME}",
+    "connector": "mysql"
   }
 }

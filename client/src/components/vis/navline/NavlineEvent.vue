@@ -1,54 +1,81 @@
 <template lang="html">
   <g class='timeline-event'>
-    <a :href="'#' + dataset.link"><rect
-      @mouseenter='hoverStart'
-      @mouseleave='hoverEnd'
-      :width='options.styles.timelineEvent.width'
-      :height='options.styles.timelineEvent.height'
-      :style='getStyle'
-      :class='getClasses'/></a>
-    <!-- <vis-tooltip :active='isHovered'>{{ dataset.desc }}</vis-tooltip> -->
+    <a :href="'#' + dataPt.link">
+      <rect
+        @mouseenter='hoverStart'
+        @mouseleave='hoverEnd'
+        :width='options.styles.timelineEvent.width'
+        :height='options.styles.timelineEvent.height'
+        :style='getStyle'
+        :class='getClasses'/>
+    </a>
   </g>
 </template>
 
 <script>
-import VisTooltip from '../VisTooltip'
+/**
+ * this component creates the datapoints shown on the navigation timeline
+ * It fires hover-start and hover-end events up to the NavlineVis using the
+ * localBus
+ */
+
 export default {
-  inject: ['options', 'localBus'],
-  components: {
-    VisTooltip
-  },
+  inject: ['options', 'localBus'], // get the dependencies from the parent vis
   props: {
-    dataset: Object,
+    dataPt: {
+      type: Object,
+      validator (pt) {
+        return pt.link !== undefined
+          && typeof pt.color === typeof "test"
+          && pt.color.length > 0
+          && pt.link !== undefined
+          && typeof pt.link === typeof "test"
+          && pt.color.length > 0
+      }
+    },
   },
   data: () => ({
     isHovered: false
   }),
   computed: {
+    /**
+     * gets the styles for the NavlineEvent based on internal data
+     */
     getStyle () {
       return {
-        fill: this.dataset.color
+        fill: this.dataPt.color
       }
     },
+    /**
+     * gets the classes for the NavlineEvent based on internal data
+     */
     getClasses () {
       return {
-        highlight: this.dataset.highlighted === true
+        highlight: this.dataPt.highlighted === true
       }
     }
   },
   methods: {
+    /**
+     * When the mouse enters the element, fire a hover-start event on the
+     * localBus with the data at the hovered point and the year
+     */
     hoverStart () {
       this.isHovered = true
       this.localBus.fire('hover-start', {
-        data: this.dataset,
-        year: this.dataset.year,
+        data: this.dataPt,
+        year: this.dataPt.year,
       })
     },
+    /**
+     * When the mouse exits the element, fire a hover-end event on the
+     * localBus with the data at the hovered point and the year
+     */
     hoverEnd () {
       this.isHovered = false
       this.localBus.fire('hover-end', {
-        data: this.dataset,
-        year: this.dataset.year,
+        data: this.dataPt,
+        year: this.dataPt.year,
       })
     }
   }

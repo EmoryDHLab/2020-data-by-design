@@ -1,14 +1,18 @@
 <template lang="html">
   <g>
     <navline-event
-      v-for='(timelineEvent, key) in dataset'
-      :key='timelineEvent.id'
-      :dataset='timelineEvent'
-      :style='placeEvent(timelineEvent, key)'/>
+      v-for='(navlineEvent, key) in dataset'
+      :key='navlineEvent.id'
+      :dataPt='navlineEvent'
+      :style='placeEvent(key)'/>
   </g>
 </template>
 
 <script>
+/**
+ * This component groups events on the navline that occurred on the same position
+ */
+
 import NavlineEvent from './NavlineEvent'
 export default {
   inject: ['options'],
@@ -16,8 +20,8 @@ export default {
     NavlineEvent
   },
   props: {
-    bucketId: Number,
-    dataset: Array
+    bucketId: Number, // the id of the bucket (helps keep track of things in future)
+    dataset: Array // the dataset which falls within the scope of this bucket
   },
   computed: {
     getStyle () {
@@ -27,7 +31,12 @@ export default {
     }
   },
   methods: {
-    placeEvent (event, key) {
+    /**
+     * this places each event where it belongs visually in the bucket.
+     * @param {Number} key the key (generated in v-for) for the NavlineEvent
+     * @return {Object} transformation to apply to the NavlineEvent
+     */
+    placeEvent (key) {
       let dy = key * (this.options.styles.timelineEvent.gap + this.options.styles.timelineEvent.height)
       let dx = key * (this.options.styles.timelineEvent.gap + this.options.styles.timelineEvent.width)
       const vert = this.options.vertical;
