@@ -11,20 +11,34 @@ export default {
     enabled: {
       type: Boolean,
       default: true,
+    },
+    offset: {
+      type: [String, Number],
+      default: 0
     }
   },
   data: () => ({
     waypoint: {}
   }),
+  methods: {
+    enable () {
+      this.waypoint.enable()
+    }
+  },
   mounted () {
     const vm = this;
     const conf = {
       element: this.$el,
-      handler: () => {
+      offset: this.offset,
+      enabled: this.enabled,
+      handler: (direction) => {
         vm.$emit('triggered')
+        if (direction) {
+          vm.$emit(`triggered:${direction}`)
+        }
       }
     }
-    this.waypoint = new Waypoint(conf)
+    Object.assign(this.waypoint, {}, new Waypoint(conf))
   },
   beforeDestroy () {
     this.waypoint.destroy()
