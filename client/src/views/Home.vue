@@ -54,10 +54,8 @@ main {
 }
 
 .card-grid {
-  display: grid;
-  grid-template-columns: repeat(2, auto);
-  grid-gap: 2rem;
-  justify-content: center;
+  display: flex;
+  justify-content: space-around;
 }
 .card-grid__card {
   width: 30vw;

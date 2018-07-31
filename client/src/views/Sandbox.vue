@@ -2,18 +2,17 @@
   <ChapterScaffold>
     <div style="display:flex">
       <div class="scrolly-states" style="flex: 1;">
-        <peabody-grid
-          id='peabody-vis-1'
-          style='position:sticky; top:0;'
-          width='95%'
-          height='100vh'
-          :datasetId='states[state].datasetId'/>
+        <div v-for="(s, k) in states" key="k"
+          class="wp-image-wrapper" style="">
+          <img class= "wp-image" v-if="state === k"
+          :src="s.imageUrl" :alt="s.altText"/>
+        </div>
       </div>
       <div class="scrolly-info" style="flex: 1;">
         <in-out-waypoint
           v-for="(st, k) in states"
           :key="k"
-          :style="{'background-color': ['green', 'blue', 'red'][k]}"
+          class="waypoint-section"
           @exit:down="state = k"
           @enter:up="state = k">
           <p class="wp">{{ st.content }}</p>
@@ -38,16 +37,29 @@ export default {
     state: 0,
     states: {
       0: {
-        content: "Hello",
-        datasetId: "century"
+        content: "One Year",
+        imageUrl: require("../assets/OneYear.svg"),
+        altText: "Highlighting one year"
       },
       1: {
-        content: "Hello",
-        datasetId: "year"
+        content: "One Century",
+        imageUrl: require("../assets/OneCentury.svg"),
       },
       2: {
-        content: "Hello",
-        datasetId: ""
+        content: "Read from left to right, row by row",
+        imageUrl: require("../assets/MarkedCentury.svg"),
+      },
+      3: {
+        content: "Each year has nine categories",
+        imageUrl: require("../assets/SubEvents.svg"),
+      },
+      4: {
+        content: "",
+        imageUrl: require("../assets/9Events.svg"),
+      },
+      5: {
+        content: "Each year has nine categories",
+        imageUrl: require("../assets/EventActors.svg"),
       }
     }
   }),
@@ -87,5 +99,20 @@ export default {
   justify-content: center;
   /* background-color: green; */
   margin: 0;
+}
+.wp-image-wrapper {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  align-items: center;
+  display: flex;
+}
+.wp-image {
+  display: block;
+  flex: 1;
+}
+.waypoint-section {
+  box-sizing: border-box;
+  border-bottom: 2px solid grey;
 }
 </style>
