@@ -30,9 +30,38 @@
       "enabled": false
     }
   },
+  "session:before": {
+    "cookie-parser": {
+      "params": "${DxD_SECRET}"
+    }
+  },
   "session": {},
-  "auth": {},
-  "parse": {},
+  "auth": {
+    "loopback#token": {
+      "params": {
+        "cookies": ["access-token"]
+      }
+    }
+  },
+  "parse": {
+    "body-parser#json": {},
+    "body-parser#urlencoded": {
+      "params": {
+        "extended": true
+      }
+    }
+  },
+  "routes:before": {
+    "./middleware/content-checker": {
+      "params": {
+        "types": [
+          "*/json",
+          "json"
+        ],
+        "ignoredMethods": ["GET", "OPTIONS", "HEAD"]
+      }
+    }
+  },
   "routes": {
     "loopback#rest": {
       "paths": [

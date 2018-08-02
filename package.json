@@ -1,5 +1,5 @@
 {
-  "name": "vueback",
+  "name": "data-by-design",
   "version": "1.0.0",
   "main": "server/server.js",
   "engines": {
@@ -16,9 +16,12 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "bcrypt": "^3.0.0",
     "clone-deep": "^4.0.0",
     "compression": "^1.0.3",
+    "cookie-parser": "^1.4.3",
     "cors": "^2.5.2",
+    "csurf": "^1.9.0",
     "csv-parse": "^2.5.0",
     "d3": "^5.5.0",
     "helmet": "^3.10.0",

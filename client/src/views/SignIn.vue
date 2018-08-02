@@ -47,9 +47,11 @@ export default {
   },
   methods: {
     signup (p) {
-      const { email, password } = this.user
       if (!this.validate()) return;
-      alert(`${email}, ${password}`);
+      const vm = this
+      this.$store.dispatch('login', this.user)
+        .then(user => vm.$store.dispatch('validate'))
+        .then(valid => console.log(valid))
     },
     validate () {
       const { email, password } = this.user

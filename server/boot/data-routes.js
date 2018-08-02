@@ -62,7 +62,7 @@ const loadDataset = function (datasetId) {
 module.exports = function(server) {
   // Install a `/` route that returns server status
   var router = server.loopback.Router();
-  router.get('/api/data', (req, res) => {
+  router.get('/', (req, res) => {
     if (!req.query.full) {
       return res.status(200).send(JSON.stringify(Object.keys(datasets)))
     } else {
@@ -78,7 +78,7 @@ module.exports = function(server) {
     }
   })
 
-  router.get('/api/data/:id', (req, res) => {
+  router.get('/:id', (req, res) => {
     const datasetId = parseInt(req.params.id)
     loadDataset(datasetId)
       .then(dataWithId => dataWithId.output)
@@ -87,6 +87,5 @@ module.exports = function(server) {
         res.status(err.code || 500).send(err.message)
       })
   })
-  router.get('/api', server.loopback.status());
-  server.use(router);
+  server.use('/api/data', router);
 };
