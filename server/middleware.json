@@ -72,8 +72,20 @@
       ]
     }
   },
-  "files": {},
+  "files": {
+    "loopback#static": {
+      "params": "$!../client/dist"
+    }
+  },
   "final": {
+    "express-history-api-fallback": {
+      "params": [
+        "index.html",
+        {
+          "root": "$!../client/dist"
+        }
+      ]
+    },
     "loopback#urlNotFound": {}
   },
   "final:after": {
