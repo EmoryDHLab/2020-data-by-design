@@ -1,5 +1,7 @@
 <template>
   <div id="app">
+    <notifications position="bottom center"/>
+    <notifications group="auth" position="bottom right"/>
     <the-header class="header"/>
     <router-view class="main-content"/>
   </div>

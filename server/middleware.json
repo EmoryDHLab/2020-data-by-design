@@ -32,7 +32,7 @@
   },
   "session:before": {
     "cookie-parser": {
-      "params": "${DxD_SECRET}"
+      "params": "${DXD_SECRET}"
     }
   },
   "auth": {

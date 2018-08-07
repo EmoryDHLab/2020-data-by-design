@@ -23,6 +23,16 @@ export default {
   created () {
     if (this.$store.state.user.loaded===false) {
       this.$store.dispatch('USER_REQUEST', 'me')
+        .catch(err => {
+          if (err.response.status === 401) {
+            this.$notify({
+              type: 'error',
+              group: 'auth',
+              title: 'You must login first',
+            })
+            this.$router.push('/signin')
+          }
+        })
     }
   }
 }

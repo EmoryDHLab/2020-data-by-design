@@ -18,16 +18,16 @@
         <password-input id="password-confirmation-input" class="form__input"
           v-model="user.passwordConfirmation"
           placeholder="Confirm Password">Confirm Password: </password-input>
-        <p v-if="errors.length">
+        <!-- <p v-if="errors.length">
           <ul>
             <li v-for="(error, n) in errors" :key="n"> {{ error }}</li>
           </ul>
-        </p>
+        </p> -->
         <submit-button class="join-button">Sign Up</submit-button>
       </form>
-      <div>
+      <!-- <div>
         {{ $store.state.auth.error }}
-      </div>
+      </div> -->
     </base-card>
   </main>
 </template>
@@ -60,11 +60,34 @@ export default {
       return this.errors.length === 0
     }
   },
+  watch: {
+    errors (newErrs, oldErrs) {
+      newErrs.forEach(err => this.$notify({
+          type: 'error',
+          title: err,
+          group: 'auth',
+          duration: -1
+        })
+      )
+    }
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => vm.$notify({ group:"auth", clean: true }))
+  },
   methods: {
     signup (p) {
       const { email, password, firstName, lastName } = this.user
       if (!this.validate()) return;
-      this.$store.dispatch('AUTH_CREATE', this.user);
+      this.$store.dispatch('AUTH_CREATE', this.user)
+        .then(_ => {
+          this.$notify({ group:"auth", clean: true })
+          this.$router.push('/')
+        })
+        .catch(err => {
+          if (err.response.status == 401) {
+            this.errors.push('Email and/or password invalid')
+          }
+        });
     },
     validate () {
       const { email, password, passwordConfirmation, firstName, lastName } = this.user

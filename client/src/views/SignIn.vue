@@ -9,16 +9,16 @@
         <password-input id="password-input" class="form__input"
           v-model="user.password"
           placeholder="Password">Password: </password-input>
-        <p v-if="errors.length">
+        <!-- <p v-if="errors.length">
           <ul>
             <li v-for="(error, n) in errors" :key="n"> {{ error }}</li>
           </ul>
-        </p>
+        </p> -->
         <submit-button class="join-button">Log in</submit-button>
       </form>
-      <div>
+      <!-- <div>
         {{ $store.state.auth.error }}
-      </div>
+      </div> -->
     </base-card>
   </main>
 </template>
@@ -49,13 +49,33 @@ export default {
       return this.errors.length === 0
     }
   },
+  watch: {
+    errors (newErrs, oldErrs) {
+      newErrs.forEach(err => this.$notify({
+          type: 'error',
+          title: err,
+          group: 'auth',
+          duration: -1
+        })
+      )
+    }
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => vm.$notify({ group:"auth", clean: true }))
+  },
   methods: {
     signin (p) {
       if (!this.validate()) return;
       const vm = this
       this.$store.dispatch(AUTH_REQUEST, this.user)
         .then(_ => {
+          this.$notify({ group:"auth", clean: true })
           this.$router.push('/')
+        })
+        .catch(err => {
+          if (err.response.status == 401) {
+            this.errors.push('Email and/or password invalid')
+          }
         })
     },
     validate () {
