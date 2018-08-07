@@ -7,12 +7,13 @@
   },
   "scripts": {
     "lint": "eslint . && cd client && vue-cli-service lint",
-    "api:dev": "nodemon .",
+    "api:dev": "export NODE_ENV=development; nodemon .",
     "app:dev": "cd client && vue-cli-service serve",
-    "test:unit": "cd client && vue-cli-service test:unit",
+    "test:unit": "export NODE_ENV=test; cd client && vue-cli-service test:unit",
     "posttest": "npm run lint && nsp check",
     "serve": "npm-run-all --parallel api:dev app:dev",
-    "build": "cd client && vue-cli-service build"
+    "build": "cd client && vue-cli-service build",
+    "deploy": "export NODE_ENV=production; forever start server/server.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -24,6 +25,7 @@
     "csurf": "^1.9.0",
     "csv-parse": "^2.5.0",
     "d3": "^5.5.0",
+    "express-history-api-fallback": "^2.2.1",
     "helmet": "^3.10.0",
     "loopback": "^3.19.0",
     "loopback-boot": "^2.6.5",
