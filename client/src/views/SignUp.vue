@@ -23,8 +23,11 @@
             <li v-for="(error, n) in errors" :key="n"> {{ error }}</li>
           </ul>
         </p>
-        <submit-button class="join-button">Join Now</submit-button>
+        <submit-button class="join-button">Sign Up</submit-button>
       </form>
+      <div>
+        {{ $store.state.auth.error }}
+      </div>
     </base-card>
   </main>
 </template>
@@ -61,7 +64,7 @@ export default {
     signup (p) {
       const { email, password, firstName, lastName } = this.user
       if (!this.validate()) return;
-      alert(`${lastName}, ${firstName}\n ${email}`);
+      this.$store.dispatch('AUTH_CREATE', this.user);
     },
     validate () {
       const { email, password, passwordConfirmation, firstName, lastName } = this.user

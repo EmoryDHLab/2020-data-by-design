@@ -10,8 +10,9 @@
       <router-link class="header__nav__link --allow-inexact" to="/chapters">Chapters</router-link>
       <router-link class="header__nav__link --allow-inexact" to="/features">Features</router-link>
       <router-link class="header__nav__link" to="/credits">Credits</router-link>
-      <router-link class="header__nav__link" to="/signup">Sign Up</router-link>
-      <router-link class="header__nav__link" to="/signin"> Sign in</router-link>
+      <router-link v-if="!isAuthenticated" class="header__nav__link" to="/signup">Sign Up</router-link>
+      <router-link v-if="!isAuthenticated" class="header__nav__link" to="/signin">Sign in</router-link>
+      <router-link v-if="isAuthenticated" class="header__nav__link" to="/account">Account</router-link>
     </vue-nav>
   </header>
 </template>
@@ -28,6 +29,11 @@ export default {
   name: "TheHeader",
   components: {
     VueNav
+  },
+  computed: {
+    isAuthenticated () {
+      return this.$store.getters.isAuthenticated
+    }
   }
 }
 </script>

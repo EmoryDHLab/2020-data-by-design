@@ -1,0 +1,17 @@
+const types = {
+  AUTH_REQUEST: "AUTH_REQUEST",
+  AUTH_SUCCESS: "AUTH_SUCCESS",
+  AUTH_ERROR: "AUTH_ERROR",
+  AUTH_LOGOUT: "AUTH_LOGOUT",
+  AUTH_LOGOUT_SUCCESS: "AUTH_LOGOUT_SUCCESS",
+  AUTH_CREATE: "AUTH_CREATE"
+}
+
+export default types
+
+export const AUTH_REQUEST = types.AUTH_REQUEST
+export const AUTH_CREATE = types.AUTH_CREATE
+export const AUTH_SUCCESS = types.AUTH_SUCCESS
+export const AUTH_ERROR = types.AUTH_ERROR
+export const AUTH_LOGOUT = types.AUTH_LOGOUT
+export const AUTH_LOGOUT_SUCCESS = types.AUTH_LOGOUT_SUCCESS

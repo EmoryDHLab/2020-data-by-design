@@ -35,11 +35,10 @@
       "params": "${DxD_SECRET}"
     }
   },
-  "session": {},
   "auth": {
     "loopback#token": {
       "params": {
-        "cookies": ["access-token"]
+        "currentUserLiteral": "me"
       }
     }
   },
@@ -58,7 +57,11 @@
           "*/json",
           "json"
         ],
-        "ignoredMethods": ["GET", "OPTIONS", "HEAD"]
+        "ignoredMethods": [
+          "GET",
+          "OPTIONS",
+          "HEAD"
+        ]
       }
     }
   },

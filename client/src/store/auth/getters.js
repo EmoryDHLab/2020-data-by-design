@@ -1,11 +1,11 @@
 
 // note that most of these return functions to allow for more specific gets
 const getters = {
-  firstName (state) {
-    return state.firstName
+  isAuthenticated (state) {
+    return !!state.token
   },
-  lastName (state) {
-    return state.lastName
+  authStatus (state) {
+    return state.status
   }
 }
 

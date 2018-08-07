@@ -1,13 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import PeabodyChapter from './views/PeabodyChapter.vue'
-import SignUp from './views/SignUp.vue'
-import SignIn from './views/SignIn.vue'
-import Credits from './views/Credits.vue'
-import Chapters from './views/Chapters.vue'
-import Home from './views/Home.vue'
-import Sandbox from './views/Sandbox.vue'
-import Features from './views/Features.vue'
+import PeabodyChapter from './views/PeabodyChapter'
+import SignUp from './views/SignUp'
+import SignIn from './views/SignIn'
+import Credits from './views/Credits'
+import Chapters from './views/Chapters'
+import Home from './views/Home'
+import Sandbox from './views/Sandbox'
+import Features from './views/Features'
+import Account from './views/Account'
 Vue.use(Router)
 
 export default new Router({
@@ -17,6 +18,11 @@ export default new Router({
       path: '/',
       name: 'Home',
       component: Home
+    },
+    {
+      path: '/account',
+      name: 'Account',
+      component: Account
     },
     {
       path: '/sandbox',

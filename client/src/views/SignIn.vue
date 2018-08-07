@@ -2,7 +2,7 @@
   <main>
     <h1 class="page-title">Sign In</h1>
     <base-card class="sign-in-bg">
-      <form @submit.prevent="signup">
+      <form @submit.prevent="signin">
         <text-input id="email-input" class="form__input"
           v-model="user.email"
           placeholder="Email">Email: </text-input>
@@ -14,8 +14,11 @@
             <li v-for="(error, n) in errors" :key="n"> {{ error }}</li>
           </ul>
         </p>
-        <submit-button class="join-button">Join Now</submit-button>
+        <submit-button class="join-button">Log in</submit-button>
       </form>
+      <div>
+        {{ $store.state.auth.error }}
+      </div>
     </base-card>
   </main>
 </template>
@@ -25,6 +28,7 @@ import TextInput from '@/components/forms/TextInput'
 import PasswordInput from '@/components/forms/PasswordInput'
 import SubmitButton from '@/components/forms/SubmitButton'
 import BaseCard from '@/components/general/BaseCard'
+import { AUTH_REQUEST } from '@/store/auth/types'
 export default {
   name: "SignIn",
   components: {
@@ -46,12 +50,13 @@ export default {
     }
   },
   methods: {
-    signup (p) {
+    signin (p) {
       if (!this.validate()) return;
       const vm = this
-      this.$store.dispatch('login', this.user)
-        .then(user => vm.$store.dispatch('validate'))
-        .then(valid => console.log(valid))
+      this.$store.dispatch(AUTH_REQUEST, this.user)
+        .then(_ => {
+          this.$router.push('/')
+        })
     },
     validate () {
       const { email, password } = this.user

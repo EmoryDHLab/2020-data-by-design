@@ -4,12 +4,9 @@ import getters from './getters'
 
 const state = () => {
   return {
+    token: localStorage.getItem('user-token') || '',
     status: "",
-    email: "",
-    firstName: "",
-    lastName: "",
-    id: "",
-    loaded: false
+    error: "",
   }
 }
 

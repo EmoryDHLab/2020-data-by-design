@@ -7,7 +7,7 @@
     "host": "localhost",
     "port": 3306,
     "url": "",
-    "database": "dxd_production",
+    "database": "dxd_development",
     "password": "${DXD_PASSWORD}",
     "name": "mysqlDs",
     "user": "${DXD_USERNAME}",
