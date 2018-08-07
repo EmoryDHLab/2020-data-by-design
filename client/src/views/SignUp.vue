@@ -78,10 +78,10 @@ export default {
     signup (p) {
       const { email, password, firstName, lastName } = this.user
       if (!this.validate()) return;
-      this.$store.dispatch('AUTH_CREATE', this.user)
+      this.$store.dispatch('AUTH_CREATE', { email, password, firstName, lastName })
         .then(_ => {
-          this.$notify({ group:"auth", clean: true })
-          this.$router.push('/')
+          this.$notify({ group: "auth", clean: true })
+          this.$router.push('/signin')
         })
         .catch(err => {
           if (err.response.status == 401) {

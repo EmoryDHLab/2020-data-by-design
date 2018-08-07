@@ -1,6 +1,27 @@
 'use strict';
 module.exports = function(app) {
-  const models = ['User', 'AccessToken', 'ACL', 'RoleMapping', 'Role', 'Reader']
+  const models = [
+    'User',
+    'AccessToken',
+    'ACL',
+    'RoleMapping',
+    'Role',
+    'Reader'
+  ]
+  if (app.get('env') === 'production') {
+    if (process.env.RESET_DB === "true") {
+      app.dataSources.mysqlDs.automigrate(models, (err) => {
+        if (err) throw err;
+        console.log("cleared existing tables")
+      });
+    } else {
+      app.dataSources.mysqlDs.autoupdate(models, (err) => {
+        if (err) throw err;
+        console.log("updated existing tables")
+      });
+    }
+    return
+  }
   app.dataSources.mysqlDs.automigrate(models, (err) => {
     var Role = app.models.Role;
     var RoleMapping = app.models.RoleMapping;

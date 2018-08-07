@@ -50,10 +50,11 @@ const actions = {
       commit(AUTH_REQUEST)
       api.createUser(user)
         .then(resp => {
-          const token = resp.data.id
-          localStorage.setItem('user-token', token)
-          commit(AUTH_SUCCESS, token)
-          dispatch(UserActions.USER_REQUEST, resp.data.userId)// get the user info
+          console.log(resp)
+          // const token = resp.data.id
+          // localStorage.setItem('user-token', token)
+          // commit(AUTH_SUCCESS, token)
+          // dispatch(UserActions.USER_REQUEST, resp.data.userId)// get the user info
           resolve(resp)
         })
         .catch(err => {

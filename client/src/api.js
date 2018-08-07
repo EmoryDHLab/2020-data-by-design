@@ -41,7 +41,7 @@ export default {
     return axios.get(`/api/readers/${id}`)
   },
   createUser (user) {
-    return axios.post(`/api/readers`, user)
+    return axios.post('/api/readers/', user)
       .then(resp => {
         console.log(resp);
         setAuthorization(resp.data.id)
