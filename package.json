@@ -7,17 +7,17 @@
   },
   "scripts": {
     "lint": "eslint . && cd client && vue-cli-service lint",
-    "api:dev": "NODE_ENV=development nodemon .",
-    "app:dev": "cd client && vue-cli-service serve",
     "test:unit": "cd client && vue-cli-service test:unit",
     "posttest": "npm run lint && nsp check",
-    "serve": "run-p api:dev app:dev",
     "build": "cd client && vue-cli-service build",
+    "api:dev": "NODE_ENV=development nodemon .",
+    "app:dev": "cd client && vue-cli-service serve",
+    "start:dev": "run-p api:dev app:dev",
     "api": "NODE_ENV=production forever start server/server.js",
     "start": "run-s build api",
+    "start:reset": "RESET_DB=true npm run start",
     "restart": "run-s stop start",
-    "stop": "forever stop server/server.js",
-    "start:reset": "RESET_DB=true npm run start"
+    "stop": "forever stop server/server.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -29,6 +29,7 @@
     "csurf": "^1.9.0",
     "csv-parse": "^2.5.0",
     "d3": "^5.5.0",
+    "dotenv": "^6.0.0",
     "express-history-api-fallback": "^2.2.1",
     "helmet": "^3.10.0",
     "loopback": "^3.19.0",

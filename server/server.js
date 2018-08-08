@@ -2,7 +2,8 @@
 
 var loopback = require('loopback');
 var boot = require('loopback-boot');
-
+require('dotenv').config();
+console.log(process.env.DXD_PRODUCTION_DATABASE);
 var app = module.exports = loopback();
 
 app.start = function() {

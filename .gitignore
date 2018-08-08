@@ -9,6 +9,7 @@
 *.swp
 *.tgz
 *.xml
+*.env
 dist/
 .DS_Store
 .idea
