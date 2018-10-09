@@ -1,26 +1,15 @@
 <template lang="html">
   <div class="">
-    <component
-      :is="node.type"
-      v-for='(node, i) in nodes'
-      :key='i'
-      v-bind="node.props"/>
+    <NoteBook/>
   </div>
 </template>
 
 <script>
-import TextNode from '@/components/notebook/TextNode'
-
+import NoteBook from '@/components/notebook/NoteBook'
 export default {
   components: {
-    TextNode
-  },
-  computed: () => ({
-    nodes () {
-
-    }
-  }),
-  // methods: {}
+    NoteBook
+  }
 }
 </script>
 

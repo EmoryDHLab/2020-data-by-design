@@ -1,25 +1,33 @@
 import Vue from 'vue'
-import { USER_REQUEST, USER_SUCCESS, USER_ERROR } from './types'
+import { DELETE_NODE, PUSH_NODE, UPDATE_NODE, INSERT_NODE,FOCUS_NODE, INCREMENT_ID, MERGE_TEXT_NODE } from './types'
 const cloneDeep = require('clone-deep')
 
 const mutations = {
   [DELETE_NODE] (state, id) {
     state.nodeIds = state.nodeIds.filter(nId => nId !== id)
-    state.nodes[id].prev.next = state.nodes[id].next
-    state.nodes[id].next.prev = state.nodes[id].prev
     Vue.delete(state.nodes, id)
   },
-  [PUSH_NODE] (state, node) {
-    { next, prev, id } = node
+  [PUSH_NODE] (state, node) { // add the node to the end of the list
+    const { id } = node
     state.nodeIds.push(node.id)
     state.nodes[id] = node
   },
-  [UPDATE_NODE] (state) {
-    state.status = 'error'
-    state.loaded = true
+  [INSERT_NODE] (state, { pos, node }) { // insert the node into the list
+    const { id } = node
+    state.nodeIds.splice(pos, 0, node.id)
+    Vue.set(state.nodes, id, node)
   },
-  [MOVE_NODE] (state) {
-    prev
+  [UPDATE_NODE] (state, node) { // override the node
+    state.nodes[node.id] = { ...state.nodes[node.id], ...node }
+  },
+  [FOCUS_NODE] (state, id) { // apply focus to the node at the given id
+    state.focusedId = id
+  },
+  [INCREMENT_ID] (state) {
+    state.nextId += 1
+  },
+  [MERGE_TEXT_NODE] (state, {id, text}) {
+    state.nodes[id].text += text
   }
 }
 

@@ -1,16 +1,26 @@
 
 // note that most of these return functions to allow for more specific gets
 const getters = {
-  firstNode (state) {
-    return state.nodes[state.firstNode]
-  },
-  lastNode (state) {
-    return state.nodes[state.lastNode]
-  },
   nodeById (state) {
-    return (id) => {
-      return state.nodes[id]
+    return (id) => state.nodes[id]
+  },
+  nodeByPosition (state) {
+    return (pos) => {
+      console.log(pos);
+      return state.nodes[state.nodeIds[pos]]
     }
+  },
+  position (state) {
+    return (id) => state.nodeIds.indexOf(id)
+  },
+  nodes (state) {
+    return state.nodeIds.map(nodeId => state.nodes[nodeId])
+  },
+  focusedId (state) {
+    return state.focusedId
+  },
+  focused (state) {
+    return (id) => id === state.focusedId
   }
 }
 
