@@ -1,5 +1,6 @@
 <template lang="html">
   <div class="">
+    <h1>Notebook</h1>
     <component
       :is="node.type"
       v-for='node in nodes'

@@ -33,6 +33,9 @@
           </slot>
         </section>
       </div>
+      <aside class="chapter__notebook-col">
+        <NoteBook class="chapter__notebook"/>
+      </aside>
     </section>
   </main>
 </template>
@@ -52,6 +55,7 @@
 import DOM from '@/helpers/DOM'
 import LoremIpsum from './LoremIpsum'
 import NavlineVis from './vis/navline/NavlineVis'
+import NoteBook from './notebook/NoteBook'
 import stickybits from 'stickybits'
 // polyfill for css position:sticky
 stickybits('.--stick', { useStickyClasses: true })
@@ -59,7 +63,8 @@ stickybits('.--stick', { useStickyClasses: true })
 export default {
   name: 'ChapterScaffold',
   components: {
-    NavlineVis
+    NavlineVis,
+    NoteBook
   },
   data: () => ({
     timelineData: {} // the data which will be fed into the timeline
@@ -144,6 +149,20 @@ export default {
   width: 100%;
   height: 100vh;
 }
+
+.chapter__notebook-col {
+  grid-column: 3 / span 1;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.chapter__notebook {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+}
+
 .centered {
   display: block;
   margin-left: auto;

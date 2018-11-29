@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="">
+  <div class="half-w">
     <NoteBook/>
   </div>
 </template>
@@ -39,5 +39,8 @@ export default {
 .waypoint-section {
   box-sizing: border-box;
   border-bottom: 2px solid grey;
+}
+.half-w {
+  width: 25%;
 }
 </style>

@@ -11,17 +11,17 @@ const state = () => {
       0: {
         id: 0,
         type: "TextNode",
-        text: "I am a default tex",
+        text: "This visualization seems like it doesn't really tell you much just looking at it...",
       },
       1: {
         id: 1,
         type: "TextNode",
-        text: "I am a defa",
+        text: "However, I do think it is interesting how the colors work to make a piece of art",
       },
       2: {
         id: 2,
         type: "TextNode",
-        text: "I am a defaude.",
+        text: "Maybe that is the point? Or is it in the construction of the visualization that we learn most?",
       }
     },
   }
