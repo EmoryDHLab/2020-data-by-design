@@ -22,7 +22,7 @@ export default {
   /* background-color: green; */
   margin: 0;
 }
->>>.wp p {
+.wp p {
   margin: 0;
 }
 .wp-image-wrapper {

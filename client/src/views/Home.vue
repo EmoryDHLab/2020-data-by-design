@@ -6,21 +6,21 @@
       <vue-card
         class="card-grid__card"
         src="#">
-        <template slot="title">Chapters</template>
-        <h3 class="card-grid__card__subtitle">
-          Information about chapters
-        </h3>
-        <router-link to="/chapters">Check out Chapters</router-link>
-      </vue-card>
-      <vue-card
-        class="card-grid__card"
-        src="#">
         <template slot="title">Features</template>
         <h3 class="card-grid__card__subtitle">
           Drag and drop quotes, images, and interactive content from the chapters, then write up your own notes around them
         </h3>
         <div style="background-color: grey;width: 100%; height:15%">vis</div>
         <router-link to="/features/notebook">Learn More</router-link>
+      </vue-card>
+      <vue-card
+        class="card-grid__card"
+        src="#">
+        <template slot="title">Chapters</template>
+        <h3 class="card-grid__card__subtitle">
+          Information about chapters
+        </h3>
+        <router-link to="/chapters">Check out Chapters</router-link>
       </vue-card>
     </div>
   </main>
@@ -58,9 +58,9 @@ main {
   justify-content: space-around;
 }
 .card-grid__card {
-  width: 30vw;
+  width: 35vw;
   min-width: 300px;
-  height: 65vh;
+  height: 40vh;
   min-height: 424px;
 }
 .card-grid__card__title {
