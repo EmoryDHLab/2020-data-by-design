@@ -1,9 +1,13 @@
 import api from '@/api'
-import { UPDATE_NODE, INSERT_NODE, DELETE_NODE, FOCUS_NODE, INCREMENT_ID,MERGE_TEXT_NODE } from './types'
+import { UPDATE_NODE, INSERT_NODE, DELETE_NODE, FOCUS_NODE, INCREMENT_ID,
+  MERGE_TEXT_NODE, REORDER_NODES } from './types'
 
 const actions = {
   updateNode ({ commit }, node) {
     return commit(UPDATE_NODE, node)
+  },
+  repositionNodes ({ commit }, nodeIds) {
+    return commit(REORDER_NODES, nodeIds)
   },
   addNode ({ commit, state }, { pos, node }) {
     const id = state.nextId // TODO fix so this takes id from api

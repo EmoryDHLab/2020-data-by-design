@@ -1,5 +1,6 @@
 import Vue from 'vue'
-import { DELETE_NODE, PUSH_NODE, UPDATE_NODE, INSERT_NODE,FOCUS_NODE, INCREMENT_ID, MERGE_TEXT_NODE } from './types'
+import { DELETE_NODE, PUSH_NODE, UPDATE_NODE, INSERT_NODE,FOCUS_NODE,
+  INCREMENT_ID, MERGE_TEXT_NODE,REORDER_NODES } from './types'
 const cloneDeep = require('clone-deep')
 
 const mutations = {
@@ -28,6 +29,9 @@ const mutations = {
   },
   [MERGE_TEXT_NODE] (state, {id, text}) {
     state.nodes[id].text += text
+  },
+  [REORDER_NODES] (state, ids) {
+    state.nodeIds = ids
   }
 }
 

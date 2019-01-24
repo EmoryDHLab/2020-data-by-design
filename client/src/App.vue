@@ -21,6 +21,8 @@ export default {
 @import url('https://fonts.googleapis.com/css?family=Markazi+Text|Raleway');
 p, h4, h5, h6, a, li {
   font-family: 'Markazi Text', serif;
+  color: #2c3e50;
+  
 }
 p {
   font-size: 1.5em;

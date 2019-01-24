@@ -1,29 +1,45 @@
 <template lang="html">
   <div class="">
     <h1>Notebook</h1>
-    <component
-      :is="node.type"
-      v-for='node in nodes'
-      :key='node.id'
-      v-bind="node"
-      @focus="$store.commit('FOCUS_NODE', node.id)"
-      @update="updateNode"
-      @delete="deleteNode"
-      @create="createNode"/>
+    <DragList v-model="nodes" :useDragHandle="true">
+      <DragListItem v-for='(node, i) in nodes'
+        :index="i"
+        :key='node.id'>
+        <component
+          :is="node.type"
+          v-bind="node"
+          @focus="$store.commit('FOCUS_NODE', node.id)"
+          @update="updateNode"
+          @delete="deleteNode"
+          @create="createNode"/>
+      </DragListItem>
+    </DragList>
   </div>
 </template>
 
 <script>
+import DragList from '@/components/general/DragList'
+import DragListItem from '@/components/general/DragListItem'
 import TextNode from '@/components/notebook/TextNode'
 import { FOCUS_NODE } from '@/store/notebook/types'
 import { mapGetters } from 'vuex'
 
 export default {
   components: {
-    TextNode
+    TextNode,
+    DragList,
+    DragListItem
   },
   computed: {
-    ...mapGetters(['nodes', 'nodeByPosition', 'position'])
+    ...mapGetters(['nodeByPosition', 'position']),
+    nodes: {
+      get () {
+        return this.$store.getters.nodes
+      },
+      set(nodeList) {
+        this.$store.dispatch('repositionNodes', nodeList.map(node => node.id))
+      }
+    }
   },
   methods: {
     updateNode (nodeUpdates) {

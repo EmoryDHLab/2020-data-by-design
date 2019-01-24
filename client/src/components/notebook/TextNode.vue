@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="text-node" @mouseenter="hovered=true" @mouseleave="hovered=true">
-    <div class="--top-right" v-show="hovered">
+    <div class="--top-right" v-show="false">
       <BaseButton class="node-menu-button" @click="menuOpen=!menuOpen">
         <font-awesome-icon :icon="icon"/>
       </BaseButton>
@@ -115,8 +115,9 @@ export default {
 <style lang="css" scoped>
 .text-node {
   position: relative;
-  padding-top: 35px;
-  padding-right: 35px;
+  /* padding-top: 35px;
+  padding-right: 35px; */
+  background: white;
 }
 
 .node-input {
