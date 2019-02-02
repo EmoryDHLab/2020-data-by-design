@@ -49,6 +49,32 @@
       <h1 class="title subclass">Credits</h1>
       <h3 style="text-align: center">These features are still under development
         <br> but feel free to look around!</h3>
+        <div class="card-grid">
+            <div class="nameCard">
+                <img src="http://shapeofhistory.net/css/img/peabody_original_2.jpg"
+                     alt="placeholder" width="250" height="250">
+                <h3>Name1</h3>
+                <h3 style="font-weight: 300">description</h3>
+            </div>
+            <div class="nameCard">
+                <img src="http://shapeofhistory.net/css/img/peabody_original_2.jpg"
+                     alt="placeholder" width="250" height="250">
+                <h3>Name2</h3>
+                <h3 style="font-weight: 300">description</h3>
+            </div>
+            <div class="nameCard">
+                <img src="http://shapeofhistory.net/css/img/peabody_original_2.jpg"
+                     alt="placeholder" width="250" height="250">
+                <h3>Name3</h3>
+                <h3 style="font-weight: 300">description</h3>
+            </div>
+            <div class="nameCard">
+                <img src="http://shapeofhistory.net/css/img/peabody_original_2.jpg"
+                     alt="placeholder" width="250" height="250">
+                <h3>Name4</h3>
+                <h3 style="font-weight: 300">description</h3>
+            </div>
+        </div>
     </div>
   </main>
 </template>
@@ -65,6 +91,7 @@ export default {
 </script>
 
 <style scoped>
+
 .title, .subtitle {
   font-weight: 400;
   margin-top: 100px;
@@ -75,7 +102,7 @@ export default {
 }
 
 .header{
-  padding-left: 30px;
+  padding-left: 50px;
   margin-bottom: 1000px;
 }
 
@@ -131,6 +158,14 @@ main {
   background-color: #399687;
   margin-left: 50px;
   margin-right: 50px;
+}
+
+.nameCard {
+  text-align: center;
+}
+
+img{
+    border-radius: 50%;
 }
 
 </style>

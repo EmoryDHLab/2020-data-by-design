@@ -40,14 +40,14 @@ export default {
 
 <style scoped>
 header {
-  padding: 8px 0px;
+  padding: 8px 50px;
   display: flex;
   flex-flow: row wrap;
   align-items: baseline;
   box-sizing: border-box;
 }
 .header__title {
-  flex: 1 0;
+  /*flex: 1 0;*/
   margin: 0;
   margin-right: 32px;
 }
