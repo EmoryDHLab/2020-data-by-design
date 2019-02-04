@@ -43,6 +43,13 @@
       <h1 class="title subclass">Chapters</h1>
       <h3 class="subtitle subclass">These features are still under development
         <br> but feel free to look around!</h3>
+        <div class="chapter_slides">
+          <vue-card class="card-grid__card" src="#">
+            <template slot="title">Chapters#1</template>
+            <h3 class="card-grid__card__subtitle">Information about chapters</h3>
+            <router-link to="/features/notebook" class="lmore">Learn More</router-link>
+          </vue-card>
+        </div>
     </div>
 
     <div class="credits">
@@ -135,7 +142,7 @@ main {
   justify-content: space-around;
 }
 .card-grid__card {
-  width: auto;
+  width: 300px;
   min-width: 400px;
   height: 40vh;
   min-height: 424px;
