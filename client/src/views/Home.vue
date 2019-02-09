@@ -6,7 +6,23 @@
       <button class="blue_button">All Chapters</button>
     </div>
 
-    <div class="features">
+    <div class="chapters" align="center">
+      <h1 class="title subclass">Chapters</h1>
+      <h3 class="subtitle subclass">These features are still under development
+        <br> but feel free to look around!</h3>
+      <div class="chapter_slides">
+        <vue-card class="card-grid__card" src="#">
+          <template slot="title">Chapters#1</template>
+          <h3 class="card-grid__card__subtitle">Information about chapters</h3>
+          <router-link to="/features/notebook" class="lmore">Learn More</router-link>
+        </vue-card>
+      </div>
+      <router-link to="/chapters">
+      <button class="midbutton">All Chapters</button>
+      </router-link>
+    </div>
+
+    <div class="features" align="center">
       <h1 class="title subclass">Features</h1>
       <h3 class="subtitle subclass">These features are still under development
         <br> but feel free to look around!</h3>
@@ -37,19 +53,9 @@
           <router-link to="/chapters" class="lmore">Learn More</router-link>
         </vue-card>
       </div>
-    </div>
-
-    <div class="chapters">
-      <h1 class="title subclass">Chapters</h1>
-      <h3 class="subtitle subclass">These features are still under development
-        <br> but feel free to look around!</h3>
-        <div class="chapter_slides">
-          <vue-card class="card-grid__card" src="#">
-            <template slot="title">Chapters#1</template>
-            <h3 class="card-grid__card__subtitle">Information about chapters</h3>
-            <router-link to="/features/notebook" class="lmore">Learn More</router-link>
-          </vue-card>
-        </div>
+      <router-link to="/features">
+      <button class="midbutton">All Features</button>
+      </router-link>
     </div>
 
     <div class="credits">
@@ -58,25 +64,25 @@
         <br> but feel free to look around!</h3>
         <div class="card-grid">
             <div class="nameCard">
-                <img src="http://shapeofhistory.net/css/img/peabody_original_2.jpg"
+                <img src="https://media.wired.com/photos/598e35994ab8482c0d6946e0/master/w_1164,c_limit/phonepicutres-TA.jpg"
                      alt="placeholder" width="250" height="250">
                 <h3>Name1</h3>
                 <h3 style="font-weight: 300">description</h3>
             </div>
             <div class="nameCard">
-                <img src="http://shapeofhistory.net/css/img/peabody_original_2.jpg"
+                <img src="https://media.wired.com/photos/598e35994ab8482c0d6946e0/master/w_1164,c_limit/phonepicutres-TA.jpg"
                      alt="placeholder" width="250" height="250">
                 <h3>Name2</h3>
                 <h3 style="font-weight: 300">description</h3>
             </div>
             <div class="nameCard">
-                <img src="http://shapeofhistory.net/css/img/peabody_original_2.jpg"
+                <img src="https://media.wired.com/photos/598e35994ab8482c0d6946e0/master/w_1164,c_limit/phonepicutres-TA.jpg"
                      alt="placeholder" width="250" height="250">
                 <h3>Name3</h3>
                 <h3 style="font-weight: 300">description</h3>
             </div>
             <div class="nameCard">
-                <img src="http://shapeofhistory.net/css/img/peabody_original_2.jpg"
+                <img src="https://media.wired.com/photos/598e35994ab8482c0d6946e0/master/w_1164,c_limit/phonepicutres-TA.jpg"
                      alt="placeholder" width="250" height="250">
                 <h3>Name4</h3>
                 <h3 style="font-weight: 300">description</h3>
@@ -118,6 +124,7 @@ main {
   grid-template-columns: auto;
   grid-template-rows: 500px 700px 700px 700px;
 }
+
 .blue_button {
   background-color: royalblue;
   color: white;
@@ -136,16 +143,18 @@ main {
   margin-top: 40px;
   text-align: center;
 }
+
 .card-grid {
   margin-top: 70px;
   display: flex;
   justify-content: space-around;
 }
+
 .card-grid__card {
-  width: 300px;
   min-width: 400px;
   height: 40vh;
   min-height: 424px;
+  margin-bottom: 40px;
 }
 
 .lmore {
@@ -153,6 +162,18 @@ main {
   font-weight: 700;
   color: royalblue;
   font-family: 'Raleway', sans-serif;
+}
+
+.midbutton {
+  background-color: royalblue;
+  color: white;
+  padding: 10px 24px;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 5px 5px 5px rgba(65, 105, 225, 0.48);
+  margin-bottom: 200px;
 }
 
 .card-grid__card__subtitle {
@@ -165,6 +186,7 @@ main {
   background-color: #399687;
   margin-left: 50px;
   margin-right: 50px;
+  margin-top: 70px;
 }
 
 .nameCard {
