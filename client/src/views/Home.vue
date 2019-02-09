@@ -11,11 +11,25 @@
       <h3 class="subtitle subclass">These features are still under development
         <br> but feel free to look around!</h3>
       <div class="chapter_slides">
-        <vue-card class="card-grid__card" src="#">
+        <div>
+        <vue-card class="slides__card" src="#">
           <template slot="title">Chapters#1</template>
           <h3 class="card-grid__card__subtitle">Information about chapters</h3>
           <router-link to="/features/notebook" class="lmore">Learn More</router-link>
         </vue-card>
+        </div>
+        <div class="slides_small">
+        <vue-card class="chapter_slides_small" src="#">
+          <template slot="title">Chapters#2</template>
+          <h3 class="card-grid__card__subtitle">Information about chapters</h3>
+          <router-link to="/features/notebook" class="lmore">Learn More</router-link>
+        </vue-card>
+          <vue-card class="chapter_slides_small" src="#">
+            <template slot="title">Chapters#3</template>
+            <h3 class="card-grid__card__subtitle">Information about chapters</h3>
+            <router-link to="/features/notebook" class="lmore">Learn More</router-link>
+          </vue-card>
+        </div>
       </div>
       <router-link to="/chapters">
       <button class="midbutton">All Chapters</button>
@@ -99,6 +113,9 @@ export default {
   components: {
     VueCard,
     BaseButton
+  },
+  data: {
+
   }
 }
 </script>
@@ -122,7 +139,7 @@ export default {
 main {
   display: grid;
   grid-template-columns: auto;
-  grid-template-rows: 500px 700px 700px 700px;
+  grid-template-rows: 500px auto auto 700px;
 }
 
 .blue_button {
@@ -150,6 +167,35 @@ main {
   justify-content: space-around;
 }
 
+.chapter_slides {
+  margin-left: 200px;
+  margin-right: 200px;
+  display: grid;
+  grid-gap: 50px;
+  align: center;
+  grid-template-columns: 700px auto;
+  grid-template-rows: auto;
+}
+
+.chapter_slides_small {
+  max-height: 200px;
+  min-width: 150px;
+  justify-content: space-evenly;
+}
+
+.slides_small {
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-gap: 15px;
+}
+
+.slides__card {
+  min-width: 400px;
+  height: 40vh;
+  min-height: 450px;
+  margin-bottom: 40px;
+}
+
 .card-grid__card {
   min-width: 400px;
   height: 40vh;
@@ -173,7 +219,6 @@ main {
   cursor: pointer;
   border-radius: 5px;
   box-shadow: 5px 5px 5px rgba(65, 105, 225, 0.48);
-  margin-bottom: 200px;
 }
 
 .card-grid__card__subtitle {
