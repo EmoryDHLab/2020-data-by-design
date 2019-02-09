@@ -11,13 +11,12 @@
       <h3 class="subtitle subclass">These features are still under development
         <br> but feel free to look around!</h3>
       <div class="chapter_slides">
-        <div>
+        <button v-on: click= "prev">prev</button>
         <vue-card class="slides__card" src="#">
           <template slot="title">Chapters#1</template>
           <h3 class="card-grid__card__subtitle">Information about chapters</h3>
           <router-link to="/features/notebook" class="lmore">Learn More</router-link>
         </vue-card>
-        </div>
         <div class="slides_small">
         <vue-card class="chapter_slides_small" src="#">
           <template slot="title">Chapters#2</template>
@@ -30,6 +29,7 @@
             <router-link to="/features/notebook" class="lmore">Learn More</router-link>
           </vue-card>
         </div>
+        <button v-on: click="next">next</button>
       </div>
       <router-link to="/chapters">
       <button class="midbutton">All Chapters</button>
@@ -115,8 +115,22 @@ export default {
     BaseButton
   },
   data: {
+    chapter: {title:' ', info: ' ', link: ' '},
+      chList: [
+          {title:'chpater1', info:'someinfo', link:'/features/notebook'},
+          {title:'chpater2', info:'someinfo', link:'/features/notebook'},
+          {title:'chpater3', info:'someinfo', link:'/features/notebook'},
+      ]
+  },
+  methods: {
+    prev() {
 
+    },
+    next() {
+
+    }
   }
+
 }
 </script>
 
@@ -168,12 +182,11 @@ main {
 }
 
 .chapter_slides {
-  margin-left: 200px;
-  margin-right: 200px;
+  margin-left: 150px;
+  margin-right: 150px;
   display: grid;
   grid-gap: 50px;
-  align: center;
-  grid-template-columns: 700px auto;
+  grid-template-columns: 30px 700px auto 30px;
   grid-template-rows: auto;
 }
 
