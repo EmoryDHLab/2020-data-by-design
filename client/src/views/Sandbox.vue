@@ -1,14 +1,17 @@
 <template lang="html">
   <div class="half-w">
     <NoteBook/>
+    <ChapterCard/>
   </div>
 </template>
 
 <script>
 import NoteBook from '@/components/notebook/NoteBook'
+import ChapterCard from '@/components/ChapterCard'
 export default {
   components: {
-    NoteBook
+    NoteBook,
+    ChapterCard
   }
 }
 </script>

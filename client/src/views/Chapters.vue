@@ -1,70 +1,57 @@
 <template lang="html">
   <main>
-    <h1 class="title">Chapters</h1>
-    <h3 class="subtitle">These chapters are still under development, but feel free to look around!</h3>
-    <div class="card-grid">
-      <vue-card
-        class="card-grid__card"
-        src="http://shapeofhistory.net/css/img/peabody_original_2.jpg"
-        v-for="n in 5" :key="n">
-        <template slot="title">The Shape of History</template>
-        <h3 class="card-grid__card__subtitle">
-          Why do we visualize data? This non-standard
-          visualization provides a unique perspective.
-        </h3>
-        <div style="background-color: grey;width: 100%; height:15%">vis</div>
-        <router-link to="/chapters/shape-of-history">View Chapter</router-link>
-      </vue-card>
+    <h1 class="title --text-center">Chapters</h1>
+    <div class="slides">
+      <ChapterCard
+        chapterRouteName="PeabodyChapter"
+        imageLink="https://cdn.britannica.com/s:300x300/37/21537-004-83DFAD79.jpg"
+        class="main-slide">
+        <template slot="tagline">An Investigation on Time</template>
+        <template slot="title">Shape of History</template>
+        Elizabeth Peabody's interactive approach to visualizing history
+      </ChapterCard>
+      <div class="minis">
+        <ChapterMini class="mini" v-for="i in 3" :key="i"
+          imageLink="https://cdn.britannica.com/s:300x300/37/21537-004-83DFAD79.jpg"
+          chapterRouteName="PeabodyChapter"
+          darken="0.3">
+          <template slot="title">Shape of History</template>
+          Elizabeth Peabody's interactive approach to visualizing history
+        </ChapterMini>
+      </div>
     </div>
   </main>
 </template>
 
 <script>
-import VueCard from '@/components/general/VueCard'
+import ChapterCard from '@/components/ChapterCard'
+import ChapterMini from '@/components/ChapterMini'
 export default {
   components: {
-    VueCard
+    ChapterCard,
+    ChapterMini
   }
 }
 </script>
 
 <style scoped>
-  .title, .subtitle {
-    text-align: center;
-    margin: 16px 0;
-  }
-  .subtitle {
-    color: grey;
-    margin-top: 0;
-  }
+.slides {
+  display: flex;
+  height: 600px;
+  padding: 0 15em;
+}
+.main-slide {
+  flex: 4;
+}
+.minis {
+  padding: 0 36px;
+  flex: 2;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.mini {
+  width: 300px;
+  margin-bottom: 20px;
+}
 
-  main {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 80px 80px auto;
-  }
-
-  .card-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 2em;
-    justify-items: center;
-  }
-  .card-grid__card {
-    break-inside: avoid;
-    max-width: 500px;
-    width: 20vw;
-    min-width: 300px;
-    height: 60vh;
-    min-height: 424px;
-  }
-  @media (max-width: 1024px) {
-    .card-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-  .card-grid__card__subtitle {
-    color: grey;
-    font-size: .9em;
-  }
 </style>

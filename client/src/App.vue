@@ -18,20 +18,20 @@ export default {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css?family=Markazi+Text|Raleway');
+@import url('https://fonts.googleapis.com/css?family=Markazi+Text|Libre+Baskerville:400,700|Roboto');
 p, h4, h5, h6, a, li {
-  font-family: 'Markazi Text', serif;
+  font-family: 'Roboto', serif;
   color: #2c3e50;
-  
 }
 p {
-  font-size: 1.5em;
+  font-size: 16px;
 }
 h1 {
   font-size: 3em;
 }
 h1, h2, h3 {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Libre Baskerville', sans-serif;
+  font-weight: 400;
 }
 body {
   margin:0
@@ -60,5 +60,53 @@ a.router-link-exact-active.--ignore-highlight {
 }
 .router-link-exact-active {
   color: rgb(219, 136, 42) !important;
+}
+
+.--text-dark-blue {
+  color: #081F38;
+}
+
+.--text-yellow {
+  color: #FCC400;
+}
+
+.--text-white {
+  color: white;
+}
+
+.--text-center {
+  text-align: center;
+}
+
+.--uppercase {
+  text-transform: uppercase;
+}
+
+.--bold {
+  font-weight: 700;
+}
+
+.card {
+  box-shadow: 1px 2px 7px 1px rgba(0,0,0,0.46);
+}
+
+.btn {
+  cursor: pointer;
+  font-family: 'Roboto';
+  padding: 12px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  font-weight: lighter;
+}
+
+.btn-link {
+  background-color: #081F38;
+  color: white;
+}
+
+.btn-link-inverted {
+  background-color: white;
+  color: #081F38;
 }
 </style>
