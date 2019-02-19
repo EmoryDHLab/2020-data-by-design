@@ -3,7 +3,11 @@
     <div class="header">
       <h1 class="title">A Look back at history with graphics</h1>
       <h3 class="subtitle">These features are still under development <br> but feel free to look around!</h3>
+      <div class="info">
       <button class="blue_button">All Chapters</button>
+        <p>some</p>
+        <p>some</p>
+      </div>
     </div>
 
     <div class="chapters" align="center">
@@ -11,13 +15,13 @@
       <h3 class="subtitle subclass">These features are still under development
         <br> but feel free to look around!</h3>
       <div class="chapter_slides">
-        <button v-on: click= "prev">prev</button>
         <vue-card class="slides__card" src="#">
           <template slot="title">Chapters#1</template>
           <h3 class="card-grid__card__subtitle">Information about chapters</h3>
           <router-link to="/features/notebook" class="lmore">Learn More</router-link>
         </vue-card>
         <div class="slides_small">
+          <button class="sl" v-on: click= "prev"> ^ </button>
         <vue-card class="chapter_slides_small" src="#">
           <template slot="title">Chapters#2</template>
           <h3 class="card-grid__card__subtitle">Information about chapters</h3>
@@ -28,8 +32,8 @@
             <h3 class="card-grid__card__subtitle">Information about chapters</h3>
             <router-link to="/features/notebook" class="lmore">Learn More</router-link>
           </vue-card>
+          <button class="sl" v-on: click="next"> v </button>
         </div>
-        <button v-on: click="next">next</button>
       </div>
       <router-link to="/chapters">
       <button class="midbutton">All Chapters</button>
@@ -40,31 +44,25 @@
       <h1 class="title subclass">Features</h1>
       <h3 class="subtitle subclass">These features are still under development
         <br> but feel free to look around!</h3>
-      <div class="card-grid">
-        <vue-card
-          class="card-grid__card"
-          src="#">
-          <template slot="title">Features#1</template>
+      <div class="feature_slides">
+        <div class="slides_small">
+          <button class="sl" v-on: click= "prev"> ^ </button>
+          <vue-card class="chapter_slides_small" src="#">
+            <template slot="title">Feature#2</template>
+            <h3 class="card-grid__card__subtitle">Information about chapters</h3>
+            <router-link to="/features/notebook" class="lmore">Learn More</router-link>
+          </vue-card>
+          <vue-card class="chapter_slides_small" src="#">
+            <template slot="title">Feature#3</template>
+            <h3 class="card-grid__card__subtitle">Information about chapters</h3>
+            <router-link to="/features/notebook" class="lmore">Learn More</router-link>
+          </vue-card>
+          <button class="sl" v-on: click="next"> v </button>
+        </div>
+        <vue-card class="slides__card" src="#">
+          <template slot="title">Feature#1</template>
           <h3 class="card-grid__card__subtitle">Information about chapters</h3>
           <router-link to="/features/notebook" class="lmore">Learn More</router-link>
-        </vue-card>
-        <vue-card
-          class="card-grid__card"
-          src="#">
-          <template slot="title">Features#2</template>
-          <h3 class="card-grid__card__subtitle">
-            Information about chapters
-          </h3>
-          <router-link to="/chapters" class="lmore">Learn More</router-link>
-        </vue-card>
-        <vue-card
-                class="card-grid__card"
-                src="#">
-          <template slot="title">Features#3</template>
-          <h3 class="card-grid__card__subtitle">
-            Information about chapters
-          </h3>
-          <router-link to="/chapters" class="lmore">Learn More</router-link>
         </vue-card>
       </div>
       <router-link to="/features">
@@ -117,9 +115,6 @@ export default {
   data: {
     chapter: {title:' ', info: ' ', link: ' '},
       chList: [
-          {title:'chpater1', info:'someinfo', link:'/features/notebook'},
-          {title:'chpater2', info:'someinfo', link:'/features/notebook'},
-          {title:'chpater3', info:'someinfo', link:'/features/notebook'},
       ]
   },
   methods: {
@@ -154,10 +149,11 @@ main {
   display: grid;
   grid-template-columns: auto;
   grid-template-rows: 500px auto auto 700px;
+  grid-gap: 100px;
 }
 
 .blue_button {
-  background-color: royalblue;
+  background-color: #081F38;
   color: white;
   padding: 10px 24px;
   text-align: center;
@@ -166,10 +162,15 @@ main {
   font-size: 16px;
   cursor: pointer;
   border-radius: 5px;
-  box-shadow: 5px 5px 5px rgba(65, 105, 225, 0.48);
+  box-shadow: 5px 5px 5px #081F30;
   margin-top: 50px;
 }
 
+.info{
+  display: grid;
+  grid-template-columns: 200px 200px 200px;
+  grid-gap: 100px;
+}
 .subclass {
   margin-top: 40px;
   text-align: center;
@@ -180,13 +181,20 @@ main {
   display: flex;
   justify-content: space-around;
 }
-
+.feature_slides {
+  margin-left: 150px;
+  margin-right: 150px;
+  display: grid;
+  grid-gap: 50px;
+  grid-template-columns: auto 700px ;
+  grid-template-rows: auto;
+}
 .chapter_slides {
   margin-left: 150px;
   margin-right: 150px;
   display: grid;
   grid-gap: 50px;
-  grid-template-columns: 30px 700px auto 30px;
+  grid-template-columns: 700px auto;
   grid-template-rows: auto;
 }
 
@@ -219,26 +227,29 @@ main {
 .lmore {
   font-size: 20px;
   font-weight: 700;
-  color: royalblue;
+  color: #081F30;
   font-family: 'Raleway', sans-serif;
 }
 
 .midbutton {
-  background-color: royalblue;
+  background-color: #081F30;
   color: white;
   padding: 10px 24px;
   text-align: center;
   font-size: 16px;
   cursor: pointer;
   border-radius: 5px;
-  box-shadow: 5px 5px 5px rgba(65, 105, 225, 0.48);
+  box-shadow: 5px 5px 5px #081F30;
 }
 
 .card-grid__card__subtitle {
   color: grey;
   font-size: .9em;
 }
-
+.sl {
+  font-size: 20px;
+  width: 25px;
+}
 .credits {
   color: white;
   background-color: #399687;
