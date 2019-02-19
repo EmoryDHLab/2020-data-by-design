@@ -41,7 +41,7 @@ export default new Router({
     },
     {
       path: '/chapters/shape-of-history',
-      name: 'Peabody',
+      name: 'PeabodyChapter',
       component: PeabodyChapter
     },
     {
