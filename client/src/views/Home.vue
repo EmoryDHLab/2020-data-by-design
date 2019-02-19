@@ -1,27 +1,105 @@
 <template lang="html">
   <main>
-    <h1 class="title">Data by Design</h1>
-    <h3 class="subtitle">These features are still under development, but feel free to look around!</h3>
-    <div class="card-grid">
-      <vue-card
-        class="card-grid__card"
-        src="#">
-        <template slot="title">Chapters</template>
-        <h3 class="card-grid__card__subtitle">
-          Information about chapters
-        </h3>
-        <router-link to="/chapters">Check out Chapters</router-link>
-      </vue-card>
-      <vue-card
-        class="card-grid__card"
-        src="#">
-        <template slot="title">Features</template>
-        <h3 class="card-grid__card__subtitle">
-          Drag and drop quotes, images, and interactive content from the chapters, then write up your own notes around them
-        </h3>
-        <div style="background-color: grey;width: 100%; height:15%">vis</div>
-        <router-link to="/features/notebook">Learn More</router-link>
-      </vue-card>
+    <div class="header">
+      <h1 class="title">A Look back at history with graphics</h1>
+      <h3 class="subtitle">These features are still under development <br> but feel free to look around!</h3>
+      <div class="info">
+      <button class="blue_button">All Chapters</button>
+        <p>some</p>
+        <p>some</p>
+      </div>
+    </div>
+
+    <div class="chapters" align="center">
+      <h1 class="title subclass">Chapters</h1>
+      <h3 class="subtitle subclass">These features are still under development
+        <br> but feel free to look around!</h3>
+      <div class="chapter_slides">
+        <vue-card class="slides__card" src="#">
+          <template slot="title">Chapters#1</template>
+          <h3 class="card-grid__card__subtitle">Information about chapters</h3>
+          <router-link to="/features/notebook" class="lmore">Learn More</router-link>
+        </vue-card>
+        <div class="slides_small">
+          <button class="sl" v-on: click= "prev"> ^ </button>
+        <vue-card class="chapter_slides_small" src="#">
+          <template slot="title">Chapters#2</template>
+          <h3 class="card-grid__card__subtitle">Information about chapters</h3>
+          <router-link to="/features/notebook" class="lmore">Learn More</router-link>
+        </vue-card>
+          <vue-card class="chapter_slides_small" src="#">
+            <template slot="title">Chapters#3</template>
+            <h3 class="card-grid__card__subtitle">Information about chapters</h3>
+            <router-link to="/features/notebook" class="lmore">Learn More</router-link>
+          </vue-card>
+          <button class="sl" v-on: click="next"> v </button>
+        </div>
+      </div>
+      <router-link to="/chapters">
+      <button class="midbutton">All Chapters</button>
+      </router-link>
+    </div>
+
+    <div class="features" align="center">
+      <h1 class="title subclass">Features</h1>
+      <h3 class="subtitle subclass">These features are still under development
+        <br> but feel free to look around!</h3>
+      <div class="feature_slides">
+        <div class="slides_small">
+          <button class="sl" v-on: click= "prev"> ^ </button>
+          <vue-card class="chapter_slides_small" src="#">
+            <template slot="title">Feature#2</template>
+            <h3 class="card-grid__card__subtitle">Information about chapters</h3>
+            <router-link to="/features/notebook" class="lmore">Learn More</router-link>
+          </vue-card>
+          <vue-card class="chapter_slides_small" src="#">
+            <template slot="title">Feature#3</template>
+            <h3 class="card-grid__card__subtitle">Information about chapters</h3>
+            <router-link to="/features/notebook" class="lmore">Learn More</router-link>
+          </vue-card>
+          <button class="sl" v-on: click="next"> v </button>
+        </div>
+        <vue-card class="slides__card" src="#">
+          <template slot="title">Feature#1</template>
+          <h3 class="card-grid__card__subtitle">Information about chapters</h3>
+          <router-link to="/features/notebook" class="lmore">Learn More</router-link>
+        </vue-card>
+      </div>
+      <router-link to="/features">
+      <button class="midbutton">All Features</button>
+      </router-link>
+    </div>
+
+    <div class="credits">
+      <h1 class="title subclass">Credits</h1>
+      <h3 style="text-align: center">These features are still under development
+        <br> but feel free to look around!</h3>
+        <div class="card-grid">
+            <div class="nameCard">
+                <img src="https://media.wired.com/photos/598e35994ab8482c0d6946e0/master/w_1164,c_limit/phonepicutres-TA.jpg"
+                     alt="placeholder" width="250" height="250">
+                <h3>Name1</h3>
+                <h3 style="font-weight: 300">description</h3>
+            </div>
+            <div class="nameCard">
+                <img src="https://media.wired.com/photos/598e35994ab8482c0d6946e0/master/w_1164,c_limit/phonepicutres-TA.jpg"
+                     alt="placeholder" width="250" height="250">
+                <h3>Name2</h3>
+                <h3 style="font-weight: 300">description</h3>
+            </div>
+            <div class="nameCard">
+                <img src="https://media.wired.com/photos/598e35994ab8482c0d6946e0/master/w_1164,c_limit/phonepicutres-TA.jpg"
+                     alt="placeholder" width="250" height="250">
+                <h3>Name3</h3>
+                <h3 style="font-weight: 300">description</h3>
+            </div>
+            <div class="nameCard">
+                <img src="https://media.wired.com/photos/598e35994ab8482c0d6946e0/master/w_1164,c_limit/phonepicutres-TA.jpg"
+                     alt="placeholder" width="250" height="250">
+                <h3>Name4</h3>
+                <h3 style="font-weight: 300">description</h3>
+            </div>
+        </div>
     </div>
   </main>
 </template>
@@ -33,42 +111,159 @@ export default {
   components: {
     VueCard,
     BaseButton
+  },
+  data: {
+    chapter: {title:' ', info: ' ', link: ' '},
+      chList: [
+      ]
+  },
+  methods: {
+    prev() {
+
+    },
+    next() {
+
+    }
   }
+
 }
 </script>
 
 <style scoped>
+
 .title, .subtitle {
-  text-align: center;
-  margin: 16px 0;
+  font-weight: 400;
+  margin-top: 100px;
 }
 .subtitle {
   color: grey;
   margin-top: 0;
 }
 
+.header{
+  padding-left: 50px;
+  margin-bottom: 1000px;
+}
+
 main {
   display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 80px 80px auto;
+  grid-template-columns: auto;
+  grid-template-rows: 500px auto auto 700px;
+  grid-gap: 100px;
+}
+
+.blue_button {
+  background-color: #081F38;
+  color: white;
+  padding: 10px 24px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 5px 5px 5px #081F30;
+  margin-top: 50px;
+}
+
+.info{
+  display: grid;
+  grid-template-columns: 200px 200px 200px;
+  grid-gap: 100px;
+}
+.subclass {
+  margin-top: 40px;
+  text-align: center;
 }
 
 .card-grid {
+  margin-top: 70px;
   display: flex;
   justify-content: space-around;
 }
+.feature_slides {
+  margin-left: 150px;
+  margin-right: 150px;
+  display: grid;
+  grid-gap: 50px;
+  grid-template-columns: auto 700px ;
+  grid-template-rows: auto;
+}
+.chapter_slides {
+  margin-left: 150px;
+  margin-right: 150px;
+  display: grid;
+  grid-gap: 50px;
+  grid-template-columns: 700px auto;
+  grid-template-rows: auto;
+}
+
+.chapter_slides_small {
+  max-height: 200px;
+  min-width: 150px;
+  justify-content: space-evenly;
+}
+
+.slides_small {
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-gap: 15px;
+}
+
+.slides__card {
+  min-width: 400px;
+  height: 40vh;
+  min-height: 450px;
+  margin-bottom: 40px;
+}
+
 .card-grid__card {
-  width: 30vw;
-  min-width: 300px;
-  height: 65vh;
+  min-width: 400px;
+  height: 40vh;
   min-height: 424px;
+  margin-bottom: 40px;
 }
-.card-grid__card__title {
-  margin-top: 0;
-  margin-bottom: 16px;
+
+.lmore {
+  font-size: 20px;
+  font-weight: 700;
+  color: #081F30;
+  font-family: 'Raleway', sans-serif;
 }
+
+.midbutton {
+  background-color: #081F30;
+  color: white;
+  padding: 10px 24px;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 5px 5px 5px #081F30;
+}
+
 .card-grid__card__subtitle {
   color: grey;
   font-size: .9em;
 }
+.sl {
+  font-size: 20px;
+  width: 25px;
+}
+.credits {
+  color: white;
+  background-color: #399687;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-top: 70px;
+}
+
+.nameCard {
+  text-align: center;
+}
+
+img{
+    border-radius: 50%;
+}
+
 </style>

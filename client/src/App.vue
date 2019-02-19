@@ -20,18 +20,19 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css?family=Markazi+Text|Libre+Baskerville:400,700|Roboto');
 p, h4, h5, h6, a, li {
-  font-family: 'Roboto', serif;
+
+  font-family: 'Roboto', sans-serif;
   color: #2c3e50;
 }
 p {
   font-size: 16px;
 }
 h1 {
+  font-family: 'Baskerville', sans-serif;
   font-size: 3em;
 }
-h1, h2, h3 {
-  font-family: 'Libre Baskerville', sans-serif;
-  font-weight: 400;
+h2, h3 {
+  font-family: 'Roboto', sans-serif;
 }
 body {
   margin:0
