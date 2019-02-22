@@ -201,37 +201,10 @@ main {
   grid-template-rows: auto;
 }
 
-.chapter_slides_small {
-  max-height: 200px;
-  min-width: 150px;
-  justify-content: space-evenly;
-}
-
 .slides_small {
   display: grid;
   grid-template-rows: auto auto;
   grid-gap: 15px;
-}
-
-.slides__card {
-  min-width: 400px;
-  height: 40vh;
-  min-height: 450px;
-  margin-bottom: 40px;
-}
-
-.card-grid__card {
-  min-width: 400px;
-  height: 40vh;
-  min-height: 424px;
-  margin-bottom: 40px;
-}
-
-.lmore {
-  font-size: 20px;
-  font-weight: 700;
-  color: #081F30;
-  font-family: 'Raleway', sans-serif;
 }
 
 .midbutton {
@@ -245,14 +218,6 @@ main {
   box-shadow: 5px 5px 5px #081F30;
 }
 
-.card-grid__card__subtitle {
-  color: grey;
-  font-size: .9em;
-}
-.sl {
-  font-size: 20px;
-  width: 25px;
-}
 .credits {
   color: white;
   background-color: #399687;
