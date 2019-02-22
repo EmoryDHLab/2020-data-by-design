@@ -5,8 +5,8 @@
       <h3 class="subtitle">These features are still under development <br> but feel free to look around!</h3>
       <div class="info">
       <button class="blue_button">All Chapters</button>
-        <p>some</p>
-        <p>some</p>
+        <p align="center">40 <br> use of <br>graphics</p>
+        <p align="center">40 <br> use of <br>graphics</p>
       </div>
     </div>
 
@@ -112,20 +112,6 @@ export default {
       ChapterCard,
       ChapterMini
   },
-  data: {
-    chapter: {title:' ', info: ' ', link: ' '},
-      chList: [
-      ]
-  },
-  methods: {
-    prev() {
-
-    },
-    next() {
-
-    }
-  }
-
 }
 </script>
 
@@ -168,7 +154,7 @@ main {
 
 .info{
   display: grid;
-  grid-template-columns: 200px 200px 200px;
+  grid-template-columns: 200px 150px 150px;
   grid-gap: 100px;
 }
 .subclass {

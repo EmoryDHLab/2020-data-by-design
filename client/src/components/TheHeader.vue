@@ -2,7 +2,7 @@
   <header>
     <div class="header__title">
       <router-link class="--ignore-highlight" to="/">
-        <h2 class="header__title__content">Data By Design</h2>
+        <h2 class="header__title__content">DH Lab</h2>
       </router-link>
     </div>
     <vue-nav class="header__nav">
@@ -39,6 +39,7 @@ export default {
 </script>
 
 <style scoped>
+
 header {
   padding: 8px 50px;
   display: flex;
@@ -49,7 +50,7 @@ header {
 .header__title {
   /*flex: 1 0;*/
   margin: 0;
-  margin-right: 32px;
+  margin-right: 70px;
 }
 
 .header__title__content {
@@ -57,6 +58,7 @@ header {
   white-space: nowrap;
   text-decoration: none;
   display: inline-block;
+  font-family: 'Roboto', sans-serif;
 }
 
 .header__title__content:hover {
@@ -65,9 +67,9 @@ header {
 
 .header__nav__link {
   padding: 16px;
-  font-size: 1.2em;
+  font-size: 1.5em;
   color: #2c3e50;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Baskerville', sans-serif;
 }
 
 .header__nav__link:hover {
