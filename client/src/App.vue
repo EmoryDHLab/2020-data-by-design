@@ -31,7 +31,10 @@ h1 {
   font-family: 'Baskerville', sans-serif;
   font-size: 3em;
 }
-h2, h3 {
+h2 {
+  font-family: 'Baskerville', sans-serif;
+}
+h3 {
   font-family: 'Roboto', sans-serif;
 }
 body {

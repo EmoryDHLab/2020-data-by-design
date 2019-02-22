@@ -15,24 +15,22 @@
       <h3 class="subtitle subclass">These features are still under development
         <br> but feel free to look around!</h3>
       <div class="chapter_slides">
-        <vue-card class="slides__card" src="#">
-          <template slot="title">Chapters#1</template>
-          <h3 class="card-grid__card__subtitle">Information about chapters</h3>
-          <router-link to="/features/notebook" class="lmore">Learn More</router-link>
-        </vue-card>
+        <ChapterCard
+                chapterRouteName="PeabodyChapter"
+                imageLink="https://cdn.britannica.com/s:300x300/37/21537-004-83DFAD79.jpg"
+                class="main-slide">
+          <template slot="tagline">An Investigation on Time</template>
+          <template slot="title">Shape of History</template>
+          Elizabeth Peabody's interactive approach to visualizing history
+        </ChapterCard>
         <div class="slides_small">
-          <button class="sl" v-on: click= "prev"> ^ </button>
-        <vue-card class="chapter_slides_small" src="#">
-          <template slot="title">Chapters#2</template>
-          <h3 class="card-grid__card__subtitle">Information about chapters</h3>
-          <router-link to="/features/notebook" class="lmore">Learn More</router-link>
-        </vue-card>
-          <vue-card class="chapter_slides_small" src="#">
-            <template slot="title">Chapters#3</template>
-            <h3 class="card-grid__card__subtitle">Information about chapters</h3>
-            <router-link to="/features/notebook" class="lmore">Learn More</router-link>
-          </vue-card>
-          <button class="sl" v-on: click="next"> v </button>
+          <ChapterMini class="mini" v-for="i in 3" :key="i"
+                       imageLink="https://cdn.britannica.com/s:300x300/37/21537-004-83DFAD79.jpg"
+                       chapterRouteName="PeabodyChapter"
+                       darken="0.3">
+            <template slot="title">Shape of History</template>
+            Elizabeth Peabody's interactive approach to visualizing history
+          </ChapterMini>
         </div>
       </div>
       <router-link to="/chapters">
@@ -46,24 +44,22 @@
         <br> but feel free to look around!</h3>
       <div class="feature_slides">
         <div class="slides_small">
-          <button class="sl" v-on: click= "prev"> ^ </button>
-          <vue-card class="chapter_slides_small" src="#">
-            <template slot="title">Feature#2</template>
-            <h3 class="card-grid__card__subtitle">Information about chapters</h3>
-            <router-link to="/features/notebook" class="lmore">Learn More</router-link>
-          </vue-card>
-          <vue-card class="chapter_slides_small" src="#">
-            <template slot="title">Feature#3</template>
-            <h3 class="card-grid__card__subtitle">Information about chapters</h3>
-            <router-link to="/features/notebook" class="lmore">Learn More</router-link>
-          </vue-card>
-          <button class="sl" v-on: click="next"> v </button>
+        <FeatureMini class="mini" v-for="i in 2" :key="i"
+                     imageLink="https://cdn.britannica.com/s:300x300/37/21537-004-83DFAD79.jpg"
+                     chapterRouteName="PeabodyChapter"
+                     darken="0.3">
+          <template slot="title">Features </template>
+          Some Features Introduced Here.
+        </FeatureMini>
         </div>
-        <vue-card class="slides__card" src="#">
-          <template slot="title">Feature#1</template>
-          <h3 class="card-grid__card__subtitle">Information about chapters</h3>
-          <router-link to="/features/notebook" class="lmore">Learn More</router-link>
-        </vue-card>
+        <FeatureCard
+                chapterRouteName="PeabodyChapter"
+                imageLink="https://cdn.britannica.com/s:300x300/37/21537-004-83DFAD79.jpg"
+                class="main-slide">
+          <template slot="tagline">An Investigation on Time</template>
+          <template slot="title">Take Nodes While You Read</template>
+          Some Features Introduced Here.
+        </FeatureCard>
       </div>
       <router-link to="/features">
       <button class="midbutton">All Features</button>
@@ -107,10 +103,18 @@
 <script>
 import VueCard from '@/components/general/VueCard'
 import BaseButton from '@/components/forms/BaseButton'
+import ChapterCard from '@/components/ChapterCard'
+import ChapterMini from '@/components/ChapterMini'
+import FeatureCard from "../components/FeatureCard";
+import FeatureMini from "../components/FeatureMini";
 export default {
   components: {
+      FeatureMini,
+      FeatureCard,
     VueCard,
-    BaseButton
+    BaseButton,
+      ChapterCard,
+      ChapterMini
   },
   data: {
     chapter: {title:' ', info: ' ', link: ' '},
@@ -182,19 +186,22 @@ main {
   justify-content: space-around;
 }
 .feature_slides {
-  margin-left: 150px;
-  margin-right: 150px;
+  margin-left: 200px;
+  margin-right: 200px;
+  margin-bottom: 50px;
   display: grid;
   grid-gap: 50px;
-  grid-template-columns: auto 700px ;
+  grid-template-columns: auto 750px ;
   grid-template-rows: auto;
 }
+
 .chapter_slides {
-  margin-left: 150px;
-  margin-right: 150px;
+  margin-left: 200px;
+  margin-right: 200px;
+  margin-bottom: 50px;
   display: grid;
   grid-gap: 50px;
-  grid-template-columns: 700px auto;
+  grid-template-columns: 750px auto;
   grid-template-rows: auto;
 }
 
