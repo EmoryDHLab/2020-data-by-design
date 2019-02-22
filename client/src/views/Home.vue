@@ -101,8 +101,6 @@
 </template>
 
 <script>
-import VueCard from '@/components/general/VueCard'
-import BaseButton from '@/components/forms/BaseButton'
 import ChapterCard from '@/components/ChapterCard'
 import ChapterMini from '@/components/ChapterMini'
 import FeatureCard from "../components/FeatureCard";
@@ -111,8 +109,6 @@ export default {
   components: {
       FeatureMini,
       FeatureCard,
-    VueCard,
-    BaseButton,
       ChapterCard,
       ChapterMini
   },
