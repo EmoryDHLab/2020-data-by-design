@@ -3,7 +3,7 @@
     <h1 class="title --text-center">Features</h1>
     <div class="slides">
       <div class="minis">
-        <FeatureMini class="mini" v-for="i in 2" :key="i"
+        <FeatureMini class="mini" v-for="i in 3" :key="i"
                      imageLink="https://cdn.britannica.com/s:300x300/37/21537-004-83DFAD79.jpg"
                      chapterRouteName="PeabodyChapter"
                      darken="0.3">
@@ -16,7 +16,7 @@
               imageLink="https://cdn.britannica.com/s:300x300/37/21537-004-83DFAD79.jpg"
               class="main-slide">
         <template slot="tagline">An Investigation on Time</template>
-        <template slot="title">Take Nodes While You Read</template>
+        <template slot="title">Take Notes While You Read</template>
         Some Features Introduced Here.
       </FeatureCard>
     </div>

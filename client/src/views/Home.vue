@@ -97,6 +97,11 @@
             </div>
         </div>
     </div>
+
+    <div class="footer">
+      <p style="color: whitesmoke; padding-left: 100px">Designed and developed by Digital Humanities Lab</p>
+      <button class="white_button">Sign in/Sign up </button>
+    </div>
   </main>
 </template>
 
@@ -134,7 +139,7 @@ export default {
 main {
   display: grid;
   grid-template-columns: auto;
-  grid-template-rows: 500px auto auto 700px;
+  grid-template-rows: 500px auto auto 700px auto;
   grid-gap: 100px;
 }
 
@@ -214,6 +219,24 @@ main {
 
 .nameCard {
   text-align: center;
+}
+
+.footer {
+  display: grid;
+  grid-template-columns: auto 200px;
+  background-color: slategrey;
+}
+
+.white_button {
+  background-color: whitesmoke;
+  color: black;
+  padding: 10px 24px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
 img{
