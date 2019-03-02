@@ -1,8 +1,10 @@
 <template lang="html">
   <main>
     <div class="header">
-      <h1 class="title">A Look back at history with graphics</h1>
-      <h3 class="subtitle">These features are still under development <br> but feel free to look around!</h3>
+      <h1 class="title">An Interactive History of Data Visualization <br>1786-1900</h1>
+      <h3 class="subtitle">What is the story we tell about the emergence of modern data visualization?
+        <br>How might we tell that story differently?
+      </h3>
       <div class="info">
       <button class="blue_button">All Chapters</button>
         <p align="center">40 <br> use of <br>graphics</p>
@@ -17,11 +19,12 @@
       <div class="chapter_slides">
         <ChapterCard
                 chapterRouteName="PeabodyChapter"
-                imageLink="https://cdn.britannica.com/s:300x300/37/21537-004-83DFAD79.jpg"
+                imageLink="https://www.dropbox.com/s/dqgu5ofjmhfa2y2/%20northamerica.jpg?dl=0"
                 class="main-slide">
-          <template slot="tagline">An Investigation on Time</template>
-          <template slot="title">Shape of History</template>
-          Elizabeth Peabody's interactive approach to visualizing history
+          <template slot="tagline">William Playfair and the Origins of Objective Display</template>
+          <template slot="title">A View “Simple and Complete”</template>
+          Visualization has never been a neutral method.
+          Each image carries an argument about how knowledge is produced, and who is authorized to produce it.
         </ChapterCard>
         <div class="slides_small">
           <ChapterMini class="mini" v-for="i in 3" :key="i"
