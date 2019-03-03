@@ -17,15 +17,21 @@
       <h3 class="subtitle subclass">These features are still under development
         <br> but feel free to look around!</h3>
       <div class="chapter_slides">
-        <ChapterCard
-                chapterRouteName="PeabodyChapter"
-                imageLink="https://www.dropbox.com/s/dqgu5ofjmhfa2y2/%20northamerica.jpg?dl=0"
-                class="main-slide">
-          <template slot="tagline">William Playfair and the Origins of Objective Display</template>
-          <template slot="title">A View “Simple and Complete”</template>
-          Visualization has never been a neutral method.
-          Each image carries an argument about how knowledge is produced, and who is authorized to produce it.
-        </ChapterCard>
+        <!--<ChapterCard-->
+                <!--chapterRouteName="PeabodyChapter"-->
+                <!--imageLink="https://www.dropbox.com/s/dqgu5ofjmhfa2y2/%20northamerica.jpg?dl=0"-->
+                <!--class="main-slide">-->
+          <!--<template slot="tagline">William Playfair and the Origins of Objective Display</template>-->
+          <!--<template slot="title">A View “Simple and Complete”</template>-->
+          <!--Visualization has never been a neutral method.-->
+          <!--Each image carries an argument about how knowledge is produced, and who is authorized to produce it.-->
+        <!--</ChapterCard>-->
+        <div class="chList">
+          <ChapList>
+            <template slot="title">Chapter One</template>
+            Someaf aef aefal ewiu fhale iufhal fea
+          </ChapList>
+        </div>
         <div class="slides_small">
           <ChapterMini class="mini" v-for="i in 3" :key="i"
                        imageLink="https://cdn.britannica.com/s:300x300/37/21537-004-83DFAD79.jpg"
@@ -109,12 +115,14 @@
 </template>
 
 <script>
-import ChapterCard from '@/components/ChapterCard'
-import ChapterMini from '@/components/ChapterMini'
+import ChapterCard from '../components/ChapterCard'
+import ChapterMini from '../components/ChapterMini'
 import FeatureCard from "../components/FeatureCard";
 import FeatureMini from "../components/FeatureMini";
+import ChapList from '../components/general/ChapList';
 export default {
   components: {
+      ChapList,
       FeatureMini,
       FeatureCard,
       ChapterCard,
