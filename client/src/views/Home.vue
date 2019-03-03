@@ -107,10 +107,10 @@
         </div>
     </div>
 
-    <div class="footer">
-      <p style="color: whitesmoke; padding-left: 100px">Designed and developed by Digital Humanities Lab</p>
+    <footer>
+      <p style="color: whitesmoke; padding: 1em">Designed and developed by Digital Humanities Lab</p>
       <button class="white_button">Sign in/Sign up </button>
-    </div>
+    </footer>
   </main>
 </template>
 
@@ -232,16 +232,21 @@ main {
   text-align: center;
 }
 
-.footer {
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
   display: grid;
   grid-template-columns: auto 200px;
   background-color: slategrey;
 }
 
 .white_button {
+  margin: 20px 20px 20px 20px;
   background-color: whitesmoke;
   color: black;
-  padding: 10px 24px;
+  padding: 20px 10px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
