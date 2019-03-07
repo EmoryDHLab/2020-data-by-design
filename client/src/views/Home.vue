@@ -16,31 +16,32 @@
       <h1 class="title subclass">Chapters</h1>
       <h3 class="subtitle subclass">These features are still under development
         <br> but feel free to look around!</h3>
-      <div class="chapter_slides">
-        <!--<ChapterCard-->
-                <!--chapterRouteName="PeabodyChapter"-->
-                <!--imageLink="https://www.dropbox.com/s/dqgu5ofjmhfa2y2/%20northamerica.jpg?dl=0"-->
-                <!--class="main-slide">-->
-          <!--<template slot="tagline">William Playfair and the Origins of Objective Display</template>-->
-          <!--<template slot="title">A View “Simple and Complete”</template>-->
-          <!--Visualization has never been a neutral method.-->
-          <!--Each image carries an argument about how knowledge is produced, and who is authorized to produce it.-->
-        <!--</ChapterCard>-->
-        <div class="chList">
-          <ChapList>
-            <template slot="title">Chapter One</template>
-            Someaf aef aefal ewiu fhale iufhal fea
-          </ChapList>
-        </div>
-        <div class="slides_small">
-          <ChapterMini class="mini" v-for="i in 3" :key="i"
-                       imageLink="https://cdn.britannica.com/s:300x300/37/21537-004-83DFAD79.jpg"
-                       chapterRouteName="PeabodyChapter"
-                       darken="0.3">
-            <template slot="title">Shape of History</template>
-            Elizabeth Peabody's interactive approach to visualizing history
-          </ChapterMini>
-        </div>
+      <div class="chList">
+        <ChapList>
+          <template slot="title">A View “Simple and Complete”</template>
+          <template slot="tag">William Playfair and the Origins of Objective Display</template>
+          VIsualization has never been a neutral method. Each image carries an argument about how knowledge is produced, and who is authorized to produce it.
+        </ChapList>
+        <ChapList>
+          <template slot="title">Every Datapoint a Person</template>
+          <template slot="tag">The Brookes Diagram and the Humanity of Data</template>
+          Images make arguments, but so too do people. How has the rhetorical force of visualization been wielded for political change?
+        </ChapList>
+        <ChapList>
+          <template slot="title">Narratives of Possession </template>
+          <template slot="tag"> Emma Willard, Shanawdithit, and the Power of Maps</template>
+          Maps can make nations and break them apart. How can maps reflect multiple histories and futures?
+        </ChapList>
+        <ChapList>
+          <template slot="title">“Outlines to the Eye”</template>
+          <template slot="tag"> Elizabeth Palmer Peabody and the Work of Abstraction</template>
+          We tend to think that data visualizations should be efficient and clear. But when happens when they are designed to make viewers pause and reflect?
+        </ChapList>
+        <ChapList>
+          <template slot="title">“The Color Line” as Data and Image</template>
+          <template slot="tag"> W. E. B. Du Bois and the Argument of Visual Display</template>
+          Data has always been wielded as a tool of the state. How can it be used for liberation instead?
+        </ChapList>
       </div>
       <router-link to="/chapters">
       <button class="midbutton">All Chapters</button>
@@ -178,6 +179,10 @@ main {
   text-align: center;
 }
 
+.chList {
+  margin-right: 200px;
+  margin-left: 200px;
+}
 .card-grid {
   margin-top: 70px;
   display: flex;
@@ -190,16 +195,6 @@ main {
   display: grid;
   grid-gap: 50px;
   grid-template-columns: auto 750px ;
-  grid-template-rows: auto;
-}
-
-.chapter_slides {
-  margin-left: 200px;
-  margin-right: 200px;
-  margin-bottom: 50px;
-  display: grid;
-  grid-gap: 50px;
-  grid-template-columns: 750px auto;
   grid-template-rows: auto;
 }
 

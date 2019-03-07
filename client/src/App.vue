@@ -26,6 +26,7 @@ p, h4, h5, h6, a, li {
 }
 p {
   font-size: 16px;
+  font-weight: lighter;
 }
 h1 {
   font-family: 'Baskerville', sans-serif;
