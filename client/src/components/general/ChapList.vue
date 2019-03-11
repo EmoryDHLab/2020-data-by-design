@@ -4,7 +4,7 @@
     <h3 class="title --bold --uppercase">
       <slot name="title"></slot>
     </h3>
-    <p class="tagline"> <slot name="tag"></slot></p>
+    <p class="tagline" style="margin-left: 20px; margin-top: 20px"> <slot name="tag"></slot></p>
     </div>
     <p class="overview">
       <slot></slot>

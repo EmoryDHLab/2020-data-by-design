@@ -134,10 +134,10 @@ export default {
 
 <style scoped>
 
-.title, .subtitle {
-  font-weight: 400;
+.title {
   margin-top: 100px;
 }
+
 .subtitle {
   color: grey;
   margin-top: 0;
