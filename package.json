@@ -33,7 +33,7 @@
     "cors": "^2.5.2",
     "csurf": "^1.9.0",
     "csv-parse": "^2.5.0",
-    "d3": "^5.5.0",
+    "d3": "^5.9.1",
     "dotenv": "^6.0.0",
     "express-history-api-fallback": "^2.2.1",
     "helmet": "^3.10.0",

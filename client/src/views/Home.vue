@@ -2,14 +2,19 @@
   <main>
     <div class="header">
       <h1 class="title">An Interactive History of Data Visualization <br>1786-1900</h1>
-      <h3 class="subtitle">What is the story we tell about the emergence of modern data visualization?
+      <h3 class="subtitle" style="padding-bottom: 80px">What is the story we tell about the emergence of modern data visualization?
         <br>How might we tell that story differently?
       </h3>
-      <div class="info">
-      <button class="blue_button">All Chapters</button>
-        <p align="center">40 <br> use of <br>graphics</p>
-        <p align="center">40 <br> use of <br>graphics</p>
-      </div>
+      <svg width="800px" height="200px">
+        <rect x='0' y='96' height="12px" width="800px" fill="Silver" rx="6px" ry="6px"></rect>
+        <rect x='20' y='55' height="100px" width="12px" fill="#4A90E2" rx="6px" ry="6px"></rect>
+        <rect x='60' y='55' height="100px" width="12px" fill="#4A90E2" rx="6px" ry="6px"></rect>
+        <rect x='100' y='55' height="100px" width="12px" fill="#4A90E2" rx="6px" ry="6px"></rect>
+        <rect x='250' y='55' height="100px" width="12px" fill="#4A90E2" rx="6px" ry="6px"></rect>
+        <rect x='400' y='55' height="100px" width="12px" fill="#4A90E2" rx="6px" ry="6px"></rect>
+        <rect x='670' y='55' height="100px" width="12px" fill="#4A90E2" rx="6px" ry="6px"></rect>
+
+      </svg>
     </div>
 
     <div class="chapters" align="center">
@@ -61,6 +66,8 @@
           <template slot="title">Features </template>
           Some Features Introduced Here.
         </FeatureMini>
+          <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+          <a class="next" onclick="plusSlides(1)">&#10095;</a>
         </div>
         <FeatureCard
                 chapterRouteName="PeabodyChapter"
@@ -112,6 +119,7 @@
       <p style="color: whitesmoke; padding: 1em">Designed and developed by Digital Humanities Lab</p>
       <button class="white_button">Sign in/Sign up </button>
     </footer>
+
   </main>
 </template>
 
@@ -121,6 +129,10 @@ import ChapterMini from '../components/ChapterMini'
 import FeatureCard from "../components/FeatureCard";
 import FeatureMini from "../components/FeatureMini";
 import ChapList from '../components/general/ChapList';
+import * as d3 from 'd3';
+
+const svg = d3.select('svg');
+
 export default {
   components: {
       ChapList,
@@ -130,6 +142,26 @@ export default {
       ChapterMini
   },
 }
+
+// let slideIndex = 1;
+// showSlides(slideIndex);
+//
+// // Next/previous controls
+// function plusSlides(n) {
+//     showSlides(slideIndex += n);
+// }
+//
+// function showSlides(n) {
+//     let i;
+//     let slides = document.getElementsByClassName("slides_small");
+//     if (n > slides.length) {slideIndex = 1}
+//     if (n < 1) {slideIndex = slides.length}
+//     for (i = 0; i < slides.length; i++) {
+//         slides[i].style.display = "none";
+//     }
+//     slides[slideIndex-1].style.display = "block";
+// }
+
 </script>
 
 <style scoped>
@@ -204,6 +236,30 @@ main {
   grid-gap: 15px;
 }
 
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
 .midbutton {
   background-color: #081F30;
   color: white;
@@ -228,7 +284,6 @@ main {
 }
 
 footer {
-  position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
@@ -238,10 +293,10 @@ footer {
 }
 
 .white_button {
-  margin: 20px 20px 20px 20px;
+  margin: 10px 10px 10px 10px;
   background-color: whitesmoke;
   color: black;
-  padding: 20px 10px;
+  padding: 5px 5px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
