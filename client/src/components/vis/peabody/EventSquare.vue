@@ -43,7 +43,7 @@ export default {
     },
     checker () {
       if (this.eventsData.length > 2) {
-        console.log(this.eventsData[0], this.eventsData.length);
+        //console.log(this.eventsData[0], this.eventsData.length);
       }
       return this.eventsData.length
     },

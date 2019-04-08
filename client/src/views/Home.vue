@@ -6,14 +6,17 @@
         <br>How might we tell that story differently?
       </h3>
       <svg width="800px" height="200px">
-        <rect x='0' y='96' height="12px" width="800px" fill="Silver" rx="6px" ry="6px"></rect>
-        <rect x='20' y='55' height="100px" width="12px" fill="#4A90E2" rx="6px" ry="6px"></rect>
+        <rect id="timeline" x='0' y='96' height="12px" width="800px" fill="Silver" rx="6px" ry="6px"></rect>
+        <text x="10" y="45" font-size="15px">1795</text>
+        <rect id="1795" x='20' y='55' height="100px" width="12px"
+              fill="#4A90E2" rx="6px" ry="6px"
+              @mouseenter='changeColor'
+              @mouseout='colorBack'></rect>
         <rect x='60' y='55' height="100px" width="12px" fill="#4A90E2" rx="6px" ry="6px"></rect>
         <rect x='100' y='55' height="100px" width="12px" fill="#4A90E2" rx="6px" ry="6px"></rect>
         <rect x='250' y='55' height="100px" width="12px" fill="#4A90E2" rx="6px" ry="6px"></rect>
         <rect x='400' y='55' height="100px" width="12px" fill="#4A90E2" rx="6px" ry="6px"></rect>
         <rect x='670' y='55' height="100px" width="12px" fill="#4A90E2" rx="6px" ry="6px"></rect>
-
       </svg>
     </div>
 
@@ -131,7 +134,9 @@ import FeatureMini from "../components/FeatureMini";
 import ChapList from '../components/general/ChapList';
 import * as d3 from 'd3';
 
-const svg = d3.select('svg');
+// line1795.addEventListener('mouseover', function (e) {
+//     e.target.setAttribute('fill', '#ff00cc');
+// })
 
 export default {
   components: {
@@ -141,6 +146,18 @@ export default {
       ChapterCard,
       ChapterMini
   },
+
+    data: {
+
+    },
+    methods: {
+      changeColor() {
+
+      },
+      colorBack() {
+
+      }
+    }
 }
 
 // let slideIndex = 1;
