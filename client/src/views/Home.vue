@@ -5,7 +5,7 @@
       <h3 class="subtitle" style="padding-bottom: 80px">What is the story we tell about the emergence of modern data visualization?
         <br>How might we tell that story differently?
       </h3>
-      <svg width="800px" height="200px">
+      <svg width="800px" height="300px">
         <rect id="timeline" x='0' y='96' height="12px" width="800px" fill="Silver" rx="6px" ry="6px"></rect>
         <text x="10" y="45" font-size="15px">1795</text>
         <rect id="1795" x='20' y='55' height="100px" width="12px"
@@ -17,6 +17,10 @@
         <rect x='250' y='55' height="100px" width="12px" fill="#4A90E2" rx="6px" ry="6px"></rect>
         <rect x='400' y='55' height="100px" width="12px" fill="#4A90E2" rx="6px" ry="6px"></rect>
         <rect x='670' y='55' height="100px" width="12px" fill="#4A90E2" rx="6px" ry="6px"></rect>
+        <g transform="translate(100.000000,160.000000) scale(0.050000,-0.05000)"
+           fill="#4A90E2" stroke="none">
+          <path d="M708 2530 l-76 -160 69 0 69 0 0 -970 c0 -963 0 -970 20 -970 20 0 20 7 20 970 l0 970 69 0 69 0 -76 160 c-42 88 -79 160 -82 160 -3 0 -40 -72 -82 -160z"/>
+        </g>
       </svg>
     </div>
 
