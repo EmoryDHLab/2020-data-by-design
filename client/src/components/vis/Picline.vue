@@ -18,11 +18,11 @@
         <text
         v-if="yearPoints.year % 2 != 0"
         :transform="`rotate(-45),
-        translate(-${(55 + scaleY(yearPoints.count)) * 0.7071},
-        ${(scaleY(yearPoints.count) + 15) * 0.7071})`"
+          translate(-${(55 + scaleY(yearPoints.count)) * 0.7071},
+          ${(scaleY(yearPoints.count) + 15) * 0.7071})`"
         style="font-size:14px">{{yearPoints.year}}</text>
         <rect
-        :width="line.height/2"
+        :width="line.height"
         :height="scaleY(yearPoints.count)"
         fill="#4A90E2"
         :rx="line.height/2" :ry="line.height/2"></rect>
@@ -118,7 +118,7 @@ export default {
   },
   methods: {
     positionYear (yearPoints) {
-      const dx = this.scaleX(yearPoints.year) - this.line.height/4
+      const dx = this.scaleX(yearPoints.year) - this.line.height/2
       const dy = (this.height - this.scaleY(yearPoints.count))/2
       return `transform: translate(${dx}px, ${dy}px);`
     },

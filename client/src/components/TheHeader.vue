@@ -41,7 +41,7 @@ export default {
 <style scoped>
 
 header {
-  padding: 8px 50px;
+  padding: 8px 100px;
   display: flex;
   flex-flow: row wrap;
   align-items: baseline;
