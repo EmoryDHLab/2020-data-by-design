@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="">
     <main>
-      <div class="header">
+      <div id="home" class="header">
         <div class="text-content">
           <h1 class="title --biggest">Data by Design</h1>
           <h1 class="subtitle">
@@ -22,9 +22,8 @@
         <Picline :points="points"/>
       </div>
 
-      <div class="chapters" align="center">
-        <h1 class="title subclass --bigger">Table of Contents</h1>
-        <h3 class="subtitle subclass"></h3>
+      <div id="chapters" class="chapters section" align="center">
+        <h1 class="title subclass --bigger" style="margin-bottom: 40px;">Table of Contents</h1>
         <div class="chapter-links">
           <div class="card">
             <h2 style="title --bold --uppercase">A View “Simple and Complete”</h2>
@@ -46,7 +45,7 @@
           <ChapListItem>
             <template slot="title">A View “Simple and Complete”</template>
             <template slot="tag">William Playfair and the Origins of Objective Display</template>
-            VIsualization has never been a neutral method. Each image carries an argument about how knowledge is produced, and who is authorized to produce it.
+            Visualization has never been a neutral method. Each image carries an argument about how knowledge is produced, and who is authorized to produce it.
           </ChapListItem>
           <ChapListItem>
             <template slot="title">Every Datapoint a Person</template>
@@ -71,16 +70,29 @@
         </div>
       </div>
 
-      <div class="features" align="center">
+      <div id="features" class="features section" align="center">
         <h1 class="title subclass --bigger">Features</h1>
         <h3 class="subtitle subclass">These features are still under development
           <br> but feel free to look around!</h3>
-
+        <div class="feature-list">
+          <FeatureCard :largeMode="true" imageLink="bleh">
+            <template slot="title">Take notes while you read</template>
+            Take note while reading, and access them whenever.
+          </FeatureCard>
+          <FeatureCard :largeMode="false" imageLink="bleh">
+            <template slot="title">Data Visualization For Reading</template>
+            A short introduction on the chapter here and here.
+          </FeatureCard>
+          <FeatureCard :largeMode="false" imageLink="bleh">
+            <template slot="title">Use Whiteboard For Idea Generation</template>
+            A short introduction on the chapter here and here.
+          </FeatureCard>
+        </div>
       </div>
 
-      <div class="credits">
+      <div id="credits" class="credits section">
         <h1 class="title subclass --bigger">Credits</h1>
-        <h3 style="text-align: center">These features are still under development
+        <h3 class="subtitle subclass">These features are still under development
           <br> but feel free to look around!</h3>
           <div class="card-grid">
 
@@ -366,26 +378,6 @@ export default {
     ]
   })
 }
-
-// let slideIndex = 1;
-// showSlides(slideIndex);
-//
-// // Next/previous controls
-// function plusSlides(n) {
-//     showSlides(slideIndex += n);
-// }
-//
-// function showSlides(n) {
-//     let i;
-//     let slides = document.getElementsByClassName("slides_small");
-//     if (n > slides.length) {slideIndex = 1}
-//     if (n < 1) {slideIndex = slides.length}
-//     for (i = 0; i < slides.length; i++) {
-//         slides[i].style.display = "none";
-//     }
-//     slides[slideIndex-1].style.display = "block";
-// }
-
 </script>
 
 <style scoped>
@@ -417,6 +409,10 @@ export default {
 
 .header .text-content {
   max-width: 50%;
+}
+
+.section {
+  margin-top: 70px;
 }
 
 .reading-progress {
@@ -473,6 +469,12 @@ export default {
   grid-template-columns: 200px 150px 150px;
   grid-gap: 100px;
 }
+
+.section .subtitle {
+  margin-top: -20px;
+  margin-bottom: 40px;
+}
+
 .subclass {
   margin-top: 40px;
   text-align: center;
@@ -483,7 +485,6 @@ export default {
   margin-left: 200px;
 } */
 .card-grid {
-  margin-top: 70px;
   display: flex;
   justify-content: space-around;
 }
@@ -515,7 +516,7 @@ footer {
   display: grid;
   grid-template-columns: auto 200px;
   background-color: slategrey;
-  margin: 0px -100px;
+  /* margin: 0px -100px; */
   padding: 10px 100px;
 }
 
@@ -530,6 +531,14 @@ footer {
   font-size: 16px;
   cursor: pointer;
   border-radius: 5px;
+}
+
+/* .feature-list {
+  margin-top: 70px;
+} */
+
+.feature-list div:not(:last-child) {
+  margin-bottom: 48px;
 }
 
 img{

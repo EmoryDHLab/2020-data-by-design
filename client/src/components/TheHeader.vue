@@ -7,9 +7,12 @@
     </div>
     <vue-nav class="header__nav">
       <router-link class="header__nav__link" to="/">Home</router-link>
-      <router-link class="header__nav__link --allow-inexact" to="/chapters">Chapters</router-link>
-      <router-link class="header__nav__link --allow-inexact" to="/features">Features</router-link>
-      <router-link class="header__nav__link" to="/credits">Credits</router-link>
+      <router-link class="header__nav__link --allow-inexact"
+        :to="{ path: '/', hash: 'chapters' }">Chapters</router-link>
+      <router-link class="header__nav__link --allow-inexact"
+        :to="{ path: '/', hash: 'features' }">Features</router-link>
+      <router-link class="header__nav__link"
+        :to="{ path: '/', hash: 'credits' }">Credits</router-link>
       <router-link v-if="!isAuthenticated" class="header__nav__link" to="/signup">Sign Up</router-link>
       <router-link v-if="!isAuthenticated" class="header__nav__link" to="/signin">Sign in</router-link>
       <router-link v-if="isAuthenticated" class="header__nav__link" to="/account">Account</router-link>
@@ -34,12 +37,11 @@ export default {
     isAuthenticated () {
       return this.$store.getters.isAuthenticated
     }
-  }
+  },
 }
 </script>
 
 <style scoped>
-
 header {
   padding: 8px 100px;
   display: flex;
