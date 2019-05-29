@@ -17,26 +17,66 @@
       </div>
       <ol style="max-height: 300px; overflow-y: auto;">
         <li v-for="point in points">
-          Year: {{point.year}} | Image: "{{point.img}}"
+          Year: {{ point.year }} | Image: "{{ point.img }}"
         </li>
       </ol>
     </div>
     <div class="">
       <h2>Timeline</h2>
-      <Picline :points="points"/>
+      <Picline id="pic-line"
+        :dataset="images"
+        @focus-image="changeFocus"/>
+    </div>
+    <div class="">
+      <PicCollage id="pic-collage"
+        :dataset="images"
+        :focusedImg="focusedImg"/>
     </div>
   </div>
 </template>
 
 <script>
 import Picline from '@/components/vis/Picline'
+import PicCollage from '@/components/vis/PicCollage'
+
 export default {
   components: {
-    Picline
+    Picline,
+    PicCollage
   },
   data: () => ({
     newImgYear: 1858,
     newImgPic: "bad/badder",
+    focusedImg: "0",
+    images: {
+      0: {
+        id: 0,
+        href: '/img/cat1.jpeg',
+        year: 1800,
+        width: 259,
+        height: 194,
+        x: 0,
+        y: 0,
+      },
+      1: {
+        id: 1,
+        href: '/img/cat2.jpeg',
+        year: 1820,
+        width: 275,
+        height: 183,
+        x: 259,
+        y: 0,
+      },
+      2: {
+        id: 2,
+        href: '/img/cat3.jpeg',
+        year: 1850,
+        width: 275,
+        height: 183,
+        x: 0,
+        y: 194,
+      },
+    },
     points: [{
         img: "blah/blah",
         year: 1786
@@ -255,6 +295,9 @@ export default {
     addDatapoint () {
       if (this.newImgPic != "" && this.newImgYear > 0)
         this.points.push({year: this.newImgYear, img: this.newImgPic})
+    },
+    changeFocus (newFocus) {
+      this.focusedImg = newFocus;
     }
   }
 }
