@@ -1,7 +1,7 @@
 <template lang="html">
   <div :class="`chapter-list-item card ${(isActive) ? '--active' : ''}`">
     <div class="chapter-list-item__header">
-      <h2 class="title --bold --uppercase">
+      <h2 class="title --uppercase" style="font-family: Roboto">
         <slot name="title"></slot>
       </h2>
       <h3 class="tagline"><slot name="tag"></slot></h3>
