@@ -106,8 +106,12 @@ export default {
     },
     dataFormatter (d) {
       return Object.values(d).reduce((formattedData, curr) => {
-        if (!formattedData[curr.year]) { formattedData[curr.year] = {} }
-        if (!formattedData[curr.year][curr.eventType]) { formattedData[curr.year][curr.eventType] = [] }
+        if (!formattedData[curr.year]) {
+          formattedData[curr.year] = {}
+        }
+        if (!formattedData[curr.year][curr.eventType]) {
+          formattedData[curr.year][curr.eventType] = []
+        }
         formattedData[curr.year][curr.eventType].push(curr)
         return formattedData
       }, {})

@@ -2,14 +2,17 @@
   <header>
     <div class="header__title">
       <router-link class="--ignore-highlight" to="/">
-        <h2 class="header__title__content">Data By Design</h2>
+        <h2 class="header__title__content">DH Lab</h2>
       </router-link>
     </div>
     <vue-nav class="header__nav">
       <router-link class="header__nav__link" to="/">Home</router-link>
-      <router-link class="header__nav__link --allow-inexact" to="/chapters">Chapters</router-link>
-      <router-link class="header__nav__link --allow-inexact" to="/features">Features</router-link>
-      <router-link class="header__nav__link" to="/credits">Credits</router-link>
+      <router-link class="header__nav__link --allow-inexact"
+        :to="{ path: '/', hash: 'chapters' }">Chapters</router-link>
+      <router-link class="header__nav__link --allow-inexact"
+        :to="{ path: '/', hash: 'features' }">Features</router-link>
+      <router-link class="header__nav__link"
+        :to="{ path: '/', hash: 'credits' }">Credits</router-link>
       <router-link v-if="!isAuthenticated" class="header__nav__link" to="/signup">Sign Up</router-link>
       <router-link v-if="!isAuthenticated" class="header__nav__link" to="/signin">Sign in</router-link>
       <router-link v-if="isAuthenticated" class="header__nav__link" to="/account">Account</router-link>
@@ -34,22 +37,22 @@ export default {
     isAuthenticated () {
       return this.$store.getters.isAuthenticated
     }
-  }
+  },
 }
 </script>
 
 <style scoped>
 header {
-  padding: 8px 0px;
+  padding: 8px 100px;
   display: flex;
   flex-flow: row wrap;
   align-items: baseline;
   box-sizing: border-box;
 }
 .header__title {
-  flex: 1 0;
+  /*flex: 1 0;*/
   margin: 0;
-  margin-right: 32px;
+  margin-right: 70px;
 }
 
 .header__title__content {
@@ -57,6 +60,7 @@ header {
   white-space: nowrap;
   text-decoration: none;
   display: inline-block;
+  font-family: 'Roboto', sans-serif;
 }
 
 .header__title__content:hover {
@@ -65,9 +69,9 @@ header {
 
 .header__nav__link {
   padding: 16px;
-  font-size: 1.2em;
+  font-size: 1.5em;
   color: #2c3e50;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Baskerville', sans-serif;
 }
 
 .header__nav__link:hover {

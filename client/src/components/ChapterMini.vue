@@ -47,6 +47,7 @@ export default {
   background-position: top;
   background-size: cover;
   padding: 1em;
+  text-align: start;
 }
 
 .chapter-mini .title {

@@ -20,18 +20,26 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css?family=Markazi+Text|Libre+Baskerville:400,700|Roboto');
 p, h4, h5, h6, a, li {
-  font-family: 'Roboto', serif;
+
+  font-family: 'Roboto Thin', arial;
   color: #2c3e50;
 }
 p {
   font-size: 16px;
+  font-weight: lighter;
 }
 h1 {
-  font-size: 3em;
+  font-family: Baskerville;
+  font-weight: bold;
 }
-h1, h2, h3 {
-  font-family: 'Libre Baskerville', sans-serif;
-  font-weight: 400;
+
+h2 {
+  font-family: Baskerville;
+  font-weight: normal;
+}
+h3 {
+  font-family: Roboto Condensed, sans-serif;
+  font-weight: lighter;
 }
 body {
   margin:0
@@ -41,8 +49,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  padding: 32px;
-  padding-top: 0px;
+  /* padding: 32px;
+  padding-top: 0px; */
   /* height: 100vh; */
 }
 
@@ -88,6 +96,7 @@ a.router-link-exact-active.--ignore-highlight {
 
 .card {
   box-shadow: 1px 2px 7px 1px rgba(0,0,0,0.46);
+  border-radius: 5px;
 }
 
 .btn {

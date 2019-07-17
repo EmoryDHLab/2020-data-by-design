@@ -1,74 +1,545 @@
 <template lang="html">
-  <main>
-    <h1 class="title">Data by Design</h1>
-    <h3 class="subtitle">These features are still under development, but feel free to look around!</h3>
-    <div class="card-grid">
-      <vue-card
-        class="card-grid__card"
-        src="#">
-        <template slot="title">Chapters</template>
-        <h3 class="card-grid__card__subtitle">
-          Information about chapters
+  <div class="">
+    <main>
+      <div id="home" class="header">
+        <div class="text-content">
+          <h1 class="title --biggest">Data by Design</h1>
+          <h1 class="subtitle">
+            An Interactive History of Data Visualization 1786&ndash;1900
+          </h1>
+          <hr>
+          <h3 class="subtitle" style="font-size: 1em">What is the story we tell about the emergence of modern data visualization?
+            <br>How might we tell that story differently?
+          </h3>
+          <div class="reading-progress">
+            <button class="--uppercase btn"
+              style="margin-right: 40px;"
+              type="button"
+              name="start-reading">Resume reading</button>
+            <ProgressBar :range="[0, 160]" :value="155"/>
+          </div>
+        </div>
+        <Picline :points="points"/>
+      </div>
+
+      <div id="chapters" ref="chpts" class="chapters section" align="center">
+        <h2 class="title subclass --bigger" style="margin-bottom: 40px;">Table of Contents</h2>
+        <h3 class="subtitle" style="font-size: 1.5em">One sentence summary about the feature as a whole
+          <br>the second line sine wim laenme
         </h3>
-        <router-link to="/chapters">Check out Chapters</router-link>
-      </vue-card>
-      <vue-card
-        class="card-grid__card"
-        src="#">
-        <template slot="title">Features</template>
-        <h3 class="card-grid__card__subtitle">
-          Drag and drop quotes, images, and interactive content from the chapters, then write up your own notes around them
-        </h3>
-        <div style="background-color: grey;width: 100%; height:15%">vis</div>
-        <router-link to="/features/notebook">Learn More</router-link>
-      </vue-card>
-    </div>
-  </main>
+        <div class="chapter-links">
+          <div class="card">
+            <h2 class="boxHeading">A View “Simple and Complete”</h2>
+            <h3 style="font-size: 1em; margin-top: 0em">William Playfair and the Origins of Objective Display</h3>
+          </div>
+          <div class="card">
+            <h2 class="boxHeading">Every Datapoint a Person</h2>
+          </div>
+          <div class="card">
+            <h2 class="boxHeading">Narratives of Possession</h2>
+          </div>
+          <div class="card">
+            <h2 class="boxHeading">“Outlines to the Eye”</h2>
+          </div>
+          <div class="card">
+            <h2 class="boxHeading">“The Color Line” as Data and Image</h2>
+          </div>
+        </div>
+        <div class="chapter-list">
+          <ChapListItem>
+            <template slot="title">A View “Simple and Complete”</template>
+            <template slot="tag">William Playfair and the Origins of Objective Display</template>
+            Visualization has never been a neutral method. Each image carries an argument about how knowledge is produced, and who is authorized to produce it.
+          </ChapListItem>
+          <ChapListItem>
+            <template slot="title">Every Datapoint a Person</template>
+            <template slot="tag">The Brookes Diagram and the Humanity of Data</template>
+            Images make arguments, but so too do people. How has the rhetorical force of visualization been wielded for political change?
+          </ChapListItem>
+          <ChapListItem>
+            <template slot="title">Narratives of Possession</template>
+            <template slot="tag"> Emma Willard, Shanawdithit, and the Power of Maps</template>
+            Maps can make nations and break them apart. How can maps reflect multiple histories and futures?
+          </ChapListItem>
+          <ChapListItem>
+            <template slot="title">“Outlines to the Eye”</template>
+            <template slot="tag"> Elizabeth Palmer Peabody and the Work of Abstraction</template>
+            We tend to think that data visualizations should be efficient and clear. But when happens when they are designed to make viewers pause and reflect?
+          </ChapListItem>
+          <ChapListItem>
+            <template slot="title">“The Color Line” as Data and Image</template>
+            <template slot="tag"> W. E. B. Du Bois and the Argument of Visual Display</template>
+            Data has always been wielded as a tool of the state. How can it be used for liberation instead?
+          </ChapListItem>
+        </div>
+      </div>
+
+      <div id="features" class="features section" align="center">
+        <h2 class="title subclass --bigger">Features</h2>
+        <h3 class="subtitle subclass">These features are still under development
+          <br> but feel free to look around!</h3>
+        <div class="feature-list">
+          <FeatureCard :largeMode="true" imageLink="bleh">
+            <template slot="title">Take notes while you read</template>
+            Take note while reading, and access them whenever.
+          </FeatureCard>
+          <FeatureCard :largeMode="false" imageLink="bleh">
+            <template slot="title">Data Visualization For Reading</template>
+            A short introduction on the chapter here and here.
+          </FeatureCard>
+          <FeatureCard :largeMode="false" imageLink="bleh">
+            <template slot="title">Use Whiteboard For Idea Generation</template>
+            A short introduction on the chapter here and here.
+          </FeatureCard>
+        </div>
+      </div>
+
+      <div id="credits" class="credits section">
+        <h2 class="title subclass --bigger">Credits</h2>
+        <h3 class="subtitle subclass">These features are still under development
+          <br> but feel free to look around!</h3>
+          <div class="card-grid">
+
+            <div class="card name-card">
+                <img src="https://media.wired.com/photos/598e35994ab8482c0d6946e0/master/w_1164,c_limit/phonepicutres-TA.jpg"
+                     alt="placeholder" width="200" height="200">
+                <h3 class="--big --uppercase">Dr. Lauren Klein</h3>
+                <h3 class="description" style="font-weight: 300">description</h3>
+            </div>
+            <div class="card name-card">
+                <img src="https://media.wired.com/photos/598e35994ab8482c0d6946e0/master/w_1164,c_limit/phonepicutres-TA.jpg"
+                     alt="placeholder" width="200" height="200">
+                <h3 class="--big --uppercase">Adam Hayward</h3>
+                <h3 class="description" style="font-weight: 300">description</h3>
+            </div>
+            <div class="card name-card">
+                <img src="https://media.wired.com/photos/598e35994ab8482c0d6946e0/master/w_1164,c_limit/phonepicutres-TA.jpg"
+                     alt="placeholder" width="200" height="200">
+                <h3 class="--big --uppercase">Jianing Fu</h3>
+                <h3 class="description" style="font-weight: 300">description</h3>
+            </div>
+            <div class="card name-card">
+                <img src="https://media.wired.com/photos/598e35994ab8482c0d6946e0/master/w_1164,c_limit/phonepicutres-TA.jpg"
+                     alt="placeholder" width="200" height="200">
+                <h3 class="--big --uppercase">Qing Tian</h3>
+                <h3 class="description" style="font-weight: 300">description</h3>
+            </div>
+          </div>
+      </div>
+    </main>
+    <footer>
+      <p style="color: whitesmoke; padding: 1em">Designed and developed by Digital Humanities Lab</p>
+    </footer>
+  </div>
 </template>
 
 <script>
-import VueCard from '@/components/general/VueCard'
-import BaseButton from '@/components/forms/BaseButton'
+import ChapterCard from '../components/ChapterCard'
+import Picline from '../components/vis/Picline'
+import ChapterMini from '../components/ChapterMini'
+import FeatureCard from "../components/FeatureCard";
+import FeatureMini from "../components/FeatureMini";
+import ChapListItem from '../components/general/ChapListItem';
+import ProgressBar from '../components/vis/ProgressBar';
+import * as d3 from 'd3';
+
+// line1795.addEventListener('mouseover', function (e) {
+//     e.target.setAttribute('fill', '#ff00cc');
+// })
+
 export default {
   components: {
-    VueCard,
-    BaseButton
-  }
+      ChapListItem,
+      FeatureMini,
+      FeatureCard,
+      ChapterCard,
+      ChapterMini,
+      Picline,
+      ProgressBar
+  },
+  methods: {
+    changeColor() {
+
+    },
+    colorBack() {
+
+    }
+  },
+  data: () => ({
+    points: [{
+        img: "blah/blah",
+        year: 1786
+      },
+      {
+        img: "blah/blah",
+        year: 1786
+      },
+      {
+        img: "blah/blah",
+        year: 1786
+      },
+      {
+        img: "blah/blah",
+        year: 1788
+      },
+      {
+        img: "blah/blah",
+        year: 1801
+      },
+      {
+        img: "blah/blah",
+        year: 1801
+      },
+      {
+        img: "blah/blah",
+        year: 1801
+      },
+      {
+        img: "blah/blah",
+        year: 1801
+      },
+      {
+        img: "blah/blah",
+        year: 1801
+      },
+      {
+        img: "blah/blah",
+        year: 1801
+      },
+      {
+        img: "blah/blah",
+        year: 1821
+      },
+      {
+        img: "blah/blah",
+        year: 1821
+      },
+      {
+        img: "bleh/bleh",
+        year: 1858
+      },
+      {
+        img: "bleh/bleh",
+        year: 1829
+      },
+      {
+        img: "bleh/bleh",
+        year: 1829
+      },
+      {
+        img: "bleh/bleh",
+        year: 1829
+      },
+      {
+        img: "bleh/bleh",
+        year: 1829
+      },
+      {
+        img: "bleh/bleh",
+        year: 1829
+      },
+      {
+        img: "bleh/bleh",
+        year: 1829
+      },
+      {
+        img: "bleh/bleh",
+        year: 1829
+      },
+      {
+        img: "bleh/bleh",
+        year: 1829
+      },
+      {
+        img: "bleh/bleh",
+        year: 1829
+      },
+      {
+        img: "bleh/bleh",
+        year: 1829
+      },
+      {
+        img: "bleh/bleh",
+        year: 1829
+      },
+      {
+        img: "bleh/bleh",
+        year: 1829
+      },
+      {
+        img: "bleh/bleh",
+        year: 1829
+      },
+      {
+        img: "bleh/bleh",
+        year: 1829
+      },
+      {
+        img: "bleh/bleh",
+        year: 1829
+      },
+      {
+        img: "bleh/bleh",
+        year: 1829
+      },
+      {
+        img: "bleh/blrh",
+        year: 1846
+      },
+      {
+        img: "bleh/blrh",
+        year: 1856
+      },
+      {
+        img: "bleh/blrh",
+        year: 1856
+      },
+      {
+        img: "bleh/blrh",
+        year: 1856
+      },
+      {
+        img: "bleh/blrh",
+        year: 1856
+      },
+      {
+        img: "bloo/bloo",
+        year: 1900
+      },
+      {
+        img: "bloo/bloo",
+        year: 1900
+      },
+      {
+        img: "bloo/bloo",
+        year: 1900
+      },
+      {
+        img: "bloo/bloo",
+        year: 1900
+      },
+      {
+        img: "bloo/bloo",
+        year: 1900
+      },
+      {
+        img: "bloo/bloo",
+        year: 1900
+      },
+      {
+        img: "bloo/bloo",
+        year: 1900
+      },
+      {
+        img: "bloo/bloo",
+        year: 1900
+      },
+      {
+        img: "bloo/bloo",
+        year: 1900
+      },
+      {
+        img: "bloo/bloo",
+        year: 1900
+      },
+      {
+        img: "bloo/bloo",
+        year: 1900
+      },
+      {
+        img: "bloo/bloo",
+        year: 1900
+      },
+      {
+        img: "bloo/bloo",
+        year: 1900
+      },
+      {
+        img: "bloo/bloo",
+        year: 1900
+      },
+      {
+        img: "bloo/bloo",
+        year: 1900
+      },
+      {
+        img: "bloo/bloo",
+        year: 1900
+      },
+      {
+        img: "bloo/bloo",
+        year: 1900
+      },
+      {
+        img: "bloo/bloo",
+        year: 1900
+      },
+      {
+        img: "bloo/bloo",
+        year: 1900
+      },
+    ]
+  })
 }
 </script>
 
 <style scoped>
-.title, .subtitle {
-  text-align: center;
-  margin: 16px 0;
+
+.title {
+  margin-top: 100px;
 }
+
+.--biggest {
+  font-size: 4em;
+  color: #5b5b5b;
+}
+
+.--bigger {
+  font-size: 3em;
+  color:#4a4a4a;
+}
+
+.--big {
+  font-size: 1.5em;
+}
+
 .subtitle {
-  color: grey;
+  color: #5b5b5b;
   margin-top: 0;
 }
 
-main {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 80px 80px auto;
+.header {
+  /* padding-left: 50px; */
 }
 
+.header .text-content {
+  max-width: 50%;
+}
+
+.section {
+  margin-top: 70px;
+}
+
+.reading-progress {
+  display: flex;
+}
+
+.text-content h1.subtitle {
+  margin-top: -30px;
+}
+
+.chapter-links {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-around;
+  margin-bottom: 50px;
+}
+
+.chapter-links .card {
+  padding: 1em;
+  flex: 1;
+  margin-right: 0.5em;
+  margin-left: 0.5em;
+  max-width: 250px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.chapter-links .card .title {
+  flex: 1;
+}
+
+/* main {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 500px auto auto 700px auto;
+  grid-gap: 100px;
+} */
+
+.section .subtitle {
+  margin-top: -20px;
+  margin-bottom: 40px;
+}
+
+.subclass {
+  margin-top: 40px;
+  text-align: center;
+}
+/*
+.chapter-list {
+  margin-right: 200px;
+  margin-left: 200px;
+} */
 .card-grid {
   display: flex;
   justify-content: space-around;
 }
-.card-grid__card {
-  width: 30vw;
-  min-width: 300px;
-  height: 65vh;
-  min-height: 424px;
+
+.boxHeading{
+  title: --bold --uppercase;
+  font-family: Roboto;
+  font-size: 1.3em;
 }
-.card-grid__card__title {
-  margin-top: 0;
-  margin-bottom: 16px;
+main {
+  max-width: 1500px;
+  width: 80%;
+  margin: 0px auto;
 }
-.card-grid__card__subtitle {
-  color: grey;
-  font-size: .9em;
+
+button {
+  background-color:#4a90e2;
+  color:white;
+  border: 2px solid #4a90e2;
 }
+button:hover {
+  color: #083871;
+  border: 2px solid #083871;
+  background-color: white;
+}
+button:active {
+  color: white;
+  border: 2px solid #083871;
+  background-color: #083871;
+}
+
+.credits {
+  margin-bottom: 50px;
+}
+
+.name-card {
+  text-align: center;
+  padding: 30px 30px;
+  flex: 1;
+  max-width: 250px;
+}
+
+.name-card .description {
+  margin: 0
+}
+
+footer {
+  left: 0;
+  bottom: 0;
+  display: grid;
+  grid-template-columns: auto 200px;
+  background-color: slategrey;
+  /* margin: 0px -100px; */
+  padding: 10px 100px;
+}
+
+/* .feature-list {
+  margin-top: 70px;
+} */
+
+.feature-list div:not(:last-child) {
+  margin-bottom: 48px;
+}
+
+img{
+    border-radius: 50%;
+}
+
 </style>

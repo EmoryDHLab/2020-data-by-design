@@ -67,6 +67,7 @@ export default {
   display: flex;
   flex: 4;
   padding: 2em;
+  text-align: start;
 }
 
 .tagline {
@@ -78,7 +79,7 @@ export default {
   height: 5px;
   width: 60px;
   border-radius: 2px;
-  background-color: rgba(180, 180, 180);
+  background-color: rgb(180, 180, 180);
   margin-bottom: 48px;
 }
 
