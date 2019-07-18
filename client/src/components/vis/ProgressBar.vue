@@ -2,10 +2,10 @@
   <div class="progress-bar">
     <h4 class="bar-text">Progress: {{percentage}}%</h4>
     <svg
-    class="bar-vis"
-    preserveAspectRatio="none"
-    width="100%"
-    viewBox="0 0 104 10">
+      class="bar-vis"
+      preserveAspectRatio="none"
+      width="100%"
+      viewBox="0 0 104 10">
     <g transform="translate(2, 2)">
       <rect width="100" height="6"
       rx="3" ry="3"
