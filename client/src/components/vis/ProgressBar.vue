@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="progress-bar">
-    <h4 class="bar-text">Progress: {{percentage}}%</h4>
+    <h4 class="bar-text">{{percentage}}% Chapter one</h4>
     <svg
       class="bar-vis"
       preserveAspectRatio="none"
@@ -11,12 +11,12 @@
       rx="3" ry="3"
       fill="transparent"
       stroke="rgb(74, 144, 226)"
-      stroke-width="2"
-      stroke-dasharray="2"></rect>
+      stroke-width="0.5"
+      stroke-dasharray="1,1"></rect>
       <rect :width="scaledValue" height="6"
       rx="3" ry="3"
       stroke="rgb(74, 144, 226)"
-      stroke-width="2"
+      stroke-width="0.5"
       fill="rgb(74, 144, 226)"></rect>
     </g>
   </svg>

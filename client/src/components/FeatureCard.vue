@@ -95,5 +95,20 @@
     margin-top: -12px;
     margin-bottom: 40px;
   }
+  button {
+    background-color:#4a90e2;
+    color:white;
+    border: 2px solid #4a90e2;
+  }
+  button:hover {
+    color: #083871;
+    border: 2px solid #083871;
+    background-color: white;
+  }
+  button:active {
+    color: white;
+    border: 2px solid #083871;
+    background-color: #083871;
+  }
 
 </style>

@@ -30,14 +30,16 @@ p {
 }
 h1 {
   font-family: Baskerville;
+  font-weight: bold;
 }
 
 h2 {
-  font-family: 'Baskerville', sans-serif;
+  font-family: Baskerville;
+  font-weight: normal;
 }
 h3 {
-  font-family: 'Roboto Thin', arial;
-  font-weight: 300;
+  font-family: Roboto Condensed, sans-serif;
+  font-weight: lighter;
 }
 body {
   margin:0

@@ -8,12 +8,12 @@
             An Interactive History of Data Visualization 1786&ndash;1900
           </h1>
           <hr>
-          <h3 class="subtitle" style="font-size: 1.5em">What is the story we tell about the emergence of modern data visualization?
+          <h3 class="subtitle" style="font-size: 1em">What is the story we tell about the emergence of modern data visualization?
             <br>How might we tell that story differently?
           </h3>
           <div class="reading-progress">
             <button class="--uppercase btn"
-              style="margin-right: 40px"
+              style="margin-right: 40px;"
               type="button"
               name="start-reading">Resume reading</button>
             <ProgressBar :range="[0, 160]" :value="155"/>
@@ -22,23 +22,27 @@
         <Picline :dataset="points" id="picline"/>
       </div>
 
-      <div id="chapters" class="chapters section" align="center">
-        <h1 class="title subclass --bigger" style="margin-bottom: 40px;">Table of Contents</h1>
+      <div id="chapters" ref="chpts" class="chapters section" align="center">
+        <h2 class="title subclass --bigger" style="margin-bottom: 40px;">Table of Contents</h2>
+        <h3 class="subtitle" style="font-size: 1.5em">One sentence summary about the feature as a whole
+          <br>the second line sine wim laenme
+        </h3>
         <div class="chapter-links">
           <div class="card">
-            <h2 style="title --bold --uppercase">A View “Simple and Complete”</h2>
+            <h2 class="boxHeading">A View “Simple and Complete”</h2>
+            <h3 style="font-size: 1em; margin-top: 0em">William Playfair and the Origins of Objective Display</h3>
           </div>
           <div class="card">
-            <h2 style="title --bold --uppercase">Every Datapoint a Person</h2>
+            <h2 class="boxHeading">Every Datapoint a Person</h2>
           </div>
           <div class="card">
-            <h2 style="title --bold --uppercase">Narratives of Possession</h2>
+            <h2 class="boxHeading">Narratives of Possession</h2>
           </div>
           <div class="card">
-            <h2 style="title --bold --uppercase">“Outlines to the Eye”</h2>
+            <h2 class="boxHeading">“Outlines to the Eye”</h2>
           </div>
           <div class="card">
-            <h2 style="title --bold --uppercase">“The Color Line” as Data and Image</h2>
+            <h2 class="boxHeading">“The Color Line” as Data and Image</h2>
           </div>
         </div>
         <div class="chapter-list">
@@ -71,7 +75,7 @@
       </div>
 
       <div id="features" class="features section" align="center">
-        <h1 class="title subclass --bigger">Features</h1>
+        <h2 class="title subclass --bigger">Features</h2>
         <h3 class="subtitle subclass">These features are still under development
           <br> but feel free to look around!</h3>
         <div class="feature-list">
@@ -91,7 +95,7 @@
       </div>
 
       <div id="credits" class="credits section">
-        <h1 class="title subclass --bigger">Credits</h1>
+        <h2 class="title subclass --bigger">Credits</h2>
         <h3 class="subtitle subclass">These features are still under development
           <br> but feel free to look around!</h3>
           <div class="card-grid">
@@ -125,7 +129,6 @@
     </main>
     <footer>
       <p style="color: whitesmoke; padding: 1em">Designed and developed by Digital Humanities Lab</p>
-      <button class="white_button">Sign in/Sign up </button>
     </footer>
   </div>
 </template>
@@ -442,10 +445,12 @@ export default {
 
 .--biggest {
   font-size: 4em;
+  color: #5b5b5b;
 }
 
 .--bigger {
   font-size: 3em;
+  color:#4a4a4a;
 }
 
 .--big {
@@ -453,7 +458,7 @@ export default {
 }
 
 .subtitle {
-  color: grey;
+  color: #5b5b5b;
   margin-top: 0;
 }
 
@@ -485,11 +490,15 @@ export default {
 }
 
 .chapter-links .card {
-  padding: 1em 1em;
+  padding: 1em;
   flex: 1;
-  margin-right: 1em;
+  margin-right: 0.5em;
+  margin-left: 0.5em;
   max-width: 250px;
+  height: 100px;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 
@@ -503,26 +512,6 @@ export default {
   grid-template-rows: 500px auto auto 700px auto;
   grid-gap: 100px;
 } */
-
-.blue_button {
-  background-color: #081F38;
-  color: white;
-  padding: 10px 24px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 5px;
-  box-shadow: 5px 5px 5px #081F30;
-  margin-top: 50px;
-}
-
-.info{
-  display: grid;
-  grid-template-columns: 200px 150px 150px;
-  grid-gap: 100px;
-}
 
 .section .subtitle {
   margin-top: -20px;
@@ -543,10 +532,31 @@ export default {
   justify-content: space-around;
 }
 
+.boxHeading{
+  title: --bold --uppercase;
+  font-family: Roboto;
+  font-size: 1.3em;
+}
 main {
   max-width: 1500px;
   width: 80%;
   margin: 0px auto;
+}
+
+button {
+  background-color:#4a90e2;
+  color:white;
+  border: 2px solid #4a90e2;
+}
+button:hover {
+  color: #083871;
+  border: 2px solid #083871;
+  background-color: white;
+}
+button:active {
+  color: white;
+  border: 2px solid #083871;
+  background-color: #083871;
 }
 
 .credits {
@@ -572,19 +582,6 @@ footer {
   background-color: slategrey;
   /* margin: 0px -100px; */
   padding: 10px 100px;
-}
-
-.white_button {
-  margin: 10px 10px 10px 10px;
-  background-color: whitesmoke;
-  color: black;
-  padding: 5px 5px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 5px;
 }
 
 /* .feature-list {

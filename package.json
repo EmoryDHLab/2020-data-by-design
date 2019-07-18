@@ -38,6 +38,7 @@
     "express-history-api-fallback": "^2.2.1",
     "helmet": "^3.10.0",
     "i": "^0.3.6",
+    "js-event-bus": "^1.0.0",
     "loopback": "^3.25.0",
     "loopback-boot": "^2.6.5",
     "loopback-component-explorer": "^6.3.1",
