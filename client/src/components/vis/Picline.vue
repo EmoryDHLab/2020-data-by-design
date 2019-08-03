@@ -10,7 +10,18 @@
         fill="#989898"
         rx="6px" ry="6px"></rect>
       <g v-for="yearPoints in groupedByYear"
-        :style="positionYear(yearPoints)">
+        :style = positionYear(yearPoints)>
+        <g :transform="`translate(-22,${-positionYearY(yearPoints)+(styles.height+styles.margin.top + styles.margin.bottom)/2})
+          ,scale(0.008,-0.008)`"
+           fill="#989898" stroke="white" stroke-width="50">
+          <path d="M3212 5793 c-18 -9 -44 -28 -57 -42 -12 -14 -61 -69 -106 -121 -46
+-52 -86 -97 -89 -100 -3 -3 -34 -39 -70 -80 -36 -41 -85 -96 -109 -122 l-44
+-48 -928 -2 -929 -3 -27 -28 -28 -27 0 -1410 0 -1410 28 -27 27 -28 2450 0
+2450 0 27 28 28 27 0 1410 0 1410 -28 27 -27 28 -959 3 -958 2 -44 48 c-24 26
+-73 81 -109 122 -36 41 -67 77 -70 80 -3 3 -43 48 -89 100 -45 52 -94 107
+-107 121 -51 57 -161 77 -232 42z"/>
+        </g>
+        <image xlink:href="yearPoints.img" width="10%" height="10%" y="${-positionYearY(yearPoints)}"/>
         <text
           v-if="yearPoints.year % 2 == 0"
           transform="rotate(45), translate(-40, 0)"
@@ -131,6 +142,14 @@ export default {
       const dx = this.scaleX(yearPoints.year) - this.styles.line.height/2
       const dy = (this.styles.height - this.scaleY(yearPoints.count))/2
       return `transform: translate(${dx}px, ${dy}px);`
+    },
+    positionYearX (yearPoints) {
+      const dx = this.scaleX(yearPoints.year) - this.styles.line.height/2
+      return dx
+    },
+    positionYearY (yearPoints) {
+      const dy = (this.styles.height - this.scaleY(yearPoints.count))/2
+      return dy
     },
   }
 }

@@ -79,7 +79,7 @@
         <h3 class="subtitle subclass">These features are still under development
           <br> but feel free to look around!</h3>
         <div class="feature-list">
-          <FeatureCard :largeMode="true" imageLink="bleh">
+          <FeatureCard :largeMode="true" imageLink="https://uce8a584ed8d4e5e49dd5cadfe05.previews.dropboxusercontent.com/p/thumb/AAjwJxNft1znw8Qb7E8jqJNZm50khXD4znjpn-190x8UtRmF-wl6w_CxE5AspPtzgPr1wcZ_9YOyxvI-9_lXF8gSsHUxUgs7I18EGY1ojWEhispqeuWVm23SnptWCIRzPDXy1cWnEhObIVhNv0QdG19XecW0rGZ6g6j-i9CQ5JPKh6Vgq6hX-FpIfb2cOkLE3ZdotdhC0hNP4zdJ4eYkOopwtPytfl1uZ2YMJGhUQirw-KFp-NzFRHsoENbLRSoE_CXS1NrVM-cr7680a5aUt-u3e6gD6mHhtKGZuM-UDETWNqZwT4_PUR1WumAjN2MGF-k6uTkEXYUQUgpTiQfANWVQ/p.jpeg?fv_content=true&size_mode=5">
             <template slot="title">Take notes while you read</template>
             Take note while reading, and access them whenever.
           </FeatureCard>
@@ -169,47 +169,47 @@ export default {
     points: [
       {
         id: 0,
-        img: "blah/blah",
+        img: "https://uce8a584ed8d4e5e49dd5cadfe05.previews.dropboxusercontent.com/p/thumb/AAjwJxNft1znw8Qb7E8jqJNZm50khXD4znjpn-190x8UtRmF-wl6w_CxE5AspPtzgPr1wcZ_9YOyxvI-9_lXF8gSsHUxUgs7I18EGY1ojWEhispqeuWVm23SnptWCIRzPDXy1cWnEhObIVhNv0QdG19XecW0rGZ6g6j-i9CQ5JPKh6Vgq6hX-FpIfb2cOkLE3ZdotdhC0hNP4zdJ4eYkOopwtPytfl1uZ2YMJGhUQirw-KFp-NzFRHsoENbLRSoE_CXS1NrVM-cr7680a5aUt-u3e6gD6mHhtKGZuM-UDETWNqZwT4_PUR1WumAjN2MGF-k6uTkEXYUQUgpTiQfANWVQ/p.jpeg?fv_content=true&size_mode=5",
         year: 1786
       },
       {
         id: 1,
-        img: "blah/blah",
+        img: "https://uc995b0d3c37d4bfa812b91ad750.previews.dropboxusercontent.com/p/thumb/AAgR5yIdwNc4zbmzegvln_ZnGQs4xUjgbOhYi2OoAue_u12wQaqNoIWOx_vWZD7y7vzq2vyJeKovtRo4rjMFq7AjR7cv0EZn5XbBdvNBtOrN4CzrKPh2ENk7o94wRo2fcR8pwZt0EhpAuY0Nm8d85-E4gSucP-B99D3y9HFaz-um_lhe5ICTCXNrT2KMeSuqcOXYqPYoCH-chrdjUWxAYIxfQcuVZ57W_jd7TFXrIMgNWgcu2bTl267njzmH8O5RcN0YH8TD4c8dtrNEuJOg-Jtx0AM5-w7AeGPaLE2i-jpc4H9TujjNSb0AqJFsHT6sFoCGFSUKUAx1UqAznJNqqZJW/p.jpeg?fv_content=true&size_mode=5",
         year: 1786
       },
       {
         id: 2,
-        img: "blah/blah",
+        img: "https://uc882606e8a4bb3797527b681f1a.previews.dropboxusercontent.com/p/thumb/AAglwYWY-yUVAgjCxFx80hCRkKVr4iZ36XnkKTJE1ASABGaCu27JD5Oy7zIlwanyvvVFrj5KKWSPRFfGKYjo6C_qcb0qDPzF4qn4d25_hjULbqSh8BXtI_qtoDf1v_KFlcybcks0wvrMYx7q94A7OiqPRtrnPbKOiJTe1ErzDc0O5O8e1upUl22mgk3UBGk0hMrRsz2G1Mg-C-VfRk03WxKILxQgN8zTkRflTZiqNHYiyyyUWW5lRJtM_QzYrBQeJRAhyvjPp1eo6nH51gOxgw_7I-HruFthFQ_TQcmLt7rJwo-Kw7HF3nk7kx1Grv2ebJPd8EQk0iSYa7IYF7pv4Fm4/p.jpeg?fv_content=true&size_mode=5",
         year: 1786
       },
       {
         id: 3,
-        img: "blah/blah",
+        img: "https://ucc66bb22d065a3bc0090662b069.previews.dropboxusercontent.com/p/thumb/AAieGA6hORzPvalZgg1-6-R8dRTTpL8UdKjQsJgBvy_s_7ZlJ0xz954xov9YSNWliIl4ed6TIFovu_PEglzF62sSzoG1eM4TBTKIQpdDp9VX41yxg1wzCE31fEU0UA_S1zqieviKxf3C-Drldo0VZxdQnW-lGagzodT3wj0ZZueAj65WiV6PKLRNBOMFxHIEnImHmLT2vlUgrLPuw5YSRc4UNTVaSasKoEHCxQsePbNuod4z1GI4auLzzZb_inSNCQGQaACOXH235rU4-oPzb-vtvTv3hl32UnnRo5DDFtxCQm76hgQTWYLd34Xes3ci_sLSebsk7KTXWFSFapLOUzGQ/p.jpeg?fv_content=true&size_mode=5",
         year: 1788
       },
       {
         id: 4,
-        img: "blah/blah",
+        img: "https://ucd1608216c56b754036d48a86ca.previews.dropboxusercontent.com/p/thumb/AAhd3P3kgaN3evK2w1mihVyQRfg9vRsNOmPpn0Tnn7ON37DK2fu-WW51xlLhhCFusMIZtf8fwSMTMZII_x4aax11F_2EZf2xtjvCYuPX-Z1L3i14qb01c0UMCJ-F5twnAC8QFdfmVk3fc_grtE0enR0RjiC0M3_N0GhYAzocpRemmW6xZpDw7d-QMlwm9GpL4IEiG73cJwsjGJr_SLd0WxdxIHTK9HgQ0rPAxT9NJxWdO1LxMCDLZAaTNXKr3EweFhgmHsp17Lf_BxjxCkY051wBf9BtRGrYhMmWg7PsKcTlQjbEOBEeOcsXtdYyZ8nspg9RoqkvD067nuvZ1YnyKnsE5p5JbrUHQmKxIbBLG6wyiVFkOxKMDlg9XrJjrVU0A2hbMReqp5ElcJq0E7eRXSbAcDb-Bb9SXXPoZwXUzP4oKD57N6-MgPEHPnoZmWv0weRjgX7FBj_79CsDaPrZ5VkV/p.jpeg?fv_content=true&size_mode=5",
         year: 1801
       },
       {
         id: 5,
-        img: "blah/blah",
+        img: "https://uce1c965a3cec4b2f32279ff4ecb.previews.dropboxusercontent.com/p/thumb/AAgg-FtoE5I_mWprWikt6tEesWLs9wcAoM6W6WaJDs374NqcDpQnPYuhCkdW-td57F-PYZcvspTldMr4H_4N-tm3r5dkn--LzM19h9h0zYma3tc7dzqby2K7q-sLf9lg1LGfnYSnRXe5myAI-8ZHWCZs2a33JZeYkbKQMrHyTS11jB1DWST3FcHdu3JVG9Qcdv_F4Slzd4l2vjZlBAwxlR9AuV8uUbAHEL1JL0apK0rDoe1WLLmiph3eIZ9b8moxviW8zfcY1g0kx2UkiDgnknTmc1gWVJbMEFQGiDGk_4Tvr9NhvS6LfOrDSiPKKRG3LWP0oMttNcr9eHvw3GhEc2bp/p.jpeg?fv_content=true&size_mode=5",
         year: 1801
       },
       {
         id: 6,
-        img: "blah/blah",
+        img: "https://uccde6293d9e7799f13c8c0931c6.previews.dropboxusercontent.com/p/thumb/AAiK2PRxAkDNvjpD02B6SopaFyspcPvu-hAHcZq72JAvcqMcLyVHpcjH4l9nzoK_CsqbKNPl-0LR6u0gSU0_IsL6p9swam1DnQlxmwX9oavJnoGgWxiUDsY0Bz2XxujQt0neGYKRIbkBs9K0IzKQWYyOdvNw9eSKcyUOdpanH5RrIEEJzA_imPByERwiGdiS-s340GqZNQyeK2NqYLhGc0Z0uU9Vqh3Sx6QZh_B4XhVSkdYlyFKYjnkDY_T2FY_KlAnr0RKRQk46kTcwez0vCHoKxuLjQXaZWxClsG_av14mCMmCOhT0vOcs47jIGY4g40N-ZeUEboBnZeDfVv6YQu_xSPRHb0ETHUI7WfN-dutyuB0ZtxkUuERn6CXUau-FcjhUaqlmZhcUkJ57IKfZiHqYsElI2nxMVKG_ZxfJp6NwzwUpAzIDlaHJ7FHUL9fh9MGV2vs_CRpWbxdGzRiQz9R-/p.jpeg?fv_content=true&size_mode=5",
         year: 1801
       },
       {
         id: 7,
-        img: "blah/blah",
+        img: "https://uc114ee4c8621182fac32c03498d.previews.dropboxusercontent.com/p/thumb/AAhtYlC2ctvHeF1A2AofumMUkH0DLar4JOEiK1tHOQCTKU5SnOyJvxwwGgkbp1k79ruf6IA7c5pwqD3YYeuty0d_pb3H9dSY9iYvZB43Mpz1YMPgV8P8RhL3ktTCknZ0k62aUSXyvKghUzcxW-Y9dGZL5a9apX_mzatzDuO7Iv6t_9TDshPtI21T2BOgQ7DW3_Ave4PSv59j4Kkf01W7rRUjZ0GTU0L2xFAqy9bIUlZRlk6KHkGwKu5PT8y--e1uWL-4q3QrlMOruxySAO7GVYAuFpXxafvB-AJzXCyqp_u3GIVuRFZwkUStEtZs33ZQAPOkqp4BOGAy4I5NEbIP0X-EmaOcQewchESdPgK32bFGfIZEl9DRM_CpfnwZHCXNxsU2WIffSwtcDPRs_JPCSpJdhaeQVyb36d9MK35Yzm2NYlSJtJHDj6nZpbZRj91IT_Idb90puq9Y2wBaqwB8_USD/p.png?fv_content=true&size_mode=5",
         year: 1801
       },
       {
         id: 8,
-        img: "blah/blah",
+        img: "https://uc3c59dcf5e18a7c0b08be33ac6a.previews.dropboxusercontent.com/p/thumb/AAiRal8bJyopaRe34epoYwWq-PXMho69D7M9cMsuIZqpEc4h5IyKlfaQbEZ514wRTyrW0j8Uvh3J9wWKmdBeaVAO5Iqw2NJDxlzmz2NzD2evx9ftOVljHia3xRS_2MUp_XAW0HyB7NKZNAl3LksQGux1P6WnZxwR5OSo-ylsOsiTId785uTIMrMjjIKT5VmKUyrE7DrXRGzWIzPu0r9NkSLxlE3_T5P3g2f0Z2FvU93XxkRg9nm_Sd_UorFEBwOmYGdey8vPd6xPU3vSu3nAOb_GE88feBttExdJWSb8zUk9lleuTJqiEpWgfnenQZ_Prl1IImxEkuFJJ0IU2XE1TVUgagmwSULSXazS4WeIa7jbWQrd8O_0hK_iCWqdyjq17gF6BzbKM1er4-wbHZ3yZBbsFE_dtvv9y8Zu7nlwEaE2AQmdmQChJXdkIB1JVCDFiMKN-vwzjs9oo6oMuPT2iYvB/p.jpeg?fv_content=true&size_mode=5",
         year: 1801
       },
       {
