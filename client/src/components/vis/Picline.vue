@@ -21,7 +21,9 @@
 -73 81 -109 122 -36 41 -67 77 -70 80 -3 3 -43 48 -89 100 -45 52 -94 107
 -107 121 -51 57 -161 77 -232 42z"/>
         </g>
-        <image xlink:href="yearPoints.img" width="10%" height="10%" y="${-positionYearY(yearPoints)}"/>
+        <g :style="`transform: translate(-22,${-positionYearY(yearPoints)+(styles.height+styles.margin.top + styles.margin.bottom)/2}`">
+          <image xlink:href="yearPoints.img" width="10%" height="10%"/>
+        </g>
         <text
           v-if="yearPoints.year % 2 == 0"
           transform="rotate(45), translate(-40, 0)"
