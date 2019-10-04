@@ -22,7 +22,7 @@ export default {
   login (user) {
     return axios.post('/api/readers/login', user)
       .then(resp => {
-        setAuthorization(resp.data.id)
+        setAuthorization(resp.data.id)  
         return resp
       })
       .catch(err => {
