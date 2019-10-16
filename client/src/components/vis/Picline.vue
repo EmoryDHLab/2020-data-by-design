@@ -34,36 +34,45 @@
             ${(scaleY(yearPoints.count) + 15) * 0.7071})`"
           style="font-size:14px">{{yearPoints.year}}</text>
       </g>
-
       <g v-for="point in dataset" :style = positionPointX(point)>
         <!--frames-->
         <g v-if="point.year % 2 == 0"
-           :transform="`translate(${-22},${(styles.height+styles.margin.top + styles.margin.bottom + styles.framepadding)/2})
-          ,scale(0.008,-0.008)`"
-           fill="#989898" stroke="white" stroke-width="50">
-          <path d="M3212 5793 c-18 -9 -44 -28 -57 -42 -12 -14 -61 -69 -106 -121 -46
--52 -86 -97 -89 -100 -3 -3 -34 -39 -70 -80 -36 -41 -85 -96 -109 -122 l-44
--48 -928 -2 -929 -3 -27 -28 -28 -27 0 -1410 0 -1410 28 -27 27 -28 2450 0
-2450 0 27 28 28 27 0 1410 0 1410 -28 27 -27 28 -959 3 -958 2 -44 48 c-24 26
--73 81 -109 122 -36 41 -67 77 -70 80 -3 3 -43 48 -89 100 -45 52 -94 107
--107 121 -51 57 -161 77 -232 42z"/>
+           :transform="`translate(${point.yearCount * 10 - styles.frame.width/2},${(styles.height + styles.margin.bottom)/2 - 10})`">
+          <rect x="0" width="30" height="20" rx="1" fill="#989898"/>
+          <polygon points="15,-5 10,1 20,1" style="fill:#989898" />
+          <!--<g :transform="`scale(0.008,-0.008)`" fill="#989898" stroke="white" stroke-width="50">-->
+            <!--<path d="M3212 5793 c-18 -9 -44 -28 -57 -42 -12 -14 -61 -69 -106 -121 -46-->
+  <!-- -52 -86 -97 -89 -100 -3 -3 -34 -39 -70 -80 -36 -41 -85 -96 -109 -122 l-44-->
+  <!-- -48 -928 -2 -929 -3 -27 -28 -28 -27 0 -1410 0 -1410 28 -27 27 -28 2450 0-->
+  <!--2450 0 27 28 28 27 0 1410 0 1410 -28 27 -27 28 -959 3 -958 2 -44 48 c-24 26-->
+  <!-- -73 81 -109 122 -36 41 -67 77 -70 80 -3 3 -43 48 -89 100 -45 52 -94 107-->
+  <!-- -107 121 -51 57 -161 77 -232 42z"/>-->
+          <!--</g>-->
+          <image
+                  :xlink:href="point.href"
+                  :width="point.width"
+                  :height="point.height"
+                  :x="point.x"
+                  :y="point.y"
+          />
         </g>
-
         <g v-if="point.year % 2 != 0"
-           :transform="`translate(${22},${(styles.margin.top + styles.margin.bottom - styles.framepadding)/2})
-          ,scale(0.008,-0.008), rotate(180)`"
-           fill="#989898" stroke="white" stroke-width="50">
-          <path d="M3212 5793 c-18 -9 -44 -28 -57 -42 -12 -14 -61 -69 -106 -121 -46
--52 -86 -97 -89 -100 -3 -3 -34 -39 -70 -80 -36 -41 -85 -96 -109 -122 l-44
--48 -928 -2 -929 -3 -27 -28 -28 -27 0 -1410 0 -1410 28 -27 27 -28 2450 0
-2450 0 27 28 28 27 0 1410 0 1410 -28 27 -27 28 -959 3 -958 2 -44 48 c-24 26
--73 81 -109 122 -36 41 -67 77 -70 80 -3 3 -43 48 -89 100 -45 52 -94 107
--107 121 -51 57 -161 77 -232 42z"/>
+           :transform="`translate(${22 + point.yearCount * 10},${(styles.margin.top + styles.margin.bottom - styles.framepadding)/2})`">
+          <g :transform="`scale(0.008,-0.008), rotate(180)`" fill="#989898" stroke="white" stroke-width="50">
+            <path d="M3212 5793 c-18 -9 -44 -28 -57 -42 -12 -14 -61 -69 -106 -121 -46
+  -52 -86 -97 -89 -100 -3 -3 -34 -39 -70 -80 -36 -41 -85 -96 -109 -122 l-44
+  -48 -928 -2 -929 -3 -27 -28 -28 -27 0 -1410 0 -1410 28 -27 27 -28 2450 0
+  2450 0 27 28 28 27 0 1410 0 1410 -28 27 -27 28 -959 3 -958 2 -44 48 c-24 26
+  -73 81 -109 122 -36 41 -67 77 -70 80 -3 3 -43 48 -89 100 -45 52 -94 107
+  -107 121 -51 57 -161 77 -232 42z"/>
+          </g>
+          <image
+                  :xlink:href="point.href"
+                  :width="point.width"
+                  :height="point.height"
+                  :x="point.x - 22"
+                  :y="point.y + 30"/>
         </g>
-
-        <!--images-->
-        <g :style="`transform: translate(-22,${(styles.height+styles.margin.top + styles.margin.bottom)/2}`">
-          <image xlink:href="yearPoints.img" width="10%" height="10%"/>
         </g>
 
       </g>
@@ -100,7 +109,11 @@ const DEFAULT_OPTIONS = {
     line: {
       width: 1000,
       height: 10,
-    }
+    },
+    frame: {
+        width: 30,
+        height: 20,
+    },
   }
 }
 

@@ -173,13 +173,13 @@ export default {
         id: 0,
         img: "https://www.whitman.edu/assets/images/Academics/Body-Image/history.jpg",
         year: 1786,
-        yearCount: 0
+        yearCount: 0,
       },
       {
         id: 1,
         img: "https://uc995b0d3c37d4bfa812b91ad750.previews.dropboxusercontent.com/p/thumb/AAgR5yIdwNc4zbmzegvln_ZnGQs4xUjgbOhYi2OoAue_u12wQaqNoIWOx_vWZD7y7vzq2vyJeKovtRo4rjMFq7AjR7cv0EZn5XbBdvNBtOrN4CzrKPh2ENk7o94wRo2fcR8pwZt0EhpAuY0Nm8d85-E4gSucP-B99D3y9HFaz-um_lhe5ICTCXNrT2KMeSuqcOXYqPYoCH-chrdjUWxAYIxfQcuVZ57W_jd7TFXrIMgNWgcu2bTl267njzmH8O5RcN0YH8TD4c8dtrNEuJOg-Jtx0AM5-w7AeGPaLE2i-jpc4H9TujjNSb0AqJFsHT6sFoCGFSUKUAx1UqAznJNqqZJW/p.jpeg?fv_content=true&size_mode=5",
         year: 1786,
-        yearCount: 1
+        yearCount: 1,
       },
       {
         id: 2,
@@ -345,7 +345,7 @@ export default {
       },
       {
         id: 29,
-        img: "bleh/blrh",
+        img: "https://www.whitman.edu/assets/images/Academics/Body-Image/history.jpg",
         year: 1846,
           yearCount: 0
       },
@@ -421,10 +421,11 @@ export default {
         year: item.year,
         href: item.img,
         id: index,
+          yearCount: item.yearCount,
         x:0,
         y:0,
-        width:10,
-        height:10
+        width:20,
+        height:20
       }
     }), {})
   })
