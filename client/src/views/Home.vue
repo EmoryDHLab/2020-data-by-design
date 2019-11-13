@@ -177,31 +177,31 @@ export default {
       },
       {
         id: 1,
-        img: "https://uc995b0d3c37d4bfa812b91ad750.previews.dropboxusercontent.com/p/thumb/AAgR5yIdwNc4zbmzegvln_ZnGQs4xUjgbOhYi2OoAue_u12wQaqNoIWOx_vWZD7y7vzq2vyJeKovtRo4rjMFq7AjR7cv0EZn5XbBdvNBtOrN4CzrKPh2ENk7o94wRo2fcR8pwZt0EhpAuY0Nm8d85-E4gSucP-B99D3y9HFaz-um_lhe5ICTCXNrT2KMeSuqcOXYqPYoCH-chrdjUWxAYIxfQcuVZ57W_jd7TFXrIMgNWgcu2bTl267njzmH8O5RcN0YH8TD4c8dtrNEuJOg-Jtx0AM5-w7AeGPaLE2i-jpc4H9TujjNSb0AqJFsHT6sFoCGFSUKUAx1UqAznJNqqZJW/p.jpeg?fv_content=true&size_mode=5",
+        img: "https://www.washingtonpost.com/news/made-by-history/wp-content/uploads/sites/64/2017/06/made-by-history-logo.jpg",
         year: 1786,
         yearCount: 1,
       },
       {
         id: 2,
-        img: "https://uc882606e8a4bb3797527b681f1a.previews.dropboxusercontent.com/p/thumb/AAglwYWY-yUVAgjCxFx80hCRkKVr4iZ36XnkKTJE1ASABGaCu27JD5Oy7zIlwanyvvVFrj5KKWSPRFfGKYjo6C_qcb0qDPzF4qn4d25_hjULbqSh8BXtI_qtoDf1v_KFlcybcks0wvrMYx7q94A7OiqPRtrnPbKOiJTe1ErzDc0O5O8e1upUl22mgk3UBGk0hMrRsz2G1Mg-C-VfRk03WxKILxQgN8zTkRflTZiqNHYiyyyUWW5lRJtM_QzYrBQeJRAhyvjPp1eo6nH51gOxgw_7I-HruFthFQ_TQcmLt7rJwo-Kw7HF3nk7kx1Grv2ebJPd8EQk0iSYa7IYF7pv4Fm4/p.jpeg?fv_content=true&size_mode=5",
+        img: "https://www.washingtonpost.com/news/made-by-history/wp-content/uploads/sites/64/2017/06/made-by-history-logo.jpg",
         year: 1786,
         yearCount: 2
       },
       {
         id: 3,
-        img: "https://ucc66bb22d065a3bc0090662b069.previews.dropboxusercontent.com/p/thumb/AAieGA6hORzPvalZgg1-6-R8dRTTpL8UdKjQsJgBvy_s_7ZlJ0xz954xov9YSNWliIl4ed6TIFovu_PEglzF62sSzoG1eM4TBTKIQpdDp9VX41yxg1wzCE31fEU0UA_S1zqieviKxf3C-Drldo0VZxdQnW-lGagzodT3wj0ZZueAj65WiV6PKLRNBOMFxHIEnImHmLT2vlUgrLPuw5YSRc4UNTVaSasKoEHCxQsePbNuod4z1GI4auLzzZb_inSNCQGQaACOXH235rU4-oPzb-vtvTv3hl32UnnRo5DDFtxCQm76hgQTWYLd34Xes3ci_sLSebsk7KTXWFSFapLOUzGQ/p.jpeg?fv_content=true&size_mode=5",
+          img: "https://www.washingtonpost.com/news/made-by-history/wp-content/uploads/sites/64/2017/06/made-by-history-logo.jpg",
         year: 1788,
           yearCount: 0
       },
       {
         id: 4,
-        img: "https://ucd1608216c56b754036d48a86ca.previews.dropboxusercontent.com/p/thumb/AAhd3P3kgaN3evK2w1mihVyQRfg9vRsNOmPpn0Tnn7ON37DK2fu-WW51xlLhhCFusMIZtf8fwSMTMZII_x4aax11F_2EZf2xtjvCYuPX-Z1L3i14qb01c0UMCJ-F5twnAC8QFdfmVk3fc_grtE0enR0RjiC0M3_N0GhYAzocpRemmW6xZpDw7d-QMlwm9GpL4IEiG73cJwsjGJr_SLd0WxdxIHTK9HgQ0rPAxT9NJxWdO1LxMCDLZAaTNXKr3EweFhgmHsp17Lf_BxjxCkY051wBf9BtRGrYhMmWg7PsKcTlQjbEOBEeOcsXtdYyZ8nspg9RoqkvD067nuvZ1YnyKnsE5p5JbrUHQmKxIbBLG6wyiVFkOxKMDlg9XrJjrVU0A2hbMReqp5ElcJq0E7eRXSbAcDb-Bb9SXXPoZwXUzP4oKD57N6-MgPEHPnoZmWv0weRjgX7FBj_79CsDaPrZ5VkV/p.jpeg?fv_content=true&size_mode=5",
+          img: "https://www.washingtonpost.com/news/made-by-history/wp-content/uploads/sites/64/2017/06/made-by-history-logo.jpg",
         year: 1801,
           yearCount: 0
       },
       {
         id: 5,
-        img: "https://uce1c965a3cec4b2f32279ff4ecb.previews.dropboxusercontent.com/p/thumb/AAgg-FtoE5I_mWprWikt6tEesWLs9wcAoM6W6WaJDs374NqcDpQnPYuhCkdW-td57F-PYZcvspTldMr4H_4N-tm3r5dkn--LzM19h9h0zYma3tc7dzqby2K7q-sLf9lg1LGfnYSnRXe5myAI-8ZHWCZs2a33JZeYkbKQMrHyTS11jB1DWST3FcHdu3JVG9Qcdv_F4Slzd4l2vjZlBAwxlR9AuV8uUbAHEL1JL0apK0rDoe1WLLmiph3eIZ9b8moxviW8zfcY1g0kx2UkiDgnknTmc1gWVJbMEFQGiDGk_4Tvr9NhvS6LfOrDSiPKKRG3LWP0oMttNcr9eHvw3GhEc2bp/p.jpeg?fv_content=true&size_mode=5",
+          img: "https://www.washingtonpost.com/news/made-by-history/wp-content/uploads/sites/64/2017/06/made-by-history-logo.jpg",
         year: 1801,
           yearCount: 1
       },
@@ -422,9 +422,9 @@ export default {
         href: item.img,
         id: index,
           yearCount: item.yearCount,
-        x:0,
-        y:0,
-        width:20,
+        x:2.5,
+        y:2,
+        width:25,
         height:20
       }
     }), {})
