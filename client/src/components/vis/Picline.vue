@@ -3,14 +3,26 @@
     :width="styles.width + styles.margin.left + styles.margin.right + 'px'"
     :height="styles.height + styles.margin.top + styles.margin.bottom + 'px'">
     <g :transform="`translate(${styles.margin.left}, ${styles.margin.top})`">
+
+      <!--gray bar-->
       <rect id="timeline"
         x='0' :y='(styles.height - styles.line.height)/2'
         :height="styles.line.height"
         :width="styles.line.width"
         fill="#989898"
         rx="6px" ry="6px"></rect>
+
       <g v-for="yearPoints in groupedByYear"
-        :style="positionYear(yearPoints)">
+         :style = positionYear(yearPoints)>
+        <!--blue bars-->
+        <rect
+                @mouseenter="$emit('focus-image', yearPoints.points[0].id)"
+                :width="styles.line.height"
+                :height="scaleY(yearPoints.count)"
+                fill="#4A90E2"
+                :rx="styles.line.height/2" :ry="styles.line.height/2"></rect>
+
+        <!--year text-->
         <text
           v-if="yearPoints.year % 2 == 0"
           transform="rotate(45), translate(-40, 0)"
@@ -21,13 +33,98 @@
             translate(-${(55 + scaleY(yearPoints.count)) * 0.7071},
             ${(scaleY(yearPoints.count) + 15) * 0.7071})`"
           style="font-size:14px">{{yearPoints.year}}</text>
-        <rect
-          @mouseenter="$emit('focus-image', yearPoints.points[0].id)"
-          :width="styles.line.height"
-          :height="scaleY(yearPoints.count)"
-          fill="#4A90E2"
-          :rx="styles.line.height/2" :ry="styles.line.height/2"></rect>
       </g>
+
+
+
+      <g v-for="point in dataset" :style = positionPointX(point)>
+        <!--frames-->
+        <g v-if="point.year % 2 == 0"
+           :transform="`translate(${point.yearCount * 10 - styles.frame.width/2},${(styles.height + styles.margin.bottom)/2 - 10})`"
+           @mouseover="hover = point"
+           @mouseleave="hover = null">
+
+          <g v-if="hover == point">
+            <rect x="-15" width="60" height="40" rx="1" fill="#989898"></rect>
+            <!--<rect x="0" width="${imgWidth(point).w + 4}" height="${styles.frame.height}" rx="1" fill="#989898"></rect>-->
+            <g :transform="`translate(0)`">
+              <polygon points="15,-5 10,1 20,1" style="fill:#989898"></polygon>
+            </g>
+            <image
+                    :xlink:href="point.href"
+                    :width="point.width * 2"
+                    :x="point.x - (point.width)/2"
+                    :y="point.y"
+            ></image>
+          </g>
+          <g v-else>
+          <rect x="0" width="30" height="20" rx="1" fill="#989898"></rect>
+          <!--<rect x="0" width="${imgWidth(point).w + 4}" height="${styles.frame.height}" rx="1" fill="#989898"></rect>-->
+          <g :transform="`translate(0)`">
+            <polygon points="15,-5 10,1 20,1" style="fill:#989898"></polygon>
+          </g>
+          <image
+                  :xlink:href="point.href"
+                  :width="point.width"
+                  :x="point.x"
+                  :y="point.y"
+                  ></image>
+          </g>
+
+          <g v-show="hover == point">
+            <line x1="15" y1="-75" x2="15" y2="0" style="stroke:#4A90E2;stroke-width:2"></line>
+            <polygon points="15,-85 10,-75 20,-75" style="fill:#4A90E2"></polygon>
+          </g>
+
+        </g>
+
+        <g v-if="point.year % 2 != 0"
+           :transform="`translate(${22 + point.yearCount * 10},${(styles.margin.top + styles.margin.bottom - styles.framepadding)/2})`"
+           @mouseover="hover = point"
+           @mouseleave="hover = null">
+
+          <g v-if="hover == point">
+            <g :transform="`translate(-40,0)`">
+              <rect x="-15" width="60" height="40" rx="1" fill="#989898"></rect>
+              <!--<rect x="0" width="${imgWidth(point).w + 4}" height="${styles.frame.height}" rx="1" fill="#989898"></rect>-->
+              <g :transform="`translate(30, 40) rotate(180)`">
+                <polygon points="15,-5 10,1 20,1" style="fill:#989898"></polygon>
+              </g>
+            </g>
+            <image
+                    :xlink:href="point.href"
+                    :width="point.width*2"
+                    :x="point.x - 42 - (point.width)/2"
+                    :y="point.y"></image>
+          </g>
+          <g v-else>
+          <g :transform="`translate(-40, 20)`">
+            <rect x="0" width="30" height="20" rx="1" fill="#989898"></rect>
+            <!--<rect x="0" width="${imgWidth(point).w + 4}" height="${styles.frame.height}" rx="1" fill="#989898"></rect>-->
+            <g :transform="`translate(30, 20) rotate(180)`">
+              <polygon points="15,-5 10,1 20,1" style="fill:#989898"></polygon>
+            </g>
+          </g>
+          <image
+                  :xlink:href="point.href"
+                  :width="point.width"
+                  :x="point.x - 42"
+                  :y="point.y + 20"></image>
+          </g>
+
+          <!--<image-->
+                  <!--:xlink:href="point.href"-->
+                  <!--:width= "`${imgWidth(point).w}`"-->
+                  <!--:height="`${imgWidth(point).h}`"-->
+                  <!--:x="point.x - 22"-->
+                  <!--:y="point.y + 30"></image>-->
+          <g v-show="hover == point">
+            <line x1="-25" y1="45" x2="-25" y2="120" style="stroke:#4A90E2;stroke-width:2"></line>
+            <polygon points="-25,130 -20,120 -30,120" style="fill:#4A90E2"></polygon>
+          </g>
+        </g>
+      </g>
+
     </g>
   </svg>
 </template>
@@ -51,6 +148,7 @@ const DEFAULT_OPTIONS = {
   styles: {
     height: 200,
     width: 1000,
+    framepadding: 10,
     margin: {
       top: 50,
       right: 50,
@@ -60,12 +158,21 @@ const DEFAULT_OPTIONS = {
     line: {
       width: 1000,
       height: 10,
-    }
+    },
+    frame: {
+        width: 30,
+        height: 20,
+    },
   }
 }
 
 export default {
   mixins: [MetaVisualization],
+  data() {
+      return {
+          hover: null,
+      };
+  },
   props: {
     options: {
       type: Object,
@@ -121,7 +228,7 @@ export default {
         }
         return sz
       }
-    }
+    },
   },
   methods: {
     dataFormatter (d) {
@@ -132,6 +239,30 @@ export default {
       const dy = (this.styles.height - this.scaleY(yearPoints.count))/2
       return `transform: translate(${dx}px, ${dy}px);`
     },
+    positionYearX (yearPoints) {
+      const dx = this.scaleX(yearPoints.year) - this.styles.line.height/2
+      return dx
+    },
+    positionYearY (yearPoints) {
+      const dy = (this.styles.height - this.scaleY(yearPoints.count))/2
+      return dy
+    },
+    positionPointX (point) {
+        const dx = this.scaleX(point.year) - this.styles.line.height/2
+        return `transform: translate(${dx}px, 0px);`
+    },
+    imgWidth (point) {
+        let w, h;
+        const frameHeight = this.styles.frame.height;
+        // let img = document.
+        // img.onload=function(){
+        //     w=this.width;
+        //     h=this.height;
+        //     w=(frameHeight - 4) * w / h;
+        //     h= frameHeight - 4;
+        // };
+        // return data;
+    }
   }
 }
 </script>

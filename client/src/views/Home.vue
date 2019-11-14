@@ -19,7 +19,7 @@
             <ProgressBar :range="[0, 160]" :value="155"/>
           </div>
         </div>
-        <Picline :points="points"/>
+        <Picline :dataset="points" id="picline"/>
       </div>
 
       <div id="chapters" ref="chpts" class="chapters section" align="center">
@@ -166,143 +166,214 @@ export default {
     }
   },
   data: () => ({
-    points: [{
+    points: [
+      {
+        id: 0,
         img: "blah/blah",
         year: 1786
       },
       {
+        id: 1,
         img: "blah/blah",
         year: 1786
       },
       {
+        id: 2,
         img: "blah/blah",
         year: 1786
       },
       {
+        id: 3,
         img: "blah/blah",
         year: 1788
       },
       {
+        id: 4,
         img: "blah/blah",
         year: 1801
       },
       {
+        id: 5,
         img: "blah/blah",
         year: 1801
       },
       {
+        id: 6,
         img: "blah/blah",
         year: 1801
       },
       {
+        id: 7,
         img: "blah/blah",
         year: 1801
       },
       {
+        id: 8,
         img: "blah/blah",
         year: 1801
       },
       {
+        id: 9,
         img: "blah/blah",
         year: 1801
       },
       {
+        id: 10,
         img: "blah/blah",
         year: 1821
       },
       {
+        id: 11,
         img: "blah/blah",
         year: 1821
       },
       {
+        id: 12,
         img: "bleh/bleh",
         year: 1858
       },
       {
+        id: 13,
         img: "bleh/bleh",
         year: 1829
       },
       {
+        id: 14,
         img: "bleh/bleh",
         year: 1829
       },
       {
+        id: 15,
         img: "bleh/bleh",
         year: 1829
       },
       {
+        id: 16,
         img: "bleh/bleh",
         year: 1829
       },
       {
+        id: 17,
         img: "bleh/bleh",
         year: 1829
       },
       {
+        id: 18,
         img: "bleh/bleh",
         year: 1829
       },
       {
+        id: 19,
         img: "bleh/bleh",
         year: 1829
       },
       {
+        id: 20,
         img: "bleh/bleh",
         year: 1829
       },
       {
+        id: 21,
         img: "bleh/bleh",
         year: 1829
       },
       {
+        id: 22,
         img: "bleh/bleh",
         year: 1829
       },
       {
+        id: 23,
         img: "bleh/bleh",
         year: 1829
       },
       {
+        id: 24,
         img: "bleh/bleh",
         year: 1829
       },
       {
+        id: 25,
         img: "bleh/bleh",
         year: 1829
       },
       {
+        id: 26,
         img: "bleh/bleh",
         year: 1829
       },
       {
+        id: 27,
         img: "bleh/bleh",
         year: 1829
       },
       {
+        id: 28,
         img: "bleh/bleh",
         year: 1829
       },
       {
+        id: 29,
         img: "bleh/blrh",
         year: 1846
       },
       {
+        id: 30,
         img: "bleh/blrh",
         year: 1856
       },
       {
+        id: 31,
         img: "bleh/blrh",
         year: 1856
       },
       {
+        id: 32,
         img: "bleh/blrh",
         year: 1856
       },
       {
+        id: 33,
         img: "bleh/blrh",
         year: 1856
       },
       {
+        id: 34,
+        img: "bloo/bloo",
+        year: 1900
+      },
+      {
+        id: 35,
+        img: "bloo/bloo",
+        year: 1900
+      },
+      {
+        id: 36,
+        img: "bloo/bloo",
+        year: 1900
+      },
+      {
+        id: 37,
+        img: "bloo/bloo",
+        year: 1900
+      },
+      {
+        id: 38,
+        img: "bloo/bloo",
+        year: 1900
+      },
+      {
+        id: 39,
+        img: "bloo/bloo",
+        year: 1900
+      },
+      {
+        id: 40,
+        img: "bloo/bloo",
+        year: 1900
+      },
+      {
+
         img: "bloo/bloo",
         year: 1900
       },
@@ -350,35 +421,18 @@ export default {
         img: "bloo/bloo",
         year: 1900
       },
-      {
-        img: "bloo/bloo",
-        year: 1900
-      },
-      {
-        img: "bloo/bloo",
-        year: 1900
-      },
-      {
-        img: "bloo/bloo",
-        year: 1900
-      },
-      {
-        img: "bloo/bloo",
-        year: 1900
-      },
-      {
-        img: "bloo/bloo",
-        year: 1900
-      },
-      {
-        img: "bloo/bloo",
-        year: 1900
-      },
-      {
-        img: "bloo/bloo",
-        year: 1900
-      },
-    ]
+    ].reduce((obj, item, index) => ({
+      ...obj,
+      [index]: {
+        year: item.year,
+        href: item.img,
+        id: index,
+        x:0,
+        y:0,
+        width:10,
+        height:10
+      }
+    }), {})
   })
 }
 </script>
