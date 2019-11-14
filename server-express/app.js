@@ -1,16 +1,68 @@
-const express = require("express")
-const app = express()
-const proxy = require("http-proxy-middleware")
+const express = require('express');
+const path = require('path');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const cors = require('cors');
+const mongoose = require('mongoose');
+const errorHandler = require('errorhandler');
 
-const port = 3000
+const port = 3000;
+const dbName = "data-by-design" //will connect to mongodb://localhost/data-by-design
+const testDb = "test-dxd";
 
-const routes = require("./routes")
+mongoose.promise = global.Promise;
 
-/*app.use(
-  "/api",
-  proxy({ target: "http://[::1]:8080", changeOrigin: true })
-)*/
+const isProduction = process.env.NODE_ENV === 'production';
+const isTesting = process.env.NODE_ENV === 'test';
 
-app.use("/api/", routes)
+//Initiate our app
+const app = express();
 
-app.listen(port, () => console.log("Listening on port " + port))
+//Configure our app
+app.use(cors());
+app.use(require('morgan')('dev'));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({ secret: 'data-by-design', cookie: { maxAge: 60000 }, resave: false, saveUninitialized: false }));
+
+if(!isProduction) {
+  app.use(errorHandler());
+}
+
+//Configure Mongoose
+const db = 'mongodb://localhost/' + (isTesting ? testDb : dbName);
+mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.set('debug', true);
+
+//Models & routes
+require('./models/Users');
+require('./config/passport');
+app.use(require('./routes'));
+
+//Error handlers & middlewares
+if(!isProduction) {
+  app.use((err, req, res, next) => {
+    res.status(err.status || 500);
+
+    res.json({
+      errors: {
+        message: err.message,
+        error: err,
+      },
+    });
+  });
+}
+
+app.use((err, req, res, next) => {
+  res.status(err.status || 500);
+
+  res.json({
+    errors: {
+      message: err.message,
+      error: {},
+    },
+  });
+}); 
+
+module.exports = app.listen(port, () => console.log('Server running on port ' + port));

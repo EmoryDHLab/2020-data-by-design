@@ -5,12 +5,14 @@ const fs = require("fs")
 const parse = require("csv-parse")
 const transform = require("stream-transform")
 
+const path = "/../../static/data/";
 const datasets = {
-  0: "/static/data/SoH1500.csv",
-  1: "/static/data/SoH1600.csv",
-  2: "/static/data/SoH1700.csv",
-  3: "/static/data/SoH1800.csv"
+  0: "SoH1500.csv",
+  1: "SoH1600.csv",
+  2: "SoH1700.csv",
+  3: "SoH1800.csv"
 }
+const dataset = (id) => path + datasets[id];
 
 const toPeabodyFormat = (output, currentData) => {
   let [year, color, actor, eventType, desc] = currentData
@@ -40,7 +42,7 @@ const peabodify = data => {
 }
 
 const loadDataset = function(datasetId) {
-  const filePath = datasets[datasetId]
+  const filePath = dataset(datasetId)
   return new Promise(function(resolve, reject) {
     if (!filePath) {
       reject({
@@ -72,7 +74,7 @@ const loadDataset = function(datasetId) {
   })
 }
 
-router.get("/data/", (req, res) => {
+router.get("/", (req, res) => {
   if (!req.query.full) {
     return res.status(200).send(JSON.stringify(Object.keys(datasets)))
   } else {
@@ -87,7 +89,7 @@ router.get("/data/", (req, res) => {
   }
 })
 
-router.get("/data/:id", (req, res) => {
+router.get("/:id", (req, res) => {
   const datasetId = parseInt(req.params.id)
   loadDataset(datasetId)
     .then(dataWithId => dataWithId.output)
