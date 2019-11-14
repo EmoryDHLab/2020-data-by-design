@@ -20,9 +20,9 @@ export default {
     return axios.get(`/api/data?full=${full}`)
   },
   login (user) {
-    return axios.post('/api/readers/login', user)
+    return axios.post('/api/users/login', user)
       .then(resp => {
-        setAuthorization(resp.data.id)  
+        setAuthorization(resp.data.id)
         return resp
       })
       .catch(err => {
@@ -31,17 +31,13 @@ export default {
       })
   },
   logout () {
-    return axios.post('/api/readers/logout', {})
-      .then(resp => {
-        clearAuthorization()
-        return resp
-      })
+      clearAuthorization()
   },
-  getUser (id) {
-    return axios.get(`/api/readers/${id}`)
+  getCurrentUser () {
+    return axios.get(`/api/users/current`)
   },
   createUser (user) {
-    return axios.post('/api/readers/', user)
+    return axios.post('/api/users/', user)
       .then(resp => {
         console.log(resp);
         setAuthorization(resp.data.id)

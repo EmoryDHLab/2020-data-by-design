@@ -1,67 +1,68 @@
-const express = require("express")
-const app = express()
-const proxy = require("http-proxy-middleware")
+const express = require('express');
+const path = require('path');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const cors = require('cors');
+const mongoose = require('mongoose');
+const errorHandler = require('errorhandler');
 
-const port = 3000
+const port = 3000;
+const dbName = "data-by-design" //will connect to mongodb://localhost/data-by-design
+const testDb = "test-dxd";
 
-const datasetRouter = require("./routes/dataset")
-const authRouter = require("./routes/auth")
-const usersRouter = require("./routes/users")
+mongoose.promise = global.Promise;
 
-const useUser = require("./middleware/useUser")
+const isProduction = process.env.NODE_ENV === 'production';
+const isTesting = process.env.NODE_ENV === 'test';
 
-// A middleware that manages sessions.
-const session = require('express-session')
-const sessionOptions = {
-  secret: "MKm*%Qd#gmTA8Gq}g|n#f5<Y@a+el7", // https://randomkeygen.com
-  cookie: {},
-  resave: false,
-  saveUninitialized: true
+//Initiate our app
+const app = express();
+
+//Configure our app
+app.use(cors());
+app.use(require('morgan')('dev'));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({ secret: 'data-by-design', cookie: { maxAge: 60000 }, resave: false, saveUninitialized: false }));
+
+if(!isProduction) {
+  app.use(errorHandler());
 }
 
-if (app.get('env') === 'production') {
-  sess.cookie.secure = true; // serve secure cookies, requires https
+//Configure Mongoose
+const db = 'mongodb://localhost/' + (isTesting ? testDb : dbName);
+mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.set('debug', true);
+
+//Models & routes
+require('./models/Users');
+require('./config/passport');
+app.use(require('./routes'));
+
+//Error handlers & middlewares
+if(!isProduction) {
+  app.use((err, req, res, next) => {
+    res.status(err.status || 500);
+
+    res.json({
+      errors: {
+        message: err.message,
+        error: err,
+      },
+    });
+  });
 }
 
-const dotenv = require('dotenv')
-dotenv.config()
+app.use((err, req, res, next) => {
+  res.status(err.status || 500);
 
-// Load Passport
-const passport = require('passport');
-const Auth0Strategy = require('passport-auth0');
+  res.json({
+    errors: {
+      message: err.message,
+      error: {},
+    },
+  });
+}); 
 
-// Configure Passport to use Auth0
-const strategy = new Auth0Strategy(
-  {
-    domain: process.env.AUTH0_DOMAIN,
-    clientID: process.env.AUTH0_CLIENT_ID,
-    clientSecret: process.env.AUTH0_CLIENT_SECRET,
-    callbackURL:
-      process.env.AUTH0_CALLBACK_URL || 'http://localhost:3000/callback'
-  },
-  function (accessToken, refreshToken, extraParams, profile, done) {
-    // accessToken is the token to call Auth0 API (not needed in the most cases)
-    // extraParams.id_token has the JSON Web Token
-    // profile has all the information from the user
-    return done(null, profile)
-  }
-);
-
-passport.use(strategy)
-
-app.use(session(sessionOptions))
-
-app.use(passport.initialize())
-app.use(passport.session())
-/*app.use(
-  "/api",
-  proxy({ target: "http://[::1]:8080", changeOrigin: true })
-)*/
-
-app.use("/api", authRouter)
-app.use("/api", usersRouter)
-app.use("/api/", datasetRouter)
-
-app.use(useUser)
-
-app.listen(port, () => console.log("Listening on port " + port))
+module.exports = app.listen(port, () => console.log('Server running on port ' + port));
