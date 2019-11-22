@@ -14,11 +14,11 @@
     "api:dev": "NODE_ENV=development nodemon server-express/app.js",
     "app:dev": "cd client && vue-cli-service serve",
     "start:dev": "run-p api:dev app:dev",
-    "api": "NODE_ENV=production forever start server/server.js",
+    "api": "NODE_ENV=production forever start server-express/app.js",
     "start": "run-s build api",
     "start:reset": "RESET_DB=true npm run start",
     "restart": "run-s stop start",
-    "stop": "forever stop server/server.js"
+    "stop": "forever stop server-express/app.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.8",
