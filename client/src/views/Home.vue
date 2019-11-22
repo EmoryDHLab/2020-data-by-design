@@ -29,23 +29,44 @@
         </h3>
         <div class="chapter-links">
           <div class="card"
-               style="background-image: url(https://cdn.theatlantic.com/assets/media/img/mt/2015/03/RossBetsy_1/lead_720_405.jpg?mod=1533691734);
-               background-size: contain;
-               background-color: rgba(255, 255, 255, 0.6);
+               :style="{'background-image': 'url(' + require('./img/_northamerica.jpg') + ')'}"
+               style=" background-size: cover;
+               background-color: rgba(255, 255, 255, 0.7);
+               background-position: center;
                background-blend-mode: lighten;">
             <h2 class="boxHeading">A View “Simple and Complete”</h2>
-            <h3 style="font-size: 1em; margin-top: 0em">William Playfair and the Origins of Objective Display</h3>
+            <h3 style="font-size: 1em; margin-top: -1em">William Playfair and the Origins of Objective Display</h3>
           </div>
-          <div class="card">
+          <div class="card"
+               :style="{'background-image': 'url(' + require('./img/_brookes.jpg') + ')'}"
+          style = "background-size: cover;
+               background-color: rgba(255, 255, 255, 0.7);
+               background-position: center;
+               background-blend-mode: lighten;">
             <h2 class="boxHeading">Every Datapoint a Person</h2>
           </div>
-          <div class="card">
+          <div class="card"
+               :style="{'background-image': 'url(' + require('./img/_fig2.jpg') + ')'}"
+               style=" background-size: cover;
+               background-color: rgba(255, 255, 255, 0.7);
+               background-position: center;
+               background-blend-mode: lighten;">
             <h2 class="boxHeading">Narratives of Possession</h2>
           </div>
-          <div class="card">
+          <div class="card"
+               :style="{'background-image': 'url(' + require('./img/duboisdata04.jpg') + ')'}"
+               style=" background-size: cover;
+               background-color: rgba(255, 255, 255, 0.7);
+               background-position: center;
+               background-blend-mode: lighten;">
             <h2 class="boxHeading">“Outlines to the Eye”</h2>
           </div>
-          <div class="card">
+          <div class="card"
+               :style="{'background-image': 'url(' + require('./img/_duboisdata01.jpg') + ')'}"
+               style=" background-size: cover;
+               background-color: rgba(255, 255, 255, 0.7);
+               background-position: center;
+               background-blend-mode: lighten;">
             <h2 class="boxHeading">“The Color Line” as Data and Image</h2>
           </div>
         </div>
@@ -168,25 +189,25 @@
             points: [
                 {
                     id: 0,
-                    img: "https://www.whitman.edu/assets/images/Academics/Body-Image/history.jpg",
+                    img: require('./img/_northamerica.jpg'),
                     year: 1786,
                     yearCount: 0,
                 },
                 {
                     id: 1,
-                    img: "https://www.washingtonpost.com/news/made-by-history/wp-content/uploads/sites/64/2017/06/made-by-history-logo.jpg",
+                    img: require('./img/_northamerica.jpg'),
                     year: 1786,
                     yearCount: 1,
                 },
                 {
                     id: 2,
-                    img: "https://www.washingtonpost.com/news/made-by-history/wp-content/uploads/sites/64/2017/06/made-by-history-logo.jpg",
+                    img: require('./img/_duboisdata01.jpg'),
                     year: 1786,
                     yearCount: 2
                 },
                 {
                     id: 3,
-                    img: "https://www.washingtonpost.com/news/made-by-history/wp-content/uploads/sites/64/2017/06/made-by-history-logo.jpg",
+                    img: require('./img/duboisdata04.jpg'),
                     year: 1788,
                     yearCount: 0
                 },
@@ -508,9 +529,11 @@
     justify-content: space-around;
   }
   .boxHeading{
-    title: --bold --uppercase;
+    text-transform: capitalize;
+    font-weight: bold;
     font-family: Roboto;
-    font-size: 1.3em;
+    font-size: 1.5em;
+    color: #083871;
   }
   main {
     max-width: 1500px;
