@@ -5,10 +5,14 @@ const session = require('express-session');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const errorHandler = require('errorhandler');
+const dotenv = require('dotenv');
 
-const port = 3000;
-const dbName = "data-by-design" //will connect to mongodb://localhost/data-by-design
-const testDb = "test-dxd";
+dotenv.config();
+
+const port = process.env.API_PORT;
+const devDB = process.env.DEVELOPMENT_DB //will connect to mongodb://localhost/data-by-design
+const testDb = process.env.TEST_DB
+const prodDb = process.env.PRODUCTION_DB
 
 mongoose.promise = global.Promise;
 
@@ -31,7 +35,14 @@ if(!isProduction) {
 }
 
 //Configure Mongoose
-const db = 'mongodb://localhost/' + (isTesting ? testDb : dbName);
+let db = ""
+if (!isProduction)
+  db = 'mongodb://localhost/' + (isTesting ? testDb : devDB);
+else {
+  const username = process.env.PROD_USER;
+  const password = process.env.PROD_PASSWORD;
+  db = `mongodb://${username}:${password}@localhost/${prodDb}`;
+}
 mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true});
 mongoose.set('debug', true);
 
