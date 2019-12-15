@@ -1,5 +1,5 @@
 <template lang="html" xmlns:https="http://www.w3.org/1999/xhtml">
-  <div class="">
+  <div class="wholePage">
     <main>
       <div id="home" class="header">
         <div class="text-content">
@@ -192,94 +192,112 @@
                     img: require('./img/_northamerica.jpg'),
                     year: 1786,
                     yearCount: 0,
+                    width:30,
+                    height: 19
                 },
                 {
                     id: 1,
                     img: require('./img/_northamerica.jpg'),
                     year: 1786,
                     yearCount: 1,
+                    width:30,
+                    height: 19
                 },
                 {
                     id: 2,
-                    img: require('./img/_duboisdata01.jpg'),
                     year: 1786,
-                    yearCount: 2
+                    yearCount: 2,
+                    img: require('./img/_duboisdata01.jpg'),
+                    width:30,
+                    height: 38
                 },
                 {
                     id: 3,
                     img: require('./img/duboisdata04.jpg'),
                     year: 1788,
-                    yearCount: 0
+                    yearCount: 0,
+                    width:30,
+                    height: 38
                 },
                 {
                     id: 4,
-                    img: "https://www.washingtonpost.com/news/made-by-history/wp-content/uploads/sites/64/2017/06/made-by-history-logo.jpg",
+                    img: require('./img/_brookes.jpg'),
                     year: 1801,
-                    yearCount: 0
+                    yearCount: 0,
+                    width:30,
+                    height: 20
                 },
                 {
                     id: 5,
-                    img: "https://www.washingtonpost.com/news/made-by-history/wp-content/uploads/sites/64/2017/06/made-by-history-logo.jpg",
+                    img: require('./img/_northamerica.jpg'),
                     year: 1801,
-                    yearCount: 1
+                    yearCount: 1,
+                    width:30,
+                    height: 19
                 },
                 {
                     id: 6,
-                    img: "https://uccde6293d9e7799f13c8c0931c6.previews.dropboxusercontent.com/p/thumb/AAiK2PRxAkDNvjpD02B6SopaFyspcPvu-hAHcZq72JAvcqMcLyVHpcjH4l9nzoK_CsqbKNPl-0LR6u0gSU0_IsL6p9swam1DnQlxmwX9oavJnoGgWxiUDsY0Bz2XxujQt0neGYKRIbkBs9K0IzKQWYyOdvNw9eSKcyUOdpanH5RrIEEJzA_imPByERwiGdiS-s340GqZNQyeK2NqYLhGc0Z0uU9Vqh3Sx6QZh_B4XhVSkdYlyFKYjnkDY_T2FY_KlAnr0RKRQk46kTcwez0vCHoKxuLjQXaZWxClsG_av14mCMmCOhT0vOcs47jIGY4g40N-ZeUEboBnZeDfVv6YQu_xSPRHb0ETHUI7WfN-dutyuB0ZtxkUuERn6CXUau-FcjhUaqlmZhcUkJ57IKfZiHqYsElI2nxMVKG_ZxfJp6NwzwUpAzIDlaHJ7FHUL9fh9MGV2vs_CRpWbxdGzRiQz9R-/p.jpeg?fv_content=true&size_mode=5",
+                    img: "bleh/bleh",
                     year: 1801,
                     yearCount: 2
                 },
                 {
                     id: 7,
-                    img: "https://uc114ee4c8621182fac32c03498d.previews.dropboxusercontent.com/p/thumb/AAhtYlC2ctvHeF1A2AofumMUkH0DLar4JOEiK1tHOQCTKU5SnOyJvxwwGgkbp1k79ruf6IA7c5pwqD3YYeuty0d_pb3H9dSY9iYvZB43Mpz1YMPgV8P8RhL3ktTCknZ0k62aUSXyvKghUzcxW-Y9dGZL5a9apX_mzatzDuO7Iv6t_9TDshPtI21T2BOgQ7DW3_Ave4PSv59j4Kkf01W7rRUjZ0GTU0L2xFAqy9bIUlZRlk6KHkGwKu5PT8y--e1uWL-4q3QrlMOruxySAO7GVYAuFpXxafvB-AJzXCyqp_u3GIVuRFZwkUStEtZs33ZQAPOkqp4BOGAy4I5NEbIP0X-EmaOcQewchESdPgK32bFGfIZEl9DRM_CpfnwZHCXNxsU2WIffSwtcDPRs_JPCSpJdhaeQVyb36d9MK35Yzm2NYlSJtJHDj6nZpbZRj91IT_Idb90puq9Y2wBaqwB8_USD/p.png?fv_content=true&size_mode=5",
+                    img: "bleh/bleh",
                     year: 1801,
                     yearCount: 3
                 },
                 {
                     id: 8,
-                    img: "https://uc3c59dcf5e18a7c0b08be33ac6a.previews.dropboxusercontent.com/p/thumb/AAiRal8bJyopaRe34epoYwWq-PXMho69D7M9cMsuIZqpEc4h5IyKlfaQbEZ514wRTyrW0j8Uvh3J9wWKmdBeaVAO5Iqw2NJDxlzmz2NzD2evx9ftOVljHia3xRS_2MUp_XAW0HyB7NKZNAl3LksQGux1P6WnZxwR5OSo-ylsOsiTId785uTIMrMjjIKT5VmKUyrE7DrXRGzWIzPu0r9NkSLxlE3_T5P3g2f0Z2FvU93XxkRg9nm_Sd_UorFEBwOmYGdey8vPd6xPU3vSu3nAOb_GE88feBttExdJWSb8zUk9lleuTJqiEpWgfnenQZ_Prl1IImxEkuFJJ0IU2XE1TVUgagmwSULSXazS4WeIa7jbWQrd8O_0hK_iCWqdyjq17gF6BzbKM1er4-wbHZ3yZBbsFE_dtvv9y8Zu7nlwEaE2AQmdmQChJXdkIB1JVCDFiMKN-vwzjs9oo6oMuPT2iYvB/p.jpeg?fv_content=true&size_mode=5",
+                    img: "bleh/bleh",
                     year: 1801,
                     yearCount: 4
                 },
                 {
                     id: 9,
-                    img: "https://www.whitman.edu/assets/images/Academics/Body-Image/history.jpg",
+                    img: "bleh/bleh",
                     year: 1801,
                     yearCount: 5
                 },
                 {
                     id: 10,
-                    img: "https://www.whitman.edu/assets/images/Academics/Body-Image/history.jpg",
+                    img: "bleh/bleh",
                     year: 1821,
                     yearCount: 0
                 },
                 {
                     id: 11,
-                    img: "https://www.whitman.edu/assets/images/Academics/Body-Image/history.jpg",
+                    img: require('./img/_brookes.jpg'),
                     year: 1821,
-                    yearCount: 1
+                    yearCount: 1,
+                    width:30,
+                    height: 20
                 },
                 {
                     id: 12,
-                    img: "https://www.whitman.edu/assets/images/Academics/Body-Image/history.jpg",
+                    img: "bleh/bleh",
                     year: 1858,
                     yearCount: 0
                 },
                 {
                     id: 13,
-                    img: "https://www.whitman.edu/assets/images/Academics/Body-Image/history.jpg",
                     year: 1829,
-                    yearCount: 0
+                    yearCount: 0,
+                    img: require('./img/_duboisdata01.jpg'),
+                    width:30,
+                    height: 38
                 },
                 {
                     id: 14,
-                    img: "https://www.whitman.edu/assets/images/Academics/Body-Image/history.jpg",
                     year: 1829,
-                    yearCount: 1
+                    yearCount: 1,
+                    img: require('./img/_duboisdata01.jpg'),
+                    width:30,
+                    height: 38
                 },
                 {
                     id: 15,
-                    img: "https://www.whitman.edu/assets/images/Academics/Body-Image/history.jpg",
+                    img: "bleh/bleh",
                     year: 1829,
                     yearCount: 2
                 },
@@ -363,9 +381,11 @@
                 },
                 {
                     id: 29,
-                    img: "https://www.whitman.edu/assets/images/Academics/Body-Image/history.jpg",
+                    img: require('./img/_northamerica.jpg'),
                     year: 1846,
-                    yearCount: 0
+                    yearCount: 0,
+                    width: 30,
+                    height: 19
                 },
                 {
                     id: 30,
@@ -442,8 +462,8 @@
                     yearCount: item.yearCount,
                     x:2.5,
                     y:2,
-                    width:25,
-                    height:20
+                    width:item.width,
+                    height:item.height
                 }
             }), {})
         })
@@ -469,8 +489,10 @@
     color: #5b5b5b;
     margin-top: 0;
   }
-  .header {
-    /* padding-left: 50px; */
+  .wholePage {
+    background-image: url("./img/Grid.svg");
+    background-repeat: no-repeat;
+    background-position: top right;
   }
   .header .text-content {
     max-width: 50%;
