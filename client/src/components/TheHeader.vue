@@ -8,7 +8,8 @@
     <vue-nav class="header__nav">
       <router-link class="header__nav__link" to="/">Home</router-link>
       <router-link class="header__nav__link --allow-inexact"
-        :to="{ path: '/', hash: 'chapters' }">Chapters</router-link>
+        :to="{ path: '/', hash: 'chapters' }">Chapters
+      </router-link>
       <router-link class="header__nav__link --allow-inexact"
         :to="{ path: '/', hash: 'features' }">Features</router-link>
       <router-link class="header__nav__link"
@@ -50,6 +51,12 @@ header {
   box-sizing: border-box;
   position: fixed;
   top: 0;
+  z-index:100;
+  background-color: white;
+  /*Fades the bottom border. I also tried to add a horizontal fade, but they didn't stack nicely.
+  Wonder if it can be done using inset box-shadows? I tried, but I couldn't get it to work with transparency.*/
+  background: linear-gradient(rgba(255,255,255,0.8) 90%, rgba(255,255,255,0));
+;
 }
 .header__title {
   /*flex: 1 0;*/
