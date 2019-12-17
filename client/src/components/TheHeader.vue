@@ -48,6 +48,8 @@ header {
   flex-flow: row wrap;
   align-items: baseline;
   box-sizing: border-box;
+  position: fixed;
+  top: 0;
 }
 .header__title {
   /*flex: 1 0;*/
