@@ -57,6 +57,7 @@ body {
 
 .main-content {
   position: relative;
+  top: 100px;
 }
 
 a.router-link-active.--ignore-highlight,
