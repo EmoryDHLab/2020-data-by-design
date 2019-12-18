@@ -58,6 +58,16 @@ body {
   position: relative;
 }
 
+.--biggest {
+  font-size: 4em;
+}
+.--bigger {
+  font-size: 3em;
+}
+.--big {
+  font-size: 1.5em;
+}
+
 a.router-link-active.--ignore-highlight,
 a.router-link-exact-active.--ignore-highlight {
   color: inherit !important;
@@ -70,20 +80,28 @@ a.router-link-exact-active.--ignore-highlight {
   color: rgb(219, 136, 42) !important;
 }
 
-.--text-dark-blue {
-  color: #081F38;
+.--color-dark-blue {
+  color: #083871;
 }
 
-.--text-yellow {
-  color: #FCC400;
+.--color-sky-blue {
+  color: #4A90E2;
 }
 
-.--text-white {
+.--color-dark-grey {
+  color: #4A4A4A;
+}
+
+.--color-grey {
+  color: #5B5B5B;
+}
+
+.--color-light-grey {
+  color: #D8D8D8;
+}
+
+.--color-white {
   color: white;
-}
-
-.--text-center {
-  text-align: center;
 }
 
 .--uppercase {

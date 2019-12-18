@@ -3,12 +3,12 @@
     <main>
       <div id="home" class="header">
         <div class="text-content">
-          <h1 class="title --biggest">Data by Design</h1>
-          <h1 class="subtitle">
+          <h1 class="title --biggest --color-grey">Data by Design</h1>
+          <h1 class="subtitle --color-grey">
             An Interactive History of Data Visualization 1786&ndash;1900
           </h1>
           <hr>
-          <h3 class="subtitle" style="font-size: 1em">What is the story we tell about the emergence of modern data visualization?
+          <h3 class="subtitle --color-grey" style="font-size: 1em">What is the story we tell about the emergence of modern data visualization?
             <br>How might we tell that story differently?
           </h3>
           <!--<div class="reading-progress">-->
@@ -23,8 +23,8 @@
       </div>
 
       <div id="chapters" ref="chpts" class="chapters section" align="center">
-        <h2 class="title subclass --bigger" style="margin-bottom: 40px;">Table of Contents</h2>
-        <h3 class="subtitle" style="font-size: 1.5em">One sentence summary about the feature as a whole
+        <h2 class="title subclass --bigger --color-dark-grey" style="margin-bottom: 40px;">Table of Contents</h2>
+        <h3 class="subtitle --color-grey" style="font-size: 1.5em">One sentence summary about the feature as a whole
           <br>the second line sine wim laenme
         </h3>
         <div class="chapter-links">
@@ -100,8 +100,8 @@
       </div>
 
       <div id="features" class="features section" align="center">
-        <h2 class="title subclass --bigger">Features</h2>
-        <h3 class="subtitle subclass">These features are still under development
+        <h2 class="title subclass --bigger --color-dark-grey">Features</h2>
+        <h3 class="subtitle subclass --color-grey">These features are still under development
           <br> but feel free to look around!</h3>
         <div class="feature-list">
           <FeatureCard :largeMode="true" imageLink="https://cdn.shortpixel.ai/client/q_glossy,ret_img,w_660,h_382/https://discoverpods.com/wp-content/uploads/2018/12/maps-atlantic-oldtimer-car-compass-vintage-1442539-pxhere.com_-660x382.jpg">
@@ -120,8 +120,8 @@
       </div>
 
       <div id="credits" class="credits section">
-        <h2 class="title subclass --bigger">Credits</h2>
-        <h3 class="subtitle subclass">These features are still under development
+        <h2 class="title subclass --bigger --color-dark-grey">Credits</h2>
+        <h3 class="subtitle subclass --color-grey">These features are still under development
           <br> but feel free to look around!</h3>
         <div class="card-grid">
 
@@ -277,7 +277,10 @@
                     id: 12,
                     img: "bleh/bleh",
                     year: 1858,
-                    yearCount: 0
+                    yearCount: 0,
+                    img: require('./img/_brookes.jpg'),
+                    width:30,
+                    height: 38
                 },
                 {
                     id: 13,
@@ -389,27 +392,35 @@
                 },
                 {
                     id: 30,
-                    img: "bleh/blrh",
                     year: 1856,
-                    yearCount: 0
+                    yearCount: 0,
+                    img: require('./img/_duboisdata01.jpg'),
+                    width:30,
+                    height: 38
                 },
                 {
                     id: 31,
-                    img: "bleh/blrh",
                     year: 1856,
-                    yearCount: 1
+                    yearCount: 1,
+                    img: require('./img/_northamerica.jpg'),
+                    width:30,
+                    height: 19
                 },
                 {
                     id: 32,
-                    img: "bleh/blrh",
                     year: 1856,
-                    yearCount: 2
+                    yearCount: 2,
+                    img: require('./img/_duboisdata01.jpg'),
+                    width:30,
+                    height: 38
                 },
                 {
                     id: 33,
-                    img: "bleh/blrh",
                     year: 1856,
-                    yearCount: 3
+                    yearCount: 3,
+                    img: require('./img/duboisdata04.jpg'),
+                    width:30,
+                    height: 38
                 },
                 {
                     id: 34,
@@ -472,25 +483,14 @@
 
 <style scoped>
   .title {
-    margin-top: 100px;
-  }
-  .--biggest {
-    font-size: 4em;
-    color: #5b5b5b;
-  }
-  .--bigger {
-    font-size: 3em;
-    color:#4a4a4a;
-  }
-  .--big {
-    font-size: 1.5em;
+    margin-top: 0px;
+    padding-top: 100px;
   }
   .subtitle {
-    color: #5b5b5b;
     margin-top: 0;
   }
   .wholePage {
-    background-image: url("./img/Grid.svg");
+    background-image: url("./img/grid.png");
     background-repeat: no-repeat;
     background-position: top right;
   }
@@ -500,9 +500,9 @@
   .section {
     margin-top: 70px;
   }
-  .reading-progress {
-    display: flex;
-  }
+  /*.reading-progress {*/
+    /*display: flex;*/
+  /*}*/
   .text-content h1.subtitle {
     margin-top: -30px;
   }
@@ -527,12 +527,6 @@
   .chapter-links .card .title {
     flex: 1;
   }
-  /* main {
-    display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: 500px auto auto 700px auto;
-    grid-gap: 100px;
-  } */
   .section .subtitle {
     margin-top: -20px;
     margin-bottom: 40px;
@@ -541,11 +535,6 @@
     margin-top: 40px;
     text-align: center;
   }
-  /*
-  .chapter-list {
-    margin-right: 200px;
-    margin-left: 200px;
-  } */
   .card-grid {
     display: flex;
     justify-content: space-around;
@@ -590,17 +579,9 @@
     margin: 0
   }
   footer {
-    left: 0;
-    bottom: 0;
-    display: grid;
-    grid-template-columns: auto 200px;
     background-color: slategrey;
-    /* margin: 0px -100px; */
     padding: 10px 100px;
   }
-  /* .feature-list {
-    margin-top: 70px;
-  } */
   .feature-list div:not(:last-child) {
     margin-bottom: 48px;
   }
