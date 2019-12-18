@@ -29,12 +29,12 @@ p {
   font-weight: lighter;
 }
 h1 {
-  font-family: Baskerville;
+  font-family: Libre Baskerville;
   font-weight: bold;
 }
 
 h2 {
-  font-family: Baskerville;
+  font-family: Libre Baskerville;
   font-weight: normal;
 }
 h3 {
