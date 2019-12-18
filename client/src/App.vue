@@ -18,7 +18,7 @@ export default {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css?family=Markazi+Text|Libre+Baskerville:400,700|Roboto:100,300,400,500,700');
+@import url('https://fonts.googleapis.com/css?family=Markazi+Text|Libre+Baskerville:400,700|Roboto:100,300,400,500,700,900');
 p, h4, h5, h6, a, li {
 
   font-family: 'Roboto', arial;
@@ -40,7 +40,7 @@ h2 {
 }
 h3 {
   font-family: Roboto, sans-serif;
-  font-weight: lighter;
+  font-weight: normal;
 }
 body {
   margin:0
