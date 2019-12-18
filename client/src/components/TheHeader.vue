@@ -13,7 +13,9 @@
           :to="{ path: '/', hash: 'chapters' }">Chapters
         </router-link>
         </template>
-        <nav-drop-down-item class="drop-down-item">Peabody</nav-drop-down-item>
+        <nav-drop-down-item class="drop-down-item">
+          <router-link to="/chapters/shape-of-history">Shape of History</router-link>
+        </nav-drop-down-item>
         <nav-drop-down-item class="drop-down-item">Du Bois</nav-drop-down-item>
       </nav-drop-down>
       <router-link class="header-nav-link --allow-inexact"
@@ -55,6 +57,7 @@ export default {
 <style scoped>
 header {
   padding: 8px 100px;
+  width: 100%; /*Maybe not?*/
   display: flex;
   flex-flow: row wrap;
   align-items: baseline;
@@ -64,6 +67,7 @@ header {
   z-index:100;
   background-color: white;
   /*Fades the bottom border. I also tried to add a horizontal fade, but they didn't stack nicely.
+  (Instead, I made the width span the whole screen, see above.)
   Wonder if it can be done using inset box-shadows? I tried, but I couldn't get it to work with transparency.*/
   background: linear-gradient(rgba(255,255,255,0.8) 90%, rgba(255,255,255,0));
 ;
@@ -87,7 +91,7 @@ header {
   color: rgb(74, 144, 226);
 }
 
-.header-nav > * {
+.header-nav-link   {
   padding: 10px 16px;
   color: #2c3e50;
   border-bottom: 1px solid lightgray;
@@ -98,10 +102,15 @@ header {
   font-family: 'Libre Baskerville', serif;
   font-size: 16px;
 }
-.drop-down-item {
+.drop-down-item, .drop-down-item a {
+  font-family: 'Roboto';
+}
+.drop-down-item:hover, .drop-down-item:hover a {
+  font-weight: 700;
 }
 
-.header-nav > *:hover {
+
+.header-nav .header-nav-link:hover, .header-nav > *:hover .header-nav-link {
   border-bottom: 2px solid rgb(74, 144, 226);
   color: rgb(74, 144, 226);
 }

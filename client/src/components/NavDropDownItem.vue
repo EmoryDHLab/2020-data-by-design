@@ -14,6 +14,12 @@ export default {
 
 li {
     display: block;
+    margin: 0px 5px;
+    padding: 5px 0px;
+}
+
+li:not(:last-child) {
+    border-bottom: 1px solid lightgray;
 }
 .triangle {
     color: rgb(74, 144, 226);
