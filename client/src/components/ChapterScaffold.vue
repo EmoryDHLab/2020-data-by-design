@@ -1,17 +1,5 @@
 <template lang="html">
   <main>
-    <nav class="chapter-nav">
-      <h3 class="chapter-nav__header">Chapters:</h3>
-      <router-link
-        class="chapter-nav__nav__link --allow-inexact"
-        to="/chapters/shape-of-history">1. Shape of History</router-link>
-      <router-link
-        class="chapter-nav__nav__link --allow-inexact"
-        to="/chapters/dubois">2. Du Bois</router-link>
-      <router-link
-        class="chapter-nav__nav__link --allow-inexact"
-        to="/chapters/mapping">3. Mapping</router-link>
-    </nav>
     <section class='chapter'>
       <aside class="chapter__timeline-col">
         <navline-vis

@@ -24,7 +24,4 @@ nav >>> * {
   text-decoration: none;
 }
 
-nav >>> *:hover {
-  text-decoration: underline
-}
 </style>
