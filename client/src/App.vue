@@ -18,10 +18,11 @@ export default {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css?family=Markazi+Text|Libre+Baskerville:400,700|Roboto');
+@import url('https://fonts.googleapis.com/css?family=Markazi+Text|Libre+Baskerville:400,700|Roboto:100,300,400,500,700');
 p, h4, h5, h6, a, li {
 
-  font-family: 'Roboto Thin', arial;
+  font-family: 'Roboto', arial;
+  font-weight: 300;
   color: #2c3e50;
 }
 p {
@@ -38,7 +39,7 @@ h2 {
   font-weight: normal;
 }
 h3 {
-  font-family: Roboto Condensed, sans-serif;
+  font-family: Roboto, sans-serif;
   font-weight: lighter;
 }
 body {
