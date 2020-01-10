@@ -237,33 +237,43 @@
                 },
                 {
                     id: 6,
-                    img: "bleh/bleh",
                     year: 1801,
-                    yearCount: 2
+                    yearCount: 2,
+                    img: require('./img/_duboisdata01.jpg'),
+                    width:30,
+                    height: 38
                 },
                 {
                     id: 7,
-                    img: "bleh/bleh",
                     year: 1801,
-                    yearCount: 3
+                    yearCount: 3,
+                    img: require('./img/_duboisdata01.jpg'),
+                    width:30,
+                    height: 38
                 },
                 {
                     id: 8,
-                    img: "bleh/bleh",
                     year: 1801,
-                    yearCount: 4
+                    yearCount: 4,
+                    img: require('./img/_duboisdata01.jpg'),
+                    width:30,
+                    height: 38
                 },
                 {
                     id: 9,
-                    img: "bleh/bleh",
                     year: 1801,
-                    yearCount: 5
+                    yearCount: 5,
+                    img: require('./img/_brookes.jpg'),
+                    width:30,
+                    height: 20
                 },
                 {
                     id: 10,
-                    img: "bleh/bleh",
                     year: 1821,
-                    yearCount: 0
+                    yearCount: 0,
+                    img: require('./img/_brookes.jpg'),
+                    width:30,
+                    height: 20
                 },
                 {
                     id: 11,
@@ -275,12 +285,11 @@
                 },
                 {
                     id: 12,
-                    img: "bleh/bleh",
                     year: 1858,
                     yearCount: 0,
                     img: require('./img/_brookes.jpg'),
                     width:30,
-                    height: 38
+                    height: 20
                 },
                 {
                     id: 13,
@@ -300,87 +309,115 @@
                 },
                 {
                     id: 15,
-                    img: "bleh/bleh",
                     year: 1829,
-                    yearCount: 2
+                    yearCount: 2,
+                    img: require('./img/duboisdata04.jpg'),
+                    width:30,
+                    height: 38
                 },
                 {
                     id: 16,
-                    img: "bleh/bleh",
                     year: 1829,
-                    yearCount: 3
+                    yearCount: 3,
+                    img: require('./img/duboisdata04.jpg'),
+                    width:30,
+                    height: 38
                 },
                 {
                     id: 17,
-                    img: "bleh/bleh",
                     year: 1829,
-                    yearCount: 4
+                    yearCount: 4,
+                    img: require('./img/_duboisdata01.jpg'),
+                    width:30,
+                    height: 38
                 },
                 {
                     id: 18,
-                    img: "bleh/bleh",
                     year: 1829,
-                    yearCount: 5
+                    yearCount: 5,
+                    img: require('./img/_duboisdata01.jpg'),
+                    width:30,
+                    height: 38
                 },
                 {
                     id: 19,
-                    img: "bleh/bleh",
                     year: 1829,
-                    yearCount: 6
+                    yearCount: 6,
+                    img: require('./img/_northamerica.jpg'),
+                    width:30,
+                    height: 19
                 },
                 {
                     id: 20,
-                    img: "bleh/bleh",
                     year: 1829,
-                    yearCount: 7
+                    yearCount: 7,
+                    img: require('./img/_northamerica.jpg'),
+                    width:30,
+                    height: 19
                 },
                 {
                     id: 21,
-                    img: "bleh/bleh",
                     year: 1829,
-                    yearCount: 8
+                    yearCount: 8,
+                    img: require('./img/_northamerica.jpg'),
+                    width:30,
+                    height: 19
                 },
                 {
                     id: 22,
-                    img: "bleh/bleh",
                     year: 1829,
-                    yearCount: 9
+                    yearCount: 9,
+                    img: require('./img/_northamerica.jpg'),
+                    width:30,
+                    height: 19
                 },
                 {
                     id: 23,
-                    img: "bleh/bleh",
                     year: 1829,
-                    yearCount: 10
+                    yearCount: 10,
+                    img: require('./img/_duboisdata01.jpg'),
+                    width:30,
+                    height: 38
                 },
                 {
                     id: 24,
-                    img: "bleh/bleh",
                     year: 1829,
-                    yearCount: 11
+                    yearCount: 11,
+                    img: require('./img/duboisdata04.jpg'),
+                    width:30,
+                    height: 38
                 },
                 {
                     id: 25,
-                    img: "bleh/bleh",
                     year: 1829,
-                    yearCount: 12
+                    yearCount: 12,
+                    img: require('./img/duboisdata04.jpg'),
+                    width:30,
+                    height: 38
                 },
                 {
                     id: 26,
-                    img: "bleh/bleh",
                     year: 1829,
-                    yearCount: 13
+                    yearCount: 13,
+                    img: require('./img/_brookes.jpg'),
+                    width:30,
+                    height: 20
                 },
                 {
                     id: 27,
-                    img: "bleh/bleh",
                     year: 1829,
-                    yearCount: 14
+                    yearCount: 14,
+                    img: require('./img/_brookes.jpg'),
+                    width:30,
+                    height: 20
                 },
                 {
                     id: 28,
-                    img: "bleh/bleh",
                     year: 1829,
-                    yearCount: 15
+                    yearCount: 15,
+                    img: require('./img/_brookes.jpg'),
+                    width:30,
+                    height: 20
                 },
                 {
                     id: 29,
@@ -424,45 +461,59 @@
                 },
                 {
                     id: 34,
-                    img: "bloo/bloo",
                     year: 1900,
-                    yearCount: 0
+                    yearCount: 0,
+                    img: require('./img/duboisdata04.jpg'),
+                    width:30,
+                    height: 38
                 },
                 {
                     id: 35,
-                    img: "bloo/bloo",
                     year: 1900,
-                    yearCount: 1
+                    yearCount: 1,
+                    img: require('./img/_duboisdata01.jpg'),
+                    width:30,
+                    height: 38
                 },
                 {
                     id: 36,
-                    img: "bloo/bloo",
                     year: 1900,
-                    yearCount: 2
+                    yearCount: 2,
+                    img: require('./img/_duboisdata01.jpg'),
+                    width:30,
+                    height: 38
                 },
                 {
                     id: 37,
-                    img: "bloo/bloo",
                     year: 1900,
-                    yearCount: 3
+                    yearCount: 3,
+                    img: require('./img/_duboisdata01.jpg'),
+                    width:30,
+                    height: 38
                 },
                 {
                     id: 38,
-                    img: "bloo/bloo",
                     year: 1900,
-                    yearCount: 4
+                    yearCount: 4,
+                    img: require('./img/duboisdata04.jpg'),
+                    width:30,
+                    height: 38
                 },
                 {
                     id: 39,
-                    img: "bloo/bloo",
                     year: 1900,
-                    yearCount: 5
+                    yearCount: 5,
+                    img: require('./img/duboisdata04.jpg'),
+                    width:30,
+                    height: 38
                 },
                 {
                     id: 40,
-                    img: "bloo/bloo",
                     year: 1900,
-                    yearCount: 6
+                    yearCount: 6,
+                    img: require('./img/_duboisdata01.jpg'),
+                    width:30,
+                    height: 38
                 },
             ].reduce((obj, item, index) => ({
                 ...obj,
@@ -486,23 +537,15 @@
     margin-top: 0px;
     padding-top: 100px;
   }
-  .subtitle {
-    margin-top: 0;
-  }
   .wholePage {
     background-image: url("./img/grid.png");
     background-repeat: no-repeat;
     background-position: top right;
+    background-size: 600px;
   }
   .header .text-content {
     max-width: 50%;
   }
-  .section {
-    margin-top: 70px;
-  }
-  /*.reading-progress {*/
-    /*display: flex;*/
-  /*}*/
   .text-content h1.subtitle {
     margin-top: -30px;
   }
@@ -531,10 +574,6 @@
     margin-top: -20px;
     margin-bottom: 40px;
   }
-  .subclass {
-    margin-top: 40px;
-    text-align: center;
-  }
   .card-grid {
     display: flex;
     justify-content: space-around;
@@ -551,21 +590,6 @@
     width: 80%;
     margin: 0px auto;
   }
-  button {
-    background-color:#4a90e2;
-    color:white;
-    border: 2px solid #4a90e2;
-  }
-  button:hover {
-    color: #083871;
-    border: 2px solid #083871;
-    background-color: white;
-  }
-  button:active {
-    color: white;
-    border: 2px solid #083871;
-    background-color: #083871;
-  }
   .credits {
     margin-bottom: 50px;
   }
@@ -574,13 +598,6 @@
     padding: 30px 30px;
     flex: 1;
     max-width: 250px;
-  }
-  .name-card .description {
-    margin: 0
-  }
-  footer {
-    background-color: slategrey;
-    padding: 10px 100px;
   }
   .feature-list div:not(:last-child) {
     margin-bottom: 48px;

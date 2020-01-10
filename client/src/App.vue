@@ -45,19 +45,40 @@ h3 {
 body {
   margin:0
 }
+button {
+  background-color:#4a90e2;
+  color:white;
+  border: 2px solid #4a90e2;
+}
+button:hover {
+  color: #083871;
+  border: 2px solid #083871;
+  background-color: white;
+}
+button:active {
+  color: white;
+  border: 2px solid #083871;
+  background-color: #083871;
+}
+footer {
+  background-color: slategrey;
+  padding: 10px 100px;
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  /* padding: 32px;
-  padding-top: 0px; */
-  /* height: 100vh; */
 }
 
 .main-content {
   position: relative;
   top: 100px;
+}
+
+.subclass {
+  margin-top: 40px;
+  text-align: center;
 }
 
 .--biggest {
@@ -139,4 +160,3 @@ a.router-link-exact-active.--ignore-highlight {
   color: #081F38;
 }
 </style>
->>>>>>> 09bc51a247071c8be0c45bbb72442fcd4ead0f03
