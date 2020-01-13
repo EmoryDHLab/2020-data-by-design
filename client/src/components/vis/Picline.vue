@@ -3,7 +3,6 @@
     :width="styles.width + styles.margin.left + styles.margin.right + 'px'"
     :height="styles.height + styles.margin.top + styles.margin.bottom + 'px'">
     <g :transform="`translate(${styles.margin.left}, ${styles.margin.top})`">
-
       <!--gray bar-->
       <rect id="timeline"
         x='0' :y='(styles.height - styles.line.height)/2'
@@ -36,7 +35,6 @@
       </g>
 
 
-
       <g v-for="point in dataset" :style = positionPointX(point)>
         <!--frames-->
         <g v-if="point.year % 2 == 0"
@@ -45,27 +43,24 @@
            @mouseleave="hover = null">
 
           <g v-if="hover == point">
-            <rect x="-15" width="60" height="40" rx="1" fill="#989898"></rect>
-            <!--<rect x="0" width="${imgWidth(point).w + 4}" height="${styles.frame.height}" rx="1" fill="#989898"></rect>-->
-            <g :transform="`translate(0)`">
-              <polygon points="15,-5 10,1 20,1" style="fill:#989898"></polygon>
-            </g>
+            <rect x="-15" width="60" :height="point.height*2" rx="1" fill="#989898"></rect>
+            <polygon points="15,-5 10,1 20,1" style="fill:#989898"></polygon>
             <image
                     :xlink:href="point.href"
-                    :width="point.width * 2"
+                    :width="56"
                     :x="point.x - (point.width)/2"
                     :y="point.y"
             ></image>
           </g>
+
           <g v-else>
-          <rect x="0" width="30" height="20" rx="1" fill="#989898"></rect>
-          <!--<rect x="0" width="${imgWidth(point).w + 4}" height="${styles.frame.height}" rx="1" fill="#989898"></rect>-->
+          <rect x="0" width="30" :height="point.height" rx="1" fill="#989898"></rect>
           <g :transform="`translate(0)`">
             <polygon points="15,-5 10,1 20,1" style="fill:#989898"></polygon>
           </g>
           <image
                   :xlink:href="point.href"
-                  :width="point.width"
+                  :width="26"
                   :x="point.x"
                   :y="point.y"
                   ></image>
@@ -85,39 +80,36 @@
 
           <g v-if="hover == point">
             <g :transform="`translate(-40,0)`">
-              <rect x="-15" width="60" height="40" rx="1" fill="#989898"></rect>
-              <!--<rect x="0" width="${imgWidth(point).w + 4}" height="${styles.frame.height}" rx="1" fill="#989898"></rect>-->
+              <rect x="-15" :y="40-point.height*2" width="60" :height="point.height*2" rx="1" fill="#989898"></rect>
               <g :transform="`translate(30, 40) rotate(180)`">
                 <polygon points="15,-5 10,1 20,1" style="fill:#989898"></polygon>
               </g>
             </g>
             <image
                     :xlink:href="point.href"
-                    :width="point.width*2"
-                    :x="point.x - 42 - (point.width)/2"
-                    :y="point.y"></image>
+                    :width="56"
+                    :x="point.x - 40 - (point.width)/2"
+                    :y="42.5-point.height*2"></image>
           </g>
           <g v-else>
           <g :transform="`translate(-40, 20)`">
-            <rect x="0" width="30" height="20" rx="1" fill="#989898"></rect>
-            <!--<rect x="0" width="${imgWidth(point).w + 4}" height="${styles.frame.height}" rx="1" fill="#989898"></rect>-->
+            <rect :x="0"
+                  :y="20-point.height"
+                  :width="30"
+                  :height="point.height"
+                  rx="1" fill="#989898"
+                  ></rect>
             <g :transform="`translate(30, 20) rotate(180)`">
               <polygon points="15,-5 10,1 20,1" style="fill:#989898"></polygon>
             </g>
           </g>
           <image
                   :xlink:href="point.href"
-                  :width="point.width"
-                  :x="point.x - 42"
-                  :y="point.y + 20"></image>
+                  :width="26"
+                  :x="point.x - 40"
+                  :y="42.5-point.height"></image>
           </g>
 
-          <!--<image-->
-                  <!--:xlink:href="point.href"-->
-                  <!--:width= "`${imgWidth(point).w}`"-->
-                  <!--:height="`${imgWidth(point).h}`"-->
-                  <!--:x="point.x - 22"-->
-                  <!--:y="point.y + 30"></image>-->
           <g v-show="hover == point">
             <line x1="-25" y1="45" x2="-25" y2="120" style="stroke:#4A90E2;stroke-width:2"></line>
             <polygon points="-25,130 -20,120 -30,120" style="fill:#4A90E2"></polygon>

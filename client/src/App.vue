@@ -18,44 +18,77 @@ export default {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css?family=Markazi+Text|Libre+Baskerville:400,700|Roboto');
+@import url('https://fonts.googleapis.com/css?family=Markazi+Text|Libre+Baskerville:400,700|Roboto:100,300,400,500,700,900');
 p, h4, h5, h6, a, li {
 
-  font-family: 'Roboto Thin', arial;
+  font-family: 'Roboto', arial;
+  font-weight: 300;
   color: #2c3e50;
 }
 p {
   font-size: 16px;
-  font-weight: lighter;
+  /*font-weight: lighter;*/
 }
 h1 {
-  font-family: Baskerville;
+  font-family: Libre Baskerville;
   font-weight: bold;
 }
 
 h2 {
-  font-family: Baskerville;
+  font-family: Libre Baskerville;
   font-weight: normal;
 }
 h3 {
-  font-family: Roboto Condensed, sans-serif;
-  font-weight: lighter;
+  font-family: Roboto, sans-serif;
+  font-weight: normal;
 }
 body {
   margin:0
+}
+button {
+  background-color:#4a90e2;
+  color:white;
+  border: 2px solid #4a90e2;
+}
+button:hover {
+  color: #083871;
+  border: 2px solid #083871;
+  background-color: white;
+}
+button:active {
+  color: white;
+  border: 2px solid #083871;
+  background-color: #083871;
+}
+footer {
+  background-color: slategrey;
+  padding: 10px 100px;
 }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  /* padding: 32px;
-  padding-top: 0px; */
-  /* height: 100vh; */
 }
 
 .main-content {
   position: relative;
+  top: 100px;
+}
+
+.subclass {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.--biggest {
+  font-size: 4em;
+}
+.--bigger {
+  font-size: 3em;
+}
+.--big {
+  font-size: 1.5em;
 }
 
 a.router-link-active.--ignore-highlight,
@@ -70,20 +103,28 @@ a.router-link-exact-active.--ignore-highlight {
   color: rgb(219, 136, 42) !important;
 }
 
-.--text-dark-blue {
-  color: #081F38;
+.--color-dark-blue {
+  color: #083871;
 }
 
-.--text-yellow {
-  color: #FCC400;
+.--color-sky-blue {
+  color: #4A90E2;
 }
 
-.--text-white {
+.--color-dark-grey {
+  color: #4A4A4A;
+}
+
+.--color-grey {
+  color: #5B5B5B;
+}
+
+.--color-light-grey {
+  color: #D8D8D8;
+}
+
+.--color-white {
   color: white;
-}
-
-.--text-center {
-  text-align: center;
 }
 
 .--uppercase {

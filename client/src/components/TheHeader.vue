@@ -1,21 +1,30 @@
 <template lang="html">
   <header>
-    <div class="header__title">
+    <div class="header-title">
       <router-link class="--ignore-highlight" to="/">
-        <h2 class="header__title__content">DH Lab</h2>
+        <h2 class="header-title-content">DH Lab</h2>
       </router-link>
     </div>
-    <vue-nav class="header__nav">
-      <router-link class="header__nav__link" to="/">Home</router-link>
-      <router-link class="header__nav__link --allow-inexact"
-        :to="{ path: '/', hash: 'chapters' }">Chapters</router-link>
-      <router-link class="header__nav__link --allow-inexact"
+    <vue-nav class="header-nav">
+      <router-link class="header-nav-link" to="/">Home</router-link>
+      <nav-drop-down>
+        <template v-slot:title>
+        <router-link class="header-nav-link --allow-inexact"
+          :to="{ path: '/', hash: 'chapters' }">Chapters
+        </router-link>
+        </template>
+        <nav-drop-down-item class="drop-down-item">
+          <router-link to="/chapters/shape-of-history">Shape of History</router-link>
+        </nav-drop-down-item>
+        <nav-drop-down-item class="drop-down-item">Du Bois</nav-drop-down-item>
+      </nav-drop-down>
+      <router-link class="header-nav-link --allow-inexact"
         :to="{ path: '/', hash: 'features' }">Features</router-link>
-      <router-link class="header__nav__link"
+      <router-link class="header-nav-link"
         :to="{ path: '/', hash: 'credits' }">Credits</router-link>
-      <router-link v-if="!isAuthenticated" class="header__nav__link" to="/signup">Sign Up</router-link>
-      <router-link v-if="!isAuthenticated" class="header__nav__link" to="/signin">Sign in</router-link>
-      <router-link v-if="isAuthenticated" class="header__nav__link" to="/account">Account</router-link>
+      <router-link v-if="!isAuthenticated" class="header-nav-link" to="/signup">Sign Up</router-link>
+      <router-link v-if="!isAuthenticated" class="header-nav-link" to="/signin">Sign in</router-link>
+      <router-link v-if="isAuthenticated" class="header-nav-link" to="/account">Account</router-link>
     </vue-nav>
   </header>
 </template>
@@ -27,11 +36,15 @@
  */
 
 import VueNav from './general/VueNav'
+import NavDropDown from './NavDropDown'
+import NavDropDownItem from './NavDropDownItem'
 
 export default {
   name: "TheHeader",
   components: {
-    VueNav
+    VueNav,
+    NavDropDown,
+    NavDropDownItem
   },
   computed: {
     isAuthenticated () {
@@ -44,18 +57,28 @@ export default {
 <style scoped>
 header {
   padding: 8px 100px;
+  width: 100%; /*Maybe not?*/
   display: flex;
   flex-flow: row wrap;
   align-items: baseline;
   box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  z-index:100;
+  background-color: white;
+  /*Fades the bottom border. I also tried to add a horizontal fade, but they didn't stack nicely.
+  (Instead, I made the width span the whole screen, see above.)
+  Wonder if it can be done using inset box-shadows? I tried, but I couldn't get it to work with transparency.*/
+  background: linear-gradient(rgba(255,255,255,0.8) 90%, rgba(255,255,255,0));
+;
 }
-.header__title {
+.header-title {
   /*flex: 1 0;*/
   margin: 0;
   margin-right: 70px;
 }
 
-.header__title__content {
+.header-title-content {
   color: inherit;
   white-space: nowrap;
   text-decoration: none;
@@ -63,22 +86,37 @@ header {
   font-family: 'Roboto', sans-serif;
 }
 
-.header__title__content:hover {
-  text-decoration: underline;
+.header-title-content:hover {
+  border-bottom: 2px solid rgb(74, 144, 226);
+  color: rgb(74, 144, 226);
 }
 
-.header__nav__link {
-  padding: 16px;
-  font-size: 1.5em;
+.header-nav-link   {
+  padding: 10px 16px;
   color: #2c3e50;
-  font-family: 'Baskerville', sans-serif;
+  border-bottom: 1px solid lightgray;
+
 }
 
-.header__nav__link:hover {
-  text-decoration: underline
+.header-nav-link {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 16px;
 }
-.header__nav__link.router-link-exact-active,
-.header__nav__link.router-link-active.--allow-inexact {
-  text-decoration: underline;
+.drop-down-item, .drop-down-item a {
+  font-family: 'Roboto';
+}
+.drop-down-item:hover, .drop-down-item:hover a {
+  font-weight: 700;
+}
+
+
+.header-nav .header-nav-link:hover, .header-nav > *:hover .header-nav-link {
+  border-bottom: 2px solid rgb(74, 144, 226);
+  color: rgb(74, 144, 226);
+}
+.header-nav-link.router-link-exact-active,
+.header-nav-link.router-link-active.--allow-inexact {
+  border-bottom: 2px solid rgb(219, 136, 42);
+
 }
 </style>
