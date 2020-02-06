@@ -17,7 +17,6 @@ const Highlightable = {
       const sameParent = startParent.isEqualNode(endParent);
       if (sameParent && startParent.className == "user-highlight") {
       } else {
-        console.log("count: " + range.cloneContents().childElementCount)
         if (range.cloneContents().childElementCount < 2) {
           const highlight = this.createHighlight(range.extractContents());
           if (highlight) {  
@@ -35,31 +34,7 @@ const Highlightable = {
             });
           }
         }
-          // range.extractContents();
-          
-          // 1. Extract contents, delete all highlighted content.
-          // 2.
-        //   contents.childNodes.forEach(node => {
-        //     //const fragment = document.createDocumentFragment();
-        //     //node.childNodes.forEach((n) => fragment.appendChild(n));
-        //     const highlightSpan = this.createHighlight(node);
-        //     console.log("highlight span");
-        //     console.dir(highlightSpan);
-        //     range.insertNode(highlightSpan);
-        //     console.log("New Node, after replacement:")
-        //     console.dir(node);
-        //  });
       }
-
-      // const selection = window.getSelection();
-      // const anchorHTML = selection.anchorNode.parentElement.innerHTML;
-      // const openTag = "<mark>"
-      // const closeTag = "</mark>"
-      // const realLength =
-      // const newAnchorHTML = anchorHTML.slice(0,selection.anchorOffset) + openTag +
-      // anchorHTML.slice(selection.anchorOffset, selection.focusOffset) + closeTag +
-      // anchorHTML.slice(selection.focusOffset);
-      // selection.anchorNode.parentElement.innerHTML = newAnchorHTML;
     };
   },
   methods: {
