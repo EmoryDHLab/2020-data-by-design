@@ -83,6 +83,7 @@ import PeabodyGrid from '@/components/vis/peabody/PeabodyGrid'
 import PeabodyMutable from '@/components/vis/peabody/PeabodyMutable'
 import EventBus from '@/helpers/EventBus'
 import mutations from '@/store/dataset/types'
+import Highlightable from '@/mixins/Highlightable'
 export default {
   name: 'ThePeabodyChapter',
   components: {
@@ -91,6 +92,7 @@ export default {
     ChapterScaffold,
     TimelineVis
   },
+  mixins: [Highlightable],
   data () {
     return {
       currentDataset: 0,
