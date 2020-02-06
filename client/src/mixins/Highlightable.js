@@ -11,12 +11,16 @@ const Highlightable = {
     this.$el.onmouseup = (e) => { 
       const selection = window.getSelection();
       const range = selection.getRangeAt(0);
-      console.dir(selection)
-      console.dir(selection.toString())
-      console.log(range);
-      console.log(range.getBoundingClientRect());
-      console.log(range.startContainer.parentElement.innerHTML);
-      range.insertNode(this.createHighlight(range.extractContents()));
+      const startParent = range.startContainer.parentNode;
+      const endParent = range.endContainer.parentNode;
+      const sameParent = startParent.isEqualNode(endParent);
+      console.log("Common Ansestor")
+      if (sameParent && startParent.className == "user-highlight") {
+    
+      } else {
+        range.insertNode(this.createHighlight(range.extractContents()));      
+      }
+
       // const selection = window.getSelection();
       // const anchorHTML = selection.anchorNode.parentElement.innerHTML;
       // const openTag = "<mark>"
@@ -39,12 +43,11 @@ const Highlightable = {
       span.className = "user-highlight";
       console.dir(span);
       console.log(span.childNodes);
-      for (let i = 0; i < span.childNodes.length; i++) {
-        console.log(span.childNodes[i]);
-        if (span.childNodes[i].className == "user-highlight") {
-          span.childNodes[i].replaceWith(span.childNodes[i].textContent);
+      span.childNodes.forEach( (value, key) => {
+        if (value.className == "user-highlight") {
+          value.replaceWith(value.innerHTML);
         }
-      }
+      });
       return span;
     }
 
