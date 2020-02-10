@@ -1,8 +1,15 @@
-import { select, create } from "d3";
+import HighlightContextMenu from "../components/HighlightContextMenu";
+import Vue from 'vue';
 
 const Highlightable = {
   created: function() {
     this.log("testing!");
+  },
+  data: function () {
+    return {
+      clicked: false,
+      contextMenu: null
+    }
   },
   mounted: function() {
     if (!this.$el) {
@@ -41,6 +48,21 @@ const Highlightable = {
     log: text => {
       console.log(text);
     },
+    onClick(event) {
+      if (!this.clicked) {
+        const componentClass = Vue.extend(HighlightContextMenu); 
+        const instance = new componentClass();
+        instance.$mount();
+        event.target.appendChild(instance.$el);
+        this.contextMenu = instance;
+        this.clicked = true;
+      }
+    },
+    onMouseOut() {
+      if (this.contextMenu) {
+        
+      }
+    },
     createHighlight(contents) {
         const span = this.createHighlightSpan(contents);
         span.childNodes.forEach((value, key) => {
@@ -66,6 +88,7 @@ const Highlightable = {
       }
       span.style.backgroundColor = "yellow";
       span.classList.add("user-highlight");
+      span.onclick = this.onClick;
       return span;
     }
   }
