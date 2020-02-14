@@ -12,6 +12,7 @@
     <!--</g>-->
   <svg width="3309" height="2523" viewBox="70 100 600 2500" fill="none" xmlns="http://www.w3.org/2000/svg">
     <text x="250" y="210" class="heavy">Progress</text>
+    <!--LEGENDS-->
     <path fill-rule="evenodd" clip-rule="evenodd" d="M270 2091H305V2126H270V2091Z" fill="#D9B89A"/>
     <path fill-rule="evenodd" clip-rule="evenodd" d="M480 2091H515V2126H480V2091Z" fill="#577456"/>
     <path fill-rule="evenodd" clip-rule="evenodd" d="M270 2148H305V2183H270V2148Z" fill="#801201"/>
@@ -21,21 +22,32 @@
     <text x="520" y="2120" class="small">Images</text>
     <text x="520" y="2175" class="small">Static Vis.</text>
     <text x="320" y="2175" class="small">Interaction</text>
-    <rect x="406" y="329" width="32" height="32" fill="#CA6E11"/>
+
+    <!--NOTES-->
+    <!--gap between blocks: 22-->
     <rect x="455" y="329" width="32" height="32" fill="#D9B89A" fill-opacity="0.8"/>
     <rect x="455" y="383" width="32" height="32" fill="#D9B89A" fill-opacity="0.5"/>
+    <rect x="455" y="545" width="32" height="32" fill="#D9B89A" fill-opacity="0.3"/>
+    <rect x="455" y="599" width="32" height="32" fill="#D9B89A" fill-opacity="0.75"/>
+    <rect x="455" y="710" width="32" height="32" fill="#D9B89A" fill-opacity="0.45"/>
+
+    <!--VIS-->
+    <rect x="406" y="329" width="32" height="32" fill="#CA6E11"/>
     <rect x="406" y="437" width="32" height="32" fill="#577456"/>
-    <rect width="32" height="32" transform="matrix(-1 0 0 1 438 545)" fill="#CA6E11"/>
-    <rect width="32" height="32" transform="matrix(-1 0 0 1 438 710)" fill="#801201"/>
-    <rect width="32" height="32" transform="matrix(-1 0 0 1 487 545)" fill="#D9B89A" fill-opacity="0.3"/>
-    <rect width="32" height="32" transform="matrix(-1 0 0 1 487 599)" fill="#D9B89A" fill-opacity="0.75"/>
-    <rect width="32" height="32" transform="matrix(-1 0 0 1 487 710)" fill="#D9B89A" fill-opacity="0.45"/>
-    <rect width="32" height="32" transform="matrix(-1 0 0 1 438 653)" fill="#577456"/>
-    <rect width="32" height="32" transform="matrix(-1 0 0 1 438 764)" fill="#577456"/>
-    <path d="M373 287V512.82H509.79V862.246H376.931V1443.87H507.366V1684.89H376.931V1947.53H520.35" stroke="#D9B89A" stroke-width="5" stroke-linecap="round"/>
+    <rect x="406" y="545" width="32" height="32" fill="#CA6E11"/>
+    <rect x="406" y="653" width="32" height="32" fill="#577456"/>
+    <rect x="406" y="764" width="32" height="32" fill="#577456"/>
+    <rect x="406" y="710" width="32" height="32" fill="#801201"/>
+
+    <line x1="373" y1="292" x2="373" y2="514" style="stroke:#D9B89A; stroke-width:5; stroke-linecap:round"/>
+    <line x1="373" y1="514" x2="510" y2="514" style="stroke:#D9B89A; stroke-width:5; stroke-linecap:round"/>
+    <line x1="510" y1="514" x2="510" y2="814" style="stroke:#D9B89A; stroke-width:5; stroke-linecap:round"/>
+    <!--<path d="M373 287V512.82H509.79V862.246H376.931V1443.87H507.366V1684.89H376.931V1947.53H520.35" stroke="#D9B89A" stroke-width="5" stroke-linecap="round"/>-->
+    <rect x="353" y="272" width="40" height="40" fill="#D9B89A"/>
+    <rect x="353" y="494" width="40" height="40" fill="#D9B89A"/>
     <g>
-      <path fill-rule="evenodd" clip-rule="evenodd" d="M353 271H394V312H353V271Z" fill="#D9B89A"/>
-      <path fill-rule="evenodd" clip-rule="evenodd" d="M353 493H394V534H353V493Z" fill="#D9B89A"/>
+      <!--<path fill-rule="evenodd" clip-rule="evenodd" d="M353 271H394V312H353V271Z" fill="#D9B89A"/>-->
+      <!--<path fill-rule="evenodd" clip-rule="evenodd" d="M353 493H394V534H353V493Z" fill="#D9B89A"/>-->
       <path fill-rule="evenodd" clip-rule="evenodd" d="M353 842H394V883H353V842Z" fill="#D9B89A"/>
       <path fill-rule="evenodd" clip-rule="evenodd" d="M357 1421H398V1462H357V1421Z" fill="#9B9B9B"/>
       <path fill-rule="evenodd" clip-rule="evenodd" d="M357 1661H398V1702H357V1661Z" fill="#9B9B9B"/>
@@ -47,6 +59,7 @@
     <text x="300" y="1460" class="number">4</text>
     <text x="300" y="1700" class="number">5</text>
     <text x="300" y="1970" class="number">6</text>
+
     <defs>
       <filter id="filter0_d" x="349" y="269" width="49" height="49" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
         <feFlood flood-opacity="0" result="BackgroundImageFix"/>
@@ -87,6 +100,14 @@ const DEFAULT_OPTIONS = {
       height: 5,
       gap: 1 // space between each event
     },
+    chapterBlock: {
+      width: 40
+    },
+    block: {
+      width: 32,
+      gap: 22,
+      margin: 18
+    }
   },
   vertical: true, // how to orient the navline
   showTicks: true // whether to show the axis ticks
