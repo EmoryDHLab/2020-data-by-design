@@ -55,7 +55,19 @@ export default {
     NoteBook
   },
   data: () => ({
-    timelineData: {} // the data which will be fed into the timeline
+    timelineData: {
+        paragraphData: [3,5,10,4,4], //index = which paragraph, value = number of sub-parts
+        highlights: [[0.7, 0.3, 0.],
+            [0., 0., 0., 0.2, 0.],
+            [0., 0.1, 0.6, 0., 0., 0.2, 0., 0.5, 0., 0.],
+            [0.8, 0., 0., 0.],
+            [0.6, 0., 0.2, 0.1]], //default: transparency = 0 for every block;
+        vis: [[1, 0, 2],
+              [2, 1, 0, 0, 2],
+              [2, 3, 0, 1, 0, 1, 3, 0, 2, 0],
+              [1, 1, 0, 3],
+              [0, 2, 0, 1]], // 1 -> image, 2 -> interaction, 3 -> static vis, 0 -> empty
+    } // the data which will be fed into the timeline
   }),
   mounted () {
     // get the mounding box of the chapter

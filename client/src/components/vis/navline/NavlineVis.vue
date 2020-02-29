@@ -13,52 +13,60 @@
   <svg width="3309" height="2523" viewBox="70 100 600 2500" fill="none" xmlns="http://www.w3.org/2000/svg">
     <text x="250" y="210" class="heavy">Progress</text>
     <!--LEGENDS-->
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M270 2091H305V2126H270V2091Z" fill="#D9B89A"/>
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M480 2091H515V2126H480V2091Z" fill="#577456"/>
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M270 2148H305V2183H270V2148Z" fill="#801201"/>
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M480 2148H515V2183H480V2148Z" fill="#CA6E11"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M270 2091H305V2126H270V2091Z" :fill=styles.color.defaultBlock />
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M480 2091H515V2126H480V2091Z" :fill=styles.color.image />
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M270 2148H305V2183H270V2148Z" :fill=styles.color.intVis />
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M480 2148H515V2183H480V2148Z" :fill=styles.color.stcVis />
     <text x="340" y="2050" class="number">LEGENDS</text>
     <text x="320" y="2120" class="small">Highlights</text>
     <text x="520" y="2120" class="small">Images</text>
     <text x="520" y="2175" class="small">Static Vis.</text>
     <text x="320" y="2175" class="small">Interaction</text>
 
-    <!--NOTES-->
-    <!--gap between blocks: 22-->
-    <rect x="455" y="329" width="32" height="32" fill="#D9B89A" fill-opacity="0.8"/>
-    <rect x="455" y="383" width="32" height="32" fill="#D9B89A" fill-opacity="0.5"/>
-    <rect x="455" y="545" width="32" height="32" fill="#D9B89A" fill-opacity="0.3"/>
-    <rect x="455" y="599" width="32" height="32" fill="#D9B89A" fill-opacity="0.75"/>
-    <rect x="455" y="710" width="32" height="32" fill="#D9B89A" fill-opacity="0.45"/>
+    <!--Lines, ChapterBlocks, Numbers, Notes Init-->
+    <rect :x="styles.line.left - styles.chapterBlock.width/2" :y="styles.line.start- styles.chapterBlock.width/2"
+          :width="styles.chapterBlock.width" :height="styles.chapterBlock.width" :fill=styles.color.defaultBlock></rect>
+    <text x="300" :y="styles.line.start + 15" class="number">1</text>
 
-    <!--VIS-->
-    <rect x="406" y="329" width="32" height="32" fill="#CA6E11"/>
-    <rect x="406" y="437" width="32" height="32" fill="#577456"/>
-    <rect x="406" y="545" width="32" height="32" fill="#CA6E11"/>
-    <rect x="406" y="653" width="32" height="32" fill="#577456"/>
-    <rect x="406" y="764" width="32" height="32" fill="#577456"/>
-    <rect x="406" y="710" width="32" height="32" fill="#801201"/>
+    <g v-for="(lines, index) in startEndPoint(dataset.paragraphData)">
+      <!--Vertical Line-->
+      <line :x1="lines.x1" :y1="lines.y1" :x2="lines.x2" :y2="lines.y2" style="stroke:#D9B89A; stroke-width:5; stroke-linecap:round"></line>
+      <!--Horizontal Line-->
+      <line :x1="373" :y1="lines.y2" x2="510" :y2="lines.y2" style="stroke:#D9B89A; stroke-width:5; stroke-linecap:round"></line>
+      <!--chapter block-->
+      <rect :x="styles.line.left - styles.chapterBlock.width/2" :y="lines.y2 - styles.chapterBlock.width/2"
+            :width="styles.chapterBlock.width" :height="styles.chapterBlock.width" :fill=styles.color.defaultBlock></rect>
+      <!--paragraph number-->
+      <text x="300" :y="lines.y2 + 15" class="number">{{index + 2}}</text>
 
-    <line x1="373" y1="292" x2="373" y2="514" style="stroke:#D9B89A; stroke-width:5; stroke-linecap:round"/>
-    <line x1="373" y1="514" x2="510" y2="514" style="stroke:#D9B89A; stroke-width:5; stroke-linecap:round"/>
-    <line x1="510" y1="514" x2="510" y2="814" style="stroke:#D9B89A; stroke-width:5; stroke-linecap:round"/>
-    <!--<path d="M373 287V512.82H509.79V862.246H376.931V1443.87H507.366V1684.89H376.931V1947.53H520.35" stroke="#D9B89A" stroke-width="5" stroke-linecap="round"/>-->
-    <rect x="353" y="272" width="40" height="40" fill="#D9B89A"/>
-    <rect x="353" y="494" width="40" height="40" fill="#D9B89A"/>
-    <g>
-      <!--<path fill-rule="evenodd" clip-rule="evenodd" d="M353 271H394V312H353V271Z" fill="#D9B89A"/>-->
-      <!--<path fill-rule="evenodd" clip-rule="evenodd" d="M353 493H394V534H353V493Z" fill="#D9B89A"/>-->
-      <path fill-rule="evenodd" clip-rule="evenodd" d="M353 842H394V883H353V842Z" fill="#D9B89A"/>
-      <path fill-rule="evenodd" clip-rule="evenodd" d="M357 1421H398V1462H357V1421Z" fill="#9B9B9B"/>
-      <path fill-rule="evenodd" clip-rule="evenodd" d="M357 1661H398V1702H357V1661Z" fill="#9B9B9B"/>
-      <path fill-rule="evenodd" clip-rule="evenodd" d="M357 1928H398V1969H357V1928Z" fill="#9B9B9B"/>
+
+      <g v-for="i in lines.blocks" >
+        <!--Notes Init-->
+        <!--(i-1) because v-for index start with 1 instead of 0-->
+        <rect x="455"
+              :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
+              :width="styles.block.width" :height="styles.block.width"
+              :fill=styles.color.defaultBlock
+              :fill-opacity= dataset.highlights[index][i-1] ></rect>
+        <!--VIS-->
+        <rect v-if="dataset.vis[index][i-1] == '1' "
+              x="406"
+              :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
+              :width="styles.block.width" :height="styles.block.width"
+              :fill=styles.color.image ></rect>
+        <rect v-if="dataset.vis[index][i-1] == '2' "
+              x="406"
+              :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
+              :width="styles.block.width" :height="styles.block.width"
+              :fill=styles.color.intVis ></rect>
+        <rect v-if="dataset.vis[index][i-1] == '3' "
+              x="406"
+              :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
+              :width="styles.block.width" :height="styles.block.width"
+              :fill=styles.color.stcVis ></rect>
+      </g>
+
     </g>
-    <text x="300" y="310" class="number">1</text>
-    <text x="300" y="530" class="number">2</text>
-    <text x="300" y="880" class="number">3</text>
-    <text x="300" y="1460" class="number">4</text>
-    <text x="300" y="1700" class="number">5</text>
-    <text x="300" y="1970" class="number">6</text>
 
     <defs>
       <filter id="filter0_d" x="349" y="269" width="49" height="49" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
@@ -100,13 +108,26 @@ const DEFAULT_OPTIONS = {
       height: 5,
       gap: 1 // space between each event
     },
+    line: {
+      left: 373,
+      right:510,
+      start: 292
+    },
     chapterBlock: {
       width: 40
     },
     block: {
       width: 32,
       gap: 22,
-      margin: 18
+      margin: 18,
+      verGap: 38//chapterBlock/2 + margin
+    },
+    color: {
+      defaultBlock:"#D9B89A",
+      gray: "#9B9B9B",
+      image: "#577456",
+      intVis: "#801201",
+      stcVis: "#CA6E11"
     }
   },
   vertical: true, // how to orient the navline
@@ -124,7 +145,7 @@ export default {
       type: Object,
       required: false,
       default: () => DEFAULT_OPTIONS
-    }
+    },
   },
   computed: {
     /**
@@ -202,6 +223,31 @@ export default {
     }
   },
   methods: {
+      /**
+       * calculate line positions
+       **/
+      startEndPoint: function (paragraphData) {
+          console.log(paragraphData);
+          let start = this.styles.line.start;
+          let x = this.styles.line.left;
+          let arr = [];
+          for (let i = 0; i < paragraphData.length; i++) {
+              let lines = paragraphData[i];
+              console.log(arr);
+              let end = lines * this.styles.block.width
+                  + (lines - 1) * this.styles.block.gap + this.styles.block.verGap * 2 + start;
+              arr.push({
+                  x1: x,
+                  y1: start,
+                  x2: x,
+                  y2: end,
+                  blocks: lines,
+              });
+              start = end;
+              x = (x === this.styles.line.left) ? this.styles.line.right : this.styles.line.left;
+          }
+          return arr;
+      },
     /**
      * Formats the data to match the navline format
      * [
@@ -237,7 +283,7 @@ export default {
       return Object.values(data)
     },
     placeBucket (bucket) {
-      console.log(this.getScale(bucket.id));
+      // console.log(this.getScale(bucket.id));
       const dx = this.getScale(bucket.id) - (this.styles.timelineEvent.width / 2)
       const dy = this.innerHeight - (this.styles.timelineEvent.height + this.styles.timelineEvent.gap)
       return { transform: `translate(${0}px, ${dx}px)` }
