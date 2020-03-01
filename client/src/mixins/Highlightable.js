@@ -58,8 +58,8 @@ const Highlightable = {
       }
       this.contextMenu.$el.style.display = 'block';
       this.contextMenu.$el.style.left = event.clientX + "px";
-      this.contextMenu.$el.style.top = event.target.offsetTop + event.target.offsetHeight * 2
-        + this.contextMenu.$el.offsetHeight + "px";
+      this.contextMenu.$el.style.top = event.target.offsetTop + event.target.offsetHeight
+        + this.contextMenu.$el.offsetHeight + 4 + "px";
       console.dir(event);
 
     },

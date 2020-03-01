@@ -1,10 +1,12 @@
 <template lang="html">
-    <div class="context-menu">
-      <ul>
-        <li> Remove</li>
-        <li> Color</li>
-      </ul>
-      <!-- <div class="pointer"></div> -->
+    <div class="context-menu-parent">
+      <div class="context-menu-items">
+        <ul>
+          <li> Remove</li>
+          <li> Color</li>
+        </ul>
+      </div>
+      <div class="pointer"></div>
     </div>
 </template>
 
@@ -33,15 +35,16 @@ export default {
 </script>
 
 <style scoped>
-    div{
-        user-select: none;
-        box-shadow: 0 12px 22px -3px rgba(0, 0, 0, 0.39);
+    .context-menu-parent {
         position: absolute;
         left: 50%;
+        transform: translateX(-50%);
+    }
+    .context-menu-items {
+        user-select: none;
+        box-shadow: 0 12px 22px -3px rgba(0, 0, 0, 0.39);
         background-color: #424242;
         border-radius: 8px;
-        transition: opacity 0.2s ease, transform 0.2s ease;
-        transform: translateX(-50%);
     }
     div ul {
       list-style: none;
@@ -51,16 +54,15 @@ export default {
       color: white;
     }
     div .pointer {
-      top: -16px;
+      top: 4px;
       border-color: transparent transparent #424242;
-      border-width: 0 16px 16px;
+      border-width: 0 12px 12px;
       position: absolute;
       left: 50%;
       display: block;
       width: 0;
       height: 0;
-      margin-left: -16px;
+      margin-left: -12px;
       border-style: solid;
-      transition: border-color 0.2s ease;
     }
 </style>
