@@ -22,8 +22,7 @@ const Highlightable = {
 
       const endParent = range.endContainer.parentNode;
       const sameParent = startParent.isEqualNode(endParent);
-      if (sameParent && startParent.className == "user-highlight") {
-      } else {
+      if (!(sameParent && startParent.className == "user-highlight")) {
         if (range.cloneContents().childElementCount < 2) {
           const highlight = this.createHighlight(range.extractContents());
           if (highlight) {  
@@ -53,16 +52,25 @@ const Highlightable = {
         const componentClass = Vue.extend(HighlightContextMenu); 
         const instance = new componentClass();
         instance.$mount();
-        event.target.appendChild(instance.$el);
+        document.body.appendChild(instance.$el);
         this.contextMenu = instance;
         this.clicked = true;
       }
+      this.contextMenu.$el.style.display = 'block';
+      this.contextMenu.$el.style.left = event.clientX + "px";
+      this.contextMenu.$el.style.top = event.target.offsetTop + event.target.offsetHeight * 2
+        + this.contextMenu.$el.offsetHeight + "px";
+      console.dir(event);
+
     },
-    onMouseOut() {
-      if (this.contextMenu) {
-        
-      }
-    },
+    // onMouseLeave(e) {
+    //   console.dir(e)
+    //   if (this.contextMenu) {
+    //     this.contextMenu.$el.parentNode.removeChild(this.contextMenu.$el);
+    //     this.contextMenu.$destroy();
+    //     this.contextMenu = null;
+    //   }
+    // },
     createHighlight(contents) {
         const span = this.createHighlightSpan(contents);
         span.childNodes.forEach((value, key) => {
@@ -89,6 +97,7 @@ const Highlightable = {
       span.style.backgroundColor = "yellow";
       span.classList.add("user-highlight");
       span.onclick = this.onClick;
+
       return span;
     }
   }

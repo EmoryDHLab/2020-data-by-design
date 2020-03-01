@@ -1,5 +1,5 @@
 <template lang="html">
-    <div>
+    <div class="context-menu">
       <ul>
         <li> Remove</li>
         <li> Color</li>
@@ -10,6 +10,25 @@
 
 <script>
 export default {
+  mounted: function() {
+    // this.$el.onmouseleave = this.onMouseLeave;
+    const listener = event => {
+      if (event.target.closest(".user-highlight") === null && event.target.closest(".context-menu") === null) {
+        // removeListener();
+        this.hide();
+      }
+    }
+
+    document.addEventListener('click', listener);
+
+  },
+  methods: {
+    hide (e) {
+      this.$el.style.display = 'none';
+      // this.$destroy();
+      // this.$el.parentNode.removeChild(this.$el);
+    }
+  }
 }
 </script>
 
@@ -26,6 +45,9 @@ export default {
     }
     div ul {
       list-style: none;
+      padding: 10px;
+    }
+    div ul li {
       color: white;
     }
     div .pointer {
