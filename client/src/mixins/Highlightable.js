@@ -25,7 +25,7 @@ const Highlightable = {
       if (!(sameParent && startParent.className == "user-highlight")) {
         if (range.cloneContents().childElementCount < 2) {
           const highlight = this.createHighlight(range.extractContents());
-          if (highlight) {  
+          if (highlight) {
             range.insertNode(highlight);
           }
         } else {
@@ -49,7 +49,7 @@ const Highlightable = {
     },
     onClick(event) {
       if (!this.clicked) {
-        const componentClass = Vue.extend(HighlightContextMenu); 
+        const componentClass = Vue.extend(HighlightContextMenu);
         const instance = new componentClass();
         instance.$mount();
         document.body.appendChild(instance.$el);
@@ -97,7 +97,16 @@ const Highlightable = {
       span.style.backgroundColor = "yellow";
       span.classList.add("user-highlight");
       span.onclick = this.onClick;
-
+      //Draggability
+      const onDragStart = (event) => {
+        console.log("Dragging!")
+        event.dataTransfer.setData("text/plain", "metadata/serialization info goes here");
+        event.dataTransfer.setData("text/html", `<mark>${event.target.wholeText}</mark>`);
+        console.dir(event.target);
+        // event.dataTransfer.dropEffect = "link";
+      }
+      span.setAttribute("draggable", "true");
+      span.addEventListener("dragstart", onDragStart);
       return span;
     }
   }
