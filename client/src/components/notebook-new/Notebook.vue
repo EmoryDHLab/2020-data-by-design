@@ -1,7 +1,7 @@
 <template>
   <div class="notebook-container">
     <div class="notebook-header">
-      <h2>Current Chapter Title</h2>
+      <h2>Current Chapter Titles</h2>
     </div>
     <div class="notebook-body">
       <NodeList></NodeList>
@@ -20,5 +20,7 @@ export default {
 </script>
 
 <style scoped>
-
+.notebook-container {
+  user-select: none;
+}
 </style>
