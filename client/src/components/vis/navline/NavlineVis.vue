@@ -40,7 +40,7 @@
       <text x="300" :y="lines.y2 + 15" class="number">{{index + 2}}</text>
 
 
-      <g v-for="i in lines.blocks" >
+      <g v-for="i in lines.blocks">
         <!--Notes Init-->
         <!--(i-1) because v-for index start with 1 instead of 0-->
         <rect x="455"
@@ -49,36 +49,36 @@
               :fill=styles.color.defaultBlock
               :fill-opacity= dataset.highlights[index][i-1] ></rect>
         <!--VIS-->
-        <rect v-if="dataset.vis[index][i-1] == '1' "
-              x="406"
-              :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
-              :width="styles.block.width" :height="styles.block.width"
-              :fill=styles.color.image ></rect>
-        <rect v-if="dataset.vis[index][i-1] == '2' "
-              x="406"
-              :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
-              :width="styles.block.width" :height="styles.block.width"
-              :fill=styles.color.intVis ></rect>
-        <rect v-if="dataset.vis[index][i-1] == '3' "
-              x="406"
-              :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
-              :width="styles.block.width" :height="styles.block.width"
-              :fill=styles.color.stcVis ></rect>
+        <!--10: largest number of subparts in section-->
+        <g v-on:click="goto(index, i-1)"
+           @mouseover="hover = index*10 + i"
+           @mouseleave="hover = null">
+          <rect v-if="dataset.vis[index][i-1] == '1' "
+                x="406"
+                :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
+                :width="styles.block.width" :height="styles.block.width"
+                :fill=styles.color.image ></rect>
+          <rect v-if="dataset.vis[index][i-1] == '2' "
+                x="406"
+                :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
+                :width="styles.block.width" :height="styles.block.width"
+                :fill=styles.color.intVis ></rect>
+          <rect v-if="dataset.vis[index][i-1] == '3' "
+                x="406"
+                :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
+                :width="styles.block.width" :height="styles.block.width"
+                :fill=styles.color.stcVis ></rect>
+
+          <rect v-if="hover == index*10 + i  && dataset.vis[index][i-1] != '0'"
+                x="406"
+                :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
+                :width="styles.block.width" :height="styles.block.width"
+                :fill=styles.color.lightgray ></rect>
+        </g>
       </g>
 
     </g>
 
-    <defs>
-      <filter id="filter0_d" x="349" y="269" width="49" height="49" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-        <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-        <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
-        <feOffset dy="2"/>
-        <feGaussianBlur stdDeviation="2"/>
-        <feColorMatrix type="matrix" values="0 0 0 0 0.607892 0 0 0 0 0.607803 0 0 0 0 0.607923 0 0 0 1 0"/>
-        <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
-        <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
-      </filter>
-    </defs>
   </svg>
 
 </template>
@@ -91,7 +91,8 @@
 
 import MetaVisualization from '@/mixins/vis/MetaVisualization'
 import NavlineBucket from './NavlineBucket'
-import * as d3 from 'd3'
+import Peobody from '@/views/PeabodyChapter'
+// import * as d3 from 'd3'
 
 const DEFAULT_OPTIONS = {
   styles: {
@@ -127,13 +128,17 @@ const DEFAULT_OPTIONS = {
       gray: "#9B9B9B",
       image: "#577456",
       intVis: "#801201",
-      stcVis: "#CA6E11"
+      stcVis: "#CA6E11",
+      lightgray: "#c9c9c9"
     }
   },
   vertical: true, // how to orient the navline
   showTicks: true // whether to show the axis ticks
-}
+};
 export default {
+  data() {
+    return {hover: null}
+  },
   components: {
     NavlineBucket
   },
@@ -227,13 +232,11 @@ export default {
        * calculate line positions
        **/
       startEndPoint: function (paragraphData) {
-          console.log(paragraphData);
           let start = this.styles.line.start;
           let x = this.styles.line.left;
           let arr = [];
           for (let i = 0; i < paragraphData.length; i++) {
               let lines = paragraphData[i];
-              console.log(arr);
               let end = lines * this.styles.block.width
                   + (lines - 1) * this.styles.block.gap + this.styles.block.verGap * 2 + start;
               arr.push({
@@ -247,6 +250,12 @@ export default {
               x = (x === this.styles.line.left) ? this.styles.line.right : this.styles.line.left;
           }
           return arr;
+      },
+      goto: function (index, i) {
+          var idname = "part" + index + "." + i;
+          // console.log(Peobody)
+          // var element = Peobody.$els["part" + index + "." + i];
+          // element.scrollIntoView();
       },
     /**
      * Formats the data to match the navline format
