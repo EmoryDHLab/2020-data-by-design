@@ -99,8 +99,9 @@ const Highlightable = {
       span.onclick = this.onClick;
       //Draggability
       const onDragStart = (event) => {
+        console.dir(event.target);
         event.dataTransfer.setData("metadata", "metadata/serialization info goes here");
-        event.dataTransfer.setData("text/html", `<mark>${event.target.wholeText}</mark>`);
+        event.dataTransfer.setData("text/html", `<mark>${event.target.wholeText ? event.target.wholeText : event.target.innerText}</mark>`);
       }
       span.setAttribute("draggable", "true");
       span.addEventListener("dragstart", onDragStart);
