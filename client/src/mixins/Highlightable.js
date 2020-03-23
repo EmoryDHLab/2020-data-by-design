@@ -16,6 +16,9 @@ const Highlightable = {
       console.error("Highlightable mixin doesn't see any HTML element");
     }
     this.$el.onmouseup = e => {
+      if (e.button !== 0) {
+          return;
+      }
       const selection = window.getSelection();
       const range = selection.getRangeAt(0);
       const startParent = range.startContainer.parentNode;
