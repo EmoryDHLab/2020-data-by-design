@@ -1,6 +1,6 @@
 <template>
-  <span v-html="item.html">
-  </span>
+  <div v-html="item.html">
+  </div>
 </template>
 
 <script>

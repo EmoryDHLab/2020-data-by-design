@@ -1,11 +1,14 @@
 <template>
   <div class="node-list-container">
+
     <ul>
+        <AddNew @addNote="val => addNote(val, true)"></AddNew>
         <div class="drag-target" data-insert-at="0"></div>
         <li v-for="(item, index) in items" :key="item.notebookId">
           <ListItem :item="item"></ListItem>
           <div class="drag-target" :data-insert-at="index + 1"></div>
         </li>
+        <AddNew @addNote="val => addNote(val, false)"></AddNew>
     </ul>
   </div>
 </template>
@@ -13,9 +16,11 @@
 <script>
 
 import ListItem from "./NotebookNodeListItem"
+import AddNew from "./NotebookNodeAddNew.vue"
 export default {
   components: {
-    ListItem
+    ListItem,
+    AddNew
   },
   mounted: function () {
     const container = document.getElementsByClassName("node-list-container")[0];
@@ -27,6 +32,19 @@ export default {
     this.registerDropTargetEvents();
   },
   methods: {
+    addNote(note, addToTop = false) {
+      const id = ++this.greatestId;
+      const newItem = {
+        html: `<span class='note'>${note}</span>`,
+        notebookId: id,
+        metadata: `usernote/${id}`
+      }
+      if (addToTop) {
+        this.items.unshift(newItem)
+      } else {
+        this.items.push(newItem)
+      }
+    },
     onDrop (event) {
       this.$el.classList.remove("dragging");
       event.target.classList.remove("dragging-over");
@@ -98,12 +116,12 @@ export default {
       greatestId: 1,
       items: [
         {
-          html: "<mark>this is a highlight, yay</mark>",
+          html: "<span>this is a highlight, yay</span>",
           notebookId: 0,
           metadata: "serialization info goes here",
         },
         {
-          html: "<mark>so is <i>this</i> one</mark>",
+          html: "<span>so is <i>this</i> one</span>",
           notebookId: 1,
           metadata: "serialization info goes here",
         },
@@ -113,14 +131,25 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .node-list-container {
   background-color:lavender;
 }
-ul {
+
+.node-list-container ul {
   list-style: square;
 }
-.drag-target {
+
+.node-list-container ul li span:not(.note),
+.node-list-container ul li p{
+  background-color: yellow;
+}
+
+.node-list-container ul li .note {
+  white-space: pre-wrap;
+}
+
+.node-list-container .drag-target {
   width: 100%;
   margin: auto;
   height: 3px;
@@ -131,7 +160,7 @@ ul {
   background-color: lightgray;
 }
 
-.drag-target.dragging-over {
+.node-list-container .drag-target.dragging-over {
   background-color: gray;
 }
 </style>

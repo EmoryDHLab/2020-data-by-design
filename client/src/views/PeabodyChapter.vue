@@ -44,16 +44,16 @@
     <p>Elizabeth Palmer Peabody was born in Massachusetts in 1804. Today, she is most famous for her proximity to more well-known writers of the American Renaissance, such as Emerson and Hawthorne. (Hawthorne was actually married to her sister, Sophia). But Peabody had impact in her own right: the bookstore that she ran out of her home, in Boston, functioned as the de facto salon for the transcendentalist movement. She edited and published the first version of Thoreau’s essay on civil disobedience, which appeared in her Aesthetic Papers, in 1849. And interestingly, she’s also is credited with starting the first kindergarten in the United States.</p>
     <p>But in the 1850s, Peabody set off to ride the rails. She traveled as far north as Rochester, NY; as far west as Louisville, KY; and as far south as Richmond, VA, in order to promote the US history textbook she’d recently published: <a href='https://archive.org/details/chronologicalhis00peab'>A Chronological History of the United States</a>. Along with boxes of books, Peabody traveled with a fabric roll the size of a living room rug, which contained floor-sized versions of charts like the one in the image above, which I’ll tell you only now is a visualization of the significant events of the seventeenth century, as they relate to the United States. (This image that you see is a plate from the textbook, measuring, at most, 3 inches square).</p>
     <p>In her version of a sales pitch, Peabody would visit classrooms of potential textbook adopters, unroll one of her “mural charts” (as she called them) on the floor, and invite the students to sit around it to contemplate the colors and patterns they perceived.</p>
-    <p>Peabody’s design was derived from a system developed in Poland in the 1820s, which employed a grid, overlaid with shapes and colors, to visually represent events in time. At left you see, on the bottom left of the page, a numbered grid, with each year in a century marked out in its own box. On the top right you see how each box is subdivided. So, top left corner for wars, battles, and sieges; top middle for conquests and unions; top right for losses and divisions, and so on. And shapes that take up the entire box indicate an event of such magnitude or complexity that the other events in that year didn’t matter.</p>
+    <p><b>Peabody’s</b> design was derived from a system developed in Poland in the 1820s, which employed a grid, overlaid with shapes and colors, to visually represent events in time. At left you see, on the bottom left of the page, a numbered grid, with each year in a century marked out in its own box. On the top right you see how each box is subdivided. So, top left corner for wars, battles, and sieges; top middle for conquests and unions; top right for losses and divisions, and so on. And shapes that take up the entire box indicate an event of such magnitude or complexity that the other events in that year didn’t matter.</p>
     <p>The basic exercise was to read the narrative account in Peabody’s textbook, and then convert the list of events that followed, like the one you see below-left, into graphical form. And I should note, at this point, that the events are color-coded, indicating the various countries involved in a particular event.</p>
     <p>So now I’ll return to the original chart (at left), and you can see now, hopefully, that England is red, the Americas are orange, and the Dutch are teal—those are the colors that dominate the image. The French get in on the act, too, in blue. And if you cross-reference the chart to the table of events, you can see, for instance, the founding of Jamestown in 1607; and the settlement of Plymouth in 1620—that’s the red on the right—and, interestingly, the little teal box stands for the first enslaved Africans arriving in Virginia at that same time.</p>
-    <p>But I think it’s safe to say that no one in this room could have known this without me explaining how to interpret the chart. And for researchers and designers today, who champion the clarifying capacity of visualization; or for those who believe that datavis is best deployed to amplify existing thought processes—for such people, Peabody’s design would be a complete and utter failure. For Peabody, though, this near-total abstraction was precisely the point. Her charts were intended to appeal to the senses directly, to provide what she called “outlines to the eye.” Her hope was that, by providing only the mental outline of history, and by insisting that each student interpret the outline of history for herself, she would conjure her own historical narrative, and in that way, produce historical knowledge for herself.</p>
+    <p><i>But I think it’s safe to say</i> that no one in this room could have known this without me explaining how to interpret the chart. And for researchers and designers today, who champion the clarifying capacity of visualization; or for those who believe that datavis is best deployed to amplify existing thought processes—for such people, Peabody’s design would be a complete and utter failure. For Peabody, though, this near-total abstraction was precisely the point. Her charts were intended to appeal to the senses directly, to provide what she called “outlines to the eye.” Her hope was that, by providing only the mental outline of history, and by insisting that each student interpret the outline of history for herself, she would conjure her own historical narrative, and in that way, produce historical knowledge for herself.</p>
     <p>So this is where the feminist aspects of Peabody’s approach to data visualization begin to emerge. Anticipating some of the foundational claims of feminist theory, Peabody’s schema it insists upon a multiplicity of meanings, and locates knowledge in the interplay between viewer, image, and text. Hers is a belief in visualization, not as clarifying or illuminating in its own right, not as evidence or proof of results, but as a tool in the process of knowledge production.</p>
     <p>At this point, it also bears mention that for Peabody, the creation of knowledge took place through a second mode: through the act of creating the images themselves. Peabody also printed workbooks, with sheets like the one you can see at left, and she envisioned the exercise, ideally, as one not merely of cross-referencing events to their visual representation, but of constructing the images they would then study. So you can see one student’s attempt below-left. And below on the right is another, by someone who appears to have given up all together. (These images come from <a href='http://beinecke.library.yale.edu/about/blogs/room-26-cabinet-curiosities/2011/09/02/visualizing-history'>a blog post by the Beinecke</a>, but I’ve traveled to several archives across the northeast U.S. and seen the same thing). I used to show these images to get a laugh, but I know now, because at this point I’ve tried it a number of times, that this method is a very hard thing to actually do.</p>
     <p>But that seems to be both a liability of the form, and also the point. Peabody devised her method at a moment of great national crisis—the decade leading up to the Civil War—and she recognized that the nation’s problems would be difficult to solve. Her goal was to prompt an array of possible solutions—one coming from the creator of each chart. And her hope was that, by designing new narratives of the past, her students would also imagine alternate futures.</p>
     <p>In fact it was this aspect of Peabody’s system—the idea that, by insisting that each student participate in the creation of each chart, they would also each create their own interpretations of them, that seeded my desire to reimagine these charts for the web.</p>
     <p>I’d already recognized, in Peabody’s method of first scanning a list of events, then identifying the type of each event and the nations involved, and then plotting it on the chart, a method that was strikingly procedural. And the process of cross-referencing between text and image seemed to me, even more, like the form of interaction you see all over the web. But it was her insistence on the need to create the charts in order to create knowledge that confirmed my decision to pursue the project. What would we discover, about the past, or about the present, if we were to make Peabody’s scheme accessible to students and scholars today?</p>
-    <p>This was the point that I enlisted a graduate student in Human-Computer Interaction (HCI), <a href='http://carolinerfoster.com/'>Caroline Foster</a>, who helped design the really beautiful site that you’ll see in a minute. And I was also fortunate to be able to work with two very talented computer science undergrads, <a href="http://adamhayward.me/">Adam Hayward</a> and <a href="http://shivaninegi.com/">Shivani Negi</a>, who helped with the technical implementation. And together, we set about creating <a href="http://shapeofhistory.net/">this site</a>. (NB: <a href="http://ericapramer.weebly.com/">Erica Pramer</a>, who graduated last year, helped with an earlier version of the project).</p>
+    <p>This was the point that I enlisted a graduate student in Human-Computer Interaction (HCI), <a href='http://carolinerfoster.com/'>Caroline Foster</a>, who helped design the really beautiful site that you’ll see in a minute. And I was also fortunate to be able to work with two very talented computer science undergrads, <a href="http://adamhayward.me/">Adam Hayward</a> and <a href="http://shivaninegi.com/"> Shivani Negi</a>, who helped with the technical implementation. And together, we set about creating <a href="http://shapeofhistory.net/">this site</a>. (NB: <a href="http://ericapramer.weebly.com/">Erica Pramer</a>, who graduated last year, helped with an earlier version of the project).</p>
     <p>Below you can see some screen-shots from the four interactive modes: “Explore” (top left), which shows you how the events and their visual representations align; “Learn” (top right), which guides you through Peabody’s original lesson;  “Play” (bottom left), which gives you a blank grid to color in; and “Compare” (bottom right), which generates a timeline on the basis of the current dataset, and displays it alongside the data as it’s stored in CSV form, as it’s listed in the text, and as it’s displayed on Peabody’s grid. (There are also some narrative components of the site, and while we’re still fixing bugs and tweaking the text, we encourage you to <a href="http://www.shapeofhistory.net/">explore the site</a> and send us your feedback).</p>
     <p>There’s a lot more to be said about the eerily object-oriented way in which Peabody structures her data, and I touch on that in one of the interactive elements of the site, but in terms of my current argument, the salient point is how the clarity and legibility of the timeline, by contrast to Peabody’s grid, shows just how conditioned we’ve become to certain ideas about what visualization should and should not do. To us today, accustomed to a standard typology of visual forms, we can form a really quick rank order of these images. The timeline is better, we say, because it yields immediate insight. Who the heck knows what is going on with that grid?!</p>
     <p>But what if we understood the purpose of visualization differently? What if we were supposed to stop and think hard about what we were seeing, and what it meant?</p>
@@ -76,24 +76,24 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
-import ChapterScaffold from '@/components/ChapterScaffold'
-import TimelineVis from '@/components/vis/timeline/TimelineVis'
-import PeabodyGrid from '@/components/vis/peabody/PeabodyGrid'
-import PeabodyMutable from '@/components/vis/peabody/PeabodyMutable'
-import EventBus from '@/helpers/EventBus'
-import mutations from '@/store/dataset/types'
-import Highlightable from '@/mixins/Highlightable'
+import { mapActions, mapGetters } from "vuex";
+import ChapterScaffold from "@/components/ChapterScaffold";
+import TimelineVis from "@/components/vis/timeline/TimelineVis";
+import PeabodyGrid from "@/components/vis/peabody/PeabodyGrid";
+import PeabodyMutable from "@/components/vis/peabody/PeabodyMutable";
+import EventBus from "@/helpers/EventBus";
+import mutations from "@/store/dataset/types";
+import Highlightable from "@/mixins/Highlightable";
 export default {
-  name: 'ThePeabodyChapter',
+  name: "ThePeabodyChapter",
   components: {
     PeabodyGrid,
     PeabodyMutable,
     ChapterScaffold,
     TimelineVis
   },
-  mixins: [Highlightable],
-  data () {
+  mixins: [Highlightable(".chapter__main")],
+  data() {
     return {
       currentDataset: 0,
       imposter: {
@@ -101,62 +101,70 @@ export default {
         year: 1570,
         desc: "imposter",
         eventType: 3,
-        actor: 'England',
+        actor: "England",
         id: 300
       }
-    }
+    };
   },
   methods: {
-    hoverStart (payload) {
-      console.log("hover start:", payload.datasetId)
+    hoverStart(payload) {
+      console.log("hover start:", payload.datasetId);
       if (!payload.data) return;
-      this.$store.commit(mutations.HIGHLIGHT_DATA, { id: payload.datasetId, data: payload.data })
+      this.$store.commit(mutations.HIGHLIGHT_DATA, {
+        id: payload.datasetId,
+        data: payload.data
+      });
     },
-    hoverEnd (payload) {
-      console.log("hover end:", payload.datasetId)
+    hoverEnd(payload) {
+      console.log("hover end:", payload.datasetId);
       if (!payload.data) return;
-      this.$store.commit(mutations.UNHIGHLIGHT_DATA, { id: payload.datasetId, data: payload.data })
+      this.$store.commit(mutations.UNHIGHLIGHT_DATA, {
+        id: payload.datasetId,
+        data: payload.data
+      });
     },
-    mountDatasets () {
-      return this.$store.dispatch('loadDatasets')
+    mountDatasets() {
+      return this.$store.dispatch("loadDatasets");
     },
-    addData (data) {
-      this.$store.commit(mutations.ADD_DATA, { id: this.currentDataset, data })
+    addData(data) {
+      this.$store.commit(mutations.ADD_DATA, { id: this.currentDataset, data });
     },
     removeData(data) {
-      this.$store.commit(mutations.REMOVE_DATA, { id: this.currentDataset, data })
+      this.$store.commit(mutations.REMOVE_DATA, {
+        id: this.currentDataset,
+        data
+      });
     }
   },
-  created () {
-    const self = this
-    this.mountDatasets()
-      .then(() => {
-        const id = "helloWorld",
-          fromId = self.currentDataset,
-          options = { isMutable: true }
-        self.$store.commit('DUPLICATE_DATASET', { id, fromId, options })
-        self.currentDataset = "helloWorld"
-      })
+  created() {
+    const self = this;
+    this.mountDatasets().then(() => {
+      const id = "helloWorld",
+        fromId = self.currentDataset,
+        options = { isMutable: true };
+      self.$store.commit("DUPLICATE_DATASET", { id, fromId, options });
+      self.currentDataset = "helloWorld";
+    });
   }
-}
+};
 </script>
 
 <style scoped>
-  .left-float {
-    float:left;
-  }
-  .right-float {
-    float:right;
-  }
-  .left-float.aligned {
-    padding-top: .5em;
-    padding-right: 1em;
-  }
-  .right-float.aligned {
-    padding-top: .5em;
-    padding-left: 1em;
-  }
-  p {
-    text-align: justify;
-  }
+.left-float {
+  float: left;
+}
+.right-float {
+  float: right;
+}
+.left-float.aligned {
+  padding-top: 0.5em;
+  padding-right: 1em;
+}
+.right-float.aligned {
+  padding-top: 0.5em;
+  padding-left: 1em;
+}
+p {
+  text-align: justify;
+}
 </style>
