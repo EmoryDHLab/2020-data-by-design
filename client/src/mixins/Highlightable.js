@@ -100,8 +100,17 @@ const Highlightable = {
       //Draggability
       const onDragStart = (event) => {
         console.dir(event.target);
+        console.dir(event);
+        //We have event.target, which is the element that the user clicked on; let's make sure we get the full highlight span.
+        let currEl = event.target;
+        while (currEl.parentElement.id !== "app") {
+          if (currEl.classList && currEl.classList.contains("user-highlight")) {
+              break;
+          }
+          currEl = currEl.parentElement;
+        }
         event.dataTransfer.setData("metadata", "metadata/serialization info goes here");
-        event.dataTransfer.setData("text/html", `<mark>${event.target.wholeText ? event.target.wholeText : event.target.innerText}</mark>`);
+        event.dataTransfer.setData("text/html", currEl.innerHTML);
       }
       span.setAttribute("draggable", "true");
       span.addEventListener("dragstart", onDragStart);
