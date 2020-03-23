@@ -16,7 +16,7 @@ const Highlightable = {
       console.error("Highlightable mixin doesn't see any HTML element");
     }
     this.$el.onmouseup = e => {
-      if (e.button !== 0) {
+      if (e.button !== 0 || window.getSelection().length === 0) {
           return;
       }
       const selection = window.getSelection();
@@ -44,6 +44,7 @@ const Highlightable = {
           }
         }
       }
+      selection.removeAllRanges();
     };
   },
   methods: {
