@@ -119,6 +119,8 @@ function Highlightable(rootElementSelector) {
         span.style.backgroundColor = "yellow";
         span.classList.add(highlightClass);
         span.onclick = this.onClick;
+  
+
         //Draggability
         const onDragStart = (event) => {
           console.dir(event.target);
@@ -158,18 +160,27 @@ function Highlightable(rootElementSelector) {
                   deque.push(nextEl.firstElementChild);
                 }
               }
-              html = deque.map(el => el.outerHTML).reduce((acc, curr) => acc + curr);
+
               metadata = deque[0].dataset.rangeData;
+              html = deque
+                .map(stripAttributes)
+                .map(el => el.outerHTML) //grab the element's html
+                .join(' ');
           } else {
             metadata = currEl.dataset.rangeData;
-            html = currEl.outerHTML;
+            html = stripAttributes(currEl).outerHTML;
           }
           event.dataTransfer.setData("metadata", metadata);
           event.dataTransfer.setData("text/html", html);
+          function stripAttributes (el) {
+            Array.from(el.attributes).forEach(attr => el.removeAttribute(attr.name));
+            return el;
+          }
         }
         span.setAttribute("draggable", "true");
         span.addEventListener("dragstart", onDragStart);
         return span;
+
       },
       serializeRange(range) {
         const pathToElement = (element) => {
