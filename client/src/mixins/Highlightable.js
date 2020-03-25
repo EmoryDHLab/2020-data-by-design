@@ -34,20 +34,24 @@ function Highlightable(rootElementSelector) {
         }
         const selection = window.getSelection();
         const range = selection.getRangeAt(0);
-        const startParent = range.startContainer.parentNode;
-
+        const startParent = range.startContainer.parentNode;  
         const endParent = range.endContainer.parentNode;
         const sameParent = startParent.isEqualNode(endParent);
+
+        const rangeData = this.serializeRange(range);
+
         if (!(sameParent && startParent.className == highlightClass)) {
           if (range.cloneContents().childElementCount < 2) {
             const highlight = this.createHighlight(range.extractContents());
             if (highlight) {
+              highlight.dataset.rangeData = rangeData;
               range.insertNode(highlight);
             }
           } else {
             const contents = range.extractContents();
             const firstSection = this.createHighlight(contents.firstChild.innerHTML);
             firstSection.classList.add(overflowNextClass);
+            firstSection.dataset.rangeData = rangeData;
             const lastSection = this.createHighlight(contents.lastChild.innerHTML);
             lastSection.classList.add(overflowPrevClass);
             startParent.appendChild(firstSection);
@@ -127,8 +131,7 @@ function Highlightable(rootElementSelector) {
             }
             currEl = currEl.parentElement;
           }
-          let metadata = "medatadata/serialization info goes here";
-          let html = currEl.outerHTML;
+          let metadata, html;
           //Now that we have the full highlight span, let's make sure we get its connected spans in cases where a highlight overflows into consecutive paragraph(s)
           if (currEl.classList.contains(overflowPrevClass) || currEl.classList.contains(overflowNextClass)) {
             //Treating a JavaScript array as a double-sided queue allows us to efficiently traverse above and below the clicked-on element to find the full flow
@@ -155,9 +158,11 @@ function Highlightable(rootElementSelector) {
                   deque.push(nextEl.firstElementChild);
                 }
               }
-              console.log(deque);
               html = deque.map(el => el.outerHTML).reduce((acc, curr) => acc + curr);
-              console.log(html);
+              metadata = deque[0].dataset.rangeData;
+          } else {
+            metadata = currEl.dataset.rangeData;
+            html = currEl.outerHTML;
           }
           event.dataTransfer.setData("metadata", metadata);
           event.dataTransfer.setData("text/html", html);
@@ -165,6 +170,30 @@ function Highlightable(rootElementSelector) {
         span.setAttribute("draggable", "true");
         span.addEventListener("dragstart", onDragStart);
         return span;
+      },
+      serializeRange(range) {
+        const pathToElement = (element) => {
+          let parents = []
+          let curr = element;
+          while (!curr.id && curr !== document.body) {
+            let siblingIndex = 0;
+            let currSibling = curr.previousElementSibling;
+            while (currSibling !== null) {
+              siblingIndex++;
+              currSibling = currSibling.previousElementSibling;
+            }
+            parents.unshift(`${curr.nodeName}[${siblingIndex}]`);
+            curr = curr.parentElement;
+          }
+          if (curr.id) parents.unshift("#" + curr.id);
+          return parents.join('/');
+        }
+        let startPath = pathToElement(range.startContainer);
+        let endPath = pathToElement(range.endContainer);
+        return `${startPath}-${range.startOffset};${endPath}-${range.endOffset}`
+      },  
+      deserializeRange() {
+
       }
     }
   }
