@@ -91,7 +91,7 @@
 
 import MetaVisualization from '@/mixins/vis/MetaVisualization'
 import NavlineBucket from './NavlineBucket'
-import Peobody from '@/views/PeabodyChapter'
+import ch_mut from '@/store/chapters/types'
 // import * as d3 from 'd3'
 
 const DEFAULT_OPTIONS = {
@@ -253,6 +253,7 @@ export default {
       },
       goto: function (index, i) {
           let idname = "part" + index + "." + i;
+          this.$store.commit(ch_mut.SET_IDNAME, { id: idname });
           // console.log(Peobody)
           // var element = Peobody.$els["part" + index + "." + i];
           // element.scrollIntoView();

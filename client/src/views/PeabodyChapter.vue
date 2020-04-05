@@ -87,7 +87,9 @@ import ChapterScaffold from '@/components/ChapterScaffold'
 import TimelineVis from '@/components/vis/timeline/TimelineVis'
 import PeabodyGrid from '@/components/vis/peabody/PeabodyGrid'
 import PeabodyMutable from '@/components/vis/peabody/PeabodyMutable'
+import { EventBus } from '@/helpers/EventBus'
 import mutations from '@/store/dataset/types'
+import ch_mut from '@/store/chapters/types'
 import NavelineVis from '@/components/vis/navline/NavlineVis'
 export default {
   name: 'ThePeabodyChapter',
@@ -147,6 +149,12 @@ export default {
         self.$store.commit('DUPLICATE_DATASET', { id, fromId, options })
         self.currentDataset = "helloWorld"
       });
+    // EventBus.$on('scroll', (data) => {
+    //     let element = this.$refs[data];
+    //     let top = element.offsetTop;
+    //
+    //     window.scrollTo(0, top);
+    // })
   }
 }
 </script>
