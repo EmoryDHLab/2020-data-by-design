@@ -50,7 +50,7 @@
               :fill-opacity= dataset.highlights[index][i-1] ></rect>
         <!--VIS-->
         <!--10: largest number of subparts in section-->
-        <g v-on:click="goto(index, i-1)"
+        <g v-on:click="click = goto(index, i-1)"
            @mouseover="hover = index*10 + i"
            @mouseleave="hover = null">
           <rect v-if="dataset.vis[index][i-1] == '1' "
@@ -137,7 +137,7 @@ const DEFAULT_OPTIONS = {
 };
 export default {
   data() {
-    return {hover: null}
+    return {hover: null, click: null}
   },
   components: {
     NavlineBucket
@@ -252,7 +252,7 @@ export default {
           return arr;
       },
       goto: function (index, i) {
-          var idname = "part" + index + "." + i;
+          let idname = "part" + index + "." + i;
           // console.log(Peobody)
           // var element = Peobody.$els["part" + index + "." + i];
           // element.scrollIntoView();

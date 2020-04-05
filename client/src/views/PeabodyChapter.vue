@@ -6,6 +6,7 @@
     <p>This talk departs from a seemingly simple question: “What is the story we tell about the origins of modern data visualization?” And as a set of follow-ups, “What alternate histories might emerge, what new visual forms might we imagine, and what new arguments might we make, if we told that story differently?”</p>
     <p>To begin to answer these questions, I’ll focus on the work of one visualization designer from the nineteenth century, <a href='https://en.wikipedia.org/wiki/Elizabeth_Peabody'>Elizabeth Palmer Peabody</a>, whose images are rarely considered in the standard story we tell about the emergence of modern visualization techniques. When they are mentioned at all, they are typically described as strange—and sometimes even as failures. You can see one of them just below.</p>
     <h2>These visualizations are linked only through their datasets</h2>
+    <a class="porto-button" @click="scrollMeTo('part0.2')">Porto, test</a>
     <ul>
       <li><h3>The one on the left uses an immutable dataset</h3></li>
       <li><h3>The one on the right uses a deep copy of the dataset from the one on the left.
@@ -37,13 +38,13 @@
         @hover-start="hoverStart"
         @hover-end="hoverEnd"/>
     </div>
-    <div id="part0.0">
+    <div ref="part0.0">
     <p>To us today, accustomed to the charts and graphs of Microsoft Excel, or the interactive graphics that we find on <a href='https://www.nytimes.com/'>The New York Times</a> (dot com) on any given day, we perceive schemas like this as opaque and illegible. They do none of the things that we think that visualization should do: be clear and intuitive, yield immediate insight, or facilitate making sense of the underlying data. But further questions remain: why have we become conditioned to think that visualization should do these things, and only these things? How has this perspective come to be embedded in our visual culture? And most importantly for us here today, what would it mean if we could view images like these, from the archive of data visualization, instead as pathways to alternate futures? What additional visual schemas could we envision, and what additional stories could we tell, if we did?</p>
     <p>So I’m going to inhabit my method, and frame my talk today in terms of an alternate history. First, I’ll walk you through the visual schema that you see above-left, proposed by Peabody in 1856. Then I’ll talk about some of the more speculative work I’ve done in attempting to reimagine her schema in both digital and physical form. And then I’ll try to explain what I’m after by describing this work, as you saw in the title of this talk, as feminist—</p>
     <p>More specifically, I’ll show how Peabody’s visual method replaces the hierarchical mode of knowledge transmission that standard visualization techniques rest upon with a more horizontal mode, one that locates the source of knowledge in the interplay between viewer, image, and text. I’ll demonstrate how this horizontal mode of knowledge transmission encourages interpretations that are multiple, rather than singular, and how it places affective and embodied ways of knowing on an equal plane with more seemingly “objective” measures. And finally, I’ll suggest that this method, when reimagined for the present, raises the stakes for a series of enduring questions—about the issue of labor (and its relation to knowledge work), the nature of embodiment (and how it might be better attached to digital methods), and the role of interpretation (and how is not only bound to perception, but also design).</p>
     <p>But I think that’s enough of a preamble. So, to begin.</p>
     </div>
-    <div id="part0.1">
+    <div ref="part0.2">
     <p>Elizabeth Palmer Peabody was born in Massachusetts in 1804. Today, she is most famous for her proximity to more well-known writers of the American Renaissance, such as Emerson and Hawthorne. (Hawthorne was actually married to her sister, Sophia). But Peabody had impact in her own right: the bookstore that she ran out of her home, in Boston, functioned as the de facto salon for the transcendentalist movement. She edited and published the first version of Thoreau’s essay on civil disobedience, which appeared in her Aesthetic Papers, in 1849. And interestingly, she’s also is credited with starting the first kindergarten in the United States.</p>
     <p>But in the 1850s, Peabody set off to ride the rails. She traveled as far north as Rochester, NY; as far west as Louisville, KY; and as far south as Richmond, VA, in order to promote the US history textbook she’d recently published: <a href='https://archive.org/details/chronologicalhis00peab'>A Chronological History of the United States</a>. Along with boxes of books, Peabody traveled with a fabric roll the size of a living room rug, which contained floor-sized versions of charts like the one in the image above, which I’ll tell you only now is a visualization of the significant events of the seventeenth century, as they relate to the United States. (This image that you see is a plate from the textbook, measuring, at most, 3 inches square).</p>
     <p>In her version of a sales pitch, Peabody would visit classrooms of potential textbook adopters, unroll one of her “mural charts” (as she called them) on the floor, and invite the students to sit around it to contemplate the colors and patterns they perceived.</p>
@@ -86,8 +87,8 @@ import ChapterScaffold from '@/components/ChapterScaffold'
 import TimelineVis from '@/components/vis/timeline/TimelineVis'
 import PeabodyGrid from '@/components/vis/peabody/PeabodyGrid'
 import PeabodyMutable from '@/components/vis/peabody/PeabodyMutable'
-import EventBus from '@/helpers/EventBus'
 import mutations from '@/store/dataset/types'
+import NavelineVis from '@/components/vis/navline/NavlineVis'
 export default {
   name: 'ThePeabodyChapter',
   components: {
@@ -128,10 +129,16 @@ export default {
     },
     removeData(data) {
       this.$store.commit(mutations.REMOVE_DATA, { id: this.currentDataset, data })
+    },
+    scrollMeTo(refName) {
+        var element = this.$refs[refName];
+        var top = element.offsetTop;
+
+        window.scrollTo(0, top);
     }
   },
   created () {
-    const self = this
+    const self = this;
     this.mountDatasets()
       .then(() => {
         const id = "helloWorld",
@@ -139,7 +146,7 @@ export default {
           options = { isMutable: true }
         self.$store.commit('DUPLICATE_DATASET', { id, fromId, options })
         self.currentDataset = "helloWorld"
-      })
+      });
   }
 }
 </script>
