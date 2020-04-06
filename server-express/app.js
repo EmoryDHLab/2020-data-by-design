@@ -14,6 +14,10 @@ const devDB = process.env.DEVELOPMENT_DB //will connect to mongodb://localhost/d
 const testDb = process.env.TEST_DB
 const prodDb = process.env.PRODUCTION_DB
 
+if (!port) {
+  console.error("The PORT environmental variable isn't set! Have you made a .env file?");
+}
+
 mongoose.promise = global.Promise;
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -74,6 +78,6 @@ app.use((err, req, res, next) => {
       error: {},
     },
   });
-}); 
+});
 
 module.exports = app.listen(port, () => console.log('Server running on port ' + port));
