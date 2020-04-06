@@ -7,7 +7,7 @@ const chaiHttp = require("chai-http");
 
 const { expect } = chai;
 chai.use(chaiHttp);
-User.deleteMany({}, (err) => {});    
+User.deleteMany({}, (err) => {});
 describe("User api endpoint", function () {
     this.timeout(0)
 
@@ -23,10 +23,11 @@ describe("User api endpoint", function () {
 
     let user = {
         email: "testusername@gmail.com",
-        password: "testpassword"
+        password: "testpassword",
     }
     let token;
     describe('User creation endpoint (POST /api/users/)', function () {
+      let responseUser;
         it('creates a user based on the provided email and password', function (done) {
 
             chai.request(app)
@@ -36,12 +37,17 @@ describe("User api endpoint", function () {
                 .end((err, res) => {
                     expect(res).to.have.status(200);
                     expect(res.body).to.have.property('user');
-                    console.log(res.body);
                     expect(res.body.user).to.have.property('email').that.equals(user.email);
                     expect(res.body.user).to.have.property('token');
+                    responseUser = res.body.user;
                     token = res.body.user.token;
                     done();
                 });
+        });
+        it ('creates that user with an empty notebook as no notebook field was specified', function (done) {
+            expect(responseUser).to.have.property('notebook');
+            expect(responseUser.notebook).to.be.an('array').that.has.length(0);
+            done();
         });
         it ('does not allow the creation of a duplicate user', function(done) {
             chai.request(app)
@@ -64,7 +70,6 @@ describe("User api endpoint", function () {
                 .end((err, res) => {
                     expect(res).to.have.status(200);
                     expect(res.body).to.have.property('user');
-                    console.log(res.body);
                     expect(res.body.user).to.have.property('email').that.equals(user.email);
                     expect(res.body.user).to.have.property('token');
                     token = res.body.user.token;
@@ -101,6 +106,7 @@ describe("User api endpoint", function () {
                 .set('Authorization', 'Token ' + token)
                 .end((err, res) => {
                     expect(res).to.have.status(200);
+                    expect(res.body.user).to.have.property('email');
                     done();
             });
         });
@@ -121,6 +127,31 @@ describe("User api endpoint", function () {
                     done();
             });
         });
-    })
+    });
+    describe ('Current user notebook endpoint (GET and POST /api/users/current/notebook', function() {
+        it('Allows POST when given a valid token', function(done) {
+            chai.request(app)
+                .post('/api/users/current/notebook')
+                .set('Authorization', 'Token ' + token)
+                .set('Content-Type', 'application/json')
+                .send({notebook: [{html: "html1", metadata: "metadata1", notebookId: 1}, {html: "html2", metadata: "metadata2", notebookId: 2}] })
+                .end((err, res) => {
+                    expect(res).to.have.status(200);
+                    expect(res.body).to.have.property('notebook')
+                    expect(res.body.notebook).to.be.an('array').that.has.length(2);
+                    done();
+                });
+      });
+      it('Allows GET when given a valid token', function(done) {
+            chai.request(app)
+                .get('/api/users/current/notebook')
+                .set('Authorization', 'Token ' + token)
+                .end((err, res) => {
+                    expect(res).to.have.status(200);
+                    expect(res.body.notebook).to.be.an('array').that.has.length(2);
+                    done();
+                });
+      });
+    });
 });
-User.deleteMany({}, (err) => {}); 
+User.deleteMany({}, (err) => {});
