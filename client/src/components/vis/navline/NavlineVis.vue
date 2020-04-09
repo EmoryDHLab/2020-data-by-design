@@ -43,7 +43,8 @@
       <g v-for="i in lines.blocks">
         <!--Notes Init-->
         <!--(i-1) because v-for index start with 1 instead of 0-->
-        <rect x="455"
+        <rect v-on:click="click = goto(index, i-1)"
+              x="455"
               :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
               :width="styles.block.width" :height="styles.block.width"
               :fill=styles.color.defaultBlock
@@ -129,7 +130,7 @@ const DEFAULT_OPTIONS = {
       image: "#577456",
       intVis: "#801201",
       stcVis: "#CA6E11",
-      lightgray: "#c9c9c9"
+      lightgray: "#dddddd"
     }
   },
   vertical: true, // how to orient the navline
@@ -254,9 +255,6 @@ export default {
       goto: function (index, i) {
           let idname = "part" + index + "." + i;
           this.$store.commit(ch_mut.SET_IDNAME, { id: idname });
-          // console.log(Peobody)
-          // var element = Peobody.$els["part" + index + "." + i];
-          // element.scrollIntoView();
       },
     /**
      * Formats the data to match the navline format
