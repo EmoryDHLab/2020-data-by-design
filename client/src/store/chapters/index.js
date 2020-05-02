@@ -4,6 +4,7 @@ import getters from './getters'
 const state = () => {
   return {
     idName: "",
+    prog: '0.0',
   }
 };
 

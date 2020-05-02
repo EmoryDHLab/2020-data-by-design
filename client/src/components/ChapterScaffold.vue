@@ -56,7 +56,7 @@ export default {
   },
   data: () => ({
     timelineData: {
-        paragraphData: [3,5,10,4,4], //index = which paragraph, value = number of sub-parts
+        paragraphData: [3,5,10,4,4], //index = which paragraph, value = number of sub-parts, shape of the following arrays.
         highlights: [[0.7, 0.3, 0.],
             [0., 0., 0., 0.2, 0.],
             [0., 0.1, 0.6, 0., 0., 0.2, 0., 0.5, 0., 0.],

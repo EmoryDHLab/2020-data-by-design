@@ -1,15 +1,4 @@
 <template lang="html">
-    <!--<g :style='marginTransform'>-->
-      <!--<g class='timeline-buckets'>-->
-        <!--<navline-bucket-->
-          <!--v-for='timelineBucket in formattedData'-->
-          <!--:key='timelineBucket.id'-->
-          <!--:bucketId='timelineBucket.id'-->
-          <!--:dataset='timelineBucket.events'-->
-          <!--:style='placeBucket(timelineBucket)'/>-->
-      <!--</g>-->
-      <!--<g v-show='options.showTicks' class='axis' :style='axisTransform' v-axis:y='getScale'></g>-->
-    <!--</g>-->
   <svg width="3309" height="2523" viewBox="70 100 600 2500" fill="none" xmlns="http://www.w3.org/2000/svg">
     <text x="250" y="210" class="heavy">Progress</text>
     <!--LEGENDS-->
@@ -26,60 +15,91 @@
     <!--Lines, ChapterBlocks, Numbers, Notes Init-->
     <rect :x="styles.line.left - styles.chapterBlock.width/2" :y="styles.line.start- styles.chapterBlock.width/2"
           :width="styles.chapterBlock.width" :height="styles.chapterBlock.width" :fill=styles.color.defaultBlock></rect>
-    <text x="300" :y="styles.line.start + 15" class="number">1</text>
+    <text x="300" :y="styles.line.start + 15" class="number" fill="#4A4A4A">1</text>
+
 
     <g v-for="(lines, index) in startEndPoint(dataset.paragraphData)">
-      <!--Vertical Line-->
-      <line :x1="lines.x1" :y1="lines.y1" :x2="lines.x2" :y2="lines.y2" style="stroke:#D9B89A; stroke-width:5; stroke-linecap:round"></line>
-      <!--Horizontal Line-->
-      <line :x1="373" :y1="lines.y2" x2="510" :y2="lines.y2" style="stroke:#D9B89A; stroke-width:5; stroke-linecap:round"></line>
-      <!--chapter block-->
-      <rect :x="styles.line.left - styles.chapterBlock.width/2" :y="lines.y2 - styles.chapterBlock.width/2"
-            :width="styles.chapterBlock.width" :height="styles.chapterBlock.width" :fill=styles.color.defaultBlock></rect>
-      <!--paragraph number-->
-      <text x="300" :y="lines.y2 + 15" class="number">{{index + 2}}</text>
-
-
-      <g v-for="i in lines.blocks">
-        <!--Notes Init-->
-        <!--(i-1) because v-for index start with 1 instead of 0-->
-        <rect v-on:click="click = goto(index, i-1)"
-              x="455"
-              :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
-              :width="styles.block.width" :height="styles.block.width"
-              :fill=styles.color.defaultBlock
-              :fill-opacity= dataset.highlights[index][i-1] ></rect>
-        <!--VIS-->
-        <!--10: largest number of subparts in section-->
-        <g v-on:click="click = goto(index, i-1)"
-           @mouseover="hover = index*10 + i"
-           @mouseleave="hover = null">
-          <rect v-if="dataset.vis[index][i-1] == '1' "
-                x="406"
-                :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
-                :width="styles.block.width" :height="styles.block.width"
-                :fill=styles.color.image ></rect>
-          <rect v-if="dataset.vis[index][i-1] == '2' "
-                x="406"
-                :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
-                :width="styles.block.width" :height="styles.block.width"
-                :fill=styles.color.intVis ></rect>
-          <rect v-if="dataset.vis[index][i-1] == '3' "
-                x="406"
-                :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
-                :width="styles.block.width" :height="styles.block.width"
-                :fill=styles.color.stcVis ></rect>
-
-          <rect v-if="hover == index*10 + i  && dataset.vis[index][i-1] != '0'"
-                x="406"
-                :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
-                :width="styles.block.width" :height="styles.block.width"
-                :fill=styles.color.lightgray ></rect>
+        <g v-if="index+1 <= getProgress">
+          <!--Vertical Line-->
+          <line :x1="lines.x1" :y1="lines.y1" :x2="lines.x2" :y2="lines.y2" style="stroke:#D9B89A; stroke-width:5; stroke-linecap:round"></line>
+          <!--Horizontal Line-->
+          <line :x1="373" :y1="lines.y2" x2="510" :y2="lines.y2" style="stroke:#D9B89A; stroke-width:5; stroke-linecap:round"></line>
+          <!--chapter block-->
+          <rect :x="styles.line.left - styles.chapterBlock.width/2" :y="lines.y2 - styles.chapterBlock.width/2"
+                :width="styles.chapterBlock.width" :height="styles.chapterBlock.width" :fill=styles.color.defaultBlock></rect>
+          <!--paragraph number-->
+          <text x="300" :y="lines.y2 + 15" class="number" fill="#4A4A4A">{{index + 2}}</text>
         </g>
-      </g>
+        <g v-else-if="index <= getProgress">
+          <!--Vertical Line-->
+          <line :x1="lines.x1" :y1="lines.y1" :x2="lines.x2" :y2="lines.y2" style="stroke:#D9B89A; stroke-width:5; stroke-linecap:round"></line>
+          <!--Horizontal Line-->
+          <line :x1="373" :y1="lines.y2" x2="510" :y2="lines.y2" style="stroke:#9B9B9B; stroke-width:5; stroke-linecap:round"></line>
+          <!--chapter block-->
+          <rect :x="styles.line.left - styles.chapterBlock.width/2" :y="lines.y2 - styles.chapterBlock.width/2"
+                :width="styles.chapterBlock.width" :height="styles.chapterBlock.width" :fill=styles.color.gray></rect>
+          <!--paragraph number-->
+          <text x="300" :y="lines.y2 + 15" :fill=styles.color.gray class="number">{{index + 2}}</text>
+        </g>
+        <g v-if="index <= getProgress">
+            <g v-for="i in lines.blocks">
+                <g v-if="index + i/10 <= getProgress">
+                    <!--Notes Init-->
+                    <!--(i-1) because v-for index start with 1 instead of 0-->
+                    <rect v-on:click="click = goto(index, i-1)"
+                          x="455"
+                          :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
+                          :width="styles.block.width" :height="styles.block.width"
+                          :fill=styles.color.defaultBlock
+                          :fill-opacity= dataset.highlights[index][i-1] ></rect>
+                    <!--VIS-->
+                    <!--10: largest number of subparts in section-->
+                    <g v-on:click="click = goto(index, i-1)"
+                       @mouseover="hover = index*10 + i"
+                       @mouseleave="hover = null">
+                      <rect v-if="dataset.vis[index][i-1] == '1' "
+                            x="406"
+                            :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
+                            :width="styles.block.width" :height="styles.block.width"
+                            :fill=styles.color.image ></rect>
+                      <rect v-if="dataset.vis[index][i-1] == '2' "
+                            x="406"
+                            :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
+                            :width="styles.block.width" :height="styles.block.width"
+                            :fill=styles.color.intVis ></rect>
+                      <rect v-if="dataset.vis[index][i-1] == '3' "
+                            x="406"
+                            :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
+                            :width="styles.block.width" :height="styles.block.width"
+                            :fill=styles.color.stcVis ></rect>
 
+                      <rect v-if="hover == index*10 + i  && dataset.vis[index][i-1] != '0'"
+                            x="406"
+                            :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
+                            :width="styles.block.width" :height="styles.block.width"
+                            :fill=styles.color.lightgray ></rect>
+                    </g>
+                </g>
+                <g v-else>
+                  <!--gray line for progress-->
+                  <line :x1="lines.x1" :y1="lines.y1+ (i-1)*(styles.block.gap + styles.block.width)"
+                        :x2="lines.x2" :y2="lines.y1 + styles.block.verGap*2 + (i-1)*(styles.block.gap + styles.block.width) + styles.block.width"
+                        style="stroke:#9B9B9B; stroke-width:5; stroke-linecap:round"></line>
+                </g>
+            </g>
+        </g>
+        <g v-if="index > getProgress">
+          <!--Vertical Line-->
+          <line :x1="lines.x1" :y1="lines.y1" :x2="lines.x2" :y2="lines.y2" style="stroke:#9B9B9B; stroke-width:5; stroke-linecap:round"></line>
+          <!--Horizontal Line-->
+          <line :x1="373" :y1="lines.y2" x2="510" :y2="lines.y2" style="stroke:#9B9B9B; stroke-width:5; stroke-linecap:round"></line>
+          <!--chapter block-->
+          <rect :x="styles.line.left - styles.chapterBlock.width/2" :y="lines.y2 - styles.chapterBlock.width/2"
+                :width="styles.chapterBlock.width" :height="styles.chapterBlock.width" :fill=styles.color.gray></rect>
+          <!--paragraph number-->
+          <text x="300" :y="lines.y2 + 15" :fill=styles.color.gray class="number">{{index + 2}}</text>
+        </g>
     </g>
-
   </svg>
 
 </template>
@@ -226,6 +246,9 @@ export default {
       return d3.scaleLinear()
         .domain([this.startPoint, this.endPoint])
         .range([this.styles.margin.top, this.innerHeight]);
+    },
+    getProgress() {
+        return this.$store.getters.prog;
     }
   },
   methods: {
@@ -250,6 +273,7 @@ export default {
               start = end;
               x = (x === this.styles.line.left) ? this.styles.line.right : this.styles.line.left;
           }
+          // console.log(arr)
           return arr;
       },
       goto: function (index, i) {
@@ -314,6 +338,6 @@ export default {
 
 <style scoped>
   .heavy { font: bold 70px Baskerville; fill:#4A4A4A }
-  .number { font: bold 50px Baskerville; fill:#4A4A4A }
+  .number { font: bold 50px Baskerville}
   .small { font: bold 28px Baskerville; fill:#4A4A4A }
 </style>
