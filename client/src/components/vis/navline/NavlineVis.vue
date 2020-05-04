@@ -1,17 +1,107 @@
 <template lang="html">
-  <svg :id="id" :width='width' :height='height' :viewBox='getViewBox'>
-    <g :style='marginTransform'>
-      <g class='timeline-buckets'>
-        <navline-bucket
-          v-for='timelineBucket in formattedData'
-          :key='timelineBucket.id'
-          :bucketId='timelineBucket.id'
-          :dataset='timelineBucket.events'
-          :style='placeBucket(timelineBucket)'/>
-      </g>
-      <g v-show='options.showTicks' class='axis' :style='axisTransform' v-axis:y='getScale'></g>
+  <svg width="3309" height="2523" viewBox="70 100 600 2500" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <text x="250" y="210" class="heavy">Progress</text>
+    <!--LEGENDS-->
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M270 2091H305V2126H270V2091Z" :fill=styles.color.defaultBlock />
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M480 2091H515V2126H480V2091Z" :fill=styles.color.image />
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M270 2148H305V2183H270V2148Z" :fill=styles.color.intVis />
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M480 2148H515V2183H480V2148Z" :fill=styles.color.stcVis />
+    <text x="340" y="2050" class="number">LEGENDS</text>
+    <text x="320" y="2120" class="small">Highlights</text>
+    <text x="520" y="2120" class="small">Images</text>
+    <text x="520" y="2175" class="small">Static Vis.</text>
+    <text x="320" y="2175" class="small">Interaction</text>
+
+    <!--Lines, ChapterBlocks, Numbers, Notes Init-->
+    <rect :x="styles.line.left - styles.chapterBlock.width/2" :y="styles.line.start- styles.chapterBlock.width/2"
+          :width="styles.chapterBlock.width" :height="styles.chapterBlock.width" :fill=styles.color.defaultBlock></rect>
+    <text x="300" :y="styles.line.start + 15" class="number" fill="#4A4A4A">1</text>
+
+
+    <g v-for="(lines, index) in startEndPoint(dataset.paragraphData)">
+        <g v-if="index+1 <= getProgress">
+          <!--Vertical Line-->
+          <line :x1="lines.x1" :y1="lines.y1" :x2="lines.x2" :y2="lines.y2" style="stroke:#D9B89A; stroke-width:5; stroke-linecap:round"></line>
+          <!--Horizontal Line-->
+          <line :x1="373" :y1="lines.y2" x2="510" :y2="lines.y2" style="stroke:#D9B89A; stroke-width:5; stroke-linecap:round"></line>
+          <!--chapter block-->
+          <rect :x="styles.line.left - styles.chapterBlock.width/2" :y="lines.y2 - styles.chapterBlock.width/2"
+                :width="styles.chapterBlock.width" :height="styles.chapterBlock.width" :fill=styles.color.defaultBlock></rect>
+          <!--paragraph number-->
+          <text x="300" :y="lines.y2 + 15" class="number" fill="#4A4A4A">{{index + 2}}</text>
+        </g>
+        <g v-else-if="index <= getProgress">
+          <!--Vertical Line-->
+          <line :x1="lines.x1" :y1="lines.y1" :x2="lines.x2" :y2="lines.y2" style="stroke:#D9B89A; stroke-width:5; stroke-linecap:round"></line>
+          <!--Horizontal Line-->
+          <line :x1="373" :y1="lines.y2" x2="510" :y2="lines.y2" style="stroke:#9B9B9B; stroke-width:5; stroke-linecap:round"></line>
+          <!--chapter block-->
+          <rect :x="styles.line.left - styles.chapterBlock.width/2" :y="lines.y2 - styles.chapterBlock.width/2"
+                :width="styles.chapterBlock.width" :height="styles.chapterBlock.width" :fill=styles.color.gray></rect>
+          <!--paragraph number-->
+          <text x="300" :y="lines.y2 + 15" :fill=styles.color.gray class="number">{{index + 2}}</text>
+        </g>
+        <g v-if="index <= getProgress">
+            <g v-for="i in lines.blocks">
+                <g v-if="index + i/10 <= getProgress">
+                    <!--Notes Init-->
+                    <!--(i-1) because v-for index start with 1 instead of 0-->
+                    <rect v-on:click="click = goto(index, i-1)"
+                          x="455"
+                          :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
+                          :width="styles.block.width" :height="styles.block.width"
+                          :fill=styles.color.defaultBlock
+                          :fill-opacity= dataset.highlights[index][i-1] ></rect>
+                    <!--VIS-->
+                    <!--10: largest number of subparts in section-->
+                    <g v-on:click="click = goto(index, i-1)"
+                       @mouseover="hover = index*10 + i"
+                       @mouseleave="hover = null">
+                      <rect v-if="dataset.vis[index][i-1] == '1' "
+                            x="406"
+                            :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
+                            :width="styles.block.width" :height="styles.block.width"
+                            :fill=styles.color.image ></rect>
+                      <rect v-if="dataset.vis[index][i-1] == '2' "
+                            x="406"
+                            :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
+                            :width="styles.block.width" :height="styles.block.width"
+                            :fill=styles.color.intVis ></rect>
+                      <rect v-if="dataset.vis[index][i-1] == '3' "
+                            x="406"
+                            :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
+                            :width="styles.block.width" :height="styles.block.width"
+                            :fill=styles.color.stcVis ></rect>
+
+                      <rect v-if="hover == index*10 + i  && dataset.vis[index][i-1] != '0'"
+                            x="406"
+                            :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
+                            :width="styles.block.width" :height="styles.block.width"
+                            :fill=styles.color.lightgray ></rect>
+                    </g>
+                </g>
+                <g v-else>
+                  <!--gray line for progress-->
+                  <line :x1="lines.x1" :y1="lines.y1+ (i-1)*(styles.block.gap + styles.block.width)"
+                        :x2="lines.x2" :y2="lines.y1 + styles.block.verGap*2 + (i-1)*(styles.block.gap + styles.block.width) + styles.block.width"
+                        style="stroke:#9B9B9B; stroke-width:5; stroke-linecap:round"></line>
+                </g>
+            </g>
+        </g>
+        <g v-if="index > getProgress">
+          <!--Vertical Line-->
+          <line :x1="lines.x1" :y1="lines.y1" :x2="lines.x2" :y2="lines.y2" style="stroke:#9B9B9B; stroke-width:5; stroke-linecap:round"></line>
+          <!--Horizontal Line-->
+          <line :x1="373" :y1="lines.y2" x2="510" :y2="lines.y2" style="stroke:#9B9B9B; stroke-width:5; stroke-linecap:round"></line>
+          <!--chapter block-->
+          <rect :x="styles.line.left - styles.chapterBlock.width/2" :y="lines.y2 - styles.chapterBlock.width/2"
+                :width="styles.chapterBlock.width" :height="styles.chapterBlock.width" :fill=styles.color.gray></rect>
+          <!--paragraph number-->
+          <text x="300" :y="lines.y2 + 15" :fill=styles.color.gray class="number">{{index + 2}}</text>
+        </g>
     </g>
   </svg>
+
 </template>
 
 <script>
@@ -22,7 +112,8 @@
 
 import MetaVisualization from '@/mixins/vis/MetaVisualization'
 import NavlineBucket from './NavlineBucket'
-import * as d3 from 'd3'
+import ch_mut from '@/store/chapters/types'
+// import * as d3 from 'd3'
 
 const DEFAULT_OPTIONS = {
   styles: {
@@ -39,11 +130,36 @@ const DEFAULT_OPTIONS = {
       height: 5,
       gap: 1 // space between each event
     },
+    line: {
+      left: 373,
+      right:510,
+      start: 292
+    },
+    chapterBlock: {
+      width: 40
+    },
+    block: {
+      width: 32,
+      gap: 22,
+      margin: 18,
+      verGap: 38//chapterBlock/2 + margin
+    },
+    color: {
+      defaultBlock:"#D9B89A",
+      gray: "#9B9B9B",
+      image: "#577456",
+      intVis: "#801201",
+      stcVis: "#CA6E11",
+      lightgray: "#dddddd"
+    }
   },
   vertical: true, // how to orient the navline
   showTicks: true // whether to show the axis ticks
-}
+};
 export default {
+  data() {
+    return {hover: null, click: null}
+  },
   components: {
     NavlineBucket
   },
@@ -55,7 +171,7 @@ export default {
       type: Object,
       required: false,
       default: () => DEFAULT_OPTIONS
-    }
+    },
   },
   computed: {
     /**
@@ -130,9 +246,40 @@ export default {
       return d3.scaleLinear()
         .domain([this.startPoint, this.endPoint])
         .range([this.styles.margin.top, this.innerHeight]);
+    },
+    getProgress() {
+        return this.$store.getters.prog;
     }
   },
   methods: {
+      /**
+       * calculate line positions
+       **/
+      startEndPoint: function (paragraphData) {
+          let start = this.styles.line.start;
+          let x = this.styles.line.left;
+          let arr = [];
+          for (let i = 0; i < paragraphData.length; i++) {
+              let lines = paragraphData[i];
+              let end = lines * this.styles.block.width
+                  + (lines - 1) * this.styles.block.gap + this.styles.block.verGap * 2 + start;
+              arr.push({
+                  x1: x,
+                  y1: start,
+                  x2: x,
+                  y2: end,
+                  blocks: lines,
+              });
+              start = end;
+              x = (x === this.styles.line.left) ? this.styles.line.right : this.styles.line.left;
+          }
+          // console.log(arr)
+          return arr;
+      },
+      goto: function (index, i) {
+          let idname = "part" + index + "." + i;
+          this.$store.commit(ch_mut.SET_IDNAME, { id: idname });
+      },
     /**
      * Formats the data to match the navline format
      * [
@@ -168,7 +315,7 @@ export default {
       return Object.values(data)
     },
     placeBucket (bucket) {
-      console.log(this.getScale(bucket.id));
+      // console.log(this.getScale(bucket.id));
       const dx = this.getScale(bucket.id) - (this.styles.timelineEvent.width / 2)
       const dy = this.innerHeight - (this.styles.timelineEvent.height + this.styles.timelineEvent.gap)
       return { transform: `translate(${0}px, ${dx}px)` }
@@ -190,6 +337,7 @@ export default {
 </script>
 
 <style scoped>
-  svg {
-  }
+  .heavy { font: bold 70px Baskerville; fill:#4A4A4A }
+  .number { font: bold 50px Baskerville}
+  .small { font: bold 28px Baskerville; fill:#4A4A4A }
 </style>
