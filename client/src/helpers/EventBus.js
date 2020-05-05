@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-const EventBus = function(name = "bus") {
+export const EventBus = function(name = "bus") {
   const _vm = new Vue();
   let _name = name
   const _listeners = {}
