@@ -15,7 +15,7 @@ const testDb = process.env.TEST_DB
 const prodDb = process.env.PRODUCTION_DB
 
 if (!port) {
-  console.error("The PORT environmental variable isn't set! Have you made a .env file?");
+  console.error("The PORT environmental variable isn't set! Have you made a .env file? (run the command [npm run generate:env] to automatically create one)");
 }
 
 mongoose.promise = global.Promise;

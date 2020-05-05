@@ -7,6 +7,7 @@
   },
   "scripts": {
     "lint": "eslint . && cd client && vue-cli-service lint",
+    "generate:env": "node scripts/env-gen",
     "test:client": "cd client && vue-cli-service test:unit",
     "test:api": "mocha server-express/test",
     "posttest": "npm run lint && nsp check",
