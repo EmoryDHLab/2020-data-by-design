@@ -1,42 +1,8 @@
 <template lang="html">
   <chapter-scaffold>
     <template slot='title'>
-      Feminist Data Visualization; Or the Shape of History
+      Dubois Chapter
     </template>
-    <p>This talk departs from a seemingly simple question: “What is the story we tell about the origins of modern data visualization?” And as a set of follow-ups, “What alternate histories might emerge, what new visual forms might we imagine, and what new arguments might we make, if we told that story differently?”</p>
-    <p>To begin to answer these questions, I’ll focus on the work of one visualization designer from the nineteenth century, <a href='https://en.wikipedia.org/wiki/Elizabeth_Peabody'>Elizabeth Palmer Peabody</a>, whose images are rarely considered in the standard story we tell about the emergence of modern visualization techniques. When they are mentioned at all, they are typically described as strange—and sometimes even as failures. You can see one of them just below.</p>
-    <h2>These visualizations are linked only through their datasets</h2>
-    <ul>
-      <li><h3>The one on the left uses an immutable dataset</h3></li>
-      <li><h3>The one on the right uses a deep copy of the dataset from the one on the left.
-        (It's actually a wrap aroud the other vis which extends its functionality)</h3></li>
-      <li><h3>The timeline is tied to this mutable dataset on the right</h3></li>
-    </ul>
-    <timeline-vis
-      id='vis2'
-      height='200px'
-      width='100%'
-      :datasetId='currentDataset.toString()'
-      @hover-start="hoverStart"
-      @hover-end="hoverEnd"/>
-    <div style="display:flex;">
-      <peabody-grid
-        @hover-start="hoverStart"
-        @hover-end="hoverEnd"
-        id='peabody-vis-1'
-        style='flex: 1'
-        width='45vh'
-        height='45vh'
-        :datasetId='"0"'/>
-      <peabody-mutable
-        id='peabody-vis-2'
-        style='flex: 1'
-        width='45vh'
-        height='45vh'
-        :datasetId='currentDataset.toString()'
-        @hover-start="hoverStart"
-        @hover-end="hoverEnd"/>
-    </div>
     <p ref="part0.0">To us today, accustomed to the charts and graphs of Microsoft Excel, or the interactive graphics that we find on <a href='https://www.nytimes.com/'>The New York Times</a> (dot com) on any given day, we perceive schemas like this as opaque and illegible. They do none of the things that we think that visualization should do: be clear and intuitive, yield immediate insight, or facilitate making sense of the underlying data. But further questions remain: why have we become conditioned to think that visualization should do these things, and only these things? How has this perspective come to be embedded in our visual culture? And most importantly for us here today, what would it mean if we could view images like these, from the archive of data visualization, instead as pathways to alternate futures? What additional visual schemas could we envision, and what additional stories could we tell, if we did?</p>
     <p ref="part0.1">So I’m going to inhabit my method, and frame my talk today in terms of an alternate history. First, I’ll walk you through the visual schema that you see above-left, proposed by Peabody in 1856. Then I’ll talk about some of the more speculative work I’ve done in attempting to reimagine her schema in both digital and physical form. And then I’ll try to explain what I’m after by describing this work, as you saw in the title of this talk, as feminist—</p>
     <p ref="part0.2">More specifically, I’ll show how Peabody’s visual method replaces the hierarchical mode of knowledge transmission that standard visualization techniques rest upon with a more horizontal mode, one that locates the source of knowledge in the interplay between viewer, image, and text. I’ll demonstrate how this horizontal mode of knowledge transmission encourages interpretations that are multiple, rather than singular, and how it places affective and embodied ways of knowing on an equal plane with more seemingly “objective” measures. And finally, I’ll suggest that this method, when reimagined for the present, raises the stakes for a series of enduring questions—about the issue of labor (and its relation to knowledge work), the nature of embodiment (and how it might be better attached to digital methods), and the role of interpretation (and how is not only bound to perception, but also design).</p>
@@ -70,6 +36,7 @@
     <p>And therein lies her principal lesson: about what information constitutes knowledge, about how that knowledge is perceived, and about who is authorized to produce it. That, to me, is why this project—the historical part and the technical one—is a feminist one. Because it brings renewed attention to the role of interpretation, and to the modes of knowing outside of what we’d typically consider to be visualizable, such as intuition, or affect, or embodiment.</p>
     <p>As humanists, we’ve been trained to recognize the value of these alternate forms of knowledge, just as we’ve been trained to register the people, like Peabody, who stand on the periphery of the archive. These are often people whose stories we would otherwise lack sufficient evidence to be able to bring to light, whether it’s evidence in the form of data, or just the archival record.</p>
     <p>And this is where I see a convergence in the historical and theoretical work surrounding the archive, and the more technical, but equally theoretical work relating to data and its visual display. It’s where I think humanists have real lessons to teach those who design visualizations—and as I begin to speak more with designers and researchers outside of the humanities, I’m increasingly convinced of this fact. But it’s also a space where I think we, as digital humanists, could make an intervention in our own scholarly fields. It’s not only by taking digital methods and applying them to humanistic questions; or even what I’ve demonstrated here today: how humanistic theories allow us to better understand certain digital techniques. Rather, what I’d like to see as we “renew the networks” of nineteenth-century digital studies, to borrow a phrase that Alison employed to introduce this session, is to insist on a richer intersection of the digital with the humanities, as both critical and creative, theoretical and applied, both the contours and the coloring in. That’s what I envision as the shape of things to come.
+    <img src="https://s.ftcdn.net/v2013/pics/all/curated/RKyaEDwp8J7JKeZWQPuOVWvkUjGQfpCx_cover_580.jpg?r=1a0fc22192d0c808b8bb2b9bcfbf4a45b1793687">
     </p>
     <p>Thank you.</p>
 
@@ -78,21 +45,15 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import ChapterScaffold from '@/components/chapters/PeabodyChapterScaffold'
-import TimelineVis from '@/components/vis/timeline/TimelineVis'
-import PeabodyGrid from '@/components/vis/peabody/PeabodyGrid'
-import PeabodyMutable from '@/components/vis/peabody/PeabodyMutable'
+import ChapterScaffold from '@/components/chapters/DuboisChapterScaffold'
 import { EventBus } from '@/helpers/EventBus'
 import mutations from '@/store/dataset/types'
 import ch_mut from '@/store/chapters/types'
 
 export default {
-  name: 'ThePeabodyChapter',
+  name: 'DuboisChapter',
   components: {
-    PeabodyGrid,
-    PeabodyMutable,
     ChapterScaffold,
-    TimelineVis
   },
   data () {
     return {

@@ -41,9 +41,9 @@
 
 
 import DOM from '@/helpers/DOM'
-import LoremIpsum from './LoremIpsum'
-import NavlineVis from './vis/navline/NavlineVis'
-import NoteBook from './notebook/NoteBook'
+import LoremIpsum from '../LoremIpsum'
+import NavlineVis from '../vis/peabody/navline/NavlineVis'
+import NoteBook from '../notebook/NoteBook'
 import stickybits from 'stickybits'
 // polyfill for css position:sticky
 stickybits('.--stick', { useStickyClasses: true })

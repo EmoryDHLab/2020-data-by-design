@@ -2,102 +2,72 @@
   <svg width="3309" height="2523" viewBox="70 100 600 2500" fill="none" xmlns="http://www.w3.org/2000/svg">
     <text x="250" y="210" class="heavy">Progress</text>
     <!--LEGENDS-->
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M270 2091H305V2126H270V2091Z" :fill=styles.color.defaultBlock />
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M480 2091H515V2126H480V2091Z" :fill=styles.color.image />
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M270 2148H305V2183H270V2148Z" :fill=styles.color.intVis />
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M480 2148H515V2183H480V2148Z" :fill=styles.color.stcVis />
-    <text x="340" y="2050" class="number">LEGENDS</text>
-    <text x="320" y="2120" class="small">Highlights</text>
+    <rect x="240" y="2092" width="35" height="35" :fill=styles.color.secHeader />
+    <rect x="480" y="2092" width="35" height="35" :fill=styles.color.image />
+    <rect x="240" y="2147" width="35" height="35" :fill=styles.color.vis />
+    <rect x="480" y="2147" width="35" height="35" :fill=styles.color.text />
+    <text x="320" y="2050" class="number" fill="#4A4A4A">LEGENDS</text>
+    <text x="280" y="2120" class="small">Section Header</text>
     <text x="520" y="2120" class="small">Images</text>
-    <text x="520" y="2175" class="small">Static Vis.</text>
-    <text x="320" y="2175" class="small">Interaction</text>
+    <text x="280" y="2175" class="small">Visualization</text>
+    <text x="520" y="2175" class="small">Text</text>
 
-    <!--Lines, ChapterBlocks, Numbers, Notes Init-->
-    <rect :x="styles.line.left - styles.chapterBlock.width/2" :y="styles.line.start- styles.chapterBlock.width/2"
-          :width="styles.chapterBlock.width" :height="styles.chapterBlock.width" :fill=styles.color.defaultBlock></rect>
-    <text x="300" :y="styles.line.start + 15" class="number" fill="#4A4A4A">1</text>
-
+    <circle :cx="styles.line.x" :cy="styles.line.start" :r="styles.chapterBlock.r" :fill=styles.color.defaultBlock></circle>
 
     <g v-for="(lines, index) in startEndPoint(dataset.paragraphData)">
         <g v-if="index+1 <= getProgress">
-          <!--Vertical Line-->
-          <line :x1="lines.x1" :y1="lines.y1" :x2="lines.x2" :y2="lines.y2" style="stroke:#D9B89A; stroke-width:5; stroke-linecap:round"></line>
-          <!--Horizontal Line-->
-          <line :x1="373" :y1="lines.y2" x2="510" :y2="lines.y2" style="stroke:#D9B89A; stroke-width:5; stroke-linecap:round"></line>
+          <!--arc-->
+          <path :d="calcArc(lines, index)" :stroke="styles.color.defaultBlock" stroke-width="5" fill-opacity="0"></path>
           <!--chapter block-->
-          <rect :x="styles.line.left - styles.chapterBlock.width/2" :y="lines.y2 - styles.chapterBlock.width/2"
-                :width="styles.chapterBlock.width" :height="styles.chapterBlock.width" :fill=styles.color.defaultBlock></rect>
-          <!--paragraph number-->
-          <text x="300" :y="lines.y2 + 15" class="number" fill="#4A4A4A">{{index + 2}}</text>
+          <circle :cx="styles.line.x" :cy="lines.y2" :r="styles.chapterBlock.r" :fill=styles.color.defaultBlock></circle>
         </g>
         <g v-else-if="index <= getProgress">
-          <!--Vertical Line-->
-          <line :x1="lines.x1" :y1="lines.y1" :x2="lines.x2" :y2="lines.y2" style="stroke:#D9B89A; stroke-width:5; stroke-linecap:round"></line>
-          <!--Horizontal Line-->
-          <line :x1="373" :y1="lines.y2" x2="510" :y2="lines.y2" style="stroke:#9B9B9B; stroke-width:5; stroke-linecap:round"></line>
           <!--chapter block-->
-          <rect :x="styles.line.left - styles.chapterBlock.width/2" :y="lines.y2 - styles.chapterBlock.width/2"
-                :width="styles.chapterBlock.width" :height="styles.chapterBlock.width" :fill=styles.color.gray></rect>
-          <!--paragraph number-->
-          <text x="300" :y="lines.y2 + 15" :fill=styles.color.gray class="number">{{index + 2}}</text>
+          <circle :cx="styles.line.x" :cy="lines.y2" :r="styles.chapterBlock.r" :fill=styles.color.gray></circle>
         </g>
         <g v-if="index <= getProgress">
             <g v-for="i in lines.blocks">
                 <g v-if="index + i/10 <= getProgress">
-                    <!--Notes Init-->
-                    <!--(i-1) because v-for index start with 1 instead of 0-->
-                    <rect v-on:click="click = goto(index, i-1)"
-                          x="455"
-                          :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
-                          :width="styles.block.width" :height="styles.block.width"
-                          :fill=styles.color.defaultBlock
-                          :fill-opacity= dataset.highlights[index][i-1] ></rect>
-                    <!--VIS-->
+                    <!--partial colored arc-->
+                    <path v-if="index == parseInt(getProgress)"
+                        :d="calcColorArc(lines, index, i)" :stroke="styles.color.defaultBlock"
+                        stroke-width="5" fill-opacity="0"></path>
+                    <!--VIS blocks-->
                     <!--10: largest number of subparts in section-->
                     <g v-on:click="click = goto(index, i-1)"
                        @mouseover="hover = index*10 + i"
                        @mouseleave="hover = null">
-                      <rect v-if="dataset.vis[index][i-1] == '1' "
-                            x="406"
-                            :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
-                            :width="styles.block.width" :height="styles.block.width"
-                            :fill=styles.color.image ></rect>
-                      <rect v-if="dataset.vis[index][i-1] == '2' "
-                            x="406"
-                            :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
-                            :width="styles.block.width" :height="styles.block.width"
-                            :fill=styles.color.intVis ></rect>
-                      <rect v-if="dataset.vis[index][i-1] == '3' "
-                            x="406"
-                            :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
-                            :width="styles.block.width" :height="styles.block.width"
-                            :fill=styles.color.stcVis ></rect>
+                      <circle v-if="dataset.vis[index][i-1] == '1' "
+                              :cx="blockcx(lines, index, i)" :cy="blockcy(lines, i)"
+                              :r="styles.block.r" :fill=styles.color.secHeader></circle>
+                      <circle v-if="dataset.vis[index][i-1] == '2' "
+                              :cx="blockcx(lines, index, i)" :cy="blockcy(lines, i)"
+                              :r="styles.block.r" :fill=styles.color.image></circle>
+                      <circle v-if="dataset.vis[index][i-1] == '3' "
+                              :cx="blockcx(lines, index, i)" :cy="blockcy(lines, i)"
+                              :r="styles.block.r" :fill=styles.color.vis></circle>
+                      <circle v-if="dataset.vis[index][i-1] == '4' "
+                              :cx="blockcx(lines, index, i)" :cy="blockcy(lines, i)"
+                              :r="styles.block.r" :fill=styles.color.text></circle>
 
-                      <rect v-if="hover == index*10 + i  && dataset.vis[index][i-1] != '0'"
-                            x="406"
-                            :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
-                            :width="styles.block.width" :height="styles.block.width"
-                            :fill=styles.color.lightgray ></rect>
+                      <circle v-if="hover == index*10 + i  && dataset.vis[index][i-1] != '0'"
+                              :cx="blockcx(lines, index, i)" :cy="blockcy(lines, i)"
+                              :r="styles.block.r" :fill=styles.color.lightgray></circle>
                     </g>
                 </g>
-                <g v-else>
-                  <!--gray line for progress-->
-                  <line :x1="lines.x1" :y1="lines.y1+ (i-1)*(styles.block.gap + styles.block.width)"
-                        :x2="lines.x2" :y2="lines.y1 + styles.block.verGap*2 + (i-1)*(styles.block.gap + styles.block.width) + styles.block.width"
-                        style="stroke:#9B9B9B; stroke-width:5; stroke-linecap:round"></line>
+                <g v-else-if="index + i/10 <= (parseFloat(getProgress) + 0.1)">
+                  <!--gray partial arc for progress-->
+                  <path :d="calcGrayArc(lines, index, i)" :stroke="styles.color.gray"
+                        stroke-width="5" stroke-dasharray="10" fill-opacity="0"></path>
                 </g>
             </g>
         </g>
+        <!--dotted gray parts-->
         <g v-if="index > getProgress">
-          <!--Vertical Line-->
-          <line :x1="lines.x1" :y1="lines.y1" :x2="lines.x2" :y2="lines.y2" style="stroke:#9B9B9B; stroke-width:5; stroke-linecap:round"></line>
-          <!--Horizontal Line-->
-          <line :x1="373" :y1="lines.y2" x2="510" :y2="lines.y2" style="stroke:#9B9B9B; stroke-width:5; stroke-linecap:round"></line>
+          <!--arc-->
+          <path :d="calcArc(lines, index)" :stroke="styles.color.gray" stroke-width="5" stroke-dasharray="10" fill-opacity="0"></path>
           <!--chapter block-->
-          <rect :x="styles.line.left - styles.chapterBlock.width/2" :y="lines.y2 - styles.chapterBlock.width/2"
-                :width="styles.chapterBlock.width" :height="styles.chapterBlock.width" :fill=styles.color.gray></rect>
-          <!--paragraph number-->
-          <text x="300" :y="lines.y2 + 15" :fill=styles.color.gray class="number">{{index + 2}}</text>
+          <circle :cx="styles.line.x" :cy="lines.y2" :r="styles.chapterBlock.r" :fill=styles.color.gray></circle>
         </g>
     </g>
   </svg>
@@ -131,25 +101,26 @@ const DEFAULT_OPTIONS = {
       gap: 1 // space between each event
     },
     line: {
-      left: 373,
-      right:510,
+      x: 373,
       start: 292
     },
     chapterBlock: {
-      width: 40
+      r: 20
     },
     block: {
-      width: 32,
-      gap: 22,
-      margin: 18,
-      verGap: 38//chapterBlock/2 + margin
+      r: 15,
+      gap: 30,
+      gapR: 15,
+      marginR: 30,
+      verGap: 50, //chapterBlock/2 + margin
     },
     color: {
-      defaultBlock:"#D9B89A",
+      defaultBlock: "#b49581",
       gray: "#9B9B9B",
-      image: "#577456",
-      intVis: "#801201",
-      stcVis: "#CA6E11",
+      secHeader:"#c8a59f",
+      image: "#6275a2",
+      text: "#f4c443",
+      vis: "#761e0e",
       lightgray: "#dddddd"
     }
   },
@@ -257,24 +228,81 @@ export default {
        **/
       startEndPoint: function (paragraphData) {
           let start = this.styles.line.start;
-          let x = this.styles.line.left;
           let arr = [];
           for (let i = 0; i < paragraphData.length; i++) {
               let lines = paragraphData[i];
-              let end = lines * this.styles.block.width
+              let end = lines * this.styles.block.r
                   + (lines - 1) * this.styles.block.gap + this.styles.block.verGap * 2 + start;
               arr.push({
-                  x1: x,
                   y1: start,
-                  x2: x,
                   y2: end,
+                  cy: start + (end - start)/2, //center of the arc
+                  deltaTh: (180 - 2*this.styles.block.gapR)/lines,
+                  R: (end - start)/2,
                   blocks: lines,
               });
               start = end;
-              x = (x === this.styles.line.left) ? this.styles.line.right : this.styles.line.left;
           }
           // console.log(arr)
           return arr;
+      },
+      calcArc: function (lines, index) {
+          let left = (index+1) % 2;
+          let d = [
+              "M", this.styles.line.x, lines.y1,
+              "A", lines.R, lines.R, 0, 0, left, this.styles.line.x, lines.y2
+          ].join(" ");
+          return d;
+      },
+      blockcx: function (lines, index, i) {
+          let Cx = this.styles.line.x;
+          let theta = 90 - (this.styles.block.gapR + (i-1)*lines.deltaTh + lines.deltaTh/2);
+          if (index % 2 == 0) {
+              return Cx + (lines.R - this.styles.block.marginR) * Math.cos(theta * Math.PI / 180);
+          } else {
+              return Cx - (lines.R - this.styles.block.marginR) * Math.cos(theta * Math.PI / 180);
+          }
+      },
+      blockcy: function (lines, i) {
+          let Cy = lines.cy;
+          let theta = 90 - (this.styles.block.gapR + (i-1)*lines.deltaTh + lines.deltaTh/2);
+          return Cy - (lines.R - this.styles.block.marginR) * Math.sin(theta * Math.PI / 180);
+      },
+      calcGrayArc: function (lines, index, i) {
+          let left = (index+1) % 2;
+          let Cx = this.styles.line.x;
+          let Cy = lines.cy;
+          let theta = 90 - (this.styles.block.gapR + (i-2)*lines.deltaTh + lines.deltaTh/2);
+          let x;
+          if (index % 2 == 0) {
+              x = Cx + lines.R * Math.cos(theta * Math.PI / 180);
+          } else {
+              x = Cx - lines.R * Math.cos(theta * Math.PI / 180);
+          }
+          let y = Cy - lines.R * Math.sin(theta * Math.PI / 180);
+          let d = [
+              "M", x, y,
+              "A", lines.R, lines.R, 0, 0, left, this.styles.line.x, lines.y2
+          ].join(" ");
+          return d;
+      },
+      calcColorArc: function (lines, index, i) {
+          let left = (index+1) % 2;
+          let Cx = this.styles.line.x;
+          let Cy = lines.cy;
+          let theta = 90 - (this.styles.block.gapR + (i-1)*lines.deltaTh + lines.deltaTh/2);
+          let x;
+          if (index % 2 == 0) {
+              x = Cx + lines.R * Math.cos(theta * Math.PI / 180);
+          } else {
+              x = Cx - lines.R * Math.cos(theta * Math.PI / 180);
+          }
+          let y = Cy - lines.R * Math.sin(theta * Math.PI / 180);
+          let d = [
+              "M", this.styles.line.x, lines.y1,
+              "A", lines.R, lines.R, 0, 0, left, x, y
+          ].join(" ");
+          return d;
       },
       goto: function (index, i) {
           let idname = "part" + index + "." + i;
@@ -337,7 +365,7 @@ export default {
 </script>
 
 <style scoped>
-  .heavy { font: bold 70px Baskerville; fill:#4A4A4A }
-  .number { font: bold 50px Baskerville}
-  .small { font: bold 28px Baskerville; fill:#4A4A4A }
+  .heavy { font: bold 70px "DIN Alternate"; fill:#4A4A4A }
+  .number { font: bold 50px "DIN Alternate"}
+  .small { font: bold 28px "DIN Alternate"; fill:#4A4A4A }
 </style>

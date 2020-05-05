@@ -9,6 +9,7 @@ import Home from './views/Home'
 import Sandbox from './views/Sandbox'
 import Features from './views/Features'
 import Account from './views/Account'
+import DuboisChapter from "./views/DuboisChapter";
 Vue.use(Router)
 
 export default new Router({
@@ -43,6 +44,11 @@ export default new Router({
       path: '/chapters/shape-of-history',
       name: 'PeabodyChapter',
       component: PeabodyChapter
+    },
+    {
+      path: '/chapters/dubois',
+      name: 'DuboisChapter',
+      component: DuboisChapter
     },
     {
       path: '/signup',
