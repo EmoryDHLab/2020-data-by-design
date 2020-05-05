@@ -22,7 +22,7 @@
         </section>
       </div>
       <aside class="chapter__notebook-col">
-        <NoteBook class="chapter__notebook"/>
+        <Notebook class="chapter__notebook"/>
       </aside>
     </section>
   </main>
@@ -43,7 +43,7 @@
 import DOM from '@/helpers/DOM'
 import LoremIpsum from './LoremIpsum'
 import NavlineVis from './vis/navline/NavlineVis'
-import NoteBook from './notebook/NoteBook'
+import Notebook from './notebook-new/Notebook'
 import stickybits from 'stickybits'
 // polyfill for css position:sticky
 stickybits('.--stick', { useStickyClasses: true })
@@ -52,7 +52,7 @@ export default {
   name: 'ChapterScaffold',
   components: {
     NavlineVis,
-    NoteBook
+    Notebook
   },
   data: () => ({
     timelineData: {

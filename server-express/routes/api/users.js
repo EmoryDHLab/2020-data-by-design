@@ -23,7 +23,7 @@ router.post('/', auth.optional, (req, res, next) => {
         },
       });
     }
-    
+
     return Users.exists({ email: user.email }).then((data) => {
       if (data) {
         return res.status(422).json({
@@ -33,7 +33,6 @@ router.post('/', auth.optional, (req, res, next) => {
       }
       else {
         const finalUser = new Users(user);
-
         finalUser.setPassword(user.password);
 
         return finalUser.save()
@@ -95,4 +94,29 @@ router.get('/current', auth.required, (req, res, next) => {
     });
 });
 
+router.get('/current/notebook', auth.required, (req, res, next) => {
+  const { payload: { id } } = req;
+
+  return Users.findById(id)
+    .then((user) => {
+      if(!user) {
+        return res.sendStatus(400);
+      }
+      return res.json(user.notebookJSON());
+    });
+});
+
+router.post('/current/notebook', auth.required, (req, res, next) => {
+  const id = req.payload.id;
+  const notebook = req.body.notebook
+
+  return Users.findByIdAndUpdate(id, {notebook: notebook}, {new: true})
+    .then((user) => {
+      if(!user) {
+        return res.sendStatus(400);
+      }
+
+      return res.json(user.notebookJSON());
+    });
+});
 module.exports = router;
