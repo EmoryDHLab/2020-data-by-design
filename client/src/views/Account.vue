@@ -7,7 +7,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { AUTH_LOGOUT } from '@/store/auth/types'
+import { AUTH_LOGOUT } from '@/store/auth-old/types'
 export default {
   computed: {
     ...mapGetters(['firstName', 'lastName'])

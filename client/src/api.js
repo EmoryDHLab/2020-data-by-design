@@ -22,7 +22,7 @@ export default {
   login (user) {
     return axios.post('/api/users/login', user)
       .then(resp => {
-        setAuthorization(resp.data.id)
+        setAuthorization(resp.user.token)
         return resp
       })
       .catch(err => {
@@ -40,12 +40,12 @@ export default {
     return axios.post('/api/users/', user)
       .then(resp => {
         console.log(resp);
-        setAuthorization(resp.data.id)
+        setAuthorization(resp.user.token)
         return resp
       })
       .catch(err => {
         clearAuthorization()
-        throw err.response.data.error
+        throw err
       })
   }
 }

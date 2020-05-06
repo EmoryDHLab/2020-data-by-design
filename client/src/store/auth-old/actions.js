@@ -1,4 +1,4 @@
-import api from '@/api'
+import api from '../../api'
 import {
   AUTH_REQUEST,
   AUTH_CREATE,
@@ -9,7 +9,7 @@ import {
   AUTH_LOGOUT_SUCCESS
 } from './types'
 
-import UserActions from '../user/types'
+import UserActions from '../user-old/types'
 
 const actions = {
   [AUTH_REQUEST] ({ commit, dispatch }, user) {
