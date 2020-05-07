@@ -22,9 +22,7 @@
         :to="{ path: '/', hash: 'features' }">Features</router-link>
       <router-link class="header-nav-link"
         :to="{ path: '/', hash: 'credits' }">Credits</router-link>
-      <router-link v-if="!isAuthenticated" class="header-nav-link" to="/signup">Sign Up</router-link>
-      <router-link v-if="!isAuthenticated" class="header-nav-link" to="/signin">Sign in</router-link>
-      <router-link v-if="isAuthenticated" class="header-nav-link" to="/account">Account</router-link>
+      <router-link class="header-nav-link" to="/notebook">Notebook</router-link>
     </vue-nav>
   </header>
 </template>

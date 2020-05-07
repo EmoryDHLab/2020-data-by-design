@@ -23,13 +23,25 @@ describe("User api endpoint", function () {
 
     let user = {
         email: "testusername@gmail.com",
+        name: 'Test User',
         password: "testpassword",
     }
     let token;
     describe('User creation endpoint (POST /api/users/)', function () {
       let responseUser;
-        it('creates a user based on the provided email and password', function (done) {
-
+        it('fails to create a user without a name', function (done) {
+          chai.request(app)
+            .post('/api/users')
+            .set('Content-Type', 'application/json')
+            .send({user: {email: user.email, password: user.password}})
+            .end((err, res) => {
+              expect(res).to.have.status(422);
+              console.log(res.body.errors.name);
+              expect(res.body.errors).to.have.property('name');
+              done();
+            })
+        });
+        it('creates a user based on the provided email, name, and password', function (done) {
             chai.request(app)
                 .post('/api/users')
                 .set('Content-Type', 'application/json')

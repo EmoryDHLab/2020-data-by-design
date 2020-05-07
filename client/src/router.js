@@ -20,9 +20,9 @@ export default new Router({
       component: Home
     },
     {
-      path: '/account',
-      name: 'Account',
-      component: Account
+      path: '/notebook',
+      name: 'notebook',
+      component: Account //for now
     },
     {
       path: '/sandbox',

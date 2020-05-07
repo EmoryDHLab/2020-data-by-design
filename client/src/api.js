@@ -20,9 +20,9 @@ export default {
     return axios.get(`/api/data?full=${full}`)
   },
   login (user) {
-    return axios.post('/api/users/login', user)
+    return axios.post('/api/users/login', {user: user})
       .then(resp => {
-        setAuthorization(resp.user.token)
+        setAuthorization(resp.data.user.token)
         return resp
       })
       .catch(err => {
@@ -37,14 +37,16 @@ export default {
     return axios.get(`/api/users/current`)
   },
   createUser (user) {
-    return axios.post('/api/users/', user)
+    console.log(window.location.origin + '/api/users/');
+    return axios.post('/api/users/', {user: user})
       .then(resp => {
-        console.log(resp);
-        setAuthorization(resp.user.token)
+        console.dir(resp);
+        setAuthorization(resp.data.user.token)
         return resp
       })
       .catch(err => {
         clearAuthorization()
+        console.error(err);
         throw err
       })
   }

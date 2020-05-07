@@ -7,12 +7,20 @@ const Users = mongoose.model('Users');
 router.get('/', auth.optional, (req, res, next) => { return res.status(200).end() } )
 //POST new user route (optional, everyone has access)
 router.post('/', auth.optional, (req, res, next) => {
+  //TODO: Advanced server-side validation, probably with express-validator
   const { body: { user } } = req;
   try {
     if(!user.email) {
       return res.status(422).json({
         errors: {
           email: 'is required',
+        },
+      });
+    }
+    if(!user.name) {
+      return res.status(422).json({
+        errors: {
+          name: 'Profile name is required',
         },
       });
     }
@@ -23,7 +31,6 @@ router.post('/', auth.optional, (req, res, next) => {
         },
       });
     }
-
     return Users.exists({ email: user.email }).then((data) => {
       if (data) {
         return res.status(422).json({
