@@ -40,13 +40,11 @@ export default {
     console.log(window.location.origin + '/api/users/');
     return axios.post('/api/users/', {user: user})
       .then(resp => {
-        console.dir(resp);
         setAuthorization(resp.data.user.token)
         return resp
       })
       .catch(err => {
         clearAuthorization()
-        console.error(err);
         throw err
       })
   }

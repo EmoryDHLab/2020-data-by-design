@@ -20,7 +20,7 @@ router.post('/', auth.optional, (req, res, next) => {
     if(!user.name) {
       return res.status(422).json({
         errors: {
-          name: 'Profile name is required',
+          name: 'is required',
         },
       });
     }
@@ -35,7 +35,7 @@ router.post('/', auth.optional, (req, res, next) => {
       if (data) {
         return res.status(422).json({
           errors: {
-            email: 'A user already exists with this email.',
+            email: 'is already registered',
           }})
       }
       else {

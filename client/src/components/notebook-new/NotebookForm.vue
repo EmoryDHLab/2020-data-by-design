@@ -16,8 +16,8 @@
         <input type="password" v-model="repeatedPasssword" placeholder="Repeat your password">
         <span v-if="repeatValidation" class="validation-message" v-text="repeatValidation"></span>
       </div>
-      <div class="error-message" v-if="$store.getters.authError" v-text="$store.getters.authError"></div>
-      <button type="button" @click="submit" :disabled="!allValid">Submit</button>
+      <div class="error-message" v-if="$store.getters.authError && submitted" >{{$store.getters.authError | formatError}}</div>
+      <button type="button" @click="submit" :disabled="!allValid" v-text="submitButtonText"></button>
     </div>
 </template>
 
@@ -60,6 +60,7 @@ export default {
       password: '',
       repeatedPasssword: '',
       name: '',
+      submitted: false,
     }
   },
   computed: {
@@ -96,6 +97,22 @@ export default {
     },
     signingUp () {
       return this.action === ACTIONS.SIGN_UP
+    },
+    submitButtonText() {
+      if (this.loggingIn) {
+        return "Sign In"
+      };
+      if (this.signingUp) {
+        return "Sign Up";
+      }
+    }
+  },
+  filters: {
+    formatError (value) {
+      if (!value) return ''
+      value = value.toString()
+      const endsWithPeriod = value.charAt(value.length);
+      return value.charAt(0).toUpperCase() + value.slice(1) + (endsWithPeriod ? '' : '.');
     }
   },
   methods: {
@@ -107,6 +124,7 @@ export default {
         .join('. ');
     },
     submit() {
+      this.submitted = true;
       const user = {
         email: this.email,
         password: this.password,
@@ -117,6 +135,12 @@ export default {
         user.name = this.name;
         this.$emit('signup', user)
       }
+    }
+  },
+  watch: {
+    action: function(newVal, oldVal) {
+      console.log("got here!");
+      this.submitted = false;
     }
   }
 }
@@ -150,6 +174,7 @@ export default {
 
   .notebook-login-form .error-message {
     font-size: 10pt;
+    margin-bottom: 3px;
   }
 
   .notebook-login-form button:disabled, .notebook-login-form button:hover {

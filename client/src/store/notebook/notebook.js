@@ -25,7 +25,7 @@ export default {
   getters: {
     isLoggedIn: state => !!state.token,
     authStatus: state => state.status,
-    authError: state => state.errorMessage,
+    authError: state => state.status === Statuses[Mutations.AUTH_ERROR] ? state.errorMessage : '',
     username: state => state.user.name,
     notebook: state => state.user.notebook
   },
@@ -76,9 +76,13 @@ export default {
           resolve(response)
 
         }).catch(error => {;
-           if (error.response.data.errors) {
-            if (error.response.data.errors["email or password"]) {
+           const errors = error && error.response && error.response.data && error.response.data.errors;
+           if (errors) {
+            if (errors["email or password"]) {
               commit(Mutations.AUTH_ERROR, 'Incorrect email or password');
+            } else {
+              const message = Object.keys(errors).map(key => `${key} ${errors[key]}`).join(' and ');
+              commit(Mutations.AUTH_ERROR, message);
             }
           } else {
             commit(Mutations.AUTH_ERROR);
@@ -102,11 +106,21 @@ export default {
 
           commit(Mutations.AUTH_SUCCESS, response.data.user)
           resolve(response);
-        }).catch(error => {
-          commit(Mutations.AUTH_ERROR)
+       }).catch(error => {;
+          const errors = error && error.response && error.response.data && error.response.data.errors;
+          if (errors) {
+            if (errors["email or password"]) {
+              commit(Mutations.AUTH_ERROR, 'Incorrect email or password');
+            } else {
+              const message = Object.keys(errors).map(key => `${key} ${errors[key]}`).join(' and ');
+              commit(Mutations.AUTH_ERROR, message);
+            }
+          } else {
+            commit(Mutations.AUTH_ERROR);
+          }
 
           localStorage.removeItem('user-token')
-          reject(error)
+          reject(error);
         })
       })
     },

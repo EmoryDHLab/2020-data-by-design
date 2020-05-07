@@ -14,10 +14,10 @@
       <p class="notebook-login-message" v-if="!this.$store.getters.isLoggedIn">
         <a href="#" @click="action = ACTIONS.LOG_IN">Log in</a> to your notebook account, or
         <a href="#" @click="action = ACTIONS.SIGN_UP">sign up</a> to save notes!
-        <a href="#" class="right-arrow" :class="{ rotate: action }" @click="toggleAction()"></a>
+        <a href="#" class="right-arrow" :class="{ rotate: formToggle }" @click="toggleForm"></a>
       </p>
       <transition name="slide">
-        <NotebookForm v-if="action && !$store.getters.isLoggedIn" :action="action" @login="sendLogin" @signup="sendSignup"></NotebookForm>
+        <NotebookForm v-if="formToggle && !$store.getters.isLoggedIn" :action="action" @login="sendLogin" @signup="sendSignup"></NotebookForm>
       </transition>
     </div>
     <div class="notebook-body">
@@ -38,9 +38,8 @@ export default {
   },
   data () {
     return {
-      func: "test",
-      currText: "thing",
       action: '',
+      formToggle: false,
     }
   },
   computed: {
@@ -52,12 +51,12 @@ export default {
     console.log(this.$store);
   },
   methods: {
-    async createUser () {
-      console.log("called createUser");
-      console.log(await this.$store.dispatch('register', {email: 'tesestnpoatoew@gmail.com', password: "potato"}));
-    },
-    toggleAction () {
-      this.action = this.action ? null : ACTIONS.LOG_IN
+    toggleForm() {
+      if (!this.action) {
+        this.action = ACTIONS.SIGN_UP;
+      } else {
+        this.formToggle = !this.formToggle;
+      }
     },
     sendLogin(user) {
       this.$store.dispatch('login', user);
@@ -68,6 +67,11 @@ export default {
     logout() {
       console.log("tryna log out")
       this.$store.dispatch('logout');
+    }
+  },
+  watch: {
+    action () {
+      this.formToggle = true;
     }
   }
 }
@@ -121,6 +125,7 @@ export default {
 .right-arrow {
   display: inline-block;
   margin-bottom: -2px;
+  margin-left: 2px;
   width: 0;
   height: 0;
   border-top: 7px solid transparent;
@@ -146,7 +151,7 @@ export default {
 }
 
 .slide-enter, .slide-leave-to {
-  margin-top: -60px;
+  margin-top: -90px;
   opacity: 0;
 }
 
