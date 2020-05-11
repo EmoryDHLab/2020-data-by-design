@@ -13,6 +13,10 @@ const mutations = {
         const {id} = payload;
         state.prog_dub = id;
     },
+    [types.SET_PROGRESS_PLA](state, payload) {
+        const {id} = payload;
+        state.prog_pla = id;
+    }
 };
 
 export default mutations

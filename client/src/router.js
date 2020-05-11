@@ -10,6 +10,7 @@ import Sandbox from './views/Sandbox'
 import Features from './views/Features'
 import Account from './views/Account'
 import DuboisChapter from "./views/DuboisChapter";
+import PlayfairChapter from "./views/PlayfairChapter";
 Vue.use(Router)
 
 export default new Router({
@@ -49,6 +50,11 @@ export default new Router({
       path: '/chapters/dubois',
       name: 'DuboisChapter',
       component: DuboisChapter
+    },
+    {
+      path: '/chapters/playfair',
+      name: 'PlayfairChapter',
+      component: PlayfairChapter
     },
     {
       path: '/signup',

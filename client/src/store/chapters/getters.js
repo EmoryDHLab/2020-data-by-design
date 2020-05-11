@@ -7,6 +7,9 @@ const getters = {
     },
     prog_dub (state) {
         return state.prog_dub
+    },
+    prog_pla (state) {
+        return state.prog_pla
     }
 };
 
