@@ -5,9 +5,13 @@ const mutations = {
       const {id} = payload;
       state.idName = id;
     },
-    [types.SET_PROGRESS](state, payload) {
+    [types.SET_PROGRESS_PEA](state, payload) {
         const {id} = payload;
-        state.prog = id;
+        state.prog_pea = id;
+    },
+    [types.SET_PROGRESS_DUB](state, payload) {
+        const {id} = payload;
+        state.prog_dub = id;
     },
 };
 

@@ -2,8 +2,11 @@ const getters = {
     idName (state) {
         return state.idName
     },
-    prog (state) {
-        return state.prog
+    prog_pea (state) {
+        return state.prog_pea
+    },
+    prog_dub (state) {
+        return state.prog_dub
     }
 };
 

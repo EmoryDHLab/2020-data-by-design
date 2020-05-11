@@ -84,7 +84,7 @@ export default {
                     break;
                 }
             }
-            this.$store.commit(ch_mut.SET_PROGRESS, { id: idname });
+            this.$store.commit(ch_mut.SET_PROGRESS_DUB, { id: idname });
         }
     },
     hoverStart (payload) {

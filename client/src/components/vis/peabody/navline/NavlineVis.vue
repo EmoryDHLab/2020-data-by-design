@@ -248,7 +248,7 @@ export default {
         .range([this.styles.margin.top, this.innerHeight]);
     },
     getProgress() {
-        return this.$store.getters.prog;
+        return this.$store.getters.prog_pea;
     }
   },
   methods: {
