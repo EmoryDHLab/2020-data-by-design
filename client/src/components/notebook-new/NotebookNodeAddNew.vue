@@ -15,6 +15,7 @@ export default {
   methods: {
     onButtonClick() {
       this.$emit('addNote', this.note);
+      this.note = "";
     }
   }
 }

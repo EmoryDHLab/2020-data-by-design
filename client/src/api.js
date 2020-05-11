@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 function setAuthorization (token) {
-  axios.defaults.headers.common['Authorization'] = token
+  axios.defaults.headers.common['Authorization'] = `Token ${token}`
 }
 function clearAuthorization (token) {
   delete axios.defaults.headers.common['Authorization']
@@ -22,6 +22,7 @@ export default {
   login (user) {
     return axios.post('/api/users/login', {user: user})
       .then(resp => {
+        console.log(resp.data.user.token);
         setAuthorization(resp.data.user.token)
         return resp
       })
@@ -35,6 +36,10 @@ export default {
   },
   getCurrentUser () {
     return axios.get(`/api/users/current`)
+  },
+  updateNotebook (notebookArray) {
+    console.log(notebookArray);
+    return axios.post('/api/users/current/notebook/', {notebook: notebookArray});
   },
   createUser (user) {
     console.log(window.location.origin + '/api/users/');

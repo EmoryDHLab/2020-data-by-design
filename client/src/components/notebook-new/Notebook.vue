@@ -65,7 +65,6 @@ export default {
       this.$store.dispatch('register', user);
     },
     logout() {
-      console.log("tryna log out")
       this.$store.dispatch('logout');
     }
   },

@@ -34,7 +34,7 @@ function Highlightable(rootElementSelector) {
         }
         const selection = window.getSelection();
         const range = selection.getRangeAt(0);
-        const startParent = range.startContainer.parentNode;  
+        const startParent = range.startContainer.parentNode;
         const endParent = range.endContainer.parentNode;
         const sameParent = startParent.isEqualNode(endParent);
 
@@ -119,7 +119,7 @@ function Highlightable(rootElementSelector) {
         span.style.backgroundColor = "yellow";
         span.classList.add(highlightClass);
         span.onclick = this.onClick;
-  
+
 
         //Draggability
         const onDragStart = (event) => {
@@ -163,18 +163,19 @@ function Highlightable(rootElementSelector) {
 
               metadata = deque[0].dataset.rangeData;
               html = deque
-                .map(stripAttributes)
+                .map(strippedAttributes)
                 .map(el => el.outerHTML) //grab the element's html
                 .join(' ');
           } else {
             metadata = currEl.dataset.rangeData;
-            html = stripAttributes(currEl).outerHTML;
+            html = strippedAttributes(currEl).outerHTML;
           }
           event.dataTransfer.setData("metadata", metadata);
           event.dataTransfer.setData("text/html", html);
-          function stripAttributes (el) {
-            Array.from(el.attributes).forEach(attr => el.removeAttribute(attr.name));
-            return el;
+          function strippedAttributes (el) {
+            const clone = el.cloneNode(true);
+            Array.from(clone.attributes).forEach(attr => clone.removeAttribute(attr.name));
+            return clone;
           }
         }
         span.setAttribute("draggable", "true");
@@ -202,9 +203,30 @@ function Highlightable(rootElementSelector) {
         let startPath = pathToElement(range.startContainer);
         let endPath = pathToElement(range.endContainer);
         return `${startPath}-${range.startOffset};${endPath}-${range.endOffset}`
-      },  
-      deserializeRange() {
+      },
+      deserializeRange(string) {
+          const startEnd = string.split(';');
+          const startPath = startEnd[0].split(/\/|-/g);
+          const endPath =   startEnd[1].split(/\/|-/g);
+          const startOffset = startPath.pop();
+          const endOffset = endPath.pop();
 
+          const pathToNode = path =>
+            path.slice(1).reduce((prev, curr) => {
+              const split = curr.split(/\[|\]/g);
+              const name = split[0];
+              const index = split[1];
+              const child = prev.childNodes[index];
+              if (child.nodeName.toUpperCase() !== name.toUpperCase) {
+                console.warn(`Element ${curr} has changed since the last highlight`);
+              }
+              return child;
+            }, document.querySelector(path[0]))
+
+          const range = new Range();
+          range.setStart(pathToNode(startPath), startOffset);
+          range.setEnd(pathToNode(endPath), endOffset);
+          return range;
       }
     }
   }

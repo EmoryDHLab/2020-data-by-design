@@ -115,7 +115,9 @@ router.get('/current/notebook', auth.required, (req, res, next) => {
 
 router.post('/current/notebook', auth.required, (req, res, next) => {
   const id = req.payload.id;
-  const notebook = req.body.notebook
+  const notebook = req.body.notebook;
+  console.log("Notebook");
+  console.log(notebook);
 
   return Users.findByIdAndUpdate(id, {notebook: notebook}, {new: true})
     .then((user) => {

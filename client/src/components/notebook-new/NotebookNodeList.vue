@@ -2,13 +2,13 @@
   <div class="node-list-container">
 
     <ul>
-        <AddNew @addNote="val => addNote(val, true)"></AddNew>
+        <AddNew @addNote="addNoteTop"></AddNew>
         <div class="drag-target" data-insert-at="0"></div>
         <li v-for="(item, index) in items" :key="item.notebookId">
           <ListItem :item="item"></ListItem>
           <div class="drag-target" :data-insert-at="index + 1"></div>
         </li>
-        <AddNew @addNote="val => addNote(val, false)"></AddNew>
+        <AddNew @addNote="addNoteBottom"></AddNew>
     </ul>
   </div>
 </template>
@@ -17,6 +17,8 @@
 
 import ListItem from "./NotebookNodeListItem"
 import AddNew from "./NotebookNodeAddNew.vue"
+import { mapGetters } from "vuex"
+
 export default {
   components: {
     ListItem,
@@ -32,8 +34,14 @@ export default {
     this.registerDropTargetEvents();
   },
   methods: {
+    addNoteTop(note) {
+      this.addNote(note, true);
+    },
+    addNoteBottom(note) {
+      this.addNote(note, false);
+    },
     addNote(note, addToTop = false) {
-      const id = ++this.greatestId;
+      const id = this.greatestId + 1;
       const newItem = {
         html: `<span class='note'>${note}</span>`,
         notebookId: id,
@@ -67,7 +75,7 @@ export default {
           }
         }
       }
-      const newItem = {html: html, notebookId: prevId ? prevId : ++this.greatestId, metadata: metadata}
+      const newItem = {html: html, notebookId: prevId ? prevId : this.greatestId + 1, metadata: metadata}
       if (insertAt) {
         console.log("insert at " + insertAt);
         this.items.splice(insertAt, 0, newItem)
@@ -111,9 +119,14 @@ export default {
     });
     }
   },
-  data: function () {
+  computed: {
+    ...mapGetters(['isLoggedIn']),
+    greatestId () {
+      return Math.max(...this.items.map(item => item.notebookId), -1);
+    }
+  },
+  data () {
     return {
-      greatestId: 1,
       items: [
         {
           html: "<span>this is a highlight, yay</span>",
@@ -126,6 +139,25 @@ export default {
           metadata: "serialization info goes here",
         },
       ]
+    }
+  },
+
+  watch: {
+    items: {
+      handler (val) {
+        // const nonReactiveCopy = this.items.map(obj => ({html: obj.item, notebookId: obj.notebookId, metadata: obj.metadata}))
+        this.$store.dispatch('updateNotebook', this.items);
+      },
+      deep: true
+    },
+    isLoggedIn: {
+      handler (isLoggedIn) {
+        if (isLoggedIn)  {
+          this.items = this.$store.getters.notebook;
+        } else {
+          this.items = []
+        }
+      }
     }
   }
 }
