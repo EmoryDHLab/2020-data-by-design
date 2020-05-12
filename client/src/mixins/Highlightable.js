@@ -46,11 +46,18 @@ function Highlightable(rootElementSelector) {
         console.log(text);
       },
       onMouseUp(event) {
-        if (event.button !== 0 || window.getSelection().rangeCount === 0) {
+        if (event.button !== 0) {
             return;
         }
         const selection = window.getSelection();
+        if (selection.rangeCount === 0) {
+          return;
+        }
         const range = selection.getRangeAt(0);
+        console.dir(range);
+        if (range.startContainer === range.endContainer && range.startOffset === range.endOffset) {
+          return;
+        }
         this.createHighlightFromRange(range);
         selection.removeAllRanges();
       },
