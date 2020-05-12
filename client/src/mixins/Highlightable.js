@@ -1,5 +1,6 @@
 import HighlightContextMenu from "../components/HighlightContextMenu";
 import Vue from 'vue';
+import { mapGetters } from 'vuex'
 
 const highlightClass = "nb-user-highlight";
 const overflowNextClass = "nb-overflow-next";
@@ -8,7 +9,7 @@ const overflowPrevClass = "nb-overflow-prev";
 function Highlightable(rootElementSelector) {
   return {
     created: function() {
-      this.log("testing!");
+      this.log("Highlightable Mixin Initialized");
     },
     data: function () {
       return {
@@ -24,6 +25,22 @@ function Highlightable(rootElementSelector) {
         el.onmouseup = this.onMouseUp;
       }
     },
+    computed: {
+      ...mapGetters(["isLoggedIn"])
+    },
+    watch: {
+      isLoggedIn (isLoggedIn) {
+        if (isLoggedIn) {
+          const notebook = this.$store.getters.notebook;
+          notebook.map(obj => obj.metadata)
+                  .filter(metadata => !metadata.startsWith("usernote"))
+                  .map(metadata => this.deserializeRange(metadata))
+                  .forEach(this.createHighlightFromRange);
+        } else {
+
+        }
+      }
+    },
     methods: {
       log: text => {
         console.log(text);
@@ -34,6 +51,34 @@ function Highlightable(rootElementSelector) {
         }
         const selection = window.getSelection();
         const range = selection.getRangeAt(0);
+        this.createHighlightFromRange(range);
+        selection.removeAllRanges();
+      },
+      onClick(event) {
+        if (!this.clicked) {
+          const componentClass = Vue.extend(HighlightContextMenu);
+          const instance = new componentClass();
+          instance.$mount();
+          document.body.appendChild(instance.$el);
+          this.contextMenu = instance;
+          this.clicked = true;
+        }
+        this.contextMenu.$el.style.display = 'block';
+        this.contextMenu.$el.style.left = event.clientX + "px";
+        this.contextMenu.$el.style.top = event.target.offsetTop + event.target.offsetHeight
+          + this.contextMenu.$el.offsetHeight + 4 + "px";
+        console.dir(event);
+
+      },
+      // onMouseLeave(e) {
+      //   console.dir(e)
+      //   if (this.contextMenu) {
+      //     this.contextMenu.$el.parentNode.removeChild(this.contextMenu.$el);
+      //     this.contextMenu.$destroy();
+      //     this.contextMenu = null;
+      //   }
+      // },
+      createHighlightFromRange(range) {
         const startParent = range.startContainer.parentNode;
         const endParent = range.endContainer.parentNode;
         const sameParent = startParent.isEqualNode(endParent);
@@ -67,32 +112,10 @@ function Highlightable(rootElementSelector) {
             }
           }
         }
-        selection.removeAllRanges();
       },
-      onClick(event) {
-        if (!this.clicked) {
-          const componentClass = Vue.extend(HighlightContextMenu);
-          const instance = new componentClass();
-          instance.$mount();
-          document.body.appendChild(instance.$el);
-          this.contextMenu = instance;
-          this.clicked = true;
-        }
-        this.contextMenu.$el.style.display = 'block';
-        this.contextMenu.$el.style.left = event.clientX + "px";
-        this.contextMenu.$el.style.top = event.target.offsetTop + event.target.offsetHeight
-          + this.contextMenu.$el.offsetHeight + 4 + "px";
-        console.dir(event);
-
+      removeHighlightSpan (span) {
+        span.outerHTML = span.innerHTML;
       },
-      // onMouseLeave(e) {
-      //   console.dir(e)
-      //   if (this.contextMenu) {
-      //     this.contextMenu.$el.parentNode.removeChild(this.contextMenu.$el);
-      //     this.contextMenu.$destroy();
-      //     this.contextMenu = null;
-      //   }
-      // },
       createHighlight(contents) {
           const span = this.createHighlightSpan(contents);
           span.childNodes.forEach((value, key) => {
@@ -189,19 +212,20 @@ function Highlightable(rootElementSelector) {
           let curr = element;
           while (!curr.id && curr !== document.body) {
             let siblingIndex = 0;
-            let currSibling = curr.previousElementSibling;
+            let currSibling = curr.previousSibling;
             while (currSibling !== null) {
               siblingIndex++;
-              currSibling = currSibling.previousElementSibling;
+              currSibling = currSibling.previousSibling;
             }
             parents.unshift(`${curr.nodeName}[${siblingIndex}]`);
-            curr = curr.parentElement;
+            curr = curr.parentNode;
           }
           if (curr.id) parents.unshift("#" + curr.id);
           return parents.join('/');
         }
         let startPath = pathToElement(range.startContainer);
         let endPath = pathToElement(range.endContainer);
+        console.log(`${startPath}-${range.startOffset};${endPath}-${range.endOffset}`);
         return `${startPath}-${range.startOffset};${endPath}-${range.endOffset}`
       },
       deserializeRange(string) {
@@ -217,7 +241,15 @@ function Highlightable(rootElementSelector) {
               const name = split[0];
               const index = split[1];
               const child = prev.childNodes[index];
-              if (child.nodeName.toUpperCase() !== name.toUpperCase) {
+              if (!child) {
+                console.log("ERROR HERE");
+                console.log(prev);
+                console.log(prev.childNodes)
+                console.log(curr);
+              }
+              if (child.nodeName.toUpperCase() !== name.toUpperCase()) {
+                console.log(curr);
+                console.dir(prev);
                 console.warn(`Element ${curr} has changed since the last highlight`);
               }
               return child;
