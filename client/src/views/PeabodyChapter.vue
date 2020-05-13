@@ -85,16 +85,18 @@ import PeabodyMutable from '@/components/vis/peabody/PeabodyMutable'
 import { EventBus } from '@/helpers/EventBus'
 import mutations from '@/store/dataset/types'
 import ch_mut from '@/store/chapters/types'
+import Highlightable from "@/mixins/Highlightable";
 
 export default {
-  name: 'ThePeabodyChapter',
+  name: "ThePeabodyChapter",
   components: {
     PeabodyGrid,
     PeabodyMutable,
     ChapterScaffold,
     TimelineVis
   },
-  data () {
+  mixins: [Highlightable(".chapter__main")],
+  data() {
     return {
       currentDataset: 0,
       scrolled: false,
@@ -104,10 +106,10 @@ export default {
         year: 1570,
         desc: "imposter",
         eventType: 3,
-        actor: 'England',
+        actor: "England",
         id: 300
       }
-    }
+    };
   },
   methods: {
     handleScroll () {
@@ -129,18 +131,24 @@ export default {
     hoverStart (payload) {
       console.log("hover start:", payload.datasetId)
       if (!payload.data) return;
-      this.$store.commit(mutations.HIGHLIGHT_DATA, { id: payload.datasetId, data: payload.data })
+      this.$store.commit(mutations.HIGHLIGHT_DATA, {
+        id: payload.datasetId,
+        data: payload.data
+      });
     },
-    hoverEnd (payload) {
-      console.log("hover end:", payload.datasetId)
+    hoverEnd(payload) {
+      console.log("hover end:", payload.datasetId);
       if (!payload.data) return;
-      this.$store.commit(mutations.UNHIGHLIGHT_DATA, { id: payload.datasetId, data: payload.data })
+      this.$store.commit(mutations.UNHIGHLIGHT_DATA, {
+        id: payload.datasetId,
+        data: payload.data
+      });
     },
-    mountDatasets () {
-      return this.$store.dispatch('loadDatasets')
+    mountDatasets() {
+      return this.$store.dispatch("loadDatasets");
     },
-    addData (data) {
-      this.$store.commit(mutations.ADD_DATA, { id: this.currentDataset, data })
+    addData(data) {
+      this.$store.commit(mutations.ADD_DATA, { id: this.currentDataset, data });
     },
     removeData(data) {
       this.$store.commit(mutations.REMOVE_DATA, { id: this.currentDataset, data })
@@ -175,25 +183,25 @@ export default {
   destroyed () {
       window.removeEventListener('scroll', this.handleScroll);
   }
-}
+};
 </script>
 
 <style scoped>
-  .left-float {
-    float:left;
-  }
-  .right-float {
-    float:right;
-  }
-  .left-float.aligned {
-    padding-top: .5em;
-    padding-right: 1em;
-  }
-  .right-float.aligned {
-    padding-top: .5em;
-    padding-left: 1em;
-  }
-  p {
-    text-align: justify;
-  }
+.left-float {
+  float: left;
+}
+.right-float {
+  float: right;
+}
+.left-float.aligned {
+  padding-top: 0.5em;
+  padding-right: 1em;
+}
+.right-float.aligned {
+  padding-top: 0.5em;
+  padding-left: 1em;
+}
+p {
+  text-align: justify;
+}
 </style>

@@ -7,12 +7,20 @@ const Users = mongoose.model('Users');
 router.get('/', auth.optional, (req, res, next) => { return res.status(200).end() } )
 //POST new user route (optional, everyone has access)
 router.post('/', auth.optional, (req, res, next) => {
+  //TODO: Advanced server-side validation, probably with express-validator
   const { body: { user } } = req;
   try {
     if(!user.email) {
       return res.status(422).json({
         errors: {
           email: 'is required',
+        },
+      });
+    }
+    if(!user.name) {
+      return res.status(422).json({
+        errors: {
+          name: 'is required',
         },
       });
     }
@@ -23,17 +31,15 @@ router.post('/', auth.optional, (req, res, next) => {
         },
       });
     }
-    
     return Users.exists({ email: user.email }).then((data) => {
       if (data) {
         return res.status(422).json({
           errors: {
-            email: 'A user already exists with this email.',
+            email: 'is already registered',
           }})
       }
       else {
         const finalUser = new Users(user);
-
         finalUser.setPassword(user.password);
 
         return finalUser.save()
@@ -95,4 +101,31 @@ router.get('/current', auth.required, (req, res, next) => {
     });
 });
 
+router.get('/current/notebook', auth.required, (req, res, next) => {
+  const { payload: { id } } = req;
+
+  return Users.findById(id)
+    .then((user) => {
+      if(!user) {
+        return res.sendStatus(400);
+      }
+      return res.json(user.notebookJSON());
+    });
+});
+
+router.post('/current/notebook', auth.required, (req, res, next) => {
+  const id = req.payload.id;
+  const notebook = req.body.notebook;
+  console.log("Notebook");
+  console.log(notebook);
+
+  return Users.findByIdAndUpdate(id, {notebook: notebook}, {new: true})
+    .then((user) => {
+      if(!user) {
+        return res.sendStatus(400);
+      }
+
+      return res.json(user.notebookJSON());
+    });
+});
 module.exports = router;

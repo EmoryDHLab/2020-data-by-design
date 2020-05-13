@@ -22,7 +22,7 @@
         </section>
       </div>
       <aside class="chapter__notebook-col">
-        <NoteBook class="chapter__notebook"/>
+        <Notebook class="chapter__notebook"/>
       </aside>
     </section>
   </main>
@@ -52,7 +52,7 @@ export default {
   name: 'ChapterScaffold',
   components: {
     NavlineVis,
-    NoteBook
+    Notebook
   },
   data: () => ({
     timelineData: {

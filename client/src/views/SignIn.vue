@@ -28,7 +28,7 @@ import TextInput from '@/components/forms/TextInput'
 import PasswordInput from '@/components/forms/PasswordInput'
 import SubmitButton from '@/components/forms/SubmitButton'
 import BaseCard from '@/components/general/BaseCard'
-import { AUTH_REQUEST } from '@/store/auth/types'
+import { AUTH_REQUEST } from '@/store/auth-old/types'
 export default {
   name: "SignIn",
   components: {

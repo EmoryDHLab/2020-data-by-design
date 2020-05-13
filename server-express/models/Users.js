@@ -6,8 +6,10 @@ const { Schema } = mongoose;
 
 const UsersSchema = new Schema({
   email: String,
+  name: String,
   hash: String,
   salt: String,
+  notebook: [{html: String, notebookId: Number, metadata: String}]
 });
 
 UsersSchema.methods.setPassword = function(password) {
@@ -36,8 +38,14 @@ UsersSchema.methods.toAuthJSON = function() {
   return {
     _id: this._id,
     email: this.email,
+    name: this.name,
+    notebook: this.notebook,
     token: this.generateJWT(),
   };
+};
+
+UsersSchema.methods.notebookJSON = function() {
+  return {notebook: this.notebook};
 };
 
 module.exports = mongoose.model('Users', UsersSchema);
