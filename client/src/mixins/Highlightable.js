@@ -71,10 +71,16 @@ function Highlightable(rootElementSelector) {
           this.contextMenu = instance;
         }
         this.clicked = event.target;
-        this.contextMenu.$el.style.display = 'block';
-        this.contextMenu.$el.style.left = event.clientX + "px";
-        this.contextMenu.$el.style.top = event.target.offsetTop + event.target.offsetHeight
-          + this.contextMenu.$el.offsetHeight + "px";
+        let totalHeight = event.target.offsetTop + event.target.offsetHeight;
+        let curr = event.target;
+        while (curr.offsetParent) {
+          curr = curr.offsetParent;
+          totalHeight += curr.offsetTop;
+        }
+        const element = this.contextMenu.$el;
+        element.style.display = 'block';
+        element.style.left = event.clientX + "px";
+        element.style.top = totalHeight + "px";
       },
       createHighlightFromRange(range) {
         const startParent = range.startContainer.parentNode;
@@ -171,18 +177,17 @@ function Highlightable(rootElementSelector) {
 
         //Draggability
         const onDragStart = (event) => {
-          console.dir(event.target);
-          console.dir(event);
           //We have event.target, which is the element that the user clicked on; let's make sure we get the full highlight span.
-          let currEl = event.target;
-          while (currEl.parentElement.id !== "app") {
-            if (currEl.classList && currEl.classList.contains(highlightClass)) {
-                break;
-            }
-            currEl = currEl.parentElement;
-          }
+          // let currEl = event.target;
+          // while (currEl.parentElement.id !== "app") {
+          //   if (currEl.classList && currEl.classList.contains(highlightClass)) {
+          //       break;
+          //   }
+          //   currEl = currEl.parentElement;
+          // }
+          let currEl = span;
           let metadata, html;
-          //Now that we have the full highlight span, let's make sure we get its connected spans in cases where a highlight overflows into consecutive paragraph(s)
+          //Let's make sure we get its connected spans in cases where a highlight overflows into consecutive paragraph(s)
           if (currEl.classList.contains(overflowPrevClass) || currEl.classList.contains(overflowNextClass)) {
             //Treating a JavaScript array as a double-sided queue allows us to efficiently traverse above and below the clicked-on element to find the full flow
               let deque = [currEl];

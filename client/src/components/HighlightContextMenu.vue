@@ -38,7 +38,7 @@ export default {
     .context-menu-parent {
         position: absolute;
         left: 50%;
-        transform: translateX(-50%);
+        transform: translate(-50%);
     }
     .context-menu-items {
         user-select: none;
