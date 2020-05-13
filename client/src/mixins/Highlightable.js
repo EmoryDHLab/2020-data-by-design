@@ -37,7 +37,7 @@ function Highlightable(rootElementSelector) {
                   .map(metadata => this.deserializeRange(metadata))
                   .forEach(this.createHighlightFromRange);
         } else {
-
+          this.removeAllHighlights();
         }
       }
     },
@@ -66,25 +66,16 @@ function Highlightable(rootElementSelector) {
           const componentClass = Vue.extend(HighlightContextMenu);
           const instance = new componentClass();
           instance.$mount();
+          instance.$on('removeClicked', () => this.removeHighlightSpan(this.clicked));
           document.body.appendChild(instance.$el);
           this.contextMenu = instance;
-          this.clicked = true;
         }
+        this.clicked = event.target;
         this.contextMenu.$el.style.display = 'block';
         this.contextMenu.$el.style.left = event.clientX + "px";
         this.contextMenu.$el.style.top = event.target.offsetTop + event.target.offsetHeight
-          + this.contextMenu.$el.offsetHeight + 4 + "px";
-        console.dir(event);
-
+          + this.contextMenu.$el.offsetHeight + "px";
       },
-      // onMouseLeave(e) {
-      //   console.dir(e)
-      //   if (this.contextMenu) {
-      //     this.contextMenu.$el.parentNode.removeChild(this.contextMenu.$el);
-      //     this.contextMenu.$destroy();
-      //     this.contextMenu = null;
-      //   }
-      // },
       createHighlightFromRange(range) {
         const startParent = range.startContainer.parentNode;
         const endParent = range.endContainer.parentNode;
@@ -120,7 +111,34 @@ function Highlightable(rootElementSelector) {
           }
         }
       },
+      removeAllHighlights() {
+        console.log("Got here");
+        document.querySelectorAll(`.${highlightClass}`).forEach(this.removeHighlightSpan);
+      },
       removeHighlightSpan (span) {
+        const prevSibling = span.prevSibling;
+        const nextSibling = span.nextSibling;
+        const firstChild = span.firstChild;
+        const lastChild = span.lastChild;
+
+        const tag = elem => elem.outerHTML.slice(0, elem.outerHTML.indexOf(elem.innerHTML));
+
+        if (prevSibling && firstChild
+          && prevSibling.nodeType === Node.ELEMENT_NODE 
+          && firstChild.nodeType === Node.ELEMENT_NODE 
+          && tag(prevSibling) === tag(firstChild)) {
+            prevSibling.innerHTML += firstChild.innerHTML;
+            firstChild.remove();
+        }
+
+        if (nextSibling && lastChild
+          && nextSibling.nodeType === Node.ELEMENT_NODE 
+          && lastChild.nodeType === Node.ELEMENT_NODE 
+          && tag(nextSibling) === tag(lastChild)) {
+            nextSibling.innerHTML = lastChild.innerHTML + nextSibling.innerHTML;
+            lastChild.remove();
+        }
+        
         span.outerHTML = span.innerHTML;
       },
       createHighlight(contents) {

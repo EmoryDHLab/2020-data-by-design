@@ -2,8 +2,8 @@
     <div class="context-menu-parent">
       <div class="context-menu-items">
         <ul>
-          <li> Remove</li>
-          <li> Color</li>
+          <li @click="$emit('removeClicked')">Remove</li>
+          <li>Add to Notebook</li>
         </ul>
       </div>
       <div class="pointer"></div>
@@ -15,7 +15,7 @@ export default {
   mounted: function() {
     // this.$el.onmouseleave = this.onMouseLeave;
     const listener = event => {
-      if (event.target.closest(".user-highlight") === null && event.target.closest(".context-menu") === null) {
+      if (event.target.closest(".nb-user-highlight") === null && event.target.closest(".context-menu-parent") === null) {
         // removeListener();
         this.hide();
       }
@@ -46,14 +46,33 @@ export default {
         background-color: #424242;
         border-radius: 8px;
     }
-    div ul {
+    .context-menu-items ul {
       list-style: none;
+      padding: 0px;
+    }
+    .context-menu-items ul li {
+      color: white;
+      border-bottom: 1px solid gray;
       padding: 10px;
     }
-    div ul li {
-      color: white;
+
+    .context-menu-items ul li:first-of-type {
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
     }
-    div .pointer {
+
+    .context-menu-items ul li:last-of-type {
+      border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 8px;
+    }
+
+    .context-menu-items ul li:hover {
+      color: white;
+      border-bottom: 1px solid gray;
+      background-color: #4a90e2;
+    }
+
+    .pointer {
       top: 4px;
       border-color: transparent transparent #424242;
       border-width: 0 12px 12px;
