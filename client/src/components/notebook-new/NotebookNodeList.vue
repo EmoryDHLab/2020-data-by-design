@@ -128,16 +128,16 @@ export default {
   data () {
     return {
       items: [
-        {
-          html: "<span>this is a highlight, yay</span>",
-          notebookId: 0,
-          metadata: "serialization info goes here",
-        },
-        {
-          html: "<span>so is <i>this</i> one</span>",
-          notebookId: 1,
-          metadata: "serialization info goes here",
-        },
+        // {
+        //   html: "<span>this is a highlight, yay</span>",
+        //   notebookId: 0,
+        //   metadata: "serialization info goes here",
+        // },
+        // {
+        //   html: "<span>so is <i>this</i> one</span>",
+        //   notebookId: 1,
+        //   metadata: "serialization info goes here",
+        // },
       ]
     }
   },

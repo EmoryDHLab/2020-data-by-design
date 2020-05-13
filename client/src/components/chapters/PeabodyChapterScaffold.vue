@@ -84,7 +84,12 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+
+.nb-user-highlight {
+  background-color: yellow
+}
+
 .chapter-nav {
   position: relative;
   text-align: center;
