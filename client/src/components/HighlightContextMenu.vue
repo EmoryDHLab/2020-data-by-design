@@ -2,8 +2,8 @@
     <div class="context-menu-parent">
       <div class="context-menu-items">
         <ul>
-          <li @click="$emit('removeClicked')">Remove</li>
-          <li>Add to Notebook</li>
+          <li @click="removeButtonClicked">Remove</li>
+          <li>Color</li>
         </ul>
       </div>
       <div class="pointer"></div>
@@ -29,6 +29,10 @@ export default {
       this.$el.style.display = 'none';
       // this.$destroy();
       // this.$el.parentNode.removeChild(this.$el);
+    },
+    removeButtonClicked (event) {
+      this.$emit('removeClicked');
+      this.hide();
     }
   }
 }
