@@ -83,10 +83,19 @@ function Highlightable(rootElementSelector) {
         element.style.top = totalHeight + "px";
       },
       createHighlightFromRange(range) {
-        const startParent = range.startContainer.parentNode;
-        const endParent = range.endContainer.parentNode;
+        const parent = node => {
+          if (node.nodeType === Node.ELEMENT_NODE) {
+            const style = getComputedStyle(node, null);
+            console.log(style);
+            if (style.display === "block") {
+              return node;
+            }
+          }
+          return parent(node.parentElement);
+        }
+        const startParent = parent(range.startContainer);
+        const endParent = parent(range.endContainer);
         const sameParent = startParent.isEqualNode(endParent);
-
         const rangeData = this.serializeRange(range);
 
         if (!(sameParent && startParent.className == highlightClass)) {
