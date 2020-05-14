@@ -7,6 +7,7 @@
     <g :style='translateCentury'>
       <year-square
         v-for='n in 100'
+        :showSquares='showSquares'
         :key='n-1'
         :style='translateYear(n)'
         :yearData='getYearData(n)'
@@ -42,6 +43,10 @@ export default {
     dynamicStartYear: {
       type: Boolean,
       default: false
+    },
+    showSquares: {
+      type: Boolean,
+      default: true
     }
   },
   mixins: [Visualization],
