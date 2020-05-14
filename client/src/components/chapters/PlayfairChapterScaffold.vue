@@ -43,7 +43,7 @@
 import DOM from '@/helpers/DOM'
 import LoremIpsum from '../LoremIpsum'
 import NavlineVis from '../vis/playfair/navline/NavlineVis'
-import NoteBook from '../notebook/NoteBook'
+import NoteBook from '../notebook-new/Notebook'
 import stickybits from 'stickybits'
 // polyfill for css position:sticky
 stickybits('.--stick', { useStickyClasses: true })
