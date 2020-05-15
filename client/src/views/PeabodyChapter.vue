@@ -1,6 +1,6 @@
 <template lang="html">
   <chapter-scaffold v-bind:curChapter="'Peabody'">
-    <template slot='title'>
+    <template slot='title' style="font-family: 'Georgia'">
       Feminist Data Visualization; Or the Shape of History
     </template>
     <p>This talk departs from a seemingly simple question: “What is the story we tell about the origins of modern data visualization?” And as a set of follow-ups, “What alternate histories might emerge, what new visual forms might we imagine, and what new arguments might we make, if we told that story differently?”</p>

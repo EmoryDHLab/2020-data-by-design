@@ -37,20 +37,20 @@
                     <g v-on:click="click = goto(index, i-1)"
                        @mouseover="hover = index*10 + i"
                        @mouseleave="hover = null">
-                      <circle v-if="dataset.dubois.vis[index][i-1] == '1' "
+                      <circle v-if="getVisIdx(index, i-1) == '1' "
                               :cx="blockcx(lines, index, i)" :cy="blockcy(lines, i)"
                               :r="styles.block.r" :fill=styles.color.secHeader></circle>
-                      <circle v-if="dataset.dubois.vis[index][i-1] == '2' "
+                      <circle v-if="getVisIdx(index, i-1) == '2' "
                               :cx="blockcx(lines, index, i)" :cy="blockcy(lines, i)"
                               :r="styles.block.r" :fill=styles.color.image></circle>
-                      <circle v-if="dataset.dubois.vis[index][i-1] == '3' "
+                      <circle v-if="getVisIdx(index, i-1) == '3' "
                               :cx="blockcx(lines, index, i)" :cy="blockcy(lines, i)"
                               :r="styles.block.r" :fill=styles.color.vis></circle>
-                      <circle v-if="dataset.dubois.vis[index][i-1] == '4' "
+                      <circle v-if="getVisIdx(index, i-1) == '4' "
                               :cx="blockcx(lines, index, i)" :cy="blockcy(lines, i)"
                               :r="styles.block.r" :fill=styles.color.text></circle>
 
-                      <circle v-if="hover == index*10 + i  && dataset.dubois.vis[index][i-1] != '0'"
+                      <circle v-if="hover == index*10 + i  && getVisIdx(index, i-1) != '0'"
                               :cx="blockcx(lines, index, i)" :cy="blockcy(lines, i)"
                               :r="styles.block.r" :fill=styles.color.lightgray></circle>
                     </g>
@@ -81,9 +81,7 @@
  */
 
 import MetaVisualization from '@/mixins/vis/MetaVisualization'
-import NavlineBucket from './NavlineBucket'
 import ch_mut from '@/store/chapters/types'
-// import * as d3 from 'd3'
 
 const DEFAULT_OPTIONS = {
   styles: {
@@ -125,14 +123,10 @@ const DEFAULT_OPTIONS = {
     }
   },
   vertical: true, // how to orient the navline
-  showTicks: true // whether to show the axis ticks
 };
 export default {
   data() {
     return {hover: null, click: null}
-  },
-  components: {
-    NavlineBucket
   },
   mixins: [MetaVisualization],
   props: {
@@ -151,72 +145,6 @@ export default {
      */
     formattedData () {
       return this.dataFormatter(this.dataset.data || {})
-    },
-    /**
-     * get the internal width (width - margins on left and right) of the vis
-     * @return {Number} the width of the navline without margins
-     */
-    innerWidth () {
-      return this.styles.width - this.styles.margin.left - this.styles.margin.right
-    },
-    /**
-     * get the internal height (height - margins on top and bottom) of the vis
-     * @return {Number} the height of the navline without margins
-     */
-    innerHeight () {
-      return this.styles.height - this.styles.margin.top - this.styles.margin.bottom
-    },
-    /**
-     * calculate the margin transforation required to move the vis internal
-     * content to respect the defined marigins
-     * @return {Object} containing the transform attribute used in styling
-     */
-    marginTransform () {
-      return { transform: 'translate('
-        + this.styles.margin.left + 'px, '
-        + this.styles.margin.top + 'px)' }
-    },
-    /**
-     * Shift the axis to align it better
-     * TODO make this non-magical
-     */
-    axisTransform () {
-      return { transform: `translateX(-${5}px)` }
-    },
-    /**
-     * Get the svg viewbox attribute using the given information in options
-     */
-    getViewBox () {
-      return `0 0 ${this.styles.width} ${this.styles.height}`
-    },
-    /**
-     * get the minimum position in the vis
-     * @return {Number} the minimum position of the axis
-     */
-    startPoint () {
-      if (!this.dataset.range) {
-        return 0
-      }
-      return this.dataset.range[0]
-    },
-    /**
-     * get the maximum position in the vis
-     * @return {Number} the maximum position of the axis
-     */
-    endPoint () {
-      if (!this.dataset.range) {
-        return 0
-      }
-      return this.dataset.range[1]
-    },
-    /**
-     * get the d3 scale used for positioning in the vis
-     * @return {D3 Scale} the scale to be used for the visualization
-     */
-    getScale() {
-      return d3.scaleLinear()
-        .domain([this.startPoint, this.endPoint])
-        .range([this.styles.margin.top, this.innerHeight]);
     },
     getProgress() {
         return this.$store.getters.prog_dub;
@@ -274,10 +202,11 @@ export default {
           let Cy = lines.cy;
           let theta = 90 - (this.styles.block.gapR + (i-2)*lines.deltaTh + lines.deltaTh/2);
           let x;
+          let dx = lines.R * Math.cos(theta * Math.PI / 180);
           if (index % 2 == 0) {
-              x = Cx + lines.R * Math.cos(theta * Math.PI / 180);
+              x = Cx + dx;
           } else {
-              x = Cx - lines.R * Math.cos(theta * Math.PI / 180);
+              x = Cx - dx;
           }
           let y = Cy - lines.R * Math.sin(theta * Math.PI / 180);
           let d = [
@@ -308,6 +237,9 @@ export default {
           let idname = "part" + index + "." + i;
           this.$store.commit(ch_mut.SET_IDNAME, { id: idname });
       },
+      getVisIdx (i, j) {
+          return this.dataset.dubois.vis[i][j];
+      },
     /**
      * Formats the data to match the navline format
      * [
@@ -330,37 +262,19 @@ export default {
       const data = Object.values(d)
         .map(evt => ({
           color: "#db882a",
-          ...evt,
+          // ...evt,
           position: Math.floor(evt.position)
         }))
-        .reduce((buckets, evt) => {
-          if (!buckets[evt.position]) {
-            buckets[evt.position] = { id: evt.position, events: [] }
-          }
-          buckets[evt.position].events.push(evt)
-          return buckets
-        }, {})
+        // .reduce((buckets, evt) => {
+        //   if (!buckets[evt.position]) {
+        //     buckets[evt.position] = { id: evt.position, events: [] }
+        //   }
+        //   buckets[evt.position].events.push(evt)
+        //   return buckets
+        // }, {})
       return Object.values(data)
     },
-    placeBucket (bucket) {
-      // console.log(this.getScale(bucket.id));
-      const dx = this.getScale(bucket.id) - (this.styles.timelineEvent.width / 2)
-      const dy = this.innerHeight - (this.styles.timelineEvent.height + this.styles.timelineEvent.gap)
-      return { transform: `translate(${0}px, ${dx}px)` }
-    },
   },
-  directives: {
-    /**
-     * allows us to use d3 axis on an element in a Vue approved way
-     */
-    axis(el, binding) {
-      const axis = binding.arg; // :x or :y
-      const axisMethod = { x: "axisBottom", y: "axisLeft" }[axis];
-      const methodArg = binding.value;
-      // console.log(d3[axisMethod]);
-      d3.select(el).call(d3[axisMethod](methodArg).tickFormat(d3.format("d")));
-    }
-  }
 }
 </script>
 

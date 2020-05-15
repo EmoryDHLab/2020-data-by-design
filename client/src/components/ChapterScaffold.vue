@@ -4,14 +4,14 @@
       <aside class="chapter__timeline-col">
         <component v-bind:is="currentChapter"
           id="nav-timeline"
-          class="chapter__timeline-col__timeline --stick"
+          class="chapter__timeline-col__timeline"
           width="100%"
           height="100%"
           :dataset="timelineData"
         ></component>
       </aside>
       <div class="chapter__main">
-        <h1 class='chapter__main__title'>
+        <h1 class='chapter__main__title' :style="fontStyle">
           <slot name='title'>
             Title
           </slot>
@@ -35,9 +35,6 @@
  * a chapter navigation bar to go between chapters, and a title section.
  * The title is given through a slot named 'title'. The chapter content a
  * default slot.
- *
- * On load, the chapter parses its content for visualizations to add as data for
- * the chapter timeline. TODO: make it easy to add any element to the timeline
  */
 
 
@@ -63,6 +60,11 @@ export default {
     curChapter: String,
   },
   data: () => ({
+    chapterFont: {
+        'Peabody': 'Baskerville',
+        'Dubois': 'DIN Alternate',
+        'Playfair': 'Georgia'
+    },
     timelineData: {
         peabody: {
           paragraphData: [3,5,10,4,4], //index = which paragraph, value = number of sub-parts, shape of the following arrays.
@@ -88,20 +90,20 @@ export default {
                 [2, 1, 0, 0, 2],
                 [2, 3, 0, 1, 0, 1, 3, 0, 2, 0],
                 [1, 1, 0, 3],
-                [0, 2, 0, 1]],
+                [0, 2, 0, 1]], // 1 -> section header, 2 -> images, 3 -> vis, 4 -> text, 0 -> empty
         },
         playfair: {
             paragraphData: [3,5,10,4,4], //index = which paragraph, value = number of sub-parts, shape of the following arrays.
             highlights: [[0.7, 0.3, 0.],
-                [0., 0.2, 0., 0.8, 0.2],
-                [0.3, 0.1, 0.6, 0.8, 0., 0.9, 0., 0.5, 0., 0.7],
+                [0.1, 0.05, 0., 0.2, 0.],
+                [0.3, 0.1, 0.6, 0.8, 0., 0.99, 0., 0.5, 0., 0.7],
                 [0.8, 0.4, 0., 0.],
-                [0.3, 0.8, 0.3, 0.7]], //default: transparency = 0 for every block;
+                [0.3, 0.2, 0.3, 0.4]], //default: transparency = 0 for every block;
             vis: [[1, 4, 2],
                 [2, 4, 3, 1, 3],
                 [4, 3, 1, 2, 1, 1, 3, 1, 2, 1],
                 [1, 2, 4, 3],
-                [3, 4, 2, 1]],
+                [3, 4, 2, 1]], // 1 -> section header, 2 -> images, 3 -> vis, 4 -> text/empty, 0 -> empty
         },
     } // the data which will be fed into the timeline
   }),
@@ -120,6 +122,9 @@ export default {
   computed: {
       currentChapter: function() {
           return this.curChapter + "NavlineVis";
+      },
+      fontStyle: function() {
+          return "font-family: " + this.chapterFont[this.curChapter];
       }
   }
 }
@@ -184,8 +189,6 @@ export default {
 .chapter__timeline-col {
   grid-column: 1 / span 1;
   box-sizing: border-box;
-  /* border-right: 5px solid black; */
-  /* background-color: green; */
   position: relative;
 }
 

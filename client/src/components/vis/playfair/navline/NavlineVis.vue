@@ -1,5 +1,5 @@
 <template lang="html">
-  <svg width="3309" height="2523" viewBox="70 100 600 2500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg viewBox="70 100 600 2500" fill="none" xmlns="http://www.w3.org/2000/svg">
     <text x="250" y="210" class="heavy">Progress</text>
     <!--LEGENDS-->
     <rect x="240" y="2092" width="35" height="35" :fill=styles.color.secHeader />
@@ -21,7 +21,8 @@
 
         <g v-if="index+1 <= getProgress">
           <rect :x="styles.line.left" :y="lines.y1"
-                :width="styles.line.right - styles.line.left" :height="lines.blocks*styles.block.gap"
+                :width="blockcx(lines, index, maxIdx(index)+1) - styles.line.left + styles.block.r*2"
+                :height="lines.blocks*styles.block.gap"
                 :fill=styles.color.defaultBlock opacity="0.3"></rect>
         </g>
 
@@ -29,18 +30,21 @@
           <g v-for="i in lines.blocks">
             <rect v-if="index + i/10 <= getProgress"
                   :x="styles.line.left" :y="lines.y1 + (i-1)*styles.block.gap"
-                  :width="styles.line.right - styles.line.left" :height="styles.block.gap"
+                  :width="blockcx(lines, index, maxIdx(index)+1) - styles.line.left + styles.block.r*2"
+                  :height="styles.block.gap"
                   :fill=styles.color.defaultBlock opacity="0.3"></rect>
             <rect v-else
                   :x="styles.line.left" :y="lines.y1 + (i-1)*styles.block.gap"
-                  :width="styles.line.right - styles.line.left" :height="styles.block.gap"
+                  :width="blockcx(lines, index, maxIdx(index)+1) - styles.line.left + styles.block.r*2"
+                  :height="styles.block.gap"
                   :fill=styles.color.lightgray opacity="0.7"></rect>
           </g>
         </g>
         <!--gray parts-->
         <g v-if="index > getProgress">
           <rect :x="styles.line.left" :y="lines.y1"
-                :width="styles.line.right - styles.line.left" :height="lines.blocks*styles.block.gap"
+                :width="blockcx(lines, index, maxIdx(index)+1) - styles.line.left + styles.block.r*2"
+                :height="lines.blocks*styles.block.gap"
                 :fill=styles.color.lightgray opacity="0.7"></rect>
         </g>
 
@@ -86,9 +90,7 @@
  */
 
 import MetaVisualization from '@/mixins/vis/MetaVisualization'
-import NavlineBucket from './NavlineBucket'
 import ch_mut from '@/store/chapters/types'
-// import * as d3 from 'd3'
 
 const DEFAULT_OPTIONS = {
   styles: {
@@ -133,9 +135,6 @@ export default {
   data() {
     return {hover: null, click: null}
   },
-  components: {
-    NavlineBucket
-  },
   mixins: [MetaVisualization],
   props: {
     width: String,
@@ -154,74 +153,11 @@ export default {
     formattedData () {
       return this.dataFormatter(this.dataset.data || {})
     },
-    /**
-     * get the internal width (width - margins on left and right) of the vis
-     * @return {Number} the width of the navline without margins
-     */
-    innerWidth () {
-      return this.styles.width - this.styles.margin.left - this.styles.margin.right
-    },
-    /**
-     * get the internal height (height - margins on top and bottom) of the vis
-     * @return {Number} the height of the navline without margins
-     */
-    innerHeight () {
-      return this.styles.height - this.styles.margin.top - this.styles.margin.bottom
-    },
-    /**
-     * calculate the margin transforation required to move the vis internal
-     * content to respect the defined marigins
-     * @return {Object} containing the transform attribute used in styling
-     */
-    marginTransform () {
-      return { transform: 'translate('
-        + this.styles.margin.left + 'px, '
-        + this.styles.margin.top + 'px)' }
-    },
-    /**
-     * Shift the axis to align it better
-     * TODO make this non-magical
-     */
-    axisTransform () {
-      return { transform: `translateX(-${5}px)` }
-    },
-    /**
-     * Get the svg viewbox attribute using the given information in options
-     */
-    getViewBox () {
-      return `0 0 ${this.styles.width} ${this.styles.height}`
-    },
-    /**
-     * get the minimum position in the vis
-     * @return {Number} the minimum position of the axis
-     */
-    startPoint () {
-      if (!this.dataset.range) {
-        return 0
-      }
-      return this.dataset.range[0]
-    },
-    /**
-     * get the maximum position in the vis
-     * @return {Number} the maximum position of the axis
-     */
-    endPoint () {
-      if (!this.dataset.range) {
-        return 0
-      }
-      return this.dataset.range[1]
-    },
-    /**
-     * get the d3 scale used for positioning in the vis
-     * @return {D3 Scale} the scale to be used for the visualization
-     */
-    getScale() {
-      return d3.scaleLinear()
-        .domain([this.startPoint, this.endPoint])
-        .range([this.styles.margin.top, this.innerHeight]);
+    maxNotes () {
+
     },
     getProgress() {
-        return this.$store.getters.prog_pla;
+      return this.$store.getters.prog_pla;
     }
   },
   methods: {
@@ -265,6 +201,15 @@ export default {
           let idname = "part" + index + "." + i;
           this.$store.commit(ch_mut.SET_IDNAME, { id: idname });
       },
+      maxIdx: function (index) {
+          let arr = this.dataset.playfair.highlights[index];
+          let idx = 0;
+          for (let i = 0; i < arr.length; i++) {
+              idx = arr[idx] > arr[i] ? idx : i;
+          }
+          console.log(idx);
+          return idx;
+      },
     /**
      * Formats the data to match the navline format
      * [
@@ -287,37 +232,19 @@ export default {
       const data = Object.values(d)
         .map(evt => ({
           color: "#db882a",
-          ...evt,
+          // ...evt,
           position: Math.floor(evt.position)
         }))
-        .reduce((buckets, evt) => {
-          if (!buckets[evt.position]) {
-            buckets[evt.position] = { id: evt.position, events: [] }
-          }
-          buckets[evt.position].events.push(evt)
-          return buckets
-        }, {})
+        // .reduce((buckets, evt) => {
+        //   if (!buckets[evt.position]) {
+        //     buckets[evt.position] = { id: evt.position, events: [] }
+        //   }
+        //   buckets[evt.position].events.push(evt)
+        //   return buckets
+        // }, {})
       return Object.values(data)
     },
-    placeBucket (bucket) {
-      // console.log(this.getScale(bucket.id));
-      const dx = this.getScale(bucket.id) - (this.styles.timelineEvent.width / 2)
-      const dy = this.innerHeight - (this.styles.timelineEvent.height + this.styles.timelineEvent.gap)
-      return { transform: `translate(${0}px, ${dx}px)` }
-    },
   },
-  directives: {
-    /**
-     * allows us to use d3 axis on an element in a Vue approved way
-     */
-    axis(el, binding) {
-      const axis = binding.arg; // :x or :y
-      const axisMethod = { x: "axisBottom", y: "axisLeft" }[axis];
-      const methodArg = binding.value;
-      // console.log(d3[axisMethod]);
-      d3.select(el).call(d3[axisMethod](methodArg).tickFormat(d3.format("d")));
-    }
-  }
 }
 </script>
 
