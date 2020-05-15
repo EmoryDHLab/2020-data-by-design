@@ -1,5 +1,5 @@
 <template lang="html">
-  <chapter-scaffold>
+  <chapter-scaffold v-bind:curChapter="'Dubois'">
     <template slot='title'>
       Dubois Chapter
     </template>
@@ -44,8 +44,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
-import ChapterScaffold from '@/components/chapters/DuboisChapterScaffold'
+import ChapterScaffold from '@/components/ChapterScaffold'
 import { EventBus } from '@/helpers/EventBus'
 import mutations from '@/store/dataset/types'
 import ch_mut from '@/store/chapters/types'

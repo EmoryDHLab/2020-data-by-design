@@ -1,5 +1,5 @@
 <template lang="html">
-  <chapter-scaffold>
+  <chapter-scaffold v-bind:curChapter="'Peabody'">
     <template slot='title'>
       Feminist Data Visualization; Or the Shape of History
     </template>
@@ -78,7 +78,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import ChapterScaffold from '@/components/chapters/PeabodyChapterScaffold'
+import ChapterScaffold from '@/components/ChapterScaffold'
 import TimelineVis from '@/components/vis/timeline/TimelineVis'
 import PeabodyGrid from '@/components/vis/peabody/PeabodyGrid'
 import PeabodyMutable from '@/components/vis/peabody/PeabodyMutable'
