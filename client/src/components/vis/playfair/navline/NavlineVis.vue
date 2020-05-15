@@ -14,7 +14,7 @@
 
     <line :x1="styles.line.left" :y1="styles.line.start" :x2="styles.line.right" :y2="styles.line.start" style="stroke:black; stroke-width:5; stroke-linecap:round"></line>
 
-    <g v-for="(lines, index) in startEndPoint(dataset.paragraphData)">
+    <g v-for="(lines, index) in startEndPoint(dataset.playfair.paragraphData)">
         <line :x1="styles.line.left" :y1="lines.y1" :x2="styles.line.left" :y2="lines.y2"
             stroke="gray"
             stroke-dasharray="4 1 2 3"></line>
@@ -53,20 +53,20 @@
           <g v-on:click="click = goto(index, i-1)"
              @mouseover="hover = index*10 + i"
              @mouseleave="hover = null">
-            <circle v-if="dataset.vis[index][i-1] == '1' "
+            <circle v-if="dataset.playfair.vis[index][i-1] == '1' "
                     :cx="blockcx(lines, index, i)" :cy="blockcy(lines, i)"
                     :r="styles.block.r" :fill=styles.color.secHeader></circle>
-            <circle v-if="dataset.vis[index][i-1] == '2' "
+            <circle v-if="dataset.playfair.vis[index][i-1] == '2' "
                     :cx="blockcx(lines, index, i)" :cy="blockcy(lines, i)"
                     :r="styles.block.r" :fill=styles.color.image></circle>
-            <circle v-if="dataset.vis[index][i-1] == '3' "
+            <circle v-if="dataset.playfair.vis[index][i-1] == '3' "
                     :cx="blockcx(lines, index, i)" :cy="blockcy(lines, i)"
                     :r="styles.block.r" :fill=styles.color.vis></circle>
-            <circle v-if="dataset.vis[index][i-1] == '4' "
+            <circle v-if="dataset.playfair.vis[index][i-1] == '4' "
                     :cx="blockcx(lines, index, i)" :cy="blockcy(lines, i)"
                     :r="styles.block.r" :fill=styles.color.text></circle>
 
-            <circle v-if="hover == index*10 + i  && dataset.vis[index][i-1] != '0'"
+            <circle v-if="hover == index*10 + i  && dataset.playfair.vis[index][i-1] != '0'"
                     :cx="blockcx(lines, index, i)" :cy="blockcy(lines, i)"
                     :r="styles.block.r" :fill=styles.color.lightgray></circle>
           </g>
@@ -255,7 +255,7 @@ export default {
       blockcx: function (lines, index, i) {
           let Cx = this.styles.line.left;
           let m = this.styles.block.margin;
-          return Cx + m + Math.floor(this.dataset.highlights[index][i-1] * (this.styles.line.right - Cx - 2*m));
+          return Cx + m + Math.floor(this.dataset.playfair.highlights[index][i-1] * (this.styles.line.right - Cx - 2*m));
       },
       blockcy: function (lines, i) {
           let Cy = lines.y1;

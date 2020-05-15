@@ -14,7 +14,7 @@
 
     <circle :cx="styles.line.x" :cy="styles.line.start" :r="styles.chapterBlock.r" :fill=styles.color.defaultBlock></circle>
 
-    <g v-for="(lines, index) in startEndPoint(dataset.paragraphData)">
+    <g v-for="(lines, index) in startEndPoint(dataset.dubois.paragraphData)">
         <g v-if="index+1 <= getProgress">
           <!--arc-->
           <path :d="calcArc(lines, index)" :stroke="styles.color.defaultBlock" stroke-width="5" fill-opacity="0"></path>
@@ -37,20 +37,20 @@
                     <g v-on:click="click = goto(index, i-1)"
                        @mouseover="hover = index*10 + i"
                        @mouseleave="hover = null">
-                      <circle v-if="dataset.vis[index][i-1] == '1' "
+                      <circle v-if="dataset.dubois.vis[index][i-1] == '1' "
                               :cx="blockcx(lines, index, i)" :cy="blockcy(lines, i)"
                               :r="styles.block.r" :fill=styles.color.secHeader></circle>
-                      <circle v-if="dataset.vis[index][i-1] == '2' "
+                      <circle v-if="dataset.dubois.vis[index][i-1] == '2' "
                               :cx="blockcx(lines, index, i)" :cy="blockcy(lines, i)"
                               :r="styles.block.r" :fill=styles.color.image></circle>
-                      <circle v-if="dataset.vis[index][i-1] == '3' "
+                      <circle v-if="dataset.dubois.vis[index][i-1] == '3' "
                               :cx="blockcx(lines, index, i)" :cy="blockcy(lines, i)"
                               :r="styles.block.r" :fill=styles.color.vis></circle>
-                      <circle v-if="dataset.vis[index][i-1] == '4' "
+                      <circle v-if="dataset.dubois.vis[index][i-1] == '4' "
                               :cx="blockcx(lines, index, i)" :cy="blockcy(lines, i)"
                               :r="styles.block.r" :fill=styles.color.text></circle>
 
-                      <circle v-if="hover == index*10 + i  && dataset.vis[index][i-1] != '0'"
+                      <circle v-if="hover == index*10 + i  && dataset.dubois.vis[index][i-1] != '0'"
                               :cx="blockcx(lines, index, i)" :cy="blockcy(lines, i)"
                               :r="styles.block.r" :fill=styles.color.lightgray></circle>
                     </g>

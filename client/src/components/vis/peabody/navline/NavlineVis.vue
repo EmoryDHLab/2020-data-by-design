@@ -18,7 +18,7 @@
     <text x="300" :y="styles.line.start + 15" class="number" fill="#4A4A4A">1</text>
 
 
-    <g v-for="(lines, index) in startEndPoint(dataset.paragraphData)">
+    <g v-for="(lines, index) in startEndPoint(dataset.peabody.paragraphData)">
         <g v-if="index+1 <= getProgress">
           <!--Vertical Line-->
           <line :x1="lines.x1" :y1="lines.y1" :x2="lines.x2" :y2="lines.y2" style="stroke:#D9B89A; stroke-width:5; stroke-linecap:round"></line>
@@ -51,29 +51,29 @@
                           :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
                           :width="styles.block.width" :height="styles.block.width"
                           :fill=styles.color.defaultBlock
-                          :fill-opacity= dataset.highlights[index][i-1] ></rect>
+                          :fill-opacity= dataset.peabody.highlights[index][i-1] ></rect>
                     <!--VIS-->
                     <!--10: largest number of subparts in section-->
                     <g v-on:click="click = goto(index, i-1)"
                        @mouseover="hover = index*10 + i"
                        @mouseleave="hover = null">
-                      <rect v-if="dataset.vis[index][i-1] == '1' "
+                      <rect v-if="dataset.peabody.vis[index][i-1] == '1' "
                             x="406"
                             :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
                             :width="styles.block.width" :height="styles.block.width"
                             :fill=styles.color.image ></rect>
-                      <rect v-if="dataset.vis[index][i-1] == '2' "
+                      <rect v-if="dataset.peabody.vis[index][i-1] == '2' "
                             x="406"
                             :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
                             :width="styles.block.width" :height="styles.block.width"
                             :fill=styles.color.intVis ></rect>
-                      <rect v-if="dataset.vis[index][i-1] == '3' "
+                      <rect v-if="dataset.peabody.vis[index][i-1] == '3' "
                             x="406"
                             :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
                             :width="styles.block.width" :height="styles.block.width"
                             :fill=styles.color.stcVis ></rect>
 
-                      <rect v-if="hover == index*10 + i  && dataset.vis[index][i-1] != '0'"
+                      <rect v-if="hover == index*10 + i  && dataset.peabody.vis[index][i-1] != '0'"
                             x="406"
                             :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
                             :width="styles.block.width" :height="styles.block.width"

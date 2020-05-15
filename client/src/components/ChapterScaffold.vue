@@ -2,12 +2,13 @@
   <main>
     <section class='chapter'>
       <aside class="chapter__timeline-col">
-        <navline-vis
+        <component v-bind:is="currentChapter"
           id="nav-timeline"
           class="chapter__timeline-col__timeline --stick"
           width="100%"
           height="100%"
-          :dataset="timelineData"/>
+          :dataset="timelineData"
+        ></component>
       </aside>
       <div class="chapter__main">
         <h1 class='chapter__main__title'>
@@ -41,32 +42,67 @@
 
 
 import DOM from '@/helpers/DOM'
-import LoremIpsum from '../LoremIpsum'
-import NavlineVis from '../vis/peabody/navline/NavlineVis'
-import Notebook from '../notebook-new/Notebook'
+import LoremIpsum from './LoremIpsum'
+import PeabodyNavlineVis from './vis/peabody/navline/NavlineVis'
+import DuboisNavlineVis from './vis/dubois/navline/NavlineVis'
+import PlayfairNavlineVis from './vis/playfair/navline/NavlineVis'
+import Notebook from './notebook-new/Notebook'
 import stickybits from 'stickybits'
 // polyfill for css position:sticky
-stickybits('.--stick', { useStickyClasses: true })
+stickybits('.--stick', { useStickyClasses: true });
 
 export default {
   name: 'ChapterScaffold',
   components: {
-    NavlineVis,
+    PeabodyNavlineVis,
+    DuboisNavlineVis,
+    PlayfairNavlineVis,
     Notebook
+  },
+  props: {
+    curChapter: String,
   },
   data: () => ({
     timelineData: {
-        paragraphData: [3,5,10,4,4], //index = which paragraph, value = number of sub-parts, shape of the following arrays.
-        highlights: [[0.7, 0.3, 0.],
-            [0., 0., 0., 0.2, 0.],
-            [0., 0.1, 0.6, 0., 0., 0.2, 0., 0.5, 0., 0.],
-            [0.8, 0., 0., 0.],
-            [0.6, 0., 0.2, 0.1]], //default: transparency = 0 for every block;
-        vis: [[1, 0, 2],
-              [2, 1, 0, 0, 2],
-              [2, 3, 0, 1, 0, 1, 3, 0, 2, 0],
-              [1, 1, 0, 3],
-              [0, 2, 0, 1]], // 1 -> image, 2 -> interaction, 3 -> static vis, 0 -> empty
+        peabody: {
+          paragraphData: [3,5,10,4,4], //index = which paragraph, value = number of sub-parts, shape of the following arrays.
+          highlights: [[0.7, 0.3, 0.],
+              [0., 0., 0., 0.2, 0.],
+              [0., 0.1, 0.6, 0., 0., 0.2, 0., 0.5, 0., 0.],
+              [0.8, 0., 0., 0.],
+              [0.6, 0., 0.2, 0.1]], //default: transparency = 0 for every block;
+          vis: [[1, 0, 2],
+                [2, 1, 0, 0, 2],
+                [2, 3, 0, 1, 0, 1, 3, 0, 2, 0],
+                [1, 1, 0, 3],
+                [0, 2, 0, 1]],// 1 -> image, 2 -> interaction, 3 -> static vis, 0 -> empty
+        },
+        dubois: {
+            paragraphData: [3,5,10,4,4], //index = which paragraph, value = number of sub-parts, shape of the following arrays.
+            highlights: [[0.7, 0.3, 0.],
+                [0., 0., 0., 0.2, 0.],
+                [0., 0.1, 0.6, 0., 0., 0.2, 0., 0.5, 0., 0.],
+                [0.8, 0., 0., 0.],
+                [0.6, 0., 0.2, 0.1]], //default: transparency = 0 for every block;
+            vis: [[1, 0, 2],
+                [2, 1, 0, 0, 2],
+                [2, 3, 0, 1, 0, 1, 3, 0, 2, 0],
+                [1, 1, 0, 3],
+                [0, 2, 0, 1]],
+        },
+        playfair: {
+            paragraphData: [3,5,10,4,4], //index = which paragraph, value = number of sub-parts, shape of the following arrays.
+            highlights: [[0.7, 0.3, 0.],
+                [0., 0.2, 0., 0.8, 0.2],
+                [0.3, 0.1, 0.6, 0.8, 0., 0.9, 0., 0.5, 0., 0.7],
+                [0.8, 0.4, 0., 0.],
+                [0.3, 0.8, 0.3, 0.7]], //default: transparency = 0 for every block;
+            vis: [[1, 4, 2],
+                [2, 4, 3, 1, 3],
+                [4, 3, 1, 2, 1, 1, 3, 1, 2, 1],
+                [1, 2, 4, 3],
+                [3, 4, 2, 1]],
+        },
     } // the data which will be fed into the timeline
   }),
   mounted () {
@@ -80,6 +116,11 @@ export default {
     this.$set(this.timelineData, "range", [0, mainBox.bottom - mainBox.top])
     // set the datapoints in the timeline data
     this.$set(this.timelineData, "data", data)
+  },
+  computed: {
+      currentChapter: function() {
+          return this.curChapter + "NavlineVis";
+      }
   }
 }
 </script>
