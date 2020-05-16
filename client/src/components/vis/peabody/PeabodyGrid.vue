@@ -9,6 +9,7 @@
         v-for='n in 100'
         :showSquares='showSquares'
         :key='n-1'
+        :class='`year-square-${n}`'
         :style='translateYear(n)'
         :yearData='getYearData(n)'
         :year='getYear(n)'/>

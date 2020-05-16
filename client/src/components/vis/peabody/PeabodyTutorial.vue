@@ -1,21 +1,69 @@
 <template>
-  <div class="tutorial-flex">
-    <PeabodyGrid class="the-grid"
-      :class="gridClasses"
-      ref="grid"
-      v-bind="$attrs"
-      v-on="$listeners"
-      :showSquares="showSquares"
-      :datasetId="'tutorial'"
-      :id="id"
-      @event-clicked="handleEventClick"
-      />
-      <div class="right-hand-text"
-        :class="{'tutorial-flex-center': centerText}"
-        :style="{maxWidth: `calc(${gridWidth} * 0.5)`}">
-        Read the grid from left to right, top to bottom {{this.gridWidth}}
-      </div>
-      <input type="number" v-model.number="slideNumber">
+  <div class="peabody-tutorial">
+    <div class="tutorial-flex" :class="{'tutorial-flex-center': slideNumber === 2}">
+      <PeabodyGrid class="the-grid"
+        :class="gridClasses"
+        ref="grid"
+        v-bind="$attrs"
+        v-on="$listeners"
+        :showSquares="showSquares"
+        :datasetId="'tutorial'"
+        :id="id"
+        @event-clicked="handleEventClick"
+        />
+        <svg v-if="this.slideNumber === 2" class="big-line" :height="$attrs.height" viewBox ="0 0 90 600">
+          <line x1="15" y1="1" x2="50" y2="1" stroke="orange"/>
+          <line x1="15" y1="599" x2="50" y2="599" stroke="orange"/>
+          <line x1="50" y1="599" x2="50" y2="1" stroke="orange"/>
+          <line x1="50" y1="302" x2="90" y2="302" stroke="orange"/>
+        </svg>
+        <div class="right-hand-text"
+          :class="{'tutorial-flex-center': centerText}"
+          v-text="rightHandText"
+          :style="textStyles">
+        </div>
+    </div>
+    <svg class="tutorial-overlay" 
+         viewBox="0 0 576 576" xmlns="http://www.w3.org/2000/svg"
+         :width="$attrs.width"
+         :height="$attrs.height">
+      <defs>
+        <!-- arrowhead marker definition -->
+        <marker id="arrowhead" viewBox="0 0 10 10" refX="0" refY="3.5"
+            markerWidth="10" markerHeight="7"
+            orient="auto-start-reverse">
+          <!-- <path d="M 0 0 L 10 5 L 0 10 z" stroke="orange" fill="none"/> -->
+          <polygon points="0 0, 10 3.5, 0 7" stroke="orange" fill="none"/>
+        </marker>
+      </defs>
+
+      <line v-if="this.slideNumber === 0" x1="576" y1="50" x2="90" y2="50" stroke="orange " 
+        stroke-width="1.5" marker-end="url(#arrowhead)" />
+
+      <template v-if="slideNumber === 1 || slideNumber > 2">
+        <text class="year" x="30" y="49">1501</text>
+        <text class="year" x="238" y="49">1505</text>
+        <text class="year" x="308" y="49">1506</text>
+        <text class="year" x="516" y="49">1510</text>
+
+        <text class="year" x="30" y="257">1541</text>
+        <text class="year" x="238" y="257">1545</text>
+        <text class="year" x="308" y="257">1546</text>
+        <text class="year" x="516" y="257">1550</text>
+
+        <text class="year" x="30" y="327">1551</text>
+        <text class="year" x="238" y="327">1555</text>
+        <text class="year" x="308" y="327">1556</text>
+        <text class="year" x="516" y="327">1560</text>
+
+        <text class="year" x="30" y="535">1591</text>
+        <text class="year" x="238" y="535">1595</text>
+        <text class="year" x="308" y="535">1596</text>
+        <text class="year" x="516" y="535">1600</text>
+      </template>
+    </svg>
+    <input type="number" v-model.number="slideNumber">
+
   </div>
 </template>
 
@@ -42,14 +90,32 @@ export default {
   },
   mounted () {
     this.gridWidth = getComputedStyle(this.$refs.grid.$el).width;
-  },
+  }, 
   computed: {
     showSquares () {
-      return this.slideNumber !== 0;
+      return this.slideNumber > 2
     },
     gridClasses() {
       return {
         grayed: this.slideNumber === 0
+      }
+    },
+    rightHandText () {
+      const arr =
+      ["one year",
+      "Read the grid from left to right, top to bottom",
+      "one century",
+      "Each year of the century is divided into nine squares.",
+      "The position of each square corresponds to a specific type of event.",
+      "Colors indicate the countries involved in each event.",
+      "A loss for England, a revolution for Spain, the birth of a Frenchman.",
+      "These are major events of the 50th year of the century."];
+      return arr[this.slideNumber]; 
+    },
+    textStyles() {
+      return {
+        "margin-top": this.slideNumber === 0 ? `calc(${this.$attrs.width} * 0.06)` : 0,
+        maxWidth: `calc(${this.$attrs.width} * 0.3)`
       }
     }
   },
@@ -61,12 +127,42 @@ export default {
 }
 </script>
 <style scoped>
+
+  .peabody-tutorial {
+    position: relative;
+    display: inline-block;
+  }
+
+  .tutorial-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .right-hand-text {
+    font-weight: 500;
+    font-family: 'Roboto';
+    font-size: 18pt;
+  }
+
   .the-grid {
 
   }
-  .grayed {
-    filter: grayscale(1) brightness(140%)
+
+  .year {
+    font-family: monospace;
+    fill: #939393
   }
+
+  .grayed >>> > rect {
+    fill: lightgray;
+  }
+
+  .grayed >>> .year-square-1 {
+    stroke: orange;
+    stroke-width: 2;
+  }
+
   .tutorial-flex {
     display: flex;
   }
@@ -77,4 +173,5 @@ export default {
   .right-hand-text {
     margin-left: 10px;
   }
+
 </style>
