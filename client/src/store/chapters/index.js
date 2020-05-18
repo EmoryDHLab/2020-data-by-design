@@ -7,6 +7,7 @@ const state = () => {
     prog_dub: '0.0',
     prog_pea: '0.0',
     prog_pla: '0.0',
+    curloc: '0.0',
   }
 };
 

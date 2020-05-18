@@ -82,7 +82,7 @@ export default {
         dubois: {
             paragraphData: [3,5,10,4,4], //index = which paragraph, value = number of sub-parts, shape of the following arrays.
             highlights: [[0.7, 0.3, 0.],
-                [0., 0., 0., 0.2, 0.],
+                [0.8, 0., 0.5, 0.2, 0.],
                 [0., 0.1, 0.6, 0., 0., 0.2, 0., 0.5, 0., 0.],
                 [0.8, 0., 0., 0.],
                 [0.6, 0., 0.2, 0.1]], //default: transparency = 0 for every block;
@@ -90,7 +90,7 @@ export default {
                 [2, 1, 0, 0, 2],
                 [2, 3, 0, 1, 0, 1, 3, 0, 2, 0],
                 [1, 1, 0, 3],
-                [0, 2, 0, 1]], // 1 -> section header, 2 -> images, 3 -> vis, 4 -> text, 0 -> empty
+                [0, 2, 0, 1]], // 1 -> section header, 2 -> images, 3 -> vis, 0 -> empty
         },
         playfair: {
             paragraphData: [3,5,10,4,4], //index = which paragraph, value = number of sub-parts, shape of the following arrays.

@@ -3,6 +3,7 @@ const types = {
     SET_PROGRESS_PEA: 'SET_PROGRESS_PEA',
     SET_PROGRESS_DUB: 'SET_PROGRESS_DUB',
     SET_PROGRESS_PLA: 'SET_PROGRESS_PLA',
+    SET_CURLOC: 'SET_CURLOC',
 }
 
 export default types

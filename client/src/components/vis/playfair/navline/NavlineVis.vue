@@ -19,33 +19,17 @@
             stroke="gray"
             stroke-dasharray="4 1 2 3"></line>
 
-        <g v-if="index+1 <= getProgress">
-          <rect :x="styles.line.left" :y="lines.y1"
-                :width="blockcx(lines, index, maxIdx(index)+1) - styles.line.left + styles.block.r*2"
-                :height="lines.blocks*styles.block.gap"
-                :fill=styles.color.defaultBlock opacity="0.3"></rect>
-        </g>
-
-        <g v-else-if="index <= getProgress">
-          <g v-for="i in lines.blocks">
+        <g v-for="i in lines.blocks">
             <rect v-if="index + i/10 <= getProgress"
                   :x="styles.line.left" :y="lines.y1 + (i-1)*styles.block.gap"
-                  :width="blockcx(lines, index, maxIdx(index)+1) - styles.line.left + styles.block.r*2"
+                  :width="blockcx(lines, index, i) - styles.line.left + styles.block.r*1.5"
                   :height="styles.block.gap"
                   :fill=styles.color.defaultBlock opacity="0.3"></rect>
             <rect v-else
                   :x="styles.line.left" :y="lines.y1 + (i-1)*styles.block.gap"
-                  :width="blockcx(lines, index, maxIdx(index)+1) - styles.line.left + styles.block.r*2"
+                  :width="blockcx(lines, index, i) - styles.line.left + styles.block.r*1.5"
                   :height="styles.block.gap"
                   :fill=styles.color.lightgray opacity="0.7"></rect>
-          </g>
-        </g>
-        <!--gray parts-->
-        <g v-if="index > getProgress">
-          <rect :x="styles.line.left" :y="lines.y1"
-                :width="blockcx(lines, index, maxIdx(index)+1) - styles.line.left + styles.block.r*2"
-                :height="lines.blocks*styles.block.gap"
-                :fill=styles.color.lightgray opacity="0.7"></rect>
         </g>
 
         <g v-for="i in lines.blocks">
@@ -114,9 +98,9 @@ const DEFAULT_OPTIONS = {
       right: 600,
     },
     block: {
-      r: 18,
+      r: 15,
       gap: 65,
-      margin: 50,
+      margin: 30,
     },
     color: {
       defaultBlock: "#f4b84c",

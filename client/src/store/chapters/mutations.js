@@ -2,8 +2,8 @@ import types from './types'
 
 const mutations = {
     [types.SET_IDNAME](state, payload) {
-      const {id} = payload;
-      state.idName = id;
+        const {id} = payload;
+        state.idName = id;
     },
     [types.SET_PROGRESS_PEA](state, payload) {
         const {id} = payload;
@@ -16,6 +16,10 @@ const mutations = {
     [types.SET_PROGRESS_PLA](state, payload) {
         const {id} = payload;
         state.prog_pla = id;
+    },
+    [types.SET_CURLOC](state, payload) {
+        const {id} = payload;
+        state.curloc = id;
     }
 };
 

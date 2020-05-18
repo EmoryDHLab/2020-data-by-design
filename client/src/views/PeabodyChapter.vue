@@ -114,9 +114,8 @@ export default {
   methods: {
     handleScroll () {
         this.scrolled = window.scrollY > 0;
-        if (this.scrolled && window.scrollY > this.scrolledMax) {
+        if (this.scrolled) {
             let y = window.scrollY;
-            this.scrolledMax = y;
             let idname = '0.0';
             for (let ref in this.$refs) {
                 if (this.$refs[ref].offsetTop < y) {
@@ -125,7 +124,12 @@ export default {
                     break;
                 }
             }
-            this.$store.commit(ch_mut.SET_PROGRESS_PEA, { id: idname });
+            this.$store.commit(ch_mut.SET_CURLOC, { id: idname });
+            if (window.scrollY > this.scrolledMax) {
+                this.scrolledMax = y;
+                this.$store.commit(ch_mut.SET_PROGRESS_PEA, { id: idname });
+            }
+
         }
     },
     hoverStart (payload) {

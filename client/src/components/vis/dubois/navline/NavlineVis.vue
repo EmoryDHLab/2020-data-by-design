@@ -10,7 +10,7 @@
     <text x="280" y="2120" class="small">Section Header</text>
     <text x="520" y="2120" class="small">Images</text>
     <text x="280" y="2175" class="small">Visualization</text>
-    <text x="520" y="2175" class="small">Text</text>
+    <text x="520" y="2175" class="small">Highlight</text>
 
     <circle :cx="styles.line.x" :cy="styles.line.start" :r="styles.chapterBlock.r" :fill=styles.color.defaultBlock></circle>
 
@@ -46,20 +46,30 @@
                       <circle v-if="getVisIdx(index, i-1) == '3' "
                               :cx="blockcx(lines, index, i)" :cy="blockcy(lines, i)"
                               :r="styles.block.r" :fill=styles.color.vis></circle>
-                      <circle v-if="getVisIdx(index, i-1) == '4' "
-                              :cx="blockcx(lines, index, i)" :cy="blockcy(lines, i)"
-                              :r="styles.block.r" :fill=styles.color.text></circle>
 
                       <circle v-if="hover == index*10 + i  && getVisIdx(index, i-1) != '0'"
+
                               :cx="blockcx(lines, index, i)" :cy="blockcy(lines, i)"
                               :r="styles.block.r" :fill=styles.color.lightgray></circle>
                     </g>
+
+                    <!--highlights-->
+                    <circle v-on:click="click = goto(index, i-1)"
+                            :cx="highlightcx(lines, index, i)" :cy="highlightcy(lines, i)"
+                            :r="styles.block.r"
+                            :fill=styles.color.text
+                            :fill-opacity= dataset.dubois.highlights[index][i-1]></circle>
                 </g>
                 <g v-else-if="index + i/10 <= (parseFloat(getProgress) + 0.1)">
                   <!--gray partial arc for progress-->
                   <path :d="calcGrayArc(lines, index, i)" :stroke="styles.color.gray"
                         stroke-width="5" stroke-dasharray="10" fill-opacity="0"></path>
                 </g>
+                <!--current location-->
+                <circle v-if="index + i/10 == getCurLoc"
+                        :cx="curLoccx(lines, index, i)" :cy="curLoccy(lines, i)"
+                        :r="styles.block.r-2"
+                        :fill=styles.color.defaultBlock></circle>
             </g>
         </g>
         <!--dotted gray parts-->
@@ -69,6 +79,8 @@
           <!--chapter block-->
           <circle :cx="styles.line.x" :cy="lines.y2" :r="styles.chapterBlock.r" :fill=styles.color.gray></circle>
         </g>
+
+
     </g>
   </svg>
 
@@ -119,7 +131,7 @@ const DEFAULT_OPTIONS = {
       image: "#6275a2",
       text: "#f4c443",
       vis: "#761e0e",
-      lightgray: "#dddddd"
+      lightgray: "#dddddd",
     }
   },
   vertical: true, // how to orient the navline
@@ -148,6 +160,9 @@ export default {
     },
     getProgress() {
         return this.$store.getters.prog_dub;
+    },
+    getCurLoc() {
+        return this.$store.getters.curloc;
     }
   },
   methods: {
@@ -183,18 +198,36 @@ export default {
           return d;
       },
       blockcx: function (lines, index, i) {
+          return this.calccx (lines, index, i, -this.styles.block.marginR );
+      },
+      blockcy: function (lines, i) {
+          return this.calccy (lines, i, -this.styles.block.marginR );
+      },
+      highlightcx: function (lines, index, i) {
+          return this.calccx (lines, index, i, this.styles.block.marginR );
+      },
+      highlightcy: function (lines, i) {
+          return this.calccy (lines, i, this.styles.block.marginR );
+      },
+      curLoccx: function (lines, index, i) {
+          return this.calccx (lines, index, i, 0 );
+      },
+      curLoccy: function (lines, i) {
+          return this.calccy (lines, i, 0);
+      },
+      calccx: function (lines, index, i, gapR) {
           let Cx = this.styles.line.x;
           let theta = 90 - (this.styles.block.gapR + (i-1)*lines.deltaTh + lines.deltaTh/2);
           if (index % 2 == 0) {
-              return Cx + (lines.R - this.styles.block.marginR) * Math.cos(theta * Math.PI / 180);
+              return Cx + (lines.R + gapR) * Math.cos(theta * Math.PI / 180);
           } else {
-              return Cx - (lines.R - this.styles.block.marginR) * Math.cos(theta * Math.PI / 180);
+              return Cx - (lines.R + gapR) * Math.cos(theta * Math.PI / 180);
           }
       },
-      blockcy: function (lines, i) {
+      calccy: function (lines, i, gapR) {
           let Cy = lines.cy;
           let theta = 90 - (this.styles.block.gapR + (i-1)*lines.deltaTh + lines.deltaTh/2);
-          return Cy - (lines.R - this.styles.block.marginR) * Math.sin(theta * Math.PI / 180);
+          return Cy - (lines.R + gapR) * Math.sin(theta * Math.PI / 180);
       },
       calcGrayArc: function (lines, index, i) {
           let left = (index+1) % 2;
@@ -240,6 +273,7 @@ export default {
       getVisIdx (i, j) {
           return this.dataset.dubois.vis[i][j];
       },
+
     /**
      * Formats the data to match the navline format
      * [

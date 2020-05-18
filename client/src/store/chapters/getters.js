@@ -10,6 +10,9 @@ const getters = {
     },
     prog_pla (state) {
         return state.prog_pla
+    },
+    curloc (state) {
+        return state.curloc
     }
 };
 

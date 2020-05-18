@@ -15,31 +15,33 @@
     <!--Lines, ChapterBlocks, Numbers, Notes Init-->
     <rect :x="styles.line.left - styles.chapterBlock.width/2" :y="styles.line.start- styles.chapterBlock.width/2"
           :width="styles.chapterBlock.width" :height="styles.chapterBlock.width" :fill=styles.color.defaultBlock></rect>
-    <text x="300" :y="styles.line.start + 15" class="number" fill="#4A4A4A">1</text>
-
+    <text :x="styles.line.left - 70" :y="styles.line.start + 15" class="number" fill="#4A4A4A">1</text>
+    <text :x="styles.line.left - 260" :y="styles.line.start + 5" class="small">Some Header</text>
 
     <g v-for="(lines, index) in startEndPoint(dataset.peabody.paragraphData)">
         <g v-if="index+1 <= getProgress">
           <!--Vertical Line-->
           <line :x1="lines.x1" :y1="lines.y1" :x2="lines.x2" :y2="lines.y2" style="stroke:#D9B89A; stroke-width:5; stroke-linecap:round"></line>
           <!--Horizontal Line-->
-          <line :x1="373" :y1="lines.y2" x2="510" :y2="lines.y2" style="stroke:#D9B89A; stroke-width:5; stroke-linecap:round"></line>
+          <line :x1="styles.line.left" :y1="lines.y2" :x2="styles.line.right" :y2="lines.y2" style="stroke:#D9B89A; stroke-width:5; stroke-linecap:round"></line>
           <!--chapter block-->
           <rect :x="styles.line.left - styles.chapterBlock.width/2" :y="lines.y2 - styles.chapterBlock.width/2"
                 :width="styles.chapterBlock.width" :height="styles.chapterBlock.width" :fill=styles.color.defaultBlock></rect>
           <!--paragraph number-->
-          <text x="300" :y="lines.y2 + 15" class="number" fill="#4A4A4A">{{index + 2}}</text>
+          <text :x="styles.line.left - 70" :y="lines.y2 + 15" class="number" fill="#4A4A4A">{{index + 2}}</text>
+          <text :x="styles.line.left - 260" :y="lines.y2 + 5" class="small" fill="#4A4A4A">Some Header</text>
         </g>
         <g v-else-if="index <= getProgress">
           <!--Vertical Line-->
           <line :x1="lines.x1" :y1="lines.y1" :x2="lines.x2" :y2="lines.y2" style="stroke:#D9B89A; stroke-width:5; stroke-linecap:round"></line>
           <!--Horizontal Line-->
-          <line :x1="373" :y1="lines.y2" x2="510" :y2="lines.y2" style="stroke:#9B9B9B; stroke-width:5; stroke-linecap:round"></line>
+          <line :x1="styles.line.left" :y1="lines.y2" :x2="styles.line.right" :y2="lines.y2" style="stroke:#9B9B9B; stroke-width:5; stroke-linecap:round"></line>
           <!--chapter block-->
           <rect :x="styles.line.left - styles.chapterBlock.width/2" :y="lines.y2 - styles.chapterBlock.width/2"
                 :width="styles.chapterBlock.width" :height="styles.chapterBlock.width" :fill=styles.color.gray></rect>
           <!--paragraph number-->
-          <text x="300" :y="lines.y2 + 15" :fill=styles.color.gray class="number">{{index + 2}}</text>
+          <text :x="styles.line.left - 70" :y="lines.y2 + 15" :fill=styles.color.gray class="number">{{index + 2}}</text>
+          <text :x="styles.line.left - 260" :y="lines.y2 + 5" class="small" :fill=styles.color.gray>Some Header</text>
         </g>
         <g v-if="index <= getProgress">
             <g v-for="i in lines.blocks">
@@ -47,7 +49,7 @@
                     <!--Notes Init-->
                     <!--(i-1) because v-for index start with 1 instead of 0-->
                     <rect v-on:click="click = goto(index, i-1)"
-                          x="455"
+                          :x="styles.line.left + 85"
                           :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
                           :width="styles.block.width" :height="styles.block.width"
                           :fill=styles.color.defaultBlock
@@ -58,27 +60,34 @@
                        @mouseover="hover = index*10 + i"
                        @mouseleave="hover = null">
                       <rect v-if="dataset.peabody.vis[index][i-1] == '1' "
-                            x="406"
+                            :x="styles.line.left + 35"
                             :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
                             :width="styles.block.width" :height="styles.block.width"
                             :fill=styles.color.image ></rect>
                       <rect v-if="dataset.peabody.vis[index][i-1] == '2' "
-                            x="406"
+                            :x="styles.line.left + 35"
                             :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
                             :width="styles.block.width" :height="styles.block.width"
                             :fill=styles.color.intVis ></rect>
                       <rect v-if="dataset.peabody.vis[index][i-1] == '3' "
-                            x="406"
+                            :x="styles.line.left + 35"
                             :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
                             :width="styles.block.width" :height="styles.block.width"
                             :fill=styles.color.stcVis ></rect>
 
                       <rect v-if="hover == index*10 + i  && dataset.peabody.vis[index][i-1] != '0'"
-                            x="406"
+                            :x="styles.line.left + 35"
                             :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
                             :width="styles.block.width" :height="styles.block.width"
                             :fill=styles.color.lightgray ></rect>
                     </g>
+
+                    <!--curloc-->
+                    <rect v-if="index + i/10 == getCurLoc"
+                            :x="lines.x1 - styles.block.width/2"
+                            :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
+                            :width="styles.block.width" :height="styles.block.width"
+                            :fill=styles.color.defaultBlock></rect>
                 </g>
                 <g v-else>
                   <!--gray line for progress-->
@@ -92,12 +101,14 @@
           <!--Vertical Line-->
           <line :x1="lines.x1" :y1="lines.y1" :x2="lines.x2" :y2="lines.y2" style="stroke:#9B9B9B; stroke-width:5; stroke-linecap:round"></line>
           <!--Horizontal Line-->
-          <line :x1="373" :y1="lines.y2" x2="510" :y2="lines.y2" style="stroke:#9B9B9B; stroke-width:5; stroke-linecap:round"></line>
+          <line :x1="styles.line.left" :y1="lines.y2" :x2="styles.line.right" :y2="lines.y2" style="stroke:#9B9B9B; stroke-width:5; stroke-linecap:round"></line>
           <!--chapter block-->
           <rect :x="styles.line.left - styles.chapterBlock.width/2" :y="lines.y2 - styles.chapterBlock.width/2"
                 :width="styles.chapterBlock.width" :height="styles.chapterBlock.width" :fill=styles.color.gray></rect>
           <!--paragraph number-->
-          <text x="300" :y="lines.y2 + 15" :fill=styles.color.gray class="number">{{index + 2}}</text>
+          <text :x="styles.line.left - 70" :y="lines.y2 + 15" :fill=styles.color.gray class="number">{{index + 2}}</text>
+          <!--header-->
+          <text :x="styles.line.left - 260" :y="lines.y2 + 5" class="small" :fill=styles.color.gray>Some Header</text>
         </g>
     </g>
   </svg>
@@ -131,8 +142,8 @@ const DEFAULT_OPTIONS = {
       gap: 1 // space between each event
     },
     line: {
-      left: 373,
-      right:510,
+      left: 400,
+      right:550,
       start: 292
     },
     chapterBlock: {
@@ -249,6 +260,9 @@ export default {
     },
     getProgress() {
         return this.$store.getters.prog_pea;
+    },
+    getCurLoc() {
+        return this.$store.getters.curloc;
     }
   },
   methods: {
