@@ -62,6 +62,7 @@
         <text class='year' x='516' y='535'>1600</text>
       </template>
     </svg>
+
     <EventKey v-if='slideNumber > 3' 
       :colors='eventKeyColors'
       :showLegend='slideNumber === 4'
@@ -74,7 +75,24 @@
         <text v-text='colorToCountry[color]' x='70' :y='20 + index * 45'/>
       </g>
     </svg>
-    <input type='number' v-model.number='slideNumber'>
+
+    <svg v-if='showDots' :width='$attrs.width' viewBox="0 0 576 200">
+      <circle class="slide-circle"
+        v-for="slide in maxSlideNumber + 1" :key="slide"
+        :cx="
+          //current circle offset
+          (slide - 1) * 40 
+          //starting offset to center the circles:
+          + (576 - (maxSlideNumber + 1) * 40) / 2" 
+        stroke='lightgray'
+        :stroke-width='slideNumber === slide - 1 ? 4 : 2'
+        :fill='slideNumber === slide - 1 ? "lightgray" : "white"'
+        cy=20
+        r=10
+        @click='slideNumber = slide - 1'
+        />
+
+    </svg>
   </div>
 </template>
 
@@ -92,11 +110,16 @@ export default {
     id: {
       type: String,
       required: true
+    },
+    showDots: {
+      type: Boolean,
+      default: true
     }
   },
   data () {
     return {
       slideNumber: 0,
+      maxSlideNumber: 7,
       gridWidth: 0,
       centerText: false,
       colors: {
@@ -236,6 +259,10 @@ export default {
 
   .right-hand-text {
     margin-left: 10px;
+  }
+
+  .slide-circle:hover {
+    stroke-width: 4
   }
   /* .event-key { Now using feDropShadow within EventKey
     filter: drop-shadow( 0px 0px 3px)
