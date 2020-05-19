@@ -1,5 +1,5 @@
 <template>
-  <div class='peabody-tutorial'>
+  <div class='peabody-tutorial' aria-labelledby='' aria-describedby='right-hand-text'>
     <div class='tutorial-flex' :class="{'tutorial-flex-center': slideNumber === 2}">
       <PeabodyGrid class='the-grid'
         :class='gridClasses'
@@ -9,7 +9,6 @@
         :showSquares='showSquares'
         datasetId='tutorial'
         :id='id'
-        @event-clicked='handleEventClick'
         />
         <svg v-if='this.slideNumber === 2' class='big-line' :height='$attrs.height' viewBox ='0 0 90 600'>
           <line x1='15' y1='1' x2='50' y2='1' stroke='orange'/>
@@ -17,7 +16,7 @@
           <line x1='50' y1='599' x2='50' y2='1' stroke='orange'/>
           <line x1='50' y1='302' x2='90' y2='302' stroke='orange'/>
         </svg>
-        <div class='right-hand-text'
+        <div id="right-hand-text" class='right-hand-text'
           :class="{'tutorial-flex-center': centerText}"
           v-text='rightHandText'
           :style='textStyles'>
@@ -27,7 +26,9 @@
          @click="slideNumber++"
          viewBox='0 0 576 576' xmlns='http://www.w3.org/2000/svg'
          :width='$attrs.width'
-         :height='$attrs.height'>
+         :height='$attrs.height'
+          aria-label='Example Grid'
+        >
       <defs>
         <!-- arrowhead marker definition -->
         <marker id='arrowhead' viewBox='0 0 10 10' refX='0' refY='3.5'
@@ -77,10 +78,12 @@
       </g>
     </svg>
 
-    <svg v-if='showDots' :width='$attrs.width' viewBox="0 0 576 200">
+    <svg v-if='showDots' :width='$attrs.width' aria-label="Tutorial slide selection" 
+    viewBox="0 0 576 200">
 
       <circle class="slide-circle"
         v-for="slide in maxSlideNumber + 1" :key="slide"
+        :tabindex="slide"
         :cx="
           //current circle offset
           (slide - 1) * 40 
@@ -92,6 +95,11 @@
         cy=20
         r=10
         @click='slideNumber = slide - 1'
+        @keydown='event => {
+            if (event.keyCode == 13) {
+              slideNumber = slide - 1;
+            }
+          }'
         />
 
     </svg>

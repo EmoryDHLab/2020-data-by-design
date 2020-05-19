@@ -1,5 +1,9 @@
 <template>
-  <svg class="event-key" viewBox="0 0 250 120" @mouseleave="hoveredNumber = null">
+  <svg class="event-key" viewBox="0 0 250 120" :id="`event-key-${_uid}`"
+    :aria-labelledby="`event-key-${_uid}-title event-key-${_uid}-desc`"
+   @mouseleave="hoveredNumber = null">
+    <title :id="`event-key-${_uid}-title`">Event Key</title>
+    <desc :id="`event-key-${_uid}-desc`"></desc>
     <filter id="shadow">
       <feDropShadow dx="0" dy="0" stdDeviation="3"/>
     </filter>
@@ -37,7 +41,6 @@
       :x="1 + (hoveredNumber % 3) * 30"
       :y="1 + (Math.floor(hoveredNumber / 3)) * 30"/>
     </g>
-
   </svg>
 </template>
 
