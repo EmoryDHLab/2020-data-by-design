@@ -1,7 +1,8 @@
 <template>
   <g>
-    <rect class='bg' :width='bgSize' :height='bgSize'/>
+    <rect :class="showSquares ? 'bg-gray' : 'bg-white'" :width='bgSize' :height='bgSize'/>
     <event-square
+      v-show="showSquares"
       v-for='n in 9'
       :key='n'
       :style='styles(n)'
@@ -31,6 +32,10 @@ export default {
     year: {
       type: Number,
       required: true
+    },
+    showSquares: {
+      type: Boolean,
+      default: true
     }
   },
   components: {
@@ -68,7 +73,11 @@ export default {
 }
 </script>
 <style scoped>
-  .bg {
+  .bg-gray {
     fill: #d8d8d8;
+  }
+
+  .bg-white {
+    fill: #fefefe;
   }
 </style>

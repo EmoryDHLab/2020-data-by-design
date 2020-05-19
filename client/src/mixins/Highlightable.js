@@ -65,7 +65,6 @@ function Highlightable(rootElementSelector) {
           return;
         }
         const range = selection.getRangeAt(0);
-        console.dir(range);
         if (range.startContainer === range.endContainer && range.startOffset === range.endOffset) {
           return;
         }
@@ -129,7 +128,6 @@ function Highlightable(rootElementSelector) {
         }
       },
       removeAllHighlights() {
-        console.log("Got here");
         document.querySelectorAll(`.${highlightClass}`).forEach(this.removeHighlightSpan);
       },
       removeHighlightSpan(span) {
@@ -308,7 +306,6 @@ function Highlightable(rootElementSelector) {
         }
         let startPath = pathToElement(range.startContainer);
         let endPath = pathToElement(range.endContainer);
-        console.log(`${startPath}-${range.startOffset};${endPath}-${range.endOffset}`);
         return `${startPath}-${range.startOffset};${endPath}-${range.endOffset}`
       },
       deserializeRange(string) {
@@ -325,14 +322,8 @@ function Highlightable(rootElementSelector) {
             const index = split[1];
             const child = prev.childNodes[index];
             if (!child) {
-              console.log("ERROR HERE");
-              console.log(prev);
-              console.log(prev.childNodes)
-              console.log(curr);
             }
             if (child.nodeName.toUpperCase() !== name.toUpperCase()) {
-              console.log(curr);
-              console.dir(prev);
               console.warn(`Element ${curr} has changed since the last highlight`);
             }
             return child;

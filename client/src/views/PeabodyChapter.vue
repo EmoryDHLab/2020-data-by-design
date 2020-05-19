@@ -48,6 +48,10 @@
     <p ref="part1.4">The basic exercise was to read the narrative account in Peabody’s textbook, and then convert the list of events that followed, like the one you see below-left, into graphical form. And I should note, at this point, that the events are color-coded, indicating the various countries involved in a particular event.</p>
     <img src="https://s.ftcdn.net/v2013/pics/all/curated/RKyaEDwp8J7JKeZWQPuOVWvkUjGQfpCx_cover_580.jpg?r=1a0fc22192d0c808b8bb2b9bcfbf4a45b1793687">
     <p ref="part2.0">So now I’ll return to the original chart (at left), and you can see now, hopefully, that England is red, the Americas are orange, and the Dutch are teal—those are the colors that dominate the image. The French get in on the act, too, in blue. And if you cross-reference the chart to the table of events, you can see, for instance, the founding of Jamestown in 1607; and the settlement of Plymouth in 1620—that’s the red on the right—and, interestingly, the little teal box stands for the first enslaved Africans arriving in Virginia at that same time.</p>
+    <PeabodyTutorial
+      id="peabody-tutorial"
+      width='45vh'
+      height='45vh'/>
     <p ref="part2.1">But I think it’s safe to say that no one in this room could have known this without me explaining how to interpret the chart. And for researchers and designers today, who champion the clarifying capacity of visualization; or for those who believe that datavis is best deployed to amplify existing thought processes—for such people, Peabody’s design would be a complete and utter failure. For Peabody, though, this near-total abstraction was precisely the point. Her charts were intended to appeal to the senses directly, to provide what she called “outlines to the eye.” Her hope was that, by providing only the mental outline of history, and by insisting that each student interpret the outline of history for herself, she would conjure her own historical narrative, and in that way, produce historical knowledge for herself.</p>
     <p ref="part2.2">So this is where the feminist aspects of Peabody’s approach to data visualization begin to emerge. Anticipating some of the foundational claims of feminist theory, Peabody’s schema it insists upon a multiplicity of meanings, and locates knowledge in the interplay between viewer, image, and text. Hers is a belief in visualization, not as clarifying or illuminating in its own right, not as evidence or proof of results, but as a tool in the process of knowledge production.</p>
     <p ref="part2.3"><a href="#">At this point,</a> it also bears mention that for Peabody, the creation of knowledge took place through a second mode: through the act of creating the images themselves. Peabody also printed workbooks, with sheets like the one you can see at left, and she envisioned the exercise, ideally, as one not merely of cross-referencing events to their visual representation, but of constructing the images they would then study. So you can see one student’s attempt below-left. And below on the right is another, by someone who appears to have given up all together. (These images come from <a href='http://beinecke.library.yale.edu/about/blogs/room-26-cabinet-curiosities/2011/09/02/visualizing-history'>a blog post by the Beinecke</a>, but I’ve traveled to several archives across the northeast U.S. and seen the same thing). I used to show these images to get a laugh, but I know now, because at this point I’ve tried it a number of times, that this method is a very hard thing to actually do.</p>
@@ -82,6 +86,7 @@ import ChapterScaffold from '@/components/ChapterScaffold'
 import TimelineVis from '@/components/vis/timeline/TimelineVis'
 import PeabodyGrid from '@/components/vis/peabody/PeabodyGrid'
 import PeabodyMutable from '@/components/vis/peabody/PeabodyMutable'
+import PeabodyTutorial from '@/components/vis/peabody/PeabodyTutorial'
 import { EventBus } from '@/helpers/EventBus'
 import mutations from '@/store/dataset/types'
 import ch_mut from '@/store/chapters/types'
@@ -93,6 +98,7 @@ export default {
     PeabodyGrid,
     PeabodyMutable,
     ChapterScaffold,
+    PeabodyTutorial,
     TimelineVis
   },
   mixins: [Highlightable(".chapter__main")],
