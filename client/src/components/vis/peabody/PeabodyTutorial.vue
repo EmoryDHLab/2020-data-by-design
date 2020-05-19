@@ -62,18 +62,24 @@
         <text class="year" x="516" y="535">1600</text>
       </template>
     </svg>
+    <EventKey v-if="slideNumber > 3" 
+      :colors="eventKeyColors"
+      :showLegend="slideNumber === 4"
+      :dropShadow="slideNumber !== 6"
+      :style="eventKeyStyles"></EventKey>
     <input type="number" v-model.number="slideNumber">
-
   </div>
 </template>
 
 <script>
 import PeabodyGrid from './PeabodyGrid'
+import EventKey from './EventKey'
 
 export default {
   inheritAttrs: false,
   components: {
-    PeabodyGrid
+    PeabodyGrid,
+    EventKey
   },
   props: {
     id: {
@@ -89,7 +95,6 @@ export default {
     }
   },
   mounted () {
-    this.gridWidth = getComputedStyle(this.$refs.grid.$el).width;
   }, 
   computed: {
     showSquares () {
@@ -113,9 +118,38 @@ export default {
       return arr[this.slideNumber]; 
     },
     textStyles() {
+      const gridWidth = this.$attrs.width;
       return {
-        "margin-top": this.slideNumber === 0 ? `calc(${this.$attrs.width} * 0.06)` : 0,
-        maxWidth: `calc(${this.$attrs.width} * 0.3)`
+        "margin-top": this.slideNumber === 0 ? `calc(${gridWidth} * 0.06)` : 0,
+        maxWidth: `calc(${gridWidth} * 0.45)`
+      }
+    },
+    eventKeyStyles() {
+      const gridWidth = this.$attrs.width;
+      if (this.slideNumber === 6) {
+        return {
+          height: `calc(${gridWidth} / 9)`,
+          position: 'absolute',
+          left: `calc(${gridWidth} - ${gridWidth} / 9)`,
+          top: `calc(${gridWidth} / 2 - ${gridWidth} / 9)`,
+          // left: gridWidth,
+          // top: `calc(${gridWidth} / 3)`,
+          transform: 'translate(-10px, 10px)'
+        } 
+      }
+      return {
+        height: `calc(${gridWidth} / 5)`,
+        position: 'absolute',
+        left: gridWidth,
+        top: `calc(${gridWidth} / 2)`,
+        transform: 'translate(-30%, -40%)',
+      }
+    },
+    eventKeyColors() {
+      if (this.slideNumber > 4) {
+        return [false, false, 'DarkBlue',
+                false, 'green', false, 
+                'darkred', false, false]
       }
     }
   },
@@ -140,9 +174,9 @@ export default {
   }
 
   .right-hand-text {
-    font-weight: 500;
+    font-weight: 400;
     font-family: 'Roboto';
-    font-size: 18pt;
+    font-size: 16pt;
   }
 
   .the-grid {
@@ -170,8 +204,13 @@ export default {
   .tutorial-flex-center {
     align-items: center
   }
+
   .right-hand-text {
     margin-left: 10px;
   }
+
+  /* .event-key { Now using feDropShadow within EventKey
+    filter: drop-shadow( 0px 0px 3px)
+  } */
 
 </style>
