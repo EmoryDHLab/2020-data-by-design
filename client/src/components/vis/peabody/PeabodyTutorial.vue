@@ -128,13 +128,13 @@ export default {
       const gridWidth = this.$attrs.width;
       if (this.slideNumber === 6) {
         return {
-          height: `calc(${gridWidth} / 9)`,
+          height: `calc(${gridWidth} / 8.8)`,
           position: 'absolute',
           left: `calc(${gridWidth} - ${gridWidth} / 9)`,
           top: `calc(${gridWidth} / 2 - ${gridWidth} / 9)`,
           // left: gridWidth,
           // top: `calc(${gridWidth} / 3)`,
-          transform: 'translate(-4%, 6%)'
+          transform: 'translate(-5%, 5%)'
         } 
       }
       return {
