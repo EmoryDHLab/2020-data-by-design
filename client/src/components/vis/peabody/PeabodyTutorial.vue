@@ -134,7 +134,7 @@ export default {
           top: `calc(${gridWidth} / 2 - ${gridWidth} / 9)`,
           // left: gridWidth,
           // top: `calc(${gridWidth} / 3)`,
-          transform: 'translate(-10px, 10px)'
+          transform: 'translate(-4%, 6%)'
         } 
       }
       return {
