@@ -16,7 +16,7 @@
           :x="1 + (index % 3) * 30"
           :y="1 + (Math.floor(index / 3)) * 30"
         />
-        <text
+        <text v-if="showNumbers"
           class="number"
           :x="12 + (index % 3) * 30"
           :y="22 + (Math.floor(index / 3)) * 30"
@@ -44,6 +44,10 @@ export default {
       }
     },
     showLegend: {
+      type: Boolean,
+      default: true
+    },
+    showNumbers: {
       type: Boolean,
       default: true
     },

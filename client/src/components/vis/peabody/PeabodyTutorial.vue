@@ -1,73 +1,80 @@
 <template>
-  <div class="peabody-tutorial">
-    <div class="tutorial-flex" :class="{'tutorial-flex-center': slideNumber === 2}">
-      <PeabodyGrid class="the-grid"
-        :class="gridClasses"
-        ref="grid"
-        v-bind="$attrs"
-        v-on="$listeners"
-        :showSquares="showSquares"
-        :datasetId="'tutorial'"
-        :id="id"
-        @event-clicked="handleEventClick"
+  <div class='peabody-tutorial'>
+    <div class='tutorial-flex' :class="{'tutorial-flex-center': slideNumber === 2}">
+      <PeabodyGrid class='the-grid'
+        :class='gridClasses'
+        ref='grid'
+        v-bind='$attrs'
+        v-on='$listeners'
+        :showSquares='showSquares'
+        datasetId='tutorial'
+        :id='id'
+        @event-clicked='handleEventClick'
         />
-        <svg v-if="this.slideNumber === 2" class="big-line" :height="$attrs.height" viewBox ="0 0 90 600">
-          <line x1="15" y1="1" x2="50" y2="1" stroke="orange"/>
-          <line x1="15" y1="599" x2="50" y2="599" stroke="orange"/>
-          <line x1="50" y1="599" x2="50" y2="1" stroke="orange"/>
-          <line x1="50" y1="302" x2="90" y2="302" stroke="orange"/>
+        <svg v-if='this.slideNumber === 2' class='big-line' :height='$attrs.height' viewBox ='0 0 90 600'>
+          <line x1='15' y1='1' x2='50' y2='1' stroke='orange'/>
+          <line x1='15' y1='599' x2='50' y2='599' stroke='orange'/>
+          <line x1='50' y1='599' x2='50' y2='1' stroke='orange'/>
+          <line x1='50' y1='302' x2='90' y2='302' stroke='orange'/>
         </svg>
-        <div class="right-hand-text"
+        <div class='right-hand-text'
           :class="{'tutorial-flex-center': centerText}"
-          v-text="rightHandText"
-          :style="textStyles">
+          v-text='rightHandText'
+          :style='textStyles'>
         </div>
     </div>
-    <svg class="tutorial-overlay" 
-         viewBox="0 0 576 576" xmlns="http://www.w3.org/2000/svg"
-         :width="$attrs.width"
-         :height="$attrs.height">
+    <svg class='tutorial-overlay' 
+         viewBox='0 0 576 576' xmlns='http://www.w3.org/2000/svg'
+         :width='$attrs.width'
+         :height='$attrs.height'>
       <defs>
         <!-- arrowhead marker definition -->
-        <marker id="arrowhead" viewBox="0 0 10 10" refX="0" refY="3.5"
-            markerWidth="10" markerHeight="7"
-            orient="auto-start-reverse">
-          <!-- <path d="M 0 0 L 10 5 L 0 10 z" stroke="orange" fill="none"/> -->
-          <polygon points="0 0, 10 3.5, 0 7" stroke="orange" fill="none"/>
+        <marker id='arrowhead' viewBox='0 0 10 10' refX='0' refY='3.5'
+            markerWidth='10' markerHeight='7'
+            orient='auto-start-reverse'>
+          <!-- <path d='M 0 0 L 10 5 L 0 10 z' stroke='orange' fill='none'/> -->
+          <polygon points='0 0, 10 3.5, 0 7' stroke='orange' fill='none'/>
         </marker>
       </defs>
 
-      <line v-if="this.slideNumber === 0" x1="576" y1="50" x2="90" y2="50" stroke="orange " 
-        stroke-width="1.5" marker-end="url(#arrowhead)" />
+      <line v-if='this.slideNumber === 0' x1='576' y1='50' x2='90' y2='50' stroke='orange ' 
+        stroke-width='1.5' marker-end='url(#arrowhead)' />
 
-      <template v-if="slideNumber === 1 || slideNumber > 2">
-        <text class="year" x="30" y="49">1501</text>
-        <text class="year" x="238" y="49">1505</text>
-        <text class="year" x="308" y="49">1506</text>
-        <text class="year" x="516" y="49">1510</text>
+      <template v-if='slideNumber === 1 || slideNumber > 2 && slideNumber < 7'>
+        <text class='year' x='30' y='49'>1501</text>
+        <text class='year' x='238' y='49'>1505</text>
+        <text class='year' x='308' y='49'>1506</text>
+        <text class='year' x='516' y='49'>1510</text>
 
-        <text class="year" x="30" y="257">1541</text>
-        <text class="year" x="238" y="257">1545</text>
-        <text class="year" x="308" y="257">1546</text>
-        <text class="year" x="516" y="257">1550</text>
+        <text class='year' x='30' y='257'>1541</text>
+        <text class='year' x='238' y='257'>1545</text>
+        <text class='year' x='308' y='257'>1546</text>
+        <text class='year' x='516' y='257'>1550</text>
 
-        <text class="year" x="30" y="327">1551</text>
-        <text class="year" x="238" y="327">1555</text>
-        <text class="year" x="308" y="327">1556</text>
-        <text class="year" x="516" y="327">1560</text>
+        <text class='year' x='30' y='327'>1551</text>
+        <text class='year' x='238' y='327'>1555</text>
+        <text class='year' x='308' y='327'>1556</text>
+        <text class='year' x='516' y='327'>1560</text>
 
-        <text class="year" x="30" y="535">1591</text>
-        <text class="year" x="238" y="535">1595</text>
-        <text class="year" x="308" y="535">1596</text>
-        <text class="year" x="516" y="535">1600</text>
+        <text class='year' x='30' y='535'>1591</text>
+        <text class='year' x='238' y='535'>1595</text>
+        <text class='year' x='308' y='535'>1596</text>
+        <text class='year' x='516' y='535'>1600</text>
       </template>
     </svg>
-    <EventKey v-if="slideNumber > 3" 
-      :colors="eventKeyColors"
-      :showLegend="slideNumber === 4"
-      :dropShadow="slideNumber !== 6"
-      :style="eventKeyStyles"></EventKey>
-    <input type="number" v-model.number="slideNumber">
+    <EventKey v-if='slideNumber > 3' 
+      :colors='eventKeyColors'
+      :showLegend='slideNumber === 4'
+      :showNumbers= 'slideNumber < 7'
+      :dropShadow='slideNumber < 6'
+      :style='eventKeyStyles'></EventKey>
+    <svg v-if='slideNumber === 5' viewBox='0 0 300 200' :style='countriesStyles'>
+      <g v-for="(color, index) in eventKeyColors.filter(color => color && color !== 'none')" :key='index'>
+        <rect :width='`30`' :height='`30`' :fill=color x='30' :y='index * 45'/>
+        <text v-text='colorToCountry[color]' x='70' :y='20 + index * 45'/>
+      </g>
+    </svg>
+    <input type='number' v-model.number='slideNumber'>
   </div>
 </template>
 
@@ -92,11 +99,36 @@ export default {
       slideNumber: 0,
       gridWidth: 0,
       centerText: false,
+      colors: {
+        //Colors must be unique
+        blue: 'rgb(50, 91, 103)',
+        green: 'rgb(69, 136, 103)',
+        red: 'rgb(141, 43, 29)'
+      }
     }
   },
   mounted () {
   }, 
   computed: {
+    colorToCountry () {
+      return {
+        [this.colors.blue]: 'Spain',
+        [this.colors.green]: 'France',
+        [this.colors.red]: 'England'
+      }
+    },
+    rightHandText () {
+      const arr =
+      ['one year',
+      'Read the grid from left to right, top to bottom',
+      'one century',
+      'Each year of the century is divided into nine squares.',
+      'The position of each square corresponds to a specific type of event.',
+      'Colors indicate the countries involved in each event.',
+      'A loss for England, a revolution for Spain, the birth of a Frenchman.',
+      'These are major events of the 50th year of the century.'];
+      return arr[this.slideNumber]; 
+    },
     showSquares () {
       return this.slideNumber > 2
     },
@@ -105,28 +137,23 @@ export default {
         grayed: this.slideNumber === 0
       }
     },
-    rightHandText () {
-      const arr =
-      ["one year",
-      "Read the grid from left to right, top to bottom",
-      "one century",
-      "Each year of the century is divided into nine squares.",
-      "The position of each square corresponds to a specific type of event.",
-      "Colors indicate the countries involved in each event.",
-      "A loss for England, a revolution for Spain, the birth of a Frenchman.",
-      "These are major events of the 50th year of the century."];
-      return arr[this.slideNumber]; 
+    eventKeyColors() {
+      if (this.slideNumber > 4) {
+        return [false, false, this.colors.blue,
+                false, this.colors.green, false, 
+                this.colors.red, false, false]
+      }
     },
     textStyles() {
       const gridWidth = this.$attrs.width;
       return {
-        "margin-top": this.slideNumber === 0 ? `calc(${gridWidth} * 0.06)` : 0,
+        'margin-top': this.slideNumber === 0 ? `calc(${gridWidth} * 0.06)` : 0,
         maxWidth: `calc(${gridWidth} * 0.45)`
       }
     },
     eventKeyStyles() {
       const gridWidth = this.$attrs.width;
-      if (this.slideNumber === 6) {
+      if (this.slideNumber > 5) {
         return {
           height: `calc(${gridWidth} / 8.8)`,
           position: 'absolute',
@@ -145,11 +172,13 @@ export default {
         transform: 'translate(-30%, -40%)',
       }
     },
-    eventKeyColors() {
-      if (this.slideNumber > 4) {
-        return [false, false, 'DarkBlue',
-                false, 'green', false, 
-                'darkred', false, false]
+    countriesStyles() {
+      return {
+        position: 'absolute',
+        left: `calc(${this.$attrs.width})`,
+        top: `calc(${this.$attrs.width} / 2.5)`,
+        width: `calc(${this.$attrs.width}) / 2`,
+        height: `calc(${this.$attrs.width}) / 4`,
       }
     }
   },
@@ -208,7 +237,6 @@ export default {
   .right-hand-text {
     margin-left: 10px;
   }
-
   /* .event-key { Now using feDropShadow within EventKey
     filter: drop-shadow( 0px 0px 3px)
   } */
