@@ -1,8 +1,9 @@
 <template>
-  <svg class="event-key" viewBox="0 0 250 120">
+  <svg class="event-key" viewBox="0 0 250 120" @mouseout="hoveredNumber = null">
     <filter id="shadow">
       <feDropShadow dx="0" dy="0" stdDeviation="3"/>
     </filter>
+    <rect v-show="hoveredNumber != null" x="105" :y="-40 + hoveredNumber * 20" width="375" height="20" fill="yellow"/>
     <text class="label" v-show="showLegend" v-for="(label, index) in legendText" :key="label"
         x="110" :y="-25 + index * 20">{{index + 1}}. {{label}}</text> 
     <g :style="{filter: dropShadow ? 'url(#shadow)' : 'none'}">
@@ -15,6 +16,7 @@
           height="30"
           :x="1 + (index % 3) * 30"
           :y="1 + (Math.floor(index / 3)) * 30"
+          @mouseover="hoveredNumber = index"
         />
         <text v-if="showNumbers"
           class="number"
@@ -71,6 +73,11 @@ export default {
           "Deeds",
           "Deaths, of remarkable individuals"]
       }
+    }
+  },
+  data() {
+    return {
+      hoveredNumber: null
     }
   }
 };
