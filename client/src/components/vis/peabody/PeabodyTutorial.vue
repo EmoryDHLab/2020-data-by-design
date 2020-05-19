@@ -23,7 +23,8 @@
           :style='textStyles'>
         </div>
     </div>
-    <svg class='tutorial-overlay' 
+    <svg class='tutorial-overlay'
+         @click="slideNumber++"
          viewBox='0 0 576 576' xmlns='http://www.w3.org/2000/svg'
          :width='$attrs.width'
          :height='$attrs.height'>
@@ -77,6 +78,7 @@
     </svg>
 
     <svg v-if='showDots' :width='$attrs.width' viewBox="0 0 576 200">
+
       <circle class="slide-circle"
         v-for="slide in maxSlideNumber + 1" :key="slide"
         :cx="
@@ -209,6 +211,13 @@ export default {
     handleEventClick({year, type, data}) {
 
     }
+  },
+  watch: {
+    slideNumber (newVal) {
+      if (newVal > this.maxSlideNumber) {
+        this.slideNumber = 0;
+      }
+    }
   }
 }
 </script>
@@ -217,6 +226,7 @@ export default {
   .peabody-tutorial {
     position: relative;
     display: inline-block;
+    user-select: none;
   }
 
   .tutorial-overlay {
