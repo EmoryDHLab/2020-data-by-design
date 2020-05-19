@@ -1,13 +1,20 @@
 <template>
-  <svg class="event-key" viewBox="0 0 250 120" @mouseout="hoveredNumber = null">
+  <svg class="event-key" viewBox="0 0 250 120" @mouseleave="hoveredNumber = null">
     <filter id="shadow">
       <feDropShadow dx="0" dy="0" stdDeviation="3"/>
     </filter>
-    <rect v-show="hoveredNumber != null" x="105" :y="-40 + hoveredNumber * 20" width="375" height="20" fill="yellow"/>
-    <text class="label" v-show="showLegend" v-for="(label, index) in legendText" :key="label"
-        x="110" :y="-25 + index * 20">{{index + 1}}. {{label}}</text> 
+    <template v-if="showLegend">
+      <rect class="highlighted-text-box" v-if="hoveredNumber != null" 
+            x="105" :y="-40 + hoveredNumber * 20" width="375" height="20" fill="yellow"/>
+      <text class="label" v-for="(label, index) in legendText" :key="label"
+          x="110" :y="-25 + index * 20" @mouseover="hoveredNumber = index"
+         >
+          {{index + 1}}. {{label}}
+      </text> 
+    </template>
+
     <g :style="{filter: dropShadow ? 'url(#shadow)' : 'none'}">
-      <g v-for="(color, index) in colors" :key="index">
+      <g v-for="(color, index) in colors" :key="index" @mouseover="hoveredNumber = index">
         <rect
           stroke="#b3b3b3"
           stroke-width="0.5"
@@ -16,7 +23,6 @@
           height="30"
           :x="1 + (index % 3) * 30"
           :y="1 + (Math.floor(index / 3)) * 30"
-          @mouseover="hoveredNumber = index"
         />
         <text v-if="showNumbers"
           class="number"
@@ -26,6 +32,10 @@
         >{{index + 1}}</text>
       </g>
       <rect width="92" height="92" stroke="orange" stroke-width="3" fill="none" />
+      <rect class="highlighted-number-box" v-if="showLegend && hoveredNumber != null" 
+      width="30" height="30" stroke="yellow" fill="none" stroke-width="2"
+      :x="1 + (hoveredNumber % 3) * 30"
+      :y="1 + (Math.floor(hoveredNumber / 3)) * 30"/>
     </g>
 
   </svg>
@@ -42,7 +52,9 @@ export default {
         return array.length === 9;
       },
       default() {
-        return [false, false, false, false, false, false, false, false, false];
+        return [false, false, false, 
+                false, false, false, 
+                false, false, false];
       }
     },
     showLegend: {
