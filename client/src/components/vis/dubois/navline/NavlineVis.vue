@@ -79,7 +79,7 @@
           <!--chapter block-->
           <circle :cx="styles.line.x" :cy="lines.y2" :r="styles.chapterBlock.r" :fill=styles.color.gray></circle>
         </g>
-
+        
 
     </g>
   </svg>

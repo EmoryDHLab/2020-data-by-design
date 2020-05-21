@@ -82,19 +82,19 @@
                             :fill=styles.color.lightgray ></rect>
                     </g>
 
-                    <!--curloc-->
-                    <rect v-if="index + i/10 == getCurLoc"
-                            :x="lines.x1 - styles.block.width/2"
-                            :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
-                            :width="styles.block.width" :height="styles.block.width"
-                            :fill=styles.color.defaultBlock></rect>
                 </g>
                 <g v-else>
                   <!--gray line for progress-->
-                  <line :x1="lines.x1" :y1="lines.y1+ (i-1)*(styles.block.gap + styles.block.width)"
+                  <line :x1="lines.x1" :y1="lines.y1+ (i-1)*(styles.block.gap + styles.block.width)+styles.block.width/2"
                         :x2="lines.x2" :y2="lines.y1 + styles.block.verGap*2 + (i-1)*(styles.block.gap + styles.block.width) + styles.block.width"
                         style="stroke:#9B9B9B; stroke-width:5; stroke-linecap:round"></line>
                 </g>
+                <!--curloc-->
+                <rect v-if="index + i/10 == getCurLoc"
+                      :x="lines.x1 - styles.block.width/2"
+                      :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
+                      :width="styles.block.width" :height="styles.block.width"
+                      :fill=styles.color.defaultBlock></rect>
             </g>
         </g>
         <g v-if="index > getProgress">
