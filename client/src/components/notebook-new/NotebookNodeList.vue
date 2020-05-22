@@ -15,6 +15,8 @@
 
 <script>
 
+import { notebookTypes } from "dxd-common"
+
 import ListItem from "./NotebookNodeListItem"
 import AddNew from "./NotebookNodeAddNew.vue"
 import { mapGetters } from "vuex"

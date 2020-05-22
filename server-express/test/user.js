@@ -26,6 +26,13 @@ describe("User api endpoint", function () {
         name: 'Test User',
         password: "testpassword",
     }
+    let user2 = {
+        email: "testusername2@gmail.com",
+        name: 'Test User2',
+        password: "testpassword2",
+        notebook: [{badNotebookField: 1, anotherBadNotebookField: 2}]
+    }
+
     let token;
     describe('User creation endpoint (POST /api/users/)', function () {
       let responseUser;
@@ -71,7 +78,18 @@ describe("User api endpoint", function () {
                 expect(res.body).to.have.property('errors');
                 done();
             })
-        })
+        });
+        it('does not allow the creation of a user with a bad notebook', function (done) {
+            chai.request(app)
+                .post('/api/users')
+                .set('Content-Type', 'application/json')
+                .send({ user: user2})
+                .end((err, res) => {
+                    expect(res).to.have.status(422);
+                    expect(res.body).to.have.property('errors');
+                    done();
+                });
+        });
     });
     describe ('User login endpoint (POST /api/users/login)', function () {
         it('Retrieves a token based on an email that is in the system', function(done) {
@@ -141,18 +159,30 @@ describe("User api endpoint", function () {
         });
     });
     describe ('Current user notebook endpoint (GET and POST /api/users/current/notebook', function() {
-        it('Allows POST when given a valid token', function(done) {
+        it('Allows POST when given a valid token and valid notebook', function(done) {
             chai.request(app)
                 .post('/api/users/current/notebook')
                 .set('Authorization', 'Token ' + token)
                 .set('Content-Type', 'application/json')
-                .send({notebook: [{html: "html1", metadata: "metadata1", notebookId: 1}, {html: "html2", metadata: "metadata2", notebookId: 2}] })
+                .send({notebook: [{html: "html1", metadata: "metadata1", notebookId: 1, type: 1}, {html: "html2", metadata: "metadata2", notebookId: 2, type:1}] })
                 .end((err, res) => {
                     expect(res).to.have.status(200);
                     expect(res.body).to.have.property('notebook')
                     expect(res.body.notebook).to.be.an('array').that.has.length(2);
                     done();
                 });
+      });
+      it('Does not allow POST with an invalid notebook', function(done) {
+        chai.request(app)
+            .post('/api/users/current/notebook')
+            .set('Authorization', 'Token ' + token)
+            .set('Content-Type', 'application/json')
+            .send({notebook: [{html: "html1", metadata: "metadata1", notebookId: 1}, {html: "html2", metadata: "metadata2", notebookId: 2}] })
+            .end((err, res) => {
+                expect(res).to.have.status(422);
+                expect(res.body).to.have.property('errors');
+                done();
+            });
       });
       it('Allows GET when given a valid token', function(done) {
             chai.request(app)
