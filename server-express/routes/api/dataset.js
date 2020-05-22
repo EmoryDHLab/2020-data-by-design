@@ -2,37 +2,12 @@ const express = require("express")
 const router = express.Router()
 
 const fs = require("fs")
+const path = require("path")
 const parse = require("csv-parse")
-const transform = require("stream-transform")
 
-const path = "/../../static/data/";
-const datasets = {
-  0: "SoH1500.csv",
-  1: "SoH1600.csv",
-  2: "SoH1700.csv",
-  3: "SoH1800.csv"
-}
-const dataset = (id) => path + datasets[id];
 
-const toPeabodyFormat = (output, currentData) => {
-  let [year, color, actor, eventType, desc] = currentData
-  year = parseInt(year)
-  eventType = parseInt(eventType)
-  if (!output[year]) {
-    output[year] = {}
-  }
-  if (!output[year][eventType]) {
-    output[year][eventType] = []
-  }
-  output[year][eventType].push({
-    year: year,
-    color: color,
-    actor: actor,
-    eventType: eventType,
-    desc: desc
-  })
-  return output
-}
+const datasets = require("../../datasets.json")
+const datasetFile = id => "/../../" + datasets.path + datasets.datasets[id];
 
 const peabodify = data => {
   let [year, color, actor, eventType, desc] = data
@@ -42,7 +17,7 @@ const peabodify = data => {
 }
 
 const loadDataset = function(datasetId) {
-  const filePath = dataset(datasetId)
+  const filePath = datasetFile(datasetId)
   return new Promise(function(resolve, reject) {
     if (!filePath) {
       reject({
@@ -51,34 +26,45 @@ const loadDataset = function(datasetId) {
       })
       return;
     }
-    let parser = parse({ delimiter: "," })
-    let dataStream = fs.createReadStream(__dirname + filePath)
-    let dataList = []
-    dataStream
-      .pipe(parser)
-      .on("data", data => {
-        dataList.push(peabodify(data))
-      })
-      .on("end", () => {
-        let output = dataList.reduce((out, dat, i) => {
-          out[i] = { ...dat, id: i }
-          return out
-        }, {})
-        resolve({ id: datasetId, output })
-      })
-      .on("error", err => {
-        console.log(err)
-        reject({ code: 500, message: "Data corrupted, could not be sent" })
-        return
-      })
-  })
+    const extension = path.extname(filePath)
+    if (extension === ".csv") {
+      const parser = parse({ delimiter: "," })
+      const dataStream = fs.createReadStream(path.join(__dirname, filePath))
+      const dataList = []
+      dataStream
+        .pipe(parser)
+        .on("data", data => {
+          dataList.push(peabodify(data))
+        })
+        .on("end", () => {
+          let output = dataList.reduce((out, dat, i) => {
+            out[i] = { ...dat, id: i }
+            return out
+          }, {})
+          resolve({ id: datasetId, output })
+        })
+        .on("error", err => {
+          console.log(err)
+          reject({ code: 500, message: "Data corrupted, could not be sent" })
+          return
+        })
+      } else if (extension === ".json") {
+        fs.readFile(path.join(__dirname, filePath), 'utf8', function (err, data) {
+          if (err) {
+            console.error(err);
+            reject(err);
+          }
+          resolve({id: datasetId, output: JSON.parse(data)});
+       });
+    }
+  });
 }
 
 router.get("/", (req, res) => {
   if (!req.query.full) {
-    return res.status(200).send(JSON.stringify(Object.keys(datasets)))
+    return res.status(200).send(JSON.stringify(Object.keys(datasets.datasets)))
   } else {
-    const loadPromises = Object.keys(datasets).map(id => loadDataset(id))
+    const loadPromises = Object.keys(datasets.datasets).map(id => loadDataset(id))
     Promise.all(loadPromises).then(loadedDatasetsWithIds => {
       const out = loadedDatasetsWithIds.reduce((sets, dataset) => {
         sets[dataset.id] = dataset.output
@@ -90,7 +76,7 @@ router.get("/", (req, res) => {
 })
 
 router.get("/:id", (req, res) => {
-  const datasetId = parseInt(req.params.id)
+  const datasetId = req.params.id;
   loadDataset(datasetId)
     .then(dataWithId => dataWithId.output)
     .then(data => res.status(200).send(JSON.stringify(data)))
