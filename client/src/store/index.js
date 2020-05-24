@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import dataset from './dataset/index.js'
 import notebook from './notebook/notebook.js'
 import user from './user-old/index.js'
+import datasetNew from './dataset-new/index.js'
 // import notebook from './notebook-old/index.js'
 import chapters from './chapters/index.js'
 
@@ -14,7 +15,8 @@ const store = new Vuex.Store({
     dataset,
     notebook,
     user,
-    chapters
+    chapters,
+    datasetNew
   },
   state: {
     errors: []

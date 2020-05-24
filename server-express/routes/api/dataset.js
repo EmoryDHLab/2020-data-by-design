@@ -7,7 +7,7 @@ const parse = require("csv-parse")
 
 
 const datasets = require("../../datasets.json")
-const datasetFile = id => "/../../" + datasets.path + datasets.datasets[id];
+const datasetFile = id => datasets.datasets[id] ? "/../../" + datasets.path + datasets.datasets[id] : false;
 
 const peabodify = data => {
   let [year, color, actor, eventType, desc] = data
@@ -44,7 +44,7 @@ const loadDataset = function(datasetId) {
           resolve({ id: datasetId, output })
         })
         .on("error", err => {
-          console.log(err)
+          console.error(err)
           reject({ code: 500, message: "Data corrupted, could not be sent" })
           return
         })
@@ -70,7 +70,7 @@ router.get("/", (req, res) => {
         sets[dataset.id] = dataset.output
         return sets
       }, {})
-      res.status(200).send(JSON.stringify(out))
+      res.status(200).json(out)
     })
   }
 })
@@ -79,9 +79,9 @@ router.get("/:id", (req, res) => {
   const datasetId = req.params.id;
   loadDataset(datasetId)
     .then(dataWithId => dataWithId.output)
-    .then(data => res.status(200).send(JSON.stringify(data)))
+    .then(data => res.status(200).json(data))
     .catch(err => {
-      res.status(err.code || 500).send(err.message)
+      res.status(err.code || 500).json({error: err.message})
     })
 })
 

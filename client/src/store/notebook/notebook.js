@@ -1,4 +1,5 @@
 import api from "@/api"
+import StatusTypes from "../status-types"
 
 const Mutations = {
   AUTH_REQUEST: 'auth_request',
@@ -10,13 +11,6 @@ const Mutations = {
     UPDATE_SUCCESS: 'update_notebook_success',
     UPDATE_ERROR: 'update'
   }
-}
-
-const StatusTypes = {
-  CLEAR:     0,
-  REQUESTED: 1,
-  SUCCESS:   2,
-  ERROR:     3,
 }
 
 const Statuses = {
