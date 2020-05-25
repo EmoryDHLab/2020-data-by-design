@@ -37,8 +37,14 @@ export default {
       return new Promise((resolve, reject) => {
         commit("loadStart");
         api.getDataset(datasetId)
-          .then(data => commit("loadSuccess", {datasetId, data}))
-          .catch(commit("loadError"))
+          .then(data => {
+            commit("loadSuccess", {datasetId, data});
+            resolve(data);
+          })
+          .catch(err => {
+            commit("loadError");
+            reject(err);
+          })
       })
     }
   }

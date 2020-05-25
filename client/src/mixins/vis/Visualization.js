@@ -1,7 +1,7 @@
 import { mapGetters, mapMutations } from 'vuex'
 import EventBus from '@/helpers/EventBus'
 // This mixin helps the visualization interface with vuex to get its data
-const Visualization = {
+const Visualization = (datasetId, mutableId) => ({
   props: {
     datasetId: {
       type: String,
@@ -10,11 +10,6 @@ const Visualization = {
     width: {
       type: String,
       required: true
-    }
-  },
-  data () {
-    return {
-
     }
   },
   methods: {
@@ -27,23 +22,23 @@ const Visualization = {
   },
   computed: {
     dataset () {
-      if (this.rawDataset){
-        return this.$store.state.dataset.datasets[this.datasetId].data
+      if (this.mutableId) {
+        return this.$store.visualization.getVisualizationData(mutableId);
       }
-    },
-    isMutable () {
-      return (this.rawDataset) ? this.rawDataset.isMutable : false
-    },
-    formattedData () {
-      return this.dataFormatter(this.dataset)
-    },
-    styles () {
-      return this.options.styles || {}
+      return this.$store.datasetNew.getters.getDatasetById(id);
     }
   },
   created () {
-
+    this.$store.datasetNew.loadDataset(this.datasetId)
+      .then(data => {
+        if (this.isMutable) {
+          this.$store.visualization.registerVisualization({
+            id: this.mutableId,
+            data: data
+          })
+        }
+      })
   }
-}
+})
 
 export default Visualization
