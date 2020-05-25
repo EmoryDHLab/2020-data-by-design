@@ -71,22 +71,25 @@ export default {
     }
   },
   methods: {
-    handleScroll () {
-        this.scrolled = window.scrollY > 0;
-        if (this.scrolled && window.scrollY > this.scrolledMax) {
-            let y = window.scrollY;
-            this.scrolledMax = y;
-            let idname = '0.0';
-            for (let ref in this.$refs) {
-                if (this.$refs[ref].offsetTop < y) {
-                    idname = ref.substring(4);
-                } else {
-                    break;
-                }
-            }
-            this.$store.commit(ch_mut.SET_PROGRESS_PLA, { id: idname });
-        }
-    },
+      handleScroll () {
+          this.scrolled = window.scrollY > 0;
+          if (this.scrolled) {
+              let y = window.scrollY;
+              let idname = '0.0';
+              for (let ref in this.$refs) {
+                  if (this.$refs[ref].offsetTop < y) {
+                      idname = ref.substring(4);
+                  } else {
+                      break;
+                  }
+              }
+              this.$store.commit(ch_mut.SET_CURLOC, { id: idname });
+              if (window.scrollY > this.scrolledMax) {
+                  this.scrolledMax = y;
+                  this.$store.commit(ch_mut.SET_PROGRESS_PLA, { id: idname });
+              }
+          }
+      },
     hoverStart (payload) {
       console.log("hover start:", payload.datasetId)
       if (!payload.data) return;

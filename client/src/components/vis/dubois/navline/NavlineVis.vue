@@ -27,7 +27,7 @@
         </g>
         <g v-if="index <= getProgress">
             <g v-for="i in lines.blocks">
-                <g v-if="index + i/10 <= getProgress">
+                <g v-if="index + (i-1)/10 <= getProgress">
                     <!--partial colored arc-->
                     <path v-if="index == parseInt(getProgress)"
                         :d="calcColorArc(lines, index, i)" :stroke="styles.color.defaultBlock"
@@ -60,16 +60,16 @@
                             :fill=styles.color.text
                             :fill-opacity= dataset.dubois.highlights[index][i-1]></circle>
                 </g>
-                <g v-else-if="index + i/10 <= (parseFloat(getProgress) + 0.1)">
+                <g v-if="index + (i-1)/10 == (parseFloat(getProgress))">
                   <!--gray partial arc for progress-->
                   <path :d="calcGrayArc(lines, index, i)" :stroke="styles.color.gray"
-                        stroke-width="5" stroke-dasharray="10" fill-opacity="0"></path>
+                        stroke-width="5" stroke-dasharray="10"></path>
                 </g>
                 <!--current location-->
-                <circle v-if="index + i/10 == getCurLoc"
+                <circle v-if="index + (i-1)/10 == getCurLoc"
                         :cx="curLoccx(lines, index, i)" :cy="curLoccy(lines, i)"
                         :r="styles.block.r-2"
-                        :fill=styles.color.defaultBlock></circle>
+                        :fill=styles.color.curloc></circle>
             </g>
         </g>
         <!--dotted gray parts-->
@@ -79,7 +79,7 @@
           <!--chapter block-->
           <circle :cx="styles.line.x" :cy="lines.y2" :r="styles.chapterBlock.r" :fill=styles.color.gray></circle>
         </g>
-        
+
 
     </g>
   </svg>
@@ -121,7 +121,7 @@ const DEFAULT_OPTIONS = {
       r: 15,
       gap: 30,
       gapR: 15,
-      marginR: 30,
+      marginR: 40, //distance between block and timeline curve
       verGap: 50, //chapterBlock/2 + margin
     },
     color: {
@@ -132,6 +132,7 @@ const DEFAULT_OPTIONS = {
       text: "#f4c443",
       vis: "#761e0e",
       lightgray: "#dddddd",
+      curloc: "#c41189",
     }
   },
   vertical: true, // how to orient the navline
@@ -159,6 +160,7 @@ export default {
       return this.dataFormatter(this.dataset.data || {})
     },
     getProgress() {
+        console.log(parseFloat(this.$store.getters.prog_dub));
         return this.$store.getters.prog_dub;
     },
     getCurLoc() {

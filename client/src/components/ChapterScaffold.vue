@@ -100,10 +100,15 @@ export default {
                 [0.8, 0.4, 0., 0.],
                 [0.3, 0.2, 0.3, 0.4]], //default: transparency = 0 for every block;
             vis: [[1, 4, 2],
-                [2, 4, 3, 1, 3],
-                [4, 3, 1, 2, 1, 1, 3, 1, 2, 1],
-                [1, 2, 4, 3],
-                [3, 4, 2, 1]], // 1 -> section header, 2 -> images, 3 -> vis, 4 -> text/empty, 0 -> empty
+                [2, 4, 3, 0, 3],
+                [4, 3, 0, 2, 1, 0, 3, 1, 2, 1],
+                [0, 2, 4, 3],
+                [3, 4, 2, 0]], // 1 -> section header, 2 -> images, 3 -> vis, 4 -> text/empty, 0 -> empty
+            visPos: [[.0, .4, .7],
+                [.25, .4, .3, 0, 1],
+                [.4, .3, 0, .2, .5, 0, .3, .1, .2, .6],
+                [0, .4, .8, .3],
+                [.6, .4, .9, 0]], // position of visualization in the subsection
         },
     } // the data which will be fed into the timeline
   }),

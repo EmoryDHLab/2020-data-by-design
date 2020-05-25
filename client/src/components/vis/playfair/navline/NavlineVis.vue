@@ -20,14 +20,15 @@
             stroke-dasharray="4 1 2 3"></line>
 
         <g v-for="i in lines.blocks">
-            <rect v-if="index + i/10 <= getProgress"
+            <rect v-if="index + (i-1)/10 <= getProgress"
                   :x="styles.line.left" :y="lines.y1 + (i-1)*styles.block.gap"
-                  :width="blockcx(lines, index, i) - styles.line.left + styles.block.r*1.5"
+                  :width="styles.line.right - styles.line.left"
                   :height="styles.block.gap"
-                  :fill=styles.color.defaultBlock opacity="0.3"></rect>
+                  :fill=styles.color.defaultBlock
+                  :opacity="0.3 + (dataset.playfair.highlights[index][i-1])/2"></rect>
             <rect v-else
                   :x="styles.line.left" :y="lines.y1 + (i-1)*styles.block.gap"
-                  :width="blockcx(lines, index, i) - styles.line.left + styles.block.r*1.5"
+                  :width="styles.line.right - styles.line.left"
                   :height="styles.block.gap"
                   :fill=styles.color.lightgray opacity="0.7"></rect>
         </g>
@@ -58,10 +59,15 @@
                     :cx="blockcx(lines, index, i)" :cy="blockcy(lines, i)"
                     :r="styles.block.r" :fill=styles.color.lightgray></circle>
           </g>
+          <circle v-if="index + (i-1)/10 == getCurLoc"
+                  :cx="styles.line.left" :cy="blockcy(lines, i)"
+                  :r="styles.block.r-2"
+                  :fill=styles.color.curloc></circle>
         </g>
         <!--section line-->
         <line :x1="styles.line.left" :y1="lines.y2" :x2="styles.line.right" :y2="lines.y2"
             style="stroke:black; stroke-width:5; stroke-linecap:round"></line>
+        <!--cur loc-->
     </g>
   </svg>
 
@@ -100,7 +106,7 @@ const DEFAULT_OPTIONS = {
     block: {
       r: 15,
       gap: 65,
-      margin: 30,
+      margin: 40, //margin between pos 0 and the left border pos 1 in each line
     },
     color: {
       defaultBlock: "#f4b84c",
@@ -109,7 +115,8 @@ const DEFAULT_OPTIONS = {
       image: "#BCC4B4",
       text: "#E3B966",
       vis: "#A76B6F",
-      lightgray: "#dddddd"
+      lightgray: "#dddddd",
+      curloc: "#c41189",
     }
   },
   vertical: true, // how to orient the navline
@@ -142,6 +149,9 @@ export default {
     },
     getProgress() {
       return this.$store.getters.prog_pla;
+    },
+    getCurLoc() {
+        return this.$store.getters.curloc;
     }
   },
   methods: {
@@ -175,7 +185,7 @@ export default {
       blockcx: function (lines, index, i) {
           let Cx = this.styles.line.left;
           let m = this.styles.block.margin;
-          return Cx + m + Math.floor(this.dataset.playfair.highlights[index][i-1] * (this.styles.line.right - Cx - 2*m));
+          return Cx + m + Math.floor(this.dataset.playfair.visPos[index][i-1] * (this.styles.line.right - Cx - 2*m));
       },
       blockcy: function (lines, i) {
           let Cy = lines.y1;
