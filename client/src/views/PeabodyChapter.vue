@@ -12,30 +12,30 @@
         (It's actually a wrap aroud the other vis which extends its functionality)</h3></li>
       <li><h3>The timeline is tied to this mutable dataset on the right</h3></li>
     </ul>
-    <timeline-vis
+    <!-- <timeline-vis
       id='vis2'
       height='200px'
       width='100%'
       :datasetId='currentDataset.toString()'
       @hover-start="hoverStart"
-      @hover-end="hoverEnd"/>
+      @hover-end="hoverEnd"/> -->
     <div style="display:flex;">
       <peabody-grid
         @hover-start="hoverStart"
         @hover-end="hoverEnd"
-        id='peabody-vis-1'
+        :id="'peabody-vis-1'"
         style='flex: 1'
         width='45vh'
         height='45vh'
-        :datasetId='"0"'/>
-      <peabody-mutable
+        :datasetId='"1"'/>
+      <!-- <peabody-mutable
         id='peabody-vis-2'
         style='flex: 1'
         width='45vh'
         height='45vh'
         :datasetId='currentDataset.toString()'
         @hover-start="hoverStart"
-        @hover-end="hoverEnd"/>
+        @hover-end="hoverEnd"/> -->
     </div>
     <p ref="part0.0">To us today, accustomed to the charts and graphs of Microsoft Excel, or the interactive graphics that we find on <a href='https://www.nytimes.com/'>The New York Times</a> (dot com) on any given day, we perceive schemas like this as opaque and illegible. They do none of the things that we think that visualization should do: be clear and intuitive, yield immediate insight, or facilitate making sense of the underlying data. But further questions remain: why have we become conditioned to think that visualization should do these things, and only these things? How has this perspective come to be embedded in our visual culture? And most importantly for us here today, what would it mean if we could view images like these, from the archive of data visualization, instead as pathways to alternate futures? What additional visual schemas could we envision, and what additional stories could we tell, if we did?</p>
     <p ref="part0.1">So I’m going to inhabit my method, and frame my talk today in terms of an alternate history. First, I’ll walk you through the visual schema that you see above-left, proposed by Peabody in 1856. Then I’ll talk about some of the more speculative work I’ve done in attempting to reimagine her schema in both digital and physical form. And then I’ll try to explain what I’m after by describing this work, as you saw in the title of this talk, as feminist—</p>
@@ -99,7 +99,7 @@ export default {
     PeabodyMutable,
     ChapterScaffold,
     PeabodyTutorial,
-    TimelineVis
+    // TimelineVis
   },
   mixins: [Highlightable(".chapter__main")],
   data() {

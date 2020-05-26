@@ -22,7 +22,7 @@
 </template>
 <script>
 export default {
-  inject: ['localBus', 'options'],
+  // inject: ['localBus', 'options'],
   props: {
     year: {
       type: Number,
@@ -36,11 +36,12 @@ export default {
       type: Array,
       required: true
     },
+    sizes: {
+      type: Object,
+      required: true
+    }
   },
   computed: {
-    sizes () {
-      return this.options.sizes
-    },
     checker () {
       if (this.eventsData.length > 2) {
         //console.log(this.eventsData[0], this.eventsData.length);
@@ -62,21 +63,21 @@ export default {
       return [`0,${sz} 0,0 ${sz},0`, `0,${sz} ${sz},${sz} ${sz},0`][i]
     },
     clickedEvent (i) {
-      this.localBus.fire('event-clicked', {
+      this.$emit('event-clicked', {
         year: this.year,
         type: this.type,
         data: this.getEvent(i)
       })
     },
     hoverStart (i) {
-      this.localBus.fire('hover-start', {
+      this.$emit('hover-start', {
         year: this.year,
         type: this.type,
         data: this.getEvent(i)
       })
     },
     hoverEnd (i) {
-      this.localBus.fire('hover-end', {
+      this.$emit('hover-end', {
         year: this.year,
         type: this.type,
         data: this.getEvent(i)

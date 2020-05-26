@@ -1,4 +1,6 @@
 import StatusTypes from "../status-types"
+import api from '@/api'
+import Vue from 'vue'
 
 export default {
   namespaced: true,
@@ -8,8 +10,8 @@ export default {
   },
   getters: {
     getDatasetById: state => id => {
-      if (datasets[id]) {
-        return datasets[id];
+      if (state.datasets[id]) {
+        return state.datasets[id];
       }
       return {error: "not loaded"};
     }
@@ -20,7 +22,7 @@ export default {
     },
     loadSuccess (state, {id, data}) {
       state.loadStatus = StatusTypes.SUCCESS;
-      state.datasets[id] = data;
+      Vue.set(state.datasets, id, data);
     },
     loadError (state) {
       state.loadStatus = StatusTypes.ERROR;
@@ -37,9 +39,9 @@ export default {
       return new Promise((resolve, reject) => {
         commit("loadStart");
         api.getDataset(datasetId)
-          .then(data => {
-            commit("loadSuccess", {datasetId, data});
-            resolve(data);
+          .then(resp => {
+            commit("loadSuccess", {id: datasetId, data: resp.data});
+            resolve(resp.data);
           })
           .catch(err => {
             commit("loadError");

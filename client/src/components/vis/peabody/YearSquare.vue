@@ -6,6 +6,7 @@
       v-for='n in 9'
       :key='n'
       :style='styles(n)'
+      :sizes="sizes"
       :type='n - 1'
       :year='year'
       :eventsData='getEventData(n)'/>
@@ -23,7 +24,6 @@ import EventSquare from '@/components/vis/peabody/EventSquare'
   }
 */
 export default {
-  inject: ['options'],
   props: {
     yearData: {
       type: Object,
@@ -36,15 +36,16 @@ export default {
     showSquares: {
       type: Boolean,
       default: true
+    },
+    sizes: {
+      type: Object,
+      required: true
     }
   },
   components: {
     'event-square': EventSquare
   },
   computed: {
-    sizes () {
-      return this.options.sizes
-    },
     evtWidth () {
       return this.sizes.rect + this.sizes.line.sm
     },
