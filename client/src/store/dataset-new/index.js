@@ -35,7 +35,7 @@ export default {
     //   .then(datasets => Object.entries(datasets)
     //     .forEach(([id, data]) => commit(types.ADD_DATASET, { id, data })))
     // },
-    loadDataset({commit}, datasetId) {
+    loadDataset({commit, getters}, datasetId) {
       return new Promise((resolve, reject) => {
         commit("loadStart");
         api.getDataset(datasetId)

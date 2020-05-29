@@ -21,8 +21,16 @@
   </g>
 </template>
 <script>
-export default {
-  // inject: ['localBus', 'options'],
+import { injects } from '@/mixins/vis/Visualization'
+
+const events = {
+  eventClicked: 'event-clicked',
+  hoverStart: 'hover-start',
+  hoverEnd: 'hover-end'
+}
+
+const EventSquare = {
+  inject: [injects.registerEvents, injects.calcWidth, injects.data],
   props: {
     year: {
       type: Number,
@@ -41,8 +49,13 @@ export default {
       required: true
     }
   },
+  created() {
+    if (this.registerEvents) {
+      this.registerEvents(this, Object.values(events))
+    }
+  },
   computed: {
-    checker () {
+    checker() {
       if (this.eventsData.length > 2) {
         //console.log(this.eventsData[0], this.eventsData.length);
       }
@@ -50,50 +63,52 @@ export default {
     },
   },
   methods: {
-    getEvent (i) {
+    getEvent(i) {
       return this.eventsData[i]
     },
-    color (i) {
+    color(i) {
       const event = this.getEvent(i)
       if (event)
         return event.color
     },
-    trianglePoints (i) {
+    trianglePoints(i) {
       const sz = this.sizes.rect
       return [`0,${sz} 0,0 ${sz},0`, `0,${sz} ${sz},${sz} ${sz},0`][i]
     },
-    clickedEvent (i) {
-      this.$emit('event-clicked', {
+    clickedEvent(i) {
+      this.$emit(events.eventClicked, {
         year: this.year,
         type: this.type,
         data: this.getEvent(i)
       })
     },
-    hoverStart (i) {
-      this.$emit('hover-start', {
+    hoverStart(i) {
+      this.$emit(events.hoverStart, {
         year: this.year,
         type: this.type,
         data: this.getEvent(i)
       })
     },
-    hoverEnd (i) {
-      this.$emit('hover-end', {
+    hoverEnd(i) {
+      this.$emit(events.hoverEnd, {
         year: this.year,
         type: this.type,
         data: this.getEvent(i)
       })
     },
-    classes (i) {
+    classes(i) {
       return {
         'highlight': this.highlight(i)
       }
     },
-    highlight (i) {
+    highlight(i) {
       if (!this.getEvent(i)) return false;
       return this.getEvent(i).highlighted === true;
     }
-  },
+  }
 }
+
+export { events, EventSquare as default }
 </script>
 <style scoped>
   rect:not([fill]) {

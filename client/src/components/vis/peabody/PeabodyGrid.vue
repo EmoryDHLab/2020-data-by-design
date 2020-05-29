@@ -43,6 +43,16 @@ export default {
       required: false,
       default: () => DEFAULT_OPTIONS
     },
+    staticDataset: {
+      type: String
+    },
+    mutableDataset: {
+      type: String
+    },
+    // mutable: {
+    //   type: Boolean,
+    //   default: false
+    // },
     dynamicStartYear: {
       type: Boolean,
       default: false
@@ -52,11 +62,16 @@ export default {
       default: true
     }
   },
-  mixins: [Visualization(1)],
+  mixins: [Visualization()],
   components: {
     'year-square': YearSquare
   },
   computed: {
+    // mutableId() {
+    //   if (this.mutable) {
+    //     return this.id;
+    //   }
+    // },
     formattedData() {
       return this.dataFormatter(this.data)
     },
@@ -69,6 +84,7 @@ export default {
     yearWidth () {
       return this.evtWidth * 3 + this.sizes.line.md - this.sizes.line.sm
     },
+
     translateCentury () {
       return {
         'transform': 'translate('

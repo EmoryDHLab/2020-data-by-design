@@ -7,7 +7,6 @@
         v-bind='$attrs'
         v-on='$listeners'
         :showSquares='showSquares'
-        datasetId='tutorial'
         :id='id'
         />
         <svg v-if='this.slideNumber === 2' class='big-line' :height='$attrs.height' viewBox ='0 0 90 600'>
@@ -39,7 +38,7 @@
         </marker>
       </defs>
 
-      <line v-if='this.slideNumber === 0' x1='576' y1='50' x2='90' y2='50' stroke='orange ' 
+      <line v-if='this.slideNumber === 0' x1='576' y1='50' x2='90' y2='50' stroke='orange '
         stroke-width='1.5' marker-end='url(#arrowhead)' />
 
       <template v-if='slideNumber === 1 || slideNumber > 2 && slideNumber < 7'>
@@ -65,7 +64,7 @@
       </template>
     </svg>
 
-    <EventKey v-if='slideNumber > 3' 
+    <EventKey v-if='slideNumber > 3'
       :colors='eventKeyColors'
       :showLegend='slideNumber === 4'
       :showNumbers= 'slideNumber < 7'
@@ -78,7 +77,7 @@
       </g>
     </svg>
 
-    <svg v-if='showDots' :width='$attrs.width' aria-label="Tutorial slide selection" 
+    <svg v-if='showDots' :width='$attrs.width' aria-label="Tutorial slide selection"
     viewBox="0 0 576 200">
 
       <circle class="slide-circle"
@@ -86,9 +85,9 @@
         :tabindex="slide"
         :cx="
           //current circle offset
-          (slide - 1) * 40 
+          (slide - 1) * 40
           //starting offset to center the circles:
-          + (576 - (maxSlideNumber + 1) * 40) / 2" 
+          + (576 - (maxSlideNumber + 1) * 40) / 2"
         stroke='lightgray'
         :stroke-width='slideNumber === slide - 1 ? 4 : 2'
         :fill='slideNumber === slide - 1 ? "lightgray" : "white"'
@@ -141,7 +140,7 @@ export default {
     }
   },
   mounted () {
-  }, 
+  },
   computed: {
     colorToCountry () {
       return {
@@ -160,7 +159,7 @@ export default {
       'Colors indicate the countries involved in each event.',
       'A loss for England, a revolution for Spain, the birth of a Frenchman.',
       'These are major events of the 50th year of the century.'];
-      return arr[this.slideNumber]; 
+      return arr[this.slideNumber];
     },
     showSquares () {
       return this.slideNumber > 2
@@ -173,7 +172,7 @@ export default {
     eventKeyColors() {
       if (this.slideNumber > 4) {
         return [false, false, this.colors.blue,
-                false, this.colors.green, false, 
+                false, this.colors.green, false,
                 this.colors.red, false, false]
       }
     },
@@ -195,7 +194,7 @@ export default {
           // left: gridWidth,
           // top: `calc(${gridWidth} / 3)`,
           transform: 'translate(-5%, 5%)'
-        } 
+        }
       }
       return {
         height: `calc(${gridWidth} / 5)`,
