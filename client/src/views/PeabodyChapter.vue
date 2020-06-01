@@ -29,7 +29,7 @@
       <peabody-mutable
         id='peabody-vis-2'
         style='flex: 1'
-        width='45vh'
+        :width="'45vh'"
         height='45vh'
         :staticDataset='"1"'
         :mutableDataset="'my-peabody'"

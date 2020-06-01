@@ -2,6 +2,9 @@
   <PeabodyGrid
     v-on="$listeners"
     :id="id"
+    :width="width"
+    :height="height"
+    :showIndicator="false"
     :mutableDataset="mutableDataset"
     @event-clicked="handleEventClick"
     />
@@ -22,6 +25,11 @@ export default {
     color: {
       type: String
     },
+    width: {
+      type: String,
+      required: true
+    },
+    height: String,
     id: {
       type: String,
       required: true
@@ -38,9 +46,16 @@ export default {
     handleEventClick({year, type, data}) {
       if (!data) {
         const toAdd = {year, eventType: type, desc: "imposter", color: "#fd1f00"}
-        this.transform(dataObj =>
-          Object.assign(dataObj, {year: toAdd})
+        this.transform(dataObj => {
+            dataObj[year] = toAdd;
+            return dataObj;
+          }
         );
+      } else {
+        this.transform(dataObj => {
+          delete dataObj[year];
+          return dataObj
+        })
       }
       console.log({year, type, data})
       // if (!data) {

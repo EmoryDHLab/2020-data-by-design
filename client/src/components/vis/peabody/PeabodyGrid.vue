@@ -1,21 +1,24 @@
 <template>
-  <svg :id="id"
-    :width='width'
-    :height='height'
-    :viewBox='getViewBox'>
-    <rect class='bg' :width='getSVGWidth' :height='getSVGWidth'/>
-    <g :style='translateCentury'>
-      <year-square
-        v-for='n in 100'
-        :showSquares='showSquares'
-        :key='n-1'
-        :sizes="options.sizes"
-        :class='`year-square-${n}`'
-        :style='translateYear(n)'
-        :yearData='getYearData(n)'
-        :year='getYear(n)'/>
-    </g>
-  </svg>
+  <div>
+    <svg :id="id"
+         :width='width'
+         :height='height'
+         :viewBox='getViewBox'>
+      <rect class='bg' :width='getSVGWidth' :height='getSVGWidth'/>
+      <g :style='translateCentury'>
+        <year-square
+          v-for='n in 100'
+          :showSquares='showSquares'
+          :key='n-1'
+          :sizes="options.sizes"
+          :class='`year-square-${n}`'
+          :style='translateYear(n)'
+          :yearData='getYearData(n)'
+          :year='getYear(n)'/>
+      </g>
+    </svg>
+  </div>
+
 </template>
 
 <script>
@@ -138,16 +141,19 @@ export default {
       }
     },
     dataFormatter (d) {
-      return Object.values(d).reduce((formattedData, curr) => {
-        if (!formattedData[curr.year]) {
-          formattedData[curr.year] = {}
-        }
-        if (!formattedData[curr.year][curr.eventType]) {
-          formattedData[curr.year][curr.eventType] = []
-        }
-        formattedData[curr.year][curr.eventType].push(curr)
-        return formattedData
-      }, {})
+      console.log("ran data formatter!");
+      if (d && typeof d === "object") {
+        return Object.values(d).reduce((formattedData, curr) => {
+          if (!formattedData[curr.year]) {
+            formattedData[curr.year] = {}
+          }
+          if (!formattedData[curr.year][curr.eventType]) {
+            formattedData[curr.year][curr.eventType] = []
+          }
+          formattedData[curr.year][curr.eventType].push(curr)
+          return formattedData
+        }, {})
+      }
     }
   }
 }

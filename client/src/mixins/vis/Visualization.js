@@ -1,4 +1,4 @@
-import { mapGetters, mapActions} from 'vuex'
+import { mapGetters, mapActions, mapState} from 'vuex'
 
 const injects = {
   width: "width",
@@ -16,6 +16,10 @@ const Visualization = ({staticDataset, mutableDataset} = {}) => ({
       type: String,
       required: true
     },
+    showIndicator: {
+      type: Boolean,
+      default: true
+    }
     /*Looks for these "optional" props on the mixed-in Component:
     staticDataset: String
     mutableDataset: String
@@ -23,7 +27,8 @@ const Visualization = ({staticDataset, mutableDataset} = {}) => ({
   },
   data () {
     return {
-      registeredEvents: {}
+      registeredEvents: {},
+      indicatorRendered: false
     }
   },
   methods: {
@@ -58,6 +63,7 @@ const Visualization = ({staticDataset, mutableDataset} = {}) => ({
     )
   },
   computed: {
+    ...mapState('mutable', ['mutableData']),
     staticId () {
       return this.staticDataset || staticDataset;
     },
@@ -65,8 +71,9 @@ const Visualization = ({staticDataset, mutableDataset} = {}) => ({
       return this.mutableDataset || mutableDataset;
     },
     data () {
+      this.mutableData.lastUpdated; //register dependency
       if (this.mutableId) {
-        return this.getMutableData(this.mutableId);
+        return this.mutableData[this.mutableId];
       }
       if (this.staticId) {
         return this.getStaticData(this.staticId);
@@ -96,8 +103,22 @@ const Visualization = ({staticDataset, mutableDataset} = {}) => ({
         })
     }
     else if (this.mutableId && !this.isRegisteredMutable(this.mutableId)) {
-      debugger;
       this.registerMutableData({id: this.mutableId});
+    }
+  },
+  mounted () {
+    if (this.showIndicator && !this.indicatorRendered) {
+      const test = document.createElement('div');
+      test.style.width = "20px";
+      test.style.height = "20px";
+      test.style.opacity = "50%";
+      test.style.backgroundColor = "blue";
+      test.style.position = "absolute";
+      test.style.left = this.$el.offsetLeft + 'px';
+      test.style.top = this.$el.offsetTop + 'px';
+      test.style.transform = "translate(-75%,-50%)";
+      this.$el.append(test);
+      this.indicatorRendered = true;
     }
   }
 })

@@ -3,7 +3,7 @@ import Vue from 'vue';
 export default {
   namespaced: true,
   state: {
-    mutableData: {}
+    mutableData: { lastUpdated: null }
   },
   getters: {
     isRegisteredMutable: state => id => id in state.mutableData,
@@ -11,6 +11,7 @@ export default {
   },
   mutations: {
     addMutableData(state, {id, data}) {
+      state.mutableData.lastUpdated = Date.now();
       Vue.set(state.mutableData, id, data);
     }
   },
