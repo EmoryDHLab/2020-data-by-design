@@ -19,7 +19,7 @@ import { notebookTypes } from "dxd-common"
 
 import ListItem from "./NotebookNodeListItem"
 import AddNew from "./NotebookNodeAddNew.vue"
-import { mapGetters } from "vuex"
+import {mapGetters, mapState} from "vuex"
 
 export default {
   components: {
@@ -45,9 +45,10 @@ export default {
     addNote(note, addToTop = false) {
       const id = this.greatestId + 1;
       const newItem = {
-        html: `<span class='note'>${note}</span>`,
+        html: note,
         notebookId: id,
-        metadata: `usernote/${id}`
+        type: notebookTypes.TYPED_NOTE,
+        metadata: 'usernote'
       }
       if (addToTop) {
         this.items.unshift(newItem)
@@ -122,6 +123,7 @@ export default {
     }
   },
   computed: {
+    ...mapState({ currentNotebookRequest: state => state.notebook.currentNotebookRequest}),
     ...mapGetters(['isLoggedIn']),
     greatestId () {
       return Math.max(...this.items.map(item => item.notebookId), -1);
@@ -160,6 +162,14 @@ export default {
           this.items = []
         }
       }
+    },
+    //Vuex State
+    currentNotebookRequest: {
+      handler (newNotebook) {
+        if (newNotebook.length > this.items.length)
+        this.items = newNotebook;
+      },
+      deep: true
     }
   }
 }

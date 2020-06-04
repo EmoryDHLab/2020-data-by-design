@@ -1,6 +1,7 @@
 <template>
-  <div v-html="item.html">
+  <div v-if="item.html" v-html="item.html">
   </div>
+  <div v-else v-text="item.text"></div>
 </template>
 
 <script>

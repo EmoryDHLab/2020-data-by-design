@@ -6,7 +6,8 @@ const injects = {
   calcWidth: "calcWidth",
   registerEvent: "registerEvent",
   registerEvents: "registerEvents",
-  data: "data"
+  data: "data",
+  transform: "transform"
 }
 
 // This mixin helps the visualization interface with vuex to get its data

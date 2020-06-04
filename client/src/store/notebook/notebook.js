@@ -108,7 +108,7 @@ export default {
     [Mutations.Notebook.UPDATE_SUCCESS](state, notebook) {
       state.notebookStatus = Statuses[Mutations.Notebook.UPDATE_SUCCESS];
       state.notebook = notebook;
-      state.currentNotebookRequest = '';
+      state.currentNotebookRequest = [];
       state.notebookErrorMessage = '';
     },
     [Mutations.Notebook.UPDATE_ERROR](state, message) {
@@ -118,11 +118,10 @@ export default {
   },
 
   actions: {
-
     updateNotebook({commit, state, getters}, notebookArray) {
       if (!getters.isLoggedIn) {
         //If the user isn't logged in, save the notebook to be passed to the server on signup
-        this.currentNotebookRequest = notebookArray;
+        state.currentNotebookRequest = notebookArray;
         return;
       }
       const validate = isValidNotebook(notebookArray);

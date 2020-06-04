@@ -17,7 +17,7 @@ const blockContainer = node => {
   return blockContainer(node.parentElement);
 }
 
-function Highlightable(rootElementSelector) {
+function Highlightable(rootElementSelector, highlightableElements = ['p']) {
   return {
     created: function () {
       this.log("Highlightable Mixin Initialized");
@@ -94,38 +94,80 @@ function Highlightable(rootElementSelector) {
       },
       createHighlightFromRange(range) {
 
-        const startParent = blockContainer(range.startContainer);
-        const endParent = blockContainer(range.endContainer);
-        const sameParent = startParent.isEqualNode(endParent);
-        const rangeData = this.serializeRange(range);
-
-        if (!(sameParent && startParent.className == highlightClass)) {
-          if (range.cloneContents().childElementCount < 2) {
-            const highlight = this.createHighlight(range.extractContents());
-            if (highlight) {
-              highlight.dataset.rangeData = rangeData;
-              range.insertNode(highlight);
+        const isHighlightable = (el) => {
+          const container = blockContainer(el);
+          const allowed = highlightableElements.map(el => el.toUpperCase());
+          return allowed.includes(container.tagName.toUpperCase())
+        }
+        debugger;
+        /*We need to make sure you don't highlight things that aren't highlightable; particularly,
+          if you highlight a range of elements, some highlightable and some not, we need to break up
+          that highlight range into highlightable subsets.
+         */
+        const rangeChildren = range.extractContents().childNodes;
+        let startI = null;
+        let endI = null;
+        const subranges = [] //of Ranges and elements. Ranges will be turned into highlights, elements will be kept as is.
+        for (let i = 0; i < rangeChildren.length; i++) {
+          const curr = rangeChildren[i];
+          if (isHighlightable(curr)) {
+            if (startI == null) {
+              startI = i;
             }
+            endI = i;
           } else {
-            const contents = range.extractContents();
-            const firstSection = this.createHighlight(contents.firstChild.innerHTML);
-            firstSection.classList.add(overflowNextClass);
-            firstSection.dataset.rangeData = rangeData;
-            const lastSection = this.createHighlight(contents.lastChild.innerHTML);
-            lastSection.classList.add(overflowPrevClass);
-            startParent.appendChild(firstSection);
-            endParent.prepend(lastSection);
-            if (contents.childElementCount > 2) {
-              Array.from(contents.childNodes)
-                .slice(1, contents.childNodes.length - 1)
-                .forEach(element => {
-                  const section = this.createHighlight(element);
-                  section.classList.add(overflowPrevClass, overflowNextClass);
-                  startParent.after(section);
-                });
+            if (startI) {
+              const range = document.createRange();
+              range.setStartBefore(rangeChildren[startI]);
+              range.setEndAfter(rangeChildren[endI]);
+              subranges.push(range);
+              startI = null;
             }
+            subranges.push(rangeChildren[i])
           }
         }
+
+        const toInsert = document.createDocumentFragment();
+        subranges.forEach(sub => {
+          if (sub.nodeType) {
+            toInsert.append(sub);
+          } else {
+            const startParent = blockContainer(sub.startContainer);
+            const endParent = blockContainer(sub.endContainer);
+            const sameParent = startParent.isEqualNode(endParent);
+            const rangeData = this.serializeRange(sub);
+            if (!(sameParent && startParent.className == highlightClass)) {
+              if (sub.cloneContents().childElementCount < 2) {
+                const highlight = this.createHighlight(sub.extractContents());
+                if (highlight) {
+                  highlight.dataset.rangeData = rangeData;
+                  toInsert.append(highlight);
+                }
+              } else {
+                const contents = sub.extractContents();
+                const firstSection = this.createHighlight(contents.firstChild.innerHTML);
+                firstSection.classList.add(overflowNextClass);
+                firstSection.dataset.rangeData = rangeData;
+                const lastSection = this.createHighlight(contents.lastChild.innerHTML);
+                lastSection.classList.add(overflowPrevClass);
+                toInsert.append(firstSection)
+                startParent.appendChild(firstSection);
+                endParent.prepend(lastSection);
+                if (contents.childElementCount > 2) {
+                  Array.from(contents.childNodes)
+                    .slice(1, contents.childNodes.length - 1)
+                    .forEach(element => {
+                      const section = this.createHighlight(element);
+                      section.classList.add(overflowPrevClass, overflowNextClass);
+                      toInsert.append(lastSection)
+                    });
+                }
+                toInsert.append(lastSection)
+              }
+          }
+        }})
+        range.insertNode(toInsert)
+
       },
       removeAllHighlights() {
         document.querySelectorAll(`.${highlightClass}`).forEach(this.removeHighlightSpan);
@@ -193,8 +235,8 @@ function Highlightable(rootElementSelector) {
             nextSibling.innerHTML = lastChild.innerHTML + nextSibling.innerHTML;
             lastChild.remove();
           }
-          
-          span.outerHTML = span.innerHTML; 
+
+          span.outerHTML = span.innerHTML;
         }
         alsoRemove.forEach(this.removeHighlightSpan);
       },
