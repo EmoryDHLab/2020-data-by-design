@@ -103,6 +103,10 @@ function Highlightable(rootElementSelector, highlightableElements = ['P']) {
         const startBlock = blockContainer(range.startContainer);
         const endBlock = blockContainer(range.endContainer);
 
+        if (startBlock == endBlock) {
+          return isHighlightable(startBlock) ? [range] : []
+        }
+
         if (startBlock.parentNode != endBlock.parentNode) {
           console.error('start and end blocks not on the same level')
         } else {
@@ -114,47 +118,34 @@ function Highlightable(rootElementSelector, highlightableElements = ['P']) {
           while (!done) {
             if (curr == endBlock) done = true;
             if (isHighlightable(curr)) {
-              console.log("got here 1")
               if (startEl == null) {
                 startEl = curr;
               }
               endEl = curr;
             } else {
-              console.log("curr el not highlightable")
               if (startEl) {
-                const subRange = range.cloneRange();
-                if (startEl != startBlock) {
-                  subRange.setStartBefore(startEl)
-                } else if (startEl == endEl) {
-                  subRange.setEndAfter(subRange.startContainer);
+                // const subRange = range.cloneRange();
+
+                const subRange = document.createRange();
+                subRange.setStartBefore(startEl.firstChild);
+                subRange.setEndAfter(endEl.lastChild)
+                if (startEl == startBlock) {
+                  subRange.setStart(range.startContainer, range.startOffset);
                 }
-                if (endEl != endBlock) {
-                  subRange.setEndAfter(endEl)
-                } else if (startEl == endEl) {
-                  subRange.setStartBefore(subRange.endContainer);
+                if (endEl == endBlock) {
+                  subRange.setEnd(range.endContainer, range.endOffset);
                 }
 
                 startEl = null;
-                console.log("got here two")
                 subranges.push(subRange);
               }
             }
             curr = curr.nextSibling;
-            console.log(curr)
           }
           if (startEl) {
-            console.log("got here three")
             const subRange = range.cloneRange();
             if (startEl != startBlock) {
-              subRange.setStartBefore(startEl)
-            }
-            if (startEl == endEl) {
-              if (startEl == startBlock) {
-                subRange.setEndAfter(subRange.startContainer);
-              }
-              if (endEl == endBlock) {
-                subRange.setStartBefore(subRange.endContainer);
-              }
+              subRange.setStartBefore(startEl.lastChild)
             }
             // subRange.setEnd(range.endContainer, range.endOffset);
             subranges.push(subRange)
@@ -188,11 +179,12 @@ function Highlightable(rootElementSelector, highlightableElements = ['P']) {
         const subranges = this.analyzeRange(initialRange)
 
         if (subranges) subranges.forEach( range => {
-          // debugger;
           const startParent = blockContainer(range.startContainer);
           const endParent = blockContainer(range.endContainer);
           const sameParent = startParent.isEqualNode(endParent);
           const rangeData = this.serializeRange(range);
+          console.dir(range);
+          console.log(range.cloneContents())
 
           if (!(sameParent && startParent.className == highlightClass)) {
             if (range.cloneContents().childElementCount < 2) {
@@ -216,7 +208,7 @@ function Highlightable(rootElementSelector, highlightableElements = ['P']) {
                   .forEach(element => {
                     const section = this.createHighlight(element);
                     section.classList.add(overflowPrevClass, overflowNextClass);
-                    startParent.after(section);
+                    endParent.before(section);
                   });
               }
             }
