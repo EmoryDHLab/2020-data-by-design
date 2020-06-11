@@ -59,17 +59,20 @@ export default {
     onDrop (event) {
       this.$el.classList.remove("dragging");
       event.target.classList.remove("dragging-over");
-      const metadata = event.dataTransfer.getData("metadata");
-      const html = event.dataTransfer.getData("text/html");
-      console.log("metadata: " + metadata);
-      console.log("html: " + html);
-      const prevId = event.dataTransfer.getData("id");
+
+      const newItem = this.currentDragData;
+
+      if (!newItem) {
+        return;
+      }
+
+      // const metadata = event.dataTransfer.getData("metadata");
+      // const html = event.dataTransfer.getData("text/html");
       let insertAt = event.target.dataset.insertAt;
-      if (prevId) {
-        console.log("started searching for prevId " + prevId)
+      const prevId = newItem.notebookId;
+      if (prevId != null) {
         for (let i = 0; i < this.items.length; i++) {
           if (this.items[i].notebookId == prevId) {
-            console.log("found the prevId");
             this.items.splice(i, 1);
             if (i < insertAt) {
               insertAt--;
@@ -78,7 +81,9 @@ export default {
           }
         }
       }
-      const newItem = {html: html, notebookId: prevId ? prevId : this.greatestId + 1, metadata: metadata}
+      if (prevId == null) {
+        newItem.notebookId = this.greatestId + 1;
+      }
       if (insertAt) {
         console.log("insert at " + insertAt);
         this.items.splice(insertAt, 0, newItem)
@@ -123,7 +128,10 @@ export default {
     }
   },
   computed: {
-    ...mapState({ currentNotebookRequest: state => state.notebook.currentNotebookRequest}),
+    ...mapState({
+      currentNotebookRequest: state => state.notebook.currentNotebookRequest,
+      currentDragData: state => state.notebook.currentDragData
+    }),
     ...mapGetters(['isLoggedIn']),
     greatestId () {
       return Math.max(...this.items.map(item => item.notebookId), -1);

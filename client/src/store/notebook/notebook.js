@@ -10,7 +10,8 @@ const Mutations = {
     UPDATE_REQUEST: 'update_notebook',
     UPDATE_SUCCESS: 'update_notebook_success',
     UPDATE_ERROR: 'update'
-  }
+  },
+  START_DRAG: 'start_drag'
 }
 
 const Statuses = {
@@ -67,7 +68,8 @@ export default {
     authErrorMessage: '',
     currentNotebookRequest: [],
     notebookErrorMessage: '',
-    notebookStatus: StatusTypes.CLEAR
+    notebookStatus: StatusTypes.CLEAR,
+    currentDragData: {},
   },
   getters: {
     isLoggedIn: state => !!state.token,
@@ -115,6 +117,9 @@ export default {
       state.notebookStatus = Statuses[Mutations.Notebook.UPDATE_ERROR];
       state.notebookErrorMessage = message || 'error';
     },
+    [Mutations.START_DRAG](state, noteData) {
+      state.currentDragData = noteData;
+    }
   },
 
   actions: {
@@ -221,5 +226,9 @@ export default {
     getCurrentUser() {
       return api.getCurrentUser();
     },
+
+    startDrag({commit}, noteData) {
+      commit(Mutations.START_DRAG, noteData);
+    }
   }
 }

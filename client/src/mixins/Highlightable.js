@@ -1,6 +1,7 @@
 import HighlightContextMenu from "../components/HighlightContextMenu";
 import Vue from 'vue';
 import { mapGetters } from 'vuex'
+import { notebookTypes } from "dxd-common"
 
 const highlightClass = "nb-user-highlight";
 const overflowNextClass = "nb-overflow-next";
@@ -353,8 +354,7 @@ function Highlightable(rootElementSelector, highlightableElements = ['P']) {
             metadata = currEl.dataset.rangeData;
             html = strippedAttributes(currEl).outerHTML;
           }
-          event.dataTransfer.setData("metadata", metadata);
-          event.dataTransfer.setData("text/html", html);
+          this.$store.dispatch("startDrag", {html, metadata, type: notebookTypes.TEXT_HIGHLIGHT})
           if (dragImage)
             event.dataTransfer.setDragImage(dragImage, 0, 0);
 

@@ -1,7 +1,6 @@
 <template>
   <div v-if="item.html" v-html="item.html">
   </div>
-  <div v-else v-text="item.text"></div>
 </template>
 
 <script>
@@ -10,9 +9,7 @@ export default {
     const span = this.$el;
     const onDragStart = (event) => {
       console.log("Dragging!")
-      event.dataTransfer.setData("metadata", this.item.metadata);
-      event.dataTransfer.setData("text/html", this.item.html);
-      event.dataTransfer.setData("id", this.item.notebookId);
+      this.$store.dispatch("startDrag", this.item)
       console.dir(event.target);
       // event.dataTransfer.dropEffect = "link";
     }
