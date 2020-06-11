@@ -5,6 +5,7 @@ import { mapGetters } from 'vuex'
 const highlightClass = "nb-user-highlight";
 const overflowNextClass = "nb-overflow-next";
 const overflowPrevClass = "nb-overflow-prev";
+const dragImageId = "drag-image-ghost";
 
 const blockContainer = node => {
   if (!node) return;
@@ -124,8 +125,6 @@ function Highlightable(rootElementSelector, highlightableElements = ['P']) {
               endEl = curr;
             } else {
               if (startEl) {
-                // const subRange = range.cloneRange();
-
                 const subRange = document.createRange();
                 subRange.setStartBefore(startEl.firstChild);
                 subRange.setEndAfter(endEl.lastChild)
@@ -153,27 +152,6 @@ function Highlightable(rootElementSelector, highlightableElements = ['P']) {
           console.log(subranges)
           return subranges;
         }
-
-        // const subranges = [] //of Ranges and elements. Ranges will be turned into highlights, elements will be kept as is.
-        // for (let i = 0; i < rangeChildren.length; i++) {
-        //   const curr = rangeChildren[i];
-        //   if (isHighlightable(curr)) {
-        //     if (startI == null) {
-        //       startI = i;
-        //     }
-        //     endI = i;
-        //   } else {
-        //     if (startI) {
-        //       const range = document.createRange();
-        //       range.setStartBefore(rangeChildren[startI]);
-        //       range.setEndAfter(rangeChildren[endI]);
-        //       subranges.push(range);
-        //       startI = null;
-        //     }
-        //     subranges.push(rangeChildren[i])
-        //   }
-        // }
-
       },
       createHighlightFromRange(initialRange) {
         const subranges = this.analyzeRange(initialRange)
@@ -315,19 +293,13 @@ function Highlightable(rootElementSelector, highlightableElements = ['P']) {
         span.classList.add(highlightClass);
         span.onclick = this.onClick;
 
-
         //Draggability
+
         const onDragStart = (event) => {
           //We have event.target, which is the element that the user clicked on; let's make sure we get the full highlight span.
-          // let currEl = event.target;
-          // while (currEl.parentElement.id !== "app") {
-          //   if (currEl.classList && currEl.classList.contains(highlightClass)) {
-          //       break;
-          //   }
-          //   currEl = currEl.parentElement;
-          // }
           let currEl = span;
-          let metadata, html;
+          let metadata, html, dragImage;
+
           //Let's make sure we get its connected spans in cases where a highlight overflows into consecutive paragraph(s)
           if (currEl.classList.contains(overflowPrevClass) || currEl.classList.contains(overflowNextClass)) {
             //Treating a JavaScript array as a double-sided queue allows us to efficiently traverse above and below the clicked-on element to find the full flow
@@ -360,12 +332,32 @@ function Highlightable(rootElementSelector, highlightableElements = ['P']) {
               .map(strippedAttributes)
               .map(el => el.outerHTML) //grab the element's html
               .join(' ');
+
+            if (deque.length > 1) {
+              dragImage = document.createElement("div")
+              dragImage.id = dragImageId;
+              dragImage.style.position = "absolute";
+              dragImage.style.top = "-1500px";
+              deque.forEach(el => {
+                if (el != blockContainer(el)) {
+                  const p = document.createElement("p");
+                  p.append(el.cloneNode(true));
+                  dragImage.append(p);
+                } else {
+                  dragImage.append(el.cloneNode(true))
+                }
+              });
+              blockContainer(deque[0]).appendChild(dragImage);
+            }
           } else {
             metadata = currEl.dataset.rangeData;
             html = strippedAttributes(currEl).outerHTML;
           }
           event.dataTransfer.setData("metadata", metadata);
           event.dataTransfer.setData("text/html", html);
+          if (dragImage)
+            event.dataTransfer.setDragImage(dragImage, 0, 0);
+
           function strippedAttributes(el) {
             const clone = el.cloneNode(true);
             Array.from(clone.attributes).forEach(attr => clone.removeAttribute(attr.name));
@@ -374,8 +366,12 @@ function Highlightable(rootElementSelector, highlightableElements = ['P']) {
         }
         span.setAttribute("draggable", "true");
         span.addEventListener("dragstart", onDragStart);
-        return span;
+        span.addEventListener("dragend", e => {
+          const dragImage = document.getElementById(dragImageId);
+          if (dragImage) dragImage.remove();
+        });
 
+        return span;
       },
       serializeRange(range) {
         const pathToElement = (element) => {
