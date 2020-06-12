@@ -1,5 +1,6 @@
 import api from "@/api"
 import StatusTypes from "../status-types"
+import { isValidNotebook, compareNotebooks } from "dxd-common";
 
 const Mutations = {
   AUTH_REQUEST: 'auth_request',
@@ -24,39 +25,7 @@ const Statuses = {
   [Mutations.Notebook.UPDATE_REQUEST]: StatusTypes.ERROR,
 }
 
-const isValidNotebook = notebook => {
-  if (!Array.isArray(notebook)) {
-    return {valid: false, message: "Notebook must be an array"};
-  }
-  notebook.forEach ( (item, index) => {
-    if (!Number.isInteger(item.notebookId)) {
-      return {valid: false, message: `Notebook item of index ${index} must have an integer notebookId property`};
-    }
-    if (typeof item.metadata !== 'string') {
-      return {valid: false, message: `Notebook item of index ${index} must have a string metadata property`};
-    }
-    if (typeof item.html !== 'string') {
-      return {valid: false, message: `Notebook item of index ${index} must have a string html property`};
-    }
-  })
-  return {valid: true}
-}
 
-const compareNotebooks = (nb1, nb2) => {
-  if (nb1.length !== nb2.length) {
-    return false;
-  }
-  for (let i = 0; i < nb1.length; i++) {
-    const item1 = nb1[i];
-    const item2 = nb2[i];
-    if (item1.notebookId !== item2.notebookId
-      || item1.metadata !== item2.metadata
-      || item1.html !== item2.html) {
-      return false;
-    }
-  }
-  return true;
-}
 
 export default {
   // namespaced: true, //makes the members 'notebook/whatever' on the global scope
@@ -189,12 +158,12 @@ export default {
       })
     },
 
-    register({commit}, user) {
+    register({commit, state}, user) {
       return new Promise((resolve, reject) => {
         commit(Mutations.AUTH_REQUEST)
 
-        if (this.currentNotebookRequest) {
-          user.notebook = this.currentNotebookRequest;
+        if (state.currentNotebookRequest) {
+          user.notebook = state.currentNotebookRequest;
         }
 
         api.createUser(user).then(response => {

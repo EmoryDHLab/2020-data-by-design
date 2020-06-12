@@ -13,8 +13,9 @@ const NotebookSchema = new Schema({
   metadata: String,
   type: {
     type: Number,
-    validator: {
-      validate (value) {
+    validate: {
+      validator (value) {
+        console.log("RAN VALIDATE")
         return Object.values(notebookTypes).includes(value);
       },
       message: "{PATH} was {VALUE} but must be a value of the notebookTypes enum"

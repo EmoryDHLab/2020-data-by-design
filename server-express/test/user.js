@@ -32,6 +32,12 @@ describe("User api endpoint", function () {
         password: "testpassword2",
         notebook: [{badNotebookField: 1, anotherBadNotebookField: 2}]
     }
+    let user3 = {
+      email: "testusername3@gmail.com",
+      name: 'Test User3',
+      password: "testPassword3",
+      notebook: [{type: 0, notebookId: 0, html: "testhtml", metadata: "testmetadata"}]
+    }
 
     let token;
     describe('User creation endpoint (POST /api/users/)', function () {
@@ -68,6 +74,19 @@ describe("User api endpoint", function () {
             expect(responseUser.notebook).to.be.an('array').that.has.length(0);
             done();
         });
+        it ('creates a user with notebook field if notebook was specified', function (done) {
+            chai.request(app)
+              .post('/api/users')
+              .set('Content-Type', 'application/json')
+              .send({ user: user3})
+              .end((err, res) => {
+                expect(res).to.have.status(200);
+                expect(res.body).to.have.property('user');
+                expect(res.body.user).to.have.property('notebook');
+                expect(res.body.user.notebook).to.be.an('array').that.equals(user3.notebook)
+                done();
+              });
+        })
         it ('does not allow the creation of a duplicate user', function(done) {
             chai.request(app)
             .post('/api/users')
