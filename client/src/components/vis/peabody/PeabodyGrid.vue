@@ -1,26 +1,30 @@
 <template>
-  <svg :id="id"
-    :width='width'
-    :height='height'
-    :viewBox='getViewBox'>
-    <rect class='bg' :width='getSVGWidth' :height='getSVGWidth'/>
-    <g :style='translateCentury'>
-      <year-square
-        v-for='n in 100'
-        :showSquares='showSquares'
-        :key='n-1'
-        :class='`year-square-${n}`'
-        :style='translateYear(n)'
-        :yearData='getYearData(n)'
-        :year='getYear(n)'/>
-    </g>
-  </svg>
+  <div>
+    <svg :id="id"
+         :width='width'
+         :height='height'
+         :viewBox='getViewBox'>
+      <rect class='bg' :width='getSVGWidth' :height='getSVGWidth'/>
+      <g :style='translateCentury'>
+        <year-square
+          v-for='n in 100'
+          :showSquares='showSquares'
+          :key='n-1'
+          :sizes="options.sizes"
+          :class='`year-square-${n}`'
+          :style='translateYear(n)'
+          :yearData='getYearData(n)'
+          :year='getYear(n)'/>
+      </g>
+    </svg>
+  </div>
+
 </template>
 
 <script>
 import YearSquare from '@/components/vis/peabody/YearSquare'
 import Visualization from '@/mixins/vis/Visualization'
-import { mapMutations } from 'vuex'
+
 const DEFAULT_OPTIONS = {
   sizes: {
     line: {
@@ -36,10 +40,17 @@ export default {
   props: {
     width: String,
     height: String,
+    id: String,
     options: { // styles and other internal visualization stuff
       type: Object,
       required: false,
       default: () => DEFAULT_OPTIONS
+    },
+    staticDataset: {
+      type: String
+    },
+    mutableDataset: {
+      type: String
     },
     dynamicStartYear: {
       type: Boolean,
@@ -50,11 +61,19 @@ export default {
       default: true
     }
   },
-  mixins: [Visualization],
+  mixins: [Visualization({ notebookName: "PeabodyGrid" })],
   components: {
     'year-square': YearSquare
   },
   computed: {
+    // mutableId() {
+    //   if (this.mutable) {
+    //     return this.id;
+    //   }
+    // },
+    formattedData() {
+      return this.dataFormatter(this.data)
+    },
     sizes () {
       return this.options.sizes
     },
@@ -64,6 +83,7 @@ export default {
     yearWidth () {
       return this.evtWidth * 3 + this.sizes.line.md - this.sizes.line.sm
     },
+
     translateCentury () {
       return {
         'transform': 'translate('
@@ -77,7 +97,10 @@ export default {
         + this.sizes.line.lg * 3).toString()
     },
     isEmpty () {
-      return Object.keys(this.formattedData).length === 0
+      if (this.formattedData && typeof this.formattedData === "object") {
+        return Object.keys(this.formattedData).length === 0
+      }
+      return true;
     },
     startYear () {
       if (this.isEmpty) return 0;
@@ -93,7 +116,10 @@ export default {
       return this.startYear + n - 1
     },
     getYearData (n) {
-      return this.formattedData[this.getYear(n)] || {}
+      if (this.formattedData) {
+        return this.formattedData[this.getYear(n)] || {}
+      }
+      return { }
     },
     getYearXFromIndex (ind) {
       let j = ind % 10
@@ -111,16 +137,19 @@ export default {
       }
     },
     dataFormatter (d) {
-      return Object.values(d).reduce((formattedData, curr) => {
-        if (!formattedData[curr.year]) {
-          formattedData[curr.year] = {}
-        }
-        if (!formattedData[curr.year][curr.eventType]) {
-          formattedData[curr.year][curr.eventType] = []
-        }
-        formattedData[curr.year][curr.eventType].push(curr)
-        return formattedData
-      }, {})
+      console.log("ran data formatter!");
+      if (d && typeof d === "object") {
+        return Object.values(d).reduce((formattedData, curr) => {
+          if (!formattedData[curr.year]) {
+            formattedData[curr.year] = {}
+          }
+          if (!formattedData[curr.year][curr.eventType]) {
+            formattedData[curr.year][curr.eventType] = []
+          }
+          formattedData[curr.year][curr.eventType].push(curr)
+          return formattedData
+        }, {})
+      }
     }
   }
 }

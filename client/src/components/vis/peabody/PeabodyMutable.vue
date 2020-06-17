@@ -1,49 +1,68 @@
 <template>
   <PeabodyGrid
-    v-bind="$attrs"
     v-on="$listeners"
     :id="id"
-    :datasetId="datasetId"
+    :isInNotebook="isInNotebook"
+    :width="width"
+    :height="height"
+    :showIndicator="false"
+    :mutableDataset="mutableDataset"
     @event-clicked="handleEventClick"
     />
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
-import DataMutator from '@/mixins/vis/DataMutator'
-import YearSquare from '@/components/vis/peabody/YearSquare'
 import PeabodyGrid from './PeabodyGrid'
+import Visualization from '@/mixins/vis/Visualization'
 
 export default {
-  inheritAttrs: false,
   components: {
     PeabodyGrid
   },
-  mixins: [DataMutator],
+  mixins: [Visualization({notebookName: "PeabodyMutable"})],
   props: {
     color: {
       type: String
     },
+    height: String,
     id: {
+      type: String,
+      required: false
+    },
+    staticDataset: {
+      type: String
+    },
+    mutableDataset: {
       type: String,
       required: true
     }
   },
-  data: () => ({
-    isVis: true
-  }),
   methods: {
     handleEventClick({year, type, data}) {
       if (!data) {
-        this.addData({
-          year,
-          eventType: type,
-          desc:"imposter",
-          color:"#fd1f00"
-        })
+        const toAdd = {year, eventType: type, desc: "imposter", color: "#fd1f00"}
+        this.transform(dataObj => {
+            dataObj[year] = toAdd;
+            return dataObj;
+          }
+        );
       } else {
-        this.removeData(data)
+        this.transform(dataObj => {
+          delete dataObj[year];
+          return dataObj
+        })
       }
+      console.log({year, type, data})
+      // if (!data) {
+      //   this.addData({
+      //     year,
+      //     eventType: type,
+      //     desc:"imposter",
+      //     color:"#fd1f00"
+      //   })
+      // } else {
+      //   this.removeData(data)
+      // }
     }
   }
 }

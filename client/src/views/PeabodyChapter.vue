@@ -12,30 +12,33 @@
         (It's actually a wrap aroud the other vis which extends its functionality)</h3></li>
       <li><h3>The timeline is tied to this mutable dataset on the right</h3></li>
     </ul>
-    <timeline-vis
+    <!-- <timeline-vis
       id='vis2'
       height='200px'
       width='100%'
       :datasetId='currentDataset.toString()'
       @hover-start="hoverStart"
-      @hover-end="hoverEnd"/>
+      @hover-end="hoverEnd"/> -->
     <div style="display:flex;">
       <peabody-grid
-        @hover-start="hoverStart"
-        @hover-end="hoverEnd"
-        id='peabody-vis-1'
+        :id="'peabody-vis-1'"
         style='flex: 1'
         width='45vh'
         height='45vh'
-        :datasetId='"0"'/>
+        :mutableDataset="'my-peabody'"
+        :staticDataset='"1"'/>
       <peabody-mutable
         id='peabody-vis-2'
         style='flex: 1'
-        width='45vh'
+        :width="'45vh'"
         height='45vh'
-        :datasetId='currentDataset.toString()'
-        @hover-start="hoverStart"
-        @hover-end="hoverEnd"/>
+        :staticDataset='"1"'
+        :mutableDataset="'my-peabody'"
+      />
+
+<!--        @hover-start="hoverStart"-->
+<!--        @hover-end="hoverEnd"-->
+
     </div>
     <p ref="part0.0">To us today, accustomed to the charts and graphs of Microsoft Excel, or the interactive graphics that we find on <a href='https://www.nytimes.com/'>The New York Times</a> (dot com) on any given day, we perceive schemas like this as opaque and illegible. They do none of the things that we think that visualization should do: be clear and intuitive, yield immediate insight, or facilitate making sense of the underlying data. But further questions remain: why have we become conditioned to think that visualization should do these things, and only these things? How has this perspective come to be embedded in our visual culture? And most importantly for us here today, what would it mean if we could view images like these, from the archive of data visualization, instead as pathways to alternate futures? What additional visual schemas could we envision, and what additional stories could we tell, if we did?</p>
     <p ref="part0.1">So I’m going to inhabit my method, and frame my talk today in terms of an alternate history. First, I’ll walk you through the visual schema that you see above-left, proposed by Peabody in 1856. Then I’ll talk about some of the more speculative work I’ve done in attempting to reimagine her schema in both digital and physical form. And then I’ll try to explain what I’m after by describing this work, as you saw in the title of this talk, as feminist—</p>
@@ -64,12 +67,17 @@
     <p ref="part3.0">But what if we understood the purpose of visualization differently? What if we were supposed to stop and think hard about what we were seeing, and what it meant?</p>
     <p ref="part3.1">For my part, I’ve been thinking about Peabody’s charts in their most striking instantiation—those mural charts on the floor—and how they demand a different mode of sensory engagement altogether. They replace the decorative and utilitarian function of a rug with an experience designed to generate knowledge, and in so doing, they require viewers to reconsider the actual position of their bodies in relation to their objects of knowledge.</p>
     <p ref="part3.2">This feature has prompted me to undertake a second project to implement a floor-size version of Peabody’s charts, which you can see at lest in some very early phases. (You can read about our current progress on the <a href='http://dhlab.lmc.gatech.edu/category/peabodyvis/'>DH Lab blog</a>). So in the top image, you see a matrix composed of 900 individually addressable LEDs, and in the bottom, you see the touch interface that we’re developing, which makes use of conductive tape and neoprene in an almost matrix-like keyboard interaction, so that you’ll be able to toggle each square off and on. And as my students and I carefully measure each strip of tape, and solder each part of each circuit together, I think back to Peabody’s own process of fabrication.</p>
+    <div>THIS DIV IN NOT HIGHLIGHTABLE!!!</div>
     <p ref="part3.3">When I mentioned that she made floor-sized versions of the charts as a sort of marketing ploy, what I didn’t mention was that, as an additional incentive, she promised a handmade chart to any classroom that purchased the book. Writing to a friend in 1850, Peabody revealed that she was “aching from the fatigue” of making the charts for each school. She described how she would stencil shapes and colors onto a large piece of fabric, and how a single one took her 15 hours. As you can see from the text of the letter, she yearned for her book to become profitable so that she could hire someone to “do this drudgery for [her].”</p>
     <p ref="part4.0">It speaks both to poor book sales, and to the perceived lack of value of the charts, that none have been preserved. But what we do have, in letters like these, is evidence of the actual physical labor, as well as of the knowledge work, involved in producing these charts. And more specifically, with her references to the fabric and to the drudgery, it’s labor in feminized form.</p>
     <p ref="part4.1">Let me take some time unpack this, because it’s this observation that I want to end with, as I return to the question of alternate histories, and their impact on how we produce knowledge.</p>
+    <div>I'm not highlightable!</div>
+    <div>Neither am I!</div>
+    <p>Highlight me!</p>
+    <div>But not me!</div>
     <p ref="part4.2">A lot of people—or, well, the handful who have ever thought to comment on Peabody’s work—observe that Peabody’s charts look like Mondrian paintings. And it’s true that, in their abstraction, they evoke the modernist grid. But thinking about the feminized labor of making the charts brings to mind a second point of reference, which is quilting.</p>
     <p ref="part4.3">What you see here (above) are two quilts from the area of Alabama known as <a href='http://www.soulsgrowndeep.org/gees-bend-quiltmakers'>Gee’s Bend</a>. These quilts, created by a close-knit community of African American women in years that span the twentieth century, have in fact <a href='http://www.richardkalina.net/wp-content/uploads/2010/11/Gees_Bend_October_2003.pdf'>recently been posited</a> as offering an alternate genealogy of modernism. This genealogy derives from folk art and vernacular culture, and centers this community of women who would otherwise be placed far to the side in the story of modernist art.</p>
-    <p>You might already be starting to guess where I am going with this line of thought—Peabody in relation to standard accounts of data visualization; the women of Gee’s Bend in relation to Mondrian. And it’s true—women’s work of all kinds, be it education or quilting, has long been excised from the dominant accounts of their fields.</p>
+    <p id="testid">You might already be starting to guess where I am going with this line of thought—Peabody in relation to standard accounts of data visualization; the women of Gee’s Bend in relation to Mondrian. And it’s true—women’s work of all kinds, be it education or quilting, has long been excised from the dominant accounts of their fields.</p>
     <p>But there’s another aspect of this comparison that I want to draw out—which is how both the quilts of Gee’s Bend, and charts of Elizabeth Peabody, offer alternative systems of knowledge-making. Both employ shape and color to visually represent events in the world. And both, also, rely upon sense perception—and more specifically, the tactile experiences of the body—in order to assimilate those shapes and colors into knowledge. In her textbook, Peabody even talks about things like pleasure, and she emphatically rejected the idea of a single interpretation of history in favor of an exchange between the subject and object of knowledge. For Peabody, the abstraction of the grid was preferable to a more mimetic form because it “left scope for a little narration.” In other words, she believed that if her visualizations provided the contours of history, the viewer could then—both literally and figuratively—color them in.</p>
     <p>And therein lies her principal lesson: about what information constitutes knowledge, about how that knowledge is perceived, and about who is authorized to produce it. That, to me, is why this project—the historical part and the technical one—is a feminist one. Because it brings renewed attention to the role of interpretation, and to the modes of knowing outside of what we’d typically consider to be visualizable, such as intuition, or affect, or embodiment.</p>
     <p>As humanists, we’ve been trained to recognize the value of these alternate forms of knowledge, just as we’ve been trained to register the people, like Peabody, who stand on the periphery of the archive. These are often people whose stories we would otherwise lack sufficient evidence to be able to bring to light, whether it’s evidence in the form of data, or just the archival record.</p>
@@ -99,7 +107,7 @@ export default {
     PeabodyMutable,
     ChapterScaffold,
     PeabodyTutorial,
-    TimelineVis
+    // TimelineVis
   },
   mixins: [Highlightable(".chapter__main")],
   data() {
@@ -152,12 +160,6 @@ export default {
     },
     mountDatasets() {
       return this.$store.dispatch("loadDatasets");
-    },
-    addData(data) {
-      this.$store.commit(mutations.ADD_DATA, { id: this.currentDataset, data });
-    },
-    removeData(data) {
-      this.$store.commit(mutations.REMOVE_DATA, { id: this.currentDataset, data })
     },
     scrollMeTo(part) {
         let element = this.$refs[part];

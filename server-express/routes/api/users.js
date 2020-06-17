@@ -7,7 +7,7 @@ const Users = mongoose.model('Users');
 router.get('/', auth.optional, (req, res, next) => { return res.status(200).end() } )
 //POST new user route (optional, everyone has access)
 router.post('/', auth.optional, (req, res, next) => {
-  //TODO: Advanced server-side validation, probably with express-validator
+  //TODO: Advanced server-side validation using Mongoose Schemas
   const { body: { user } } = req;
   try {
     if(!user.email) {
@@ -43,7 +43,8 @@ router.post('/', auth.optional, (req, res, next) => {
         finalUser.setPassword(user.password);
 
         return finalUser.save()
-          .then(() => res.json({ user: finalUser.toAuthJSON() }));
+          .then(() => res.json({ user: finalUser.toAuthJSON() }))
+          .catch(err => res.status(422).json(err));
       }
     });
   } catch (error) {
@@ -116,16 +117,34 @@ router.get('/current/notebook', auth.required, (req, res, next) => {
 router.post('/current/notebook', auth.required, (req, res, next) => {
   const id = req.payload.id;
   const notebook = req.body.notebook;
-  console.log("Notebook");
-  console.log(notebook);
+  const data = req.body.data || req.body.mutableData;
+  const updateObj = {...notebook && {notebook: notebook}, ...data && {mutableData: data}}
 
-  return Users.findByIdAndUpdate(id, {notebook: notebook}, {new: true})
+  return Users.findByIdAndUpdate(id, updateObj, {new: true, runValidators: true})
     .then((user) => {
       if(!user) {
         return res.sendStatus(400);
       }
-
       return res.json(user.notebookJSON());
+    })
+    .catch( err => {
+      res.status(422).json(err);
     });
 });
+
+// router.post('/current/data', auth.required, (req, res, next) => {
+//   const id = req.payload.id;
+//   const data = req.body.data;
+//
+//   return Users.findByIdAndUpdate(id, {data: data}, {new: true, runValidators: true})
+//     .then((user) => {
+//       if(!user) {
+//         return res.sendStatus(400);
+//       }
+//       return res.json(user.notebookJSON());
+//     })
+//     .catch( err => {
+//       res.status(422).json(err);
+//     });
+// });
 module.exports = router;

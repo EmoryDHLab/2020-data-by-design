@@ -1,10 +1,12 @@
 import HighlightContextMenu from "../components/HighlightContextMenu";
 import Vue from 'vue';
 import { mapGetters } from 'vuex'
+import { notebookTypes } from "dxd-common"
 
 const highlightClass = "nb-user-highlight";
 const overflowNextClass = "nb-overflow-next";
 const overflowPrevClass = "nb-overflow-prev";
+const dragImageId = "drag-image-ghost";
 
 const blockContainer = node => {
   if (!node) return;
@@ -17,7 +19,7 @@ const blockContainer = node => {
   return blockContainer(node.parentElement);
 }
 
-function Highlightable(rootElementSelector) {
+function Highlightable(rootElementSelector, highlightableElements = ['P']) {
   return {
     created: function () {
       this.log("Highlightable Mixin Initialized");
@@ -92,40 +94,107 @@ function Highlightable(rootElementSelector) {
         element.style.left = event.clientX + "px";
         element.style.top = totalHeight + "px";
       },
-      createHighlightFromRange(range) {
+      analyzeRange(range) {
+        const isHighlightable = (el) => {
+          const container = blockContainer(el);
+          if (!container) return false;
+          const allowed = highlightableElements.map(el => el.toUpperCase());
+          return allowed.includes(container.tagName.toUpperCase())
+        }
 
-        const startParent = blockContainer(range.startContainer);
-        const endParent = blockContainer(range.endContainer);
-        const sameParent = startParent.isEqualNode(endParent);
-        const rangeData = this.serializeRange(range);
+        const startBlock = blockContainer(range.startContainer);
+        const endBlock = blockContainer(range.endContainer);
 
-        if (!(sameParent && startParent.className == highlightClass)) {
-          if (range.cloneContents().childElementCount < 2) {
-            const highlight = this.createHighlight(range.extractContents());
-            if (highlight) {
-              highlight.dataset.rangeData = rangeData;
-              range.insertNode(highlight);
+        if (startBlock == endBlock) {
+          return isHighlightable(startBlock) ? [range] : []
+        }
+
+        if (startBlock.parentNode != endBlock.parentNode) {
+          console.error('start and end blocks not on the same level')
+        } else {
+          const subranges = [];
+          let startEl = isHighlightable(startBlock) ? startBlock : null;
+          let endEl = startEl;
+          let curr = startBlock.nextSibling;
+          let done = false;
+          while (!done) {
+            if (curr == endBlock) done = true;
+            if (isHighlightable(curr)) {
+              if (startEl == null) {
+                startEl = curr;
+              }
+              endEl = curr;
+            } else {
+              if (startEl) {
+                const subRange = document.createRange();
+                subRange.setStartBefore(startEl.firstChild);
+                subRange.setEndAfter(endEl.lastChild)
+                if (startEl == startBlock) {
+                  subRange.setStart(range.startContainer, range.startOffset);
+                }
+                if (endEl == endBlock) {
+                  subRange.setEnd(range.endContainer, range.endOffset);
+                }
+
+                startEl = null;
+                subranges.push(subRange);
+              }
             }
-          } else {
-            const contents = range.extractContents();
-            const firstSection = this.createHighlight(contents.firstChild.innerHTML);
-            firstSection.classList.add(overflowNextClass);
-            firstSection.dataset.rangeData = rangeData;
-            const lastSection = this.createHighlight(contents.lastChild.innerHTML);
-            lastSection.classList.add(overflowPrevClass);
-            startParent.appendChild(firstSection);
-            endParent.prepend(lastSection);
-            if (contents.childElementCount > 2) {
-              Array.from(contents.childNodes)
-                .slice(1, contents.childNodes.length - 1)
-                .forEach(element => {
-                  const section = this.createHighlight(element);
-                  section.classList.add(overflowPrevClass, overflowNextClass);
-                  startParent.after(section);
-                });
+            curr = curr.nextSibling;
+          }
+          if (startEl) {
+            const subRange = range.cloneRange();
+            if (startEl != startBlock) {
+              subRange.setStartBefore(startEl.lastChild)
+            }
+            // subRange.setEnd(range.endContainer, range.endOffset);
+            subranges.push(subRange)
+          }
+          console.log(subranges)
+          return subranges;
+        }
+      },
+      createHighlightFromRange(initialRange) {
+        const subranges = this.analyzeRange(initialRange)
+
+        if (subranges) subranges.forEach( range => {
+          const startParent = blockContainer(range.startContainer);
+          const endParent = blockContainer(range.endContainer);
+          const sameParent = startParent.isEqualNode(endParent);
+          const rangeData = this.serializeRange(range);
+          console.dir(range);
+          console.log(range.cloneContents())
+
+          if (!(sameParent && startParent.className == highlightClass)) {
+            if (range.cloneContents().childElementCount < 2) {
+              const highlight = this.createHighlight(range.extractContents());
+              if (highlight) {
+                highlight.dataset.rangeData = rangeData;
+                range.insertNode(highlight);
+              }
+            } else {
+              const contents = range.extractContents();
+              const firstSection = this.createHighlight(contents.firstChild.innerHTML);
+              firstSection.classList.add(overflowNextClass);
+              firstSection.dataset.rangeData = rangeData;
+              const lastSection = this.createHighlight(contents.lastChild.innerHTML);
+              lastSection.classList.add(overflowPrevClass);
+              startParent.appendChild(firstSection);
+              endParent.prepend(lastSection);
+              if (contents.childElementCount > 2) {
+                Array.from(contents.childNodes)
+                  .slice(1, contents.childNodes.length - 1)
+                  .forEach(element => {
+                    const section = this.createHighlight(element);
+                    section.classList.add(overflowPrevClass, overflowNextClass);
+                    endParent.before(section);
+                  });
+              }
             }
           }
-        }
+        })
+
+
       },
       removeAllHighlights() {
         document.querySelectorAll(`.${highlightClass}`).forEach(this.removeHighlightSpan);
@@ -193,8 +262,8 @@ function Highlightable(rootElementSelector) {
             nextSibling.innerHTML = lastChild.innerHTML + nextSibling.innerHTML;
             lastChild.remove();
           }
-          
-          span.outerHTML = span.innerHTML; 
+
+          span.outerHTML = span.innerHTML;
         }
         alsoRemove.forEach(this.removeHighlightSpan);
       },
@@ -225,19 +294,13 @@ function Highlightable(rootElementSelector) {
         span.classList.add(highlightClass);
         span.onclick = this.onClick;
 
-
         //Draggability
+
         const onDragStart = (event) => {
           //We have event.target, which is the element that the user clicked on; let's make sure we get the full highlight span.
-          // let currEl = event.target;
-          // while (currEl.parentElement.id !== "app") {
-          //   if (currEl.classList && currEl.classList.contains(highlightClass)) {
-          //       break;
-          //   }
-          //   currEl = currEl.parentElement;
-          // }
           let currEl = span;
-          let metadata, html;
+          let metadata, html, dragImage;
+
           //Let's make sure we get its connected spans in cases where a highlight overflows into consecutive paragraph(s)
           if (currEl.classList.contains(overflowPrevClass) || currEl.classList.contains(overflowNextClass)) {
             //Treating a JavaScript array as a double-sided queue allows us to efficiently traverse above and below the clicked-on element to find the full flow
@@ -270,12 +333,31 @@ function Highlightable(rootElementSelector) {
               .map(strippedAttributes)
               .map(el => el.outerHTML) //grab the element's html
               .join(' ');
+
+            if (deque.length > 1) {
+              dragImage = document.createElement("div")
+              dragImage.id = dragImageId;
+              dragImage.style.position = "absolute";
+              dragImage.style.top = "-1500px";
+              deque.forEach(el => {
+                if (el != blockContainer(el)) {
+                  const p = document.createElement("p");
+                  p.append(el.cloneNode(true));
+                  dragImage.append(p);
+                } else {
+                  dragImage.append(el.cloneNode(true))
+                }
+              });
+              blockContainer(deque[0]).appendChild(dragImage);
+            }
           } else {
             metadata = currEl.dataset.rangeData;
             html = strippedAttributes(currEl).outerHTML;
           }
-          event.dataTransfer.setData("metadata", metadata);
-          event.dataTransfer.setData("text/html", html);
+          this.$store.dispatch("startDrag", {html, metadata, type: notebookTypes.TEXT_HIGHLIGHT})
+          if (dragImage)
+            event.dataTransfer.setDragImage(dragImage, 0, 0);
+
           function strippedAttributes(el) {
             const clone = el.cloneNode(true);
             Array.from(clone.attributes).forEach(attr => clone.removeAttribute(attr.name));
@@ -284,8 +366,12 @@ function Highlightable(rootElementSelector) {
         }
         span.setAttribute("draggable", "true");
         span.addEventListener("dragstart", onDragStart);
-        return span;
+        span.addEventListener("dragend", e => {
+          const dragImage = document.getElementById(dragImageId);
+          if (dragImage) dragImage.remove();
+        });
 
+        return span;
       },
       serializeRange(range) {
         const pathToElement = (element) => {

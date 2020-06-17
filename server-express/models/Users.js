@@ -1,15 +1,37 @@
 const mongoose = require('mongoose');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
+const notebookTypes = require('dxd-common').notebookTypes;
 
 const { Schema } = mongoose;
 
+console.log(notebookTypes);
+
+const NotebookSchema = new Schema({
+  html: String,
+  notebookId: Number,
+  metadata: String,
+  type: {
+    type: Number,
+    validate: {
+      validator (value) {
+        console.log("RAN VALIDATE")
+        return Object.values(notebookTypes).includes(value);
+      },
+      message: "{PATH} was {VALUE} but must be a value of the notebookTypes enum"
+    },
+    required: true
+  },
+  data: Object,
+  attachedId: Number
+})
 const UsersSchema = new Schema({
   email: String,
   name: String,
   hash: String,
   salt: String,
-  notebook: [{html: String, notebookId: Number, metadata: String}]
+  notebook: [NotebookSchema],
+  mutableData: Object,
 });
 
 UsersSchema.methods.setPassword = function(password) {
@@ -40,6 +62,7 @@ UsersSchema.methods.toAuthJSON = function() {
     email: this.email,
     name: this.name,
     notebook: this.notebook,
+    mutableData: this.mutableData,
     token: this.generateJWT(),
   };
 };

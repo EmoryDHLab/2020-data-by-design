@@ -37,10 +37,12 @@ export default {
   getCurrentUser () {
     return axios.get(`/api/users/current`)
   },
-  updateNotebook (notebookArray) {
-    console.log(notebookArray);
-    return axios.post('/api/users/current/notebook/', {notebook: notebookArray});
+  updateNotebook (updateObj /* {notebook: [], data: {} */) {
+    return axios.post('/api/users/current/notebook/', updateObj);
   },
+  // updateMutableData (mutableData) {
+  //   return axios.post('/api/users/current/data/', mutableData)
+  // },
   createUser (user) {
     console.log(window.location.origin + '/api/users/');
     return axios.post('/api/users/', {user: user})

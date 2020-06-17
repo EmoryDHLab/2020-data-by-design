@@ -1,4 +1,7 @@
 import api from "@/api"
+import StatusTypes from "../status-types"
+import { isValidNotebook, compareNotebooks } from "dxd-common";
+import mutableStore from "../mutable/index.js"
 
 const Mutations = {
   AUTH_REQUEST: 'auth_request',
@@ -9,14 +12,9 @@ const Mutations = {
     UPDATE_REQUEST: 'update_notebook',
     UPDATE_SUCCESS: 'update_notebook_success',
     UPDATE_ERROR: 'update'
-  }
-}
-
-const StatusTypes = {
-  CLEAR:     0,
-  REQUESTED: 1,
-  SUCCESS:   2,
-  ERROR:     3,
+  },
+  START_DRAG: 'start_drag',
+  END_DRAG: 'end_drag'
 }
 
 const Statuses = {
@@ -29,39 +27,7 @@ const Statuses = {
   [Mutations.Notebook.UPDATE_REQUEST]: StatusTypes.ERROR,
 }
 
-const isValidNotebook = notebook => {
-  if (!Array.isArray(notebook)) {
-    return {valid: false, message: "Notebook must be an array"};
-  }
-  notebook.forEach ( (item, index) => {
-    if (!Number.isInteger(item.notebookId)) {
-      return {valid: false, message: `Notebook item of index ${index} must have an integer notebookId property`};
-    }
-    if (typeof item.metadata !== 'string') {
-      return {valid: false, message: `Notebook item of index ${index} must have a string metadata property`};
-    }
-    if (typeof item.html !== 'string') {
-      return {valid: false, message: `Notebook item of index ${index} must have a string html property`};
-    }
-  })
-  return {valid: true}
-}
 
-const compareNotebooks = (nb1, nb2) => {
-  if (nb1.length !== nb2.length) {
-    return false;
-  }
-  for (let i = 0; i < nb1.length; i++) {
-    const item1 = nb1[i];
-    const item2 = nb2[i];
-    if (item1.notebookId !== item2.notebookId
-      || item1.metadata !== item2.metadata
-      || item1.html !== item2.html) {
-      return false;
-    }
-  }
-  return true;
-}
 
 export default {
   // namespaced: true, //makes the members 'notebook/whatever' on the global scope
@@ -72,15 +38,21 @@ export default {
     notebook: [],
     authErrorMessage: '',
     currentNotebookRequest: [],
+    currentMutableDataRequest: {},
     notebookErrorMessage: '',
-    notebookStatus: StatusTypes.CLEAR
+    notebookStatus: StatusTypes.CLEAR,
+    currentDragData: {},
+  },
+  modules: {
+    mutableStore: Object.assign({ namespaced: true }, mutableStore)
   },
   getters: {
     isLoggedIn: state => !!state.token,
     authStatus: state => state.authStatus,
     authError: state => state.authStatus === Statuses[Mutations.AUTH_ERROR] ? state.authErrorMessage : '',
     username: state => state.user.name,
-    notebook: state => state.notebook
+    notebook: state => state.notebook,
+    mutableData: state => state.user.mutableData
   },
   mutations: {
     [Mutations.AUTH_REQUEST](state) {
@@ -106,47 +78,66 @@ export default {
       state.authErrorMessage = '';
       state.notebook = [];
     },
-    [Mutations.Notebook.UPDATE_REQUEST](state, notebook) {
+    [Mutations.Notebook.UPDATE_REQUEST](state, {notebook, data}) {
       state.notebookStatus = Statuses[Mutations.Notebook.UPDATE_REQUEST];
       state.currentNotebookRequest = notebook;
+      state.currentMutableDataRequest = data;
       state.notebookErrorMessage = '';
     },
     [Mutations.Notebook.UPDATE_SUCCESS](state, notebook) {
       state.notebookStatus = Statuses[Mutations.Notebook.UPDATE_SUCCESS];
       state.notebook = notebook;
-      state.currentNotebookRequest = '';
+      state.currentNotebookRequest = [];
+      state.currentMutableDataRequest = {};
       state.notebookErrorMessage = '';
     },
     [Mutations.Notebook.UPDATE_ERROR](state, message) {
       state.notebookStatus = Statuses[Mutations.Notebook.UPDATE_ERROR];
       state.notebookErrorMessage = message || 'error';
     },
+    [Mutations.START_DRAG](state, noteData) {
+      state.currentDragData = noteData;
+    },
+    [Mutations.END_DRAG](state) {
+      state.currentDragData = {};
+    }
   },
 
   actions: {
+    updateNotebook({commit, state, getters}, {notebookArray, mutableData}) {
+      if (!notebookArray && !mutableData) return;
 
-    updateNotebook({commit, state, getters}, notebookArray) {
+      if (notebookArray) {
+        const validate = isValidNotebook(notebookArray);
+        if (!validate.valid) {
+          return validate.message;
+        }
+      }
       if (!getters.isLoggedIn) {
         //If the user isn't logged in, save the notebook to be passed to the server on signup
-        this.currentNotebookRequest = notebookArray;
+        if (notebookArray)
+          state.currentNotebookRequest = notebookArray;
+        if (mutableData)
+          state.currentMutableDataRequest = mutableData;
         return;
       }
-      const validate = isValidNotebook(notebookArray);
-      if (!validate.valid) {
-        return validate.message;
+
+      const sameNotebook = compareNotebooks(notebookArray, state.currentNotebookRequest);
+      const toSend = {
+        ...(notebookArray && !sameNotebook) && {notebook: notebookArray},
+        ...mutableData && {data: mutableData}
       }
-      if (!compareNotebooks(notebookArray, state.currentNotebookRequest)) {
-        return new Promise((resolve, reject) => {
-          commit(Mutations.Notebook.UPDATE_REQUEST, notebookArray);
-          api.updateNotebook(notebookArray).then(response => {
-            commit(Mutations.Notebook.UPDATE_SUCCESS, notebookArray);
-            resolve(response);
-          }).catch(error => {
-            commit(Mutations.Notebook.UPDATE_ERROR);
-            reject(error);
-          })
+
+      return new Promise((resolve, reject) => {
+        commit(Mutations.Notebook.UPDATE_REQUEST, toSend);
+        api.updateNotebook(toSend).then(response => {
+          commit(Mutations.Notebook.UPDATE_SUCCESS, toSend);
+          resolve(response);
+        }).catch(error => {
+          commit(Mutations.Notebook.UPDATE_ERROR);
+          reject(error);
         })
-      }
+      })
     },
 
     logout({commit}) {
@@ -191,12 +182,15 @@ export default {
       })
     },
 
-    register({commit}, user) {
+    register({commit, state}, user) {
       return new Promise((resolve, reject) => {
         commit(Mutations.AUTH_REQUEST)
 
-        if (this.currentNotebookRequest) {
-          user.notebook = this.currentNotebookRequest;
+        if (state.currentNotebookRequest) {
+          user.notebook = state.currentNotebookRequest;
+        }
+        if (state.currentMutableDataRequest) {
+          user.mutableData = state.currentMutableDataRequest;
         }
 
         api.createUser(user).then(response => {
@@ -228,5 +222,21 @@ export default {
     getCurrentUser() {
       return api.getCurrentUser();
     },
+
+    startDrag({commit}, noteData) {
+      commit(Mutations.START_DRAG, noteData);
+    },
+
+    completeDrag({commit, state, getters, dispatch}) {
+      const mutableId = state.currentDragData.data && state.currentDragData.data.mutable;
+      if (mutableId) {
+        if (!getters['mutableStore/isRegisteredMutable'](mutableId) &&
+          getters['mutable/isRegisteredMutable'](mutableId)) {
+          const lastData = getters['mutable/getMutableData'](mutableId);
+          dispatch('mutableStore/registerMutableData', { id: mutableId, data: lastData})
+        }
+      }
+      commit(Mutations.END_DRAG);
+    }
   }
 }

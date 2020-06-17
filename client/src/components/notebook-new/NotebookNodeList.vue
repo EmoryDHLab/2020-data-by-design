@@ -15,9 +15,11 @@
 
 <script>
 
+import { notebookTypes } from "dxd-common"
+
 import ListItem from "./NotebookNodeListItem"
 import AddNew from "./NotebookNodeAddNew.vue"
-import { mapGetters } from "vuex"
+import { mapGetters, mapState, mapActions } from "vuex"
 
 export default {
   components: {
@@ -34,6 +36,8 @@ export default {
     this.registerDropTargetEvents();
   },
   methods: {
+    ...mapActions(["completeDrag"]),
+    ...mapActions("mutableStore", ["loadMutableData"]),
     addNoteTop(note) {
       this.addNote(note, true);
     },
@@ -43,9 +47,10 @@ export default {
     addNote(note, addToTop = false) {
       const id = this.greatestId + 1;
       const newItem = {
-        html: `<span class='note'>${note}</span>`,
+        html: note,
         notebookId: id,
-        metadata: `usernote/${id}`
+        type: notebookTypes.TYPED_NOTE,
+        metadata: 'usernote'
       }
       if (addToTop) {
         this.items.unshift(newItem)
@@ -56,17 +61,20 @@ export default {
     onDrop (event) {
       this.$el.classList.remove("dragging");
       event.target.classList.remove("dragging-over");
-      const metadata = event.dataTransfer.getData("metadata");
-      const html = event.dataTransfer.getData("text/html");
-      console.log("metadata: " + metadata);
-      console.log("html: " + html);
-      const prevId = event.dataTransfer.getData("id");
+
+      const newItem = this.currentDragData;
+
+      if (!newItem) {
+        return;
+      }
+
+      this.completeDrag();
+
       let insertAt = event.target.dataset.insertAt;
-      if (prevId) {
-        console.log("started searching for prevId " + prevId)
+      const prevId = newItem.notebookId;
+      if (prevId != null) {
         for (let i = 0; i < this.items.length; i++) {
           if (this.items[i].notebookId == prevId) {
-            console.log("found the prevId");
             this.items.splice(i, 1);
             if (i < insertAt) {
               insertAt--;
@@ -75,7 +83,9 @@ export default {
           }
         }
       }
-      const newItem = {html: html, notebookId: prevId ? prevId : this.greatestId + 1, metadata: metadata}
+      if (prevId == null) {
+        newItem.notebookId = this.greatestId + 1;
+      }
       if (insertAt) {
         console.log("insert at " + insertAt);
         this.items.splice(insertAt, 0, newItem)
@@ -120,6 +130,11 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      // currentNotebookRequest: state => state.notebook.currentNotebookRequest,
+      currentDragData: state => state.notebook.currentDragData,
+      mutableData: state => state.notebook.mutableStore.mutableData
+    }),
     ...mapGetters(['isLoggedIn']),
     greatestId () {
       return Math.max(...this.items.map(item => item.notebookId), -1);
@@ -146,7 +161,13 @@ export default {
     items: {
       handler (val) {
         // const nonReactiveCopy = this.items.map(obj => ({html: obj.item, notebookId: obj.notebookId, metadata: obj.metadata}))
-        this.$store.dispatch('updateNotebook', this.items);
+        this.$store.dispatch('updateNotebook', {notebookArray: this.items});
+      },
+      deep: true
+    },
+    mutableData: {
+      handler (val) {
+        this.$store.dispatch('updateNotebook', {mutableData: val })
       },
       deep: true
     },
@@ -154,11 +175,20 @@ export default {
       handler (isLoggedIn) {
         if (isLoggedIn)  {
           this.items = this.$store.getters.notebook;
+          this.loadMutableData(this.$store.getters.mutableData);
         } else {
           this.items = []
         }
       }
-    }
+    },
+    // Vuex State
+    // currentNotebookRequest: {
+    //   handler (newNotebook) {
+    //     if (newNotebook.length > this.items.length)
+    //     this.items = newNotebook;
+    //   },
+    //   deep: true
+    // }
   }
 }
 </script>

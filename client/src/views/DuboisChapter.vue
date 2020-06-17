@@ -99,12 +99,6 @@ export default {
     mountDatasets () {
       return this.$store.dispatch('loadDatasets')
     },
-    addData (data) {
-      this.$store.commit(mutations.ADD_DATA, { id: this.currentDataset, data })
-    },
-    removeData(data) {
-      this.$store.commit(mutations.REMOVE_DATA, { id: this.currentDataset, data })
-    },
     scrollMeTo(part) {
         let element = this.$refs[part];
         let top = element.offsetTop;

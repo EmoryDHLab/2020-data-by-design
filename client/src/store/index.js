@@ -1,20 +1,24 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import dataset from './dataset/index.js'
+import datasetOld from './dataset/index.js'
 import notebook from './notebook/notebook.js'
 import user from './user-old/index.js'
-// import notebook from './notebook-old/index.js'
+import mutable from './mutable/index.js'
+import dataset from './dataset-new/index.js'
 import chapters from './chapters/index.js'
 
 Vue.use(Vuex)
 
+const namespaced = module => Object.assign(module, { namespaced: true });
 
 const store = new Vuex.Store({
   modules: {
-    dataset,
+    mutable: namespaced(mutable),
     notebook,
     user,
-    chapters
+    chapters,
+    datasetOld,
+    dataset: namespaced(dataset),
   },
   state: {
     errors: []
