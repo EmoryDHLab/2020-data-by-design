@@ -41,6 +41,9 @@ export default {
     console.log(notebookArray);
     return axios.post('/api/users/current/notebook/', {notebook: notebookArray});
   },
+  // updateMutableData (mutableData) {
+  //   return axios.post('/api/users/current/data/', mutableData)
+  // },
   createUser (user) {
     console.log(window.location.origin + '/api/users/');
     return axios.post('/api/users/', {user: user})

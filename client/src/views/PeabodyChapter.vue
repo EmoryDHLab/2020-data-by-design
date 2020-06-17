@@ -25,6 +25,7 @@
         style='flex: 1'
         width='45vh'
         height='45vh'
+        :mutableDataset="'my-peabody'"
         :staticDataset='"1"'/>
       <peabody-mutable
         id='peabody-vis-2'
@@ -34,6 +35,7 @@
         :staticDataset='"1"'
         :mutableDataset="'my-peabody'"
       />
+
 <!--        @hover-start="hoverStart"-->
 <!--        @hover-end="hoverEnd"-->
 

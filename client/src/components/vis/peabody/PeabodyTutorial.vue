@@ -3,6 +3,7 @@
     <div class='tutorial-flex' :class="{'tutorial-flex-center': slideNumber === 2}">
       <PeabodyGrid class='the-grid'
         :class='gridClasses'
+        :showIndicator="false"
         ref='grid'
         v-bind='$attrs'
         v-on='$listeners'

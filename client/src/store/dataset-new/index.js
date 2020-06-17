@@ -3,7 +3,6 @@ import api from '@/api'
 import Vue from 'vue'
 
 export default {
-  namespaced: true,
   state: {
     datasets: {},
     loadStatus: StatusTypes.CLEAR

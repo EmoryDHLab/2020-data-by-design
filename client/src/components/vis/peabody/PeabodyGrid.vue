@@ -52,10 +52,6 @@ export default {
     mutableDataset: {
       type: String
     },
-    // mutable: {
-    //   type: Boolean,
-    //   default: false
-    // },
     dynamicStartYear: {
       type: Boolean,
       default: false
@@ -65,7 +61,7 @@ export default {
       default: true
     }
   },
-  mixins: [Visualization()],
+  mixins: [Visualization({ notebookName: "PeabodyGrid" })],
   components: {
     'year-square': YearSquare
   },

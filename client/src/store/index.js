@@ -9,15 +9,16 @@ import chapters from './chapters/index.js'
 
 Vue.use(Vuex)
 
+const namespaced = module => Object.assign(module, { namespaced: true });
 
 const store = new Vuex.Store({
   modules: {
-    mutable,
+    mutable: namespaced(mutable),
     notebook,
     user,
     chapters,
     datasetOld,
-    dataset,
+    dataset: namespaced(dataset),
   },
   state: {
     errors: []

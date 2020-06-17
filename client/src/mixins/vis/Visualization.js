@@ -1,5 +1,7 @@
 import { mapGetters, mapActions, mapState} from 'vuex'
 
+import { notebookTypes } from 'dxd-common'
+
 const injects = {
   width: "width",
   widthTimes: "widthTimes",
@@ -11,7 +13,7 @@ const injects = {
 }
 
 // This mixin helps the visualization interface with vuex to get its data
-const Visualization = ({staticDataset, mutableDataset} = {}) => ({
+const Visualization = ({staticDataset, mutableDataset, notebookName } = {}) => ({
   props: {
     width: {
       type: String,
@@ -20,6 +22,10 @@ const Visualization = ({staticDataset, mutableDataset} = {}) => ({
     showIndicator: {
       type: Boolean,
       default: true
+    },
+    isInNotebook: {
+      type: Boolean,
+      default: false
     }
     /*Looks for these "optional" props on the mixed-in Component:
     staticDataset: String
@@ -50,10 +56,14 @@ const Visualization = ({staticDataset, mutableDataset} = {}) => ({
         this.transformMutableData({id: this.mutableId, transform: transformFunc});
       }
     },
+    transformMutableData(payload) {
+      this.$store.dispatch(this.mutableModule + "/transform", payload);
+    },
+    registerMutableData(payload) {
+      this.$store.dispatch(this.mutableModule + "/registerMutableData", payload);
+    },
     ...mapActions({
       loadStaticDataset: 'dataset/loadDataset',
-      registerMutableData: 'mutable/registerMutableData',
-      transformMutableData: 'mutable/transform'
     })
   },
   provide () {
@@ -64,7 +74,20 @@ const Visualization = ({staticDataset, mutableDataset} = {}) => ({
     )
   },
   computed: {
-    ...mapState('mutable', ['mutableData']),
+    mutableData () {
+      return this.isInNotebook ?
+        this.$store.state.notebook.mutableStore.mutableData :
+        this.$store.state.mutable.mutableData;
+    },
+    getMutableData () {
+      return this.$store.getters[this.mutableModule + '/getMutableData'];
+    },
+    isRegisteredMutable () {
+      return this.$store.getters[this.mutableModule + '/isRegisteredMutable'];
+    },
+    mutableModule () {
+      return (this.isInNotebook ? "mutableStore" : "mutable");
+    },
     staticId () {
       return this.staticDataset || staticDataset;
     },
@@ -72,8 +95,8 @@ const Visualization = ({staticDataset, mutableDataset} = {}) => ({
       return this.mutableDataset || mutableDataset;
     },
     data () {
-      this.mutableData.lastUpdated; //register dependency
       if (this.mutableId) {
+        this.mutableData.lastUpdated; //register dependency
         return this.mutableData[this.mutableId];
       }
       if (this.staticId) {
@@ -83,42 +106,62 @@ const Visualization = ({staticDataset, mutableDataset} = {}) => ({
     },
     ...mapGetters({
       getStaticData: 'dataset/getDatasetById',
-      getMutableData: 'mutable/getMutableData',
-      isRegisteredMutable: 'mutable/isRegisteredMutable'
     })
   },
   created () {
-    if (this.staticId) {
-      this.loadStaticDataset(this.staticId)
-        .then(data => {
-          if (this.mutableId) {
-            this.registerMutableData({
-              id: this.mutableId,
-              data: data
-            })
-          }
-        })
-        .catch(err => {
-          console.dir(this)
-          console.error("Error loading static dataset of id: " + staticDataset)
-        })
-    }
-    else if (this.mutableId && !this.isRegisteredMutable(this.mutableId)) {
-      this.registerMutableData({id: this.mutableId});
+    if (!this.isRegisteredMutable(this.mutableId)) {
+      if (this.staticId) {
+        this.loadStaticDataset(this.staticId)
+          .then(data => {
+            if (this.mutableId) {
+              this.registerMutableData({
+                id: this.mutableId,
+                data: data
+              })
+            }
+          })
+          .catch(err => {
+            console.dir(this)
+            console.error("Error loading static dataset of id: " + staticDataset)
+          })
+      }
+      else if (this.mutableId) {
+        this.registerMutableData({id: this.mutableId});
+      }
     }
   },
   mounted () {
     if (this.showIndicator && !this.indicatorRendered) {
-      const test = document.createElement('div');
-      test.style.width = "20px";
-      test.style.height = "20px";
-      test.style.opacity = "50%";
-      test.style.backgroundColor = "blue";
-      test.style.position = "absolute";
-      test.style.left = this.$el.offsetLeft + 'px';
-      test.style.top = this.$el.offsetTop + 'px';
-      test.style.transform = "translate(-75%,-50%)";
-      this.$el.append(test);
+      const dragger = document.createElement('img');
+      dragger.style.width = "20px";
+      dragger.style.height = "20px";
+      dragger.src = require('../../assets/cross-arrows.png')
+      dragger.style.opacity = "50%";
+      dragger.style.position = "absolute";
+      // dragger.style.left = this.$el.offsetLeft + 'px';
+      // dragger.style.top = this.$el.offsetTop + 'px';
+      dragger.style.transform = "translate(-75%,-50%)";
+      // this.$el.addEventListener("mouseover", e => dragger.style.display = "block");
+      // this.$el.addEventListener("mouseout", e => dragger.style.display = "none")
+      dragger.addEventListener("mouseover", e => dragger.style.opacity = "100%");
+      dragger.addEventListener("mouseout", e => dragger.style.opacity = "50%")
+      if (notebookName) {
+        dragger.addEventListener("dragstart", e => {
+          console.dir(e);
+          console.dir(this);
+          const data = {
+            ...this.staticId && { static: this.staticId },
+            ...this.mutableId && { mutable: this.mutableId }
+          }
+          const notebookItem = {
+            type: notebookTypes.VISUALIZATION,
+            data: data,
+            metadata: notebookName
+          }
+          this.$store.dispatch("startDrag", notebookItem)
+        })
+      }
+      this.$el.append(dragger);
       this.indicatorRendered = true;
     }
   }

@@ -1,6 +1,7 @@
 import api from "@/api"
 import StatusTypes from "../status-types"
 import { isValidNotebook, compareNotebooks } from "dxd-common";
+import mutableStore from "../mutable/index.js"
 
 const Mutations = {
   AUTH_REQUEST: 'auth_request',
@@ -12,7 +13,8 @@ const Mutations = {
     UPDATE_SUCCESS: 'update_notebook_success',
     UPDATE_ERROR: 'update'
   },
-  START_DRAG: 'start_drag'
+  START_DRAG: 'start_drag',
+  END_DRAG: 'end_drag'
 }
 
 const Statuses = {
@@ -39,6 +41,9 @@ export default {
     notebookErrorMessage: '',
     notebookStatus: StatusTypes.CLEAR,
     currentDragData: {},
+  },
+  modules: {
+    mutableStore: Object.assign({ namespaced: true }, mutableStore)
   },
   getters: {
     isLoggedIn: state => !!state.token,
@@ -88,11 +93,14 @@ export default {
     },
     [Mutations.START_DRAG](state, noteData) {
       state.currentDragData = noteData;
+    },
+    [Mutations.END_DRAG](state) {
+      state.currentDragData = {};
     }
   },
 
   actions: {
-    updateNotebook({commit, state, getters}, notebookArray) {
+    updateNotebook({commit, state, getters}, {notebookArray, mutableData}) {
       if (!getters.isLoggedIn) {
         //If the user isn't logged in, save the notebook to be passed to the server on signup
         state.currentNotebookRequest = notebookArray;
@@ -198,6 +206,18 @@ export default {
 
     startDrag({commit}, noteData) {
       commit(Mutations.START_DRAG, noteData);
+    },
+
+    completeDrag({commit, state, getters, dispatch}) {
+      const mutableId = state.currentDragData.data && state.currentDragData.data.mutable;
+      if (mutableId) {
+        if (!getters['mutableStore/isRegisteredMutable'](mutableId) &&
+          getters['mutable/isRegisteredMutable'](mutableId)) {
+          const lastData = getters['mutable/getMutableData'](mutableId);
+          dispatch('mutableStore/registerMutableData', { id: mutableId, data: lastData})
+        }
+      }
+      commit(Mutations.END_DRAG);
     }
   }
 }

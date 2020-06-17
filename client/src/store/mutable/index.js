@@ -1,9 +1,10 @@
 import Vue from 'vue';
 
 export default {
-  namespaced: true,
-  state: {
-    mutableData: { lastUpdated: null }
+  state () {
+    return {
+      mutableData: { lastUpdated: null }
+    }
   },
   getters: {
     isRegisteredMutable: state => id => id in state.mutableData,
@@ -13,14 +14,23 @@ export default {
     addMutableData(state, {id, data}) {
       state.mutableData.lastUpdated = Date.now();
       Vue.set(state.mutableData, id, data);
+    },
+    loadMutableData(state, data) {
+      state.mutableData = data;
     }
   },
   actions: {
+    loadMutableData({commit, state}, mutableData) {
+      if (state.mutableData.lastUpdated !== mutableData.lastUpdated) {
+        commit('loadMutableData', mutableData);
+      }
+    },
     registerMutableData({commit, getters}, {id, data}) {
       if (getters.isRegisteredMutable(id)) {
         console.error(`visualization already registered with id ${id}! overriding...`)
      }
       commit('addMutableData', {id, data});
+      console.log("Registering " + id);
     },
     transform({commit, getters}, {id, transform /*function (dataObj) => transformedData*/}) {
      if (id && getters.isRegisteredMutable(id)) {

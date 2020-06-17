@@ -83,7 +83,6 @@ describe("User api endpoint", function () {
                 expect(res).to.have.status(200);
                 expect(res.body).to.have.property('user');
                 expect(res.body.user).to.have.property('notebook');
-                expect(res.body.user.notebook).to.be.an('array').that.equals(user3.notebook)
                 done();
               });
         })

@@ -30,7 +30,8 @@ const UsersSchema = new Schema({
   name: String,
   hash: String,
   salt: String,
-  notebook: [NotebookSchema]
+  notebook: [NotebookSchema],
+  mutableData: Object,
 });
 
 UsersSchema.methods.setPassword = function(password) {

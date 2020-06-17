@@ -19,7 +19,7 @@ import { notebookTypes } from "dxd-common"
 
 import ListItem from "./NotebookNodeListItem"
 import AddNew from "./NotebookNodeAddNew.vue"
-import {mapGetters, mapState} from "vuex"
+import { mapGetters, mapState, mapActions } from "vuex"
 
 export default {
   components: {
@@ -36,6 +36,7 @@ export default {
     this.registerDropTargetEvents();
   },
   methods: {
+    ...mapActions(["completeDrag"]),
     addNoteTop(note) {
       this.addNote(note, true);
     },
@@ -66,8 +67,8 @@ export default {
         return;
       }
 
-      // const metadata = event.dataTransfer.getData("metadata");
-      // const html = event.dataTransfer.getData("text/html");
+      this.completeDrag();
+
       let insertAt = event.target.dataset.insertAt;
       const prevId = newItem.notebookId;
       if (prevId != null) {
@@ -130,7 +131,8 @@ export default {
   computed: {
     ...mapState({
       currentNotebookRequest: state => state.notebook.currentNotebookRequest,
-      currentDragData: state => state.notebook.currentDragData
+      currentDragData: state => state.notebook.currentDragData,
+      mutableData: state => state.notebook.mutableStore.mutableData
     }),
     ...mapGetters(['isLoggedIn']),
     greatestId () {
@@ -158,7 +160,13 @@ export default {
     items: {
       handler (val) {
         // const nonReactiveCopy = this.items.map(obj => ({html: obj.item, notebookId: obj.notebookId, metadata: obj.metadata}))
-        this.$store.dispatch('updateNotebook', this.items);
+        this.$store.dispatch('updateNotebook', {notebookArray: this.items});
+      },
+      deep: true
+    },
+    mutableData: {
+      handler (val) {
+        this.$store.dispatch('updateNotebook', {mutableData: val })
       },
       deep: true
     },
@@ -172,13 +180,13 @@ export default {
       }
     },
     //Vuex State
-    currentNotebookRequest: {
-      handler (newNotebook) {
-        if (newNotebook.length > this.items.length)
-        this.items = newNotebook;
-      },
-      deep: true
-    }
+    // currentNotebookRequest: {
+    //   handler (newNotebook) {
+    //     if (newNotebook.length > this.items.length)
+    //     this.items = newNotebook;
+    //   },
+    //   deep: true
+    // }
   }
 }
 </script>

@@ -129,4 +129,20 @@ router.post('/current/notebook', auth.required, (req, res, next) => {
       res.status(422).json(err);
     });
 });
+
+router.post('/current/data', auth.required, (req, res, next) => {
+  const id = req.payload.id;
+  const data = req.body.data;
+
+  return Users.findByIdAndUpdate(id, {data: data}, {new: true, runValidators: true})
+    .then((user) => {
+      if(!user) {
+        return res.sendStatus(400);
+      }
+      return res.json(user.notebookJSON());
+    })
+    .catch( err => {
+      res.status(422).json(err);
+    });
+});
 module.exports = router;

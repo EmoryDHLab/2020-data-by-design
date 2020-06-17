@@ -2,6 +2,7 @@
   <PeabodyGrid
     v-on="$listeners"
     :id="id"
+    :isInNotebook="isInNotebook"
     :width="width"
     :height="height"
     :showIndicator="false"
@@ -11,28 +12,22 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
 import PeabodyGrid from './PeabodyGrid'
 import Visualization from '@/mixins/vis/Visualization'
-import Vue from 'vue'
 
 export default {
   components: {
     PeabodyGrid
   },
-  mixins: [Visualization()],
+  mixins: [Visualization({notebookName: "PeabodyMutable"})],
   props: {
     color: {
       type: String
     },
-    width: {
-      type: String,
-      required: true
-    },
     height: String,
     id: {
       type: String,
-      required: true
+      required: false
     },
     staticDataset: {
       type: String
