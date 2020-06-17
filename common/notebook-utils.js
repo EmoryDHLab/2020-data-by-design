@@ -44,6 +44,12 @@ const isValidNotebook = notebook => {
 }
 
 const compareNotebooks = (nb1, nb2) => {
+  if (!!nb1 != !!nb2) {
+    return false;
+  }
+  if (!nb1 && !nb2) {
+    return true;
+  }
   if (nb1.length !== nb2.length) {
     return false;
   }

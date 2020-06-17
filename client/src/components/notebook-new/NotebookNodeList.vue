@@ -37,6 +37,7 @@ export default {
   },
   methods: {
     ...mapActions(["completeDrag"]),
+    ...mapActions("mutableStore", ["loadMutableData"]),
     addNoteTop(note) {
       this.addNote(note, true);
     },
@@ -130,7 +131,7 @@ export default {
   },
   computed: {
     ...mapState({
-      currentNotebookRequest: state => state.notebook.currentNotebookRequest,
+      // currentNotebookRequest: state => state.notebook.currentNotebookRequest,
       currentDragData: state => state.notebook.currentDragData,
       mutableData: state => state.notebook.mutableStore.mutableData
     }),
@@ -174,12 +175,13 @@ export default {
       handler (isLoggedIn) {
         if (isLoggedIn)  {
           this.items = this.$store.getters.notebook;
+          this.loadMutableData(this.$store.getters.mutableData);
         } else {
           this.items = []
         }
       }
     },
-    //Vuex State
+    // Vuex State
     // currentNotebookRequest: {
     //   handler (newNotebook) {
     //     if (newNotebook.length > this.items.length)

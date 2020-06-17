@@ -17,6 +17,7 @@ export default {
     },
     loadMutableData(state, data) {
       state.mutableData = data;
+      state.mutableData.lastUpdated = Date.now()
     }
   },
   actions: {
