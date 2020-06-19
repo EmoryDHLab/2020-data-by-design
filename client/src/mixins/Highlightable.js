@@ -45,9 +45,8 @@ function Highlightable(rootElementSelector, highlightableElements = ['P']) {
       isLoggedIn(isLoggedIn) {
         if (isLoggedIn) {
           const notebook = this.$store.getters.notebook;
-          notebook.map(obj => obj.metadata)
-            .filter(metadata => !metadata.startsWith("usernote"))
-            .map(metadata => this.deserializeRange(metadata))
+          notebook.filter(obj => obj.type === notebookTypes.TEXT_HIGHLIGHT)
+            .map(obj => this.deserializeRange(obj.metadata))
             .forEach(this.createHighlightFromRange);
         } else {
           this.removeAllHighlights();

@@ -2,6 +2,7 @@
   <g>
     <timeline-event
       v-for='(timelineEvent, key) in dataset'
+      :options="options"
       :key='timelineEvent.id'
       :dataset='timelineEvent'
       :style='placeEvent(timelineEvent, key)'/>
@@ -11,11 +12,11 @@
 <script>
 import TimelineEvent from './TimelineEvent'
 export default {
-  inject: ['options'],
   components: {
     TimelineEvent
   },
   props: {
+    options: Object,
     bucketId: Number,
     dataset: Array
   },

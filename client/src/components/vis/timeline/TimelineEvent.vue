@@ -11,10 +11,18 @@
 </template>
 
 <script>
+import { injects } from '@/mixins/vis/Visualization'
+
 export default {
-  inject: ['options', 'localBus'],
+  inject: [injects.registerEvents],
   props: {
     dataset: Object,
+    options: Object
+  },
+  created () {
+    if (this.registerEvents) {
+      this.registerEvents(this, ['hover-start', 'hover-end'])
+    }
   },
   data: () => ({
     isHovered: false
@@ -34,14 +42,14 @@ export default {
   methods: {
     hoverStart () {
       this.isHovered = true
-      this.localBus.fire('hover-start', {
+      this.$emit('hover-start', {
         data: this.dataset,
         year: this.dataset.year,
       })
     },
     hoverEnd () {
       this.isHovered = false
-      this.localBus.fire('hover-end', {
+      this.$emit('hover-end', {
         data: this.dataset,
         year: this.dataset.year,
       })

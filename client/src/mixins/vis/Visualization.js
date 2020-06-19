@@ -131,7 +131,7 @@ const Visualization = ({staticDataset, mutableDataset, notebookName } = {}) => (
     }
   },
   mounted () {
-    if (this.showIndicator && !this.indicatorRendered) {
+    if (this.showIndicator && !this.indicatorRendered && this.$el && this.$el.append)  {
       const dragger = document.createElement('img');
       dragger.style.width = "20px";
       dragger.style.height = "20px";

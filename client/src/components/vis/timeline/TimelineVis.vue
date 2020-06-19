@@ -4,6 +4,7 @@
       <g class='timeline-buckets'>
         <timeline-bucket
           v-for='timelineBucket in formattedData'
+          :options="options"
           :key='timelineBucket.id'
           :bucketId='timelineBucket.id'
           :dataset='timelineBucket.events'
@@ -43,10 +44,12 @@ export default {
   components: {
     TimelineBucket
   },
-  mixins: [Visualization],
+  mixins: [Visualization()],
   props: {
-    width: String,
     height: String,
+    mutableDataset: String,
+    staticDataset: String,
+    id: String,
     options: {
       type: Object,
       required: false,
@@ -54,6 +57,12 @@ export default {
     }
   },
   computed: {
+    formattedData() {
+      return this.dataFormatter(this.data)
+    },
+    styles ()  {
+      return this.options.styles;
+    },
     innerWidth () {
       return this.styles.width - this.styles.margin.left - this.styles.margin.right
     },
@@ -72,10 +81,12 @@ export default {
       return '0 0 ' + this.styles.width + ' ' + this.styles.height
     },
     startPoint () {
-      return Math.min(...this.formattedData.map(bucket => bucket.id))
+      if (this.formattedData)
+        return Math.min(...this.formattedData.map(bucket => bucket.id))
     },
     endPoint () {
-      return Math.max(...this.formattedData.map(bucket => bucket.id))
+      if (this.formattedData)
+        return Math.max(...this.formattedData.map(bucket => bucket.id))
     },
     getScale() {
       return d3.scaleLinear()
@@ -85,20 +96,22 @@ export default {
   },
   methods: {
     dataFormatter (d) {
-      const data = Object.values(d)
-        .map(evt => ({
-          position: this.options.getPosition(evt),
-          color: this.options.getColor(evt),
-          ...evt
-        }))
-        .reduce((buckets, evt) => {
-          if (!buckets[evt.position]) {
-            buckets[evt.position] = { id: evt.position, events: [] }
-          }
-          buckets[evt.position].events.push(evt)
-          return buckets
-        }, {})
-      return Object.values(data)
+      if (d && typeof d === "object") {
+        const data = Object.values(d)
+          .map(evt => ({
+            position: this.options.getPosition(evt),
+            color: this.options.getColor(evt),
+            ...evt
+          }))
+          .reduce((buckets, evt) => {
+            if (!buckets[evt.position]) {
+              buckets[evt.position] = {id: evt.position, events: []}
+            }
+            buckets[evt.position].events.push(evt)
+            return buckets
+          }, {})
+        return Object.values(data)
+      }
     },
     placeBucket (bucket) {
       // console.log(this.getScale(bucket.id));

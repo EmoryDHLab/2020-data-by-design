@@ -62,8 +62,8 @@ export default {
     [Mutations.AUTH_SUCCESS](state, user) {
       state.authStatus = Statuses[Mutations.AUTH_SUCCESS];
       state.user = user;
-      state.token = user.token;
       state.notebook = user.notebook;
+      state.token = user.token;
       // state.authErrorMessage = '';
     },
     [Mutations.AUTH_ERROR](state, message) {
@@ -84,9 +84,10 @@ export default {
       state.currentMutableDataRequest = data;
       state.notebookErrorMessage = '';
     },
-    [Mutations.Notebook.UPDATE_SUCCESS](state, notebook) {
+    [Mutations.Notebook.UPDATE_SUCCESS](state, {notebook, data}) {
       state.notebookStatus = Statuses[Mutations.Notebook.UPDATE_SUCCESS];
       state.notebook = notebook;
+      state.user.mutableData = data;
       state.currentNotebookRequest = [];
       state.currentMutableDataRequest = {};
       state.notebookErrorMessage = '';

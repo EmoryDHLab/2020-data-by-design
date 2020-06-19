@@ -137,7 +137,6 @@ export default {
       }
     },
     dataFormatter (d) {
-      console.log("ran data formatter!");
       if (d && typeof d === "object") {
         return Object.values(d).reduce((formattedData, curr) => {
           if (!formattedData[curr.year]) {
