@@ -87,7 +87,7 @@
 
 import MetaVisualization from '@/mixins/vis/MetaVisualization'
 import NavlineBucket from './NavlineBucket'
-import ch_mut from '@/store/chapters/types'
+import ch_mut from '@/store/chapters-old/types'
 // import * as d3 from 'd3'
 
 const DEFAULT_OPTIONS = {

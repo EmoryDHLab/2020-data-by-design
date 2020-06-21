@@ -96,7 +96,7 @@ import PeabodyMutable from '@/components/vis/peabody/PeabodyMutable'
 import PeabodyTutorial from '@/components/vis/peabody/PeabodyTutorial'
 import { EventBus } from '@/helpers/EventBus'
 import mutations from '@/store/dataset/types'
-import ch_mut from '@/store/chapters/types'
+import ch_mut from '@/store/chapters-old/types'
 import Highlightable from "@/mixins/Highlightable";
 
 export default {
