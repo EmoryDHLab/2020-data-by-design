@@ -1,6 +1,6 @@
 import HighlightContextMenu from "../components/HighlightContextMenu";
 import Vue from 'vue';
-import { mapGetters } from 'vuex'
+import {mapState, mapActions, mapGetters} from 'vuex'
 import { notebookTypes } from "dxd-common"
 
 const highlightClass = "nb-user-highlight";
@@ -21,9 +21,6 @@ const blockContainer = node => {
 
 function Highlightable(rootElementSelector, highlightableElements = ['P']) {
   return {
-    created: function () {
-      this.log("Highlightable Mixin Initialized");
-    },
     data: function () {
       return {
         clicked: false,
@@ -39,6 +36,7 @@ function Highlightable(rootElementSelector, highlightableElements = ['P']) {
       }
     },
     computed: {
+      ...mapState("chapters", ["highlightSpanCount"]),
       ...mapGetters(["isLoggedIn"])
     },
     watch: {
@@ -54,9 +52,7 @@ function Highlightable(rootElementSelector, highlightableElements = ['P']) {
       }
     },
     methods: {
-      log: text => {
-        console.log(text);
-      },
+      ...mapActions("chapters", ["incrementHighlightSpans"]),
       onMouseUp(event) {
         if (event.button !== 0) {
           return;
@@ -192,8 +188,6 @@ function Highlightable(rootElementSelector, highlightableElements = ['P']) {
             }
           }
         })
-
-
       },
       removeAllHighlights() {
         document.querySelectorAll(`.${highlightClass}`).forEach(this.removeHighlightSpan);
@@ -292,9 +286,10 @@ function Highlightable(rootElementSelector, highlightableElements = ['P']) {
         // span.style.backgroundColor = "yellow";
         span.classList.add(highlightClass);
         span.onclick = this.onClick;
+        span.id = `${highlightClass}-${this.highlightSpanCount}`;
+        this.incrementHighlightSpans();
 
         //Draggability
-
         const onDragStart = (event) => {
           //We have event.target, which is the element that the user clicked on; let's make sure we get the full highlight span.
           let currEl = span;
@@ -354,6 +349,8 @@ function Highlightable(rootElementSelector, highlightableElements = ['P']) {
             html = strippedAttributes(currEl).outerHTML;
           }
           this.$store.dispatch("startDrag", {html, metadata, type: notebookTypes.TEXT_HIGHLIGHT})
+          event.dataTransfer.setData("spanId", span.id);
+
           if (dragImage)
             event.dataTransfer.setDragImage(dragImage, 0, 0);
 

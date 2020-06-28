@@ -64,6 +64,7 @@ const Visualization = ({staticDataset, mutableDataset, notebookName } = {}) => (
     },
     ...mapActions({
       loadStaticDataset: 'dataset/loadDataset',
+      registerVisualization: 'chapters/registerVisualization'
     })
   },
   provide () {
@@ -109,6 +110,7 @@ const Visualization = ({staticDataset, mutableDataset, notebookName } = {}) => (
     })
   },
   created () {
+    if (!this.mutableId && !this.staticId) return;
     if (!this.isRegisteredMutable(this.mutableId)) {
       if (this.staticId) {
         this.loadStaticDataset(this.staticId)
@@ -131,6 +133,7 @@ const Visualization = ({staticDataset, mutableDataset, notebookName } = {}) => (
     }
   },
   mounted () {
+    this.registerVisualization({element: this.$el});
     if (this.showIndicator && !this.indicatorRendered && this.$el && this.$el.append)  {
       const dragger = document.createElement('img');
       dragger.style.width = "20px";

@@ -6,7 +6,7 @@ import SignIn from './views/SignIn'
 import Credits from './views/Credits'
 import Chapters from './views/Chapters'
 import Home from './views/Home'
-import Sandbox from './views/Sandbox'
+import Sandbox from './views/Sandbox1'
 import Features from './views/Features'
 import Account from './views/Account'
 import DuboisChapter from "./views/DuboisChapter";

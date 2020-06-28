@@ -3,15 +3,19 @@
     <template slot='title'>
       Feminist Data Visualization; Or the Shape of History
     </template>
+    <Section>
     <p>This talk departs from a seemingly simple question: “What is the story we tell about the origins of modern data visualization?” And as a set of follow-ups, “What alternate histories might emerge, what new visual forms might we imagine, and what new arguments might we make, if we told that story differently?”</p>
     <p>To begin to answer these questions, I’ll focus on the work of one visualization designer from the nineteenth century, <a href='https://en.wikipedia.org/wiki/Elizabeth_Peabody'>Elizabeth Palmer Peabody</a>, whose images are rarely considered in the standard story we tell about the emergence of modern visualization techniques. When they are mentioned at all, they are typically described as strange—and sometimes even as failures. You can see one of them just below.</p>
-    <h2>These visualizations are linked only through their datasets</h2>
+    <p>
     <ul>
       <li><h3>The one on the left uses an immutable dataset</h3></li>
       <li><h3>The one on the right uses a deep copy of the dataset from the one on the left.
         (It's actually a wrap aroud the other vis which extends its functionality)</h3></li>
       <li><h3>The timeline is tied to this mutable dataset on the right</h3></li>
     </ul>
+    </p>
+    </Section>
+
     <div style="display:flex;">
       <peabody-grid
         :id="'peabody-vis-1'"
@@ -46,15 +50,18 @@
     <p ref="part1.0">Elizabeth Palmer Peabody was born in Massachusetts in 1804. Today, she is most famous for her proximity to more well-known writers of the American Renaissance, such as Emerson and Hawthorne. (Hawthorne was actually married to her sister, Sophia). But Peabody had impact in her own right: the bookstore that she ran out of her home, in Boston, functioned as the de facto salon for the transcendentalist movement. She edited and published the first version of Thoreau’s essay on civil disobedience, which appeared in her Aesthetic Papers, in 1849. And interestingly, she’s also is credited with starting the first kindergarten in the United States.</p>
     <p ref="part1.1">But in the 1850s, Peabody set off to ride the rails. She traveled as far north as Rochester, NY; as far west as Louisville, KY; and as far south as Richmond, VA, in order to promote the US history textbook she’d recently published: <a href='https://archive.org/details/chronologicalhis00peab'>A Chronological History of the United States</a>. Along with boxes of books, Peabody traveled with a fabric roll the size of a living room rug, which contained floor-sized versions of charts like the one in the image above, which I’ll tell you only now is a visualization of the significant events of the seventeenth century, as they relate to the United States. (This image that you see is a plate from the textbook, measuring, at most, 3 inches square).</p>
     <p ref="part1.2">In her version of a sales pitch, Peabody would visit classrooms of potential textbook adopters, unroll one of her “mural charts” (as she called them) on the floor, and invite the students to sit around it to contemplate the colors and patterns they perceived.</p>
+    <Section :number="1" chapter="peabody">
     <p ref="part1.3">Peabody’s design was derived from a system developed in Poland in the 1820s, which employed a grid, overlaid with shapes and colors, to visually represent events in time. At left you see, on the bottom left of the page, a numbered grid, with each year in a century marked out in its own box. On the top right you see how each box is subdivided. So, top left corner for wars, battles, and sieges; top middle for conquests and unions; top right for losses and divisions, and so on. And shapes that take up the entire box indicate an event of such magnitude or complexity that the other events in that year didn’t matter.</p>
     <p ref="part1.4">The basic exercise was to read the narrative account in Peabody’s textbook, and then convert the list of events that followed, like the one you see below-left, into graphical form. And I should note, at this point, that the events are color-coded, indicating the various countries involved in a particular event.</p>
     <img src="https://s.ftcdn.net/v2013/pics/all/curated/RKyaEDwp8J7JKeZWQPuOVWvkUjGQfpCx_cover_580.jpg?r=1a0fc22192d0c808b8bb2b9bcfbf4a45b1793687">
     <p ref="part2.0">So now I’ll return to the original chart (at left), and you can see now, hopefully, that England is red, the Americas are orange, and the Dutch are teal—those are the colors that dominate the image. The French get in on the act, too, in blue. And if you cross-reference the chart to the table of events, you can see, for instance, the founding of Jamestown in 1607; and the settlement of Plymouth in 1620—that’s the red on the right—and, interestingly, the little teal box stands for the first enslaved Africans arriving in Virginia at that same time.</p>
     <PeabodyTutorial
       id="peabody-tutorial"
+      :showIndicator="false"
       width='45vh'
       height='45vh'/>
     <p ref="part2.1">But I think it’s safe to say that no one in this room could have known this without me explaining how to interpret the chart. And for researchers and designers today, who champion the clarifying capacity of visualization; or for those who believe that datavis is best deployed to amplify existing thought processes—for such people, Peabody’s design would be a complete and utter failure. For Peabody, though, this near-total abstraction was precisely the point. Her charts were intended to appeal to the senses directly, to provide what she called “outlines to the eye.” Her hope was that, by providing only the mental outline of history, and by insisting that each student interpret the outline of history for herself, she would conjure her own historical narrative, and in that way, produce historical knowledge for herself.</p>
+    </Section>
     <p ref="part2.2">So this is where the feminist aspects of Peabody’s approach to data visualization begin to emerge. Anticipating some of the foundational claims of feminist theory, Peabody’s schema it insists upon a multiplicity of meanings, and locates knowledge in the interplay between viewer, image, and text. Hers is a belief in visualization, not as clarifying or illuminating in its own right, not as evidence or proof of results, but as a tool in the process of knowledge production.</p>
     <p ref="part2.3"><a href="#">At this point,</a> it also bears mention that for Peabody, the creation of knowledge took place through a second mode: through the act of creating the images themselves. Peabody also printed workbooks, with sheets like the one you can see at left, and she envisioned the exercise, ideally, as one not merely of cross-referencing events to their visual representation, but of constructing the images they would then study. So you can see one student’s attempt below-left. And below on the right is another, by someone who appears to have given up all together. (These images come from <a href='http://beinecke.library.yale.edu/about/blogs/room-26-cabinet-curiosities/2011/09/02/visualizing-history'>a blog post by the Beinecke</a>, but I’ve traveled to several archives across the northeast U.S. and seen the same thing). I used to show these images to get a laugh, but I know now, because at this point I’ve tried it a number of times, that this method is a very hard thing to actually do.</p>
     <p ref="part2.4">But that seems to be both a liability of the form, and also the point. Peabody devised her method at a moment of great national crisis—the decade leading up to the Civil War—and she recognized that the nation’s problems would be difficult to solve. Her goal was to prompt an array of possible solutions—one coming from the creator of each chart. And her hope was that, by designing new narratives of the past, her students would also imagine alternate futures.</p>
@@ -97,6 +104,7 @@ import PeabodyTutorial from '@/components/vis/peabody/PeabodyTutorial'
 import { EventBus } from '@/helpers/EventBus'
 import mutations from '@/store/dataset/types'
 import ch_mut from '@/store/chapters-old/types'
+import Section from '@/components/chapters/Section'
 import Highlightable from "@/mixins/Highlightable";
 
 export default {
@@ -106,7 +114,8 @@ export default {
     PeabodyMutable,
     ChapterScaffold,
     PeabodyTutorial,
-    TimelineVis
+    TimelineVis,
+    Section,
   },
   mixins: [Highlightable(".chapter__main")],
   data() {
@@ -125,22 +134,7 @@ export default {
     };
   },
   methods: {
-    handleScroll () {
-        this.scrolled = window.scrollY > 0;
-        if (this.scrolled && window.scrollY > this.scrolledMax) {
-            let y = window.scrollY;
-            this.scrolledMax = y;
-            let idname = '0.0';
-            for (let ref in this.$refs) {
-                if (this.$refs[ref].offsetTop < y) {
-                    idname = ref.substring(4);
-                } else {
-                    break;
-                }
-            }
-            this.$store.commit(ch_mut.SET_PROGRESS_PEA, { id: idname });
-        }
-    },
+    ...mapActions("chapters", ["setChapter"]),
     hoverStart (payload) {
       console.log("hover start:", payload)
       // if (!payload.data) return;
@@ -168,6 +162,7 @@ export default {
     },
   },
   created () {
+    this.setChapter({title: "Peabody"});
     const self = this;
     this.mountDatasets()
       .then(() => {
@@ -185,7 +180,6 @@ export default {
             //something changed do something
             this.scrollMeTo(newValue);
         });
-    window.addEventListener('scroll', this.handleScroll);
   },
   destroyed () {
       window.removeEventListener('scroll', this.handleScroll);

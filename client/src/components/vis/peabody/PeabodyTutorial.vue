@@ -109,6 +109,7 @@
 <script>
 import PeabodyGrid from './PeabodyGrid'
 import EventKey from './EventKey'
+import Visualization from "../../../mixins/vis/Visualization";
 
 export default {
   inheritAttrs: false,
@@ -116,6 +117,7 @@ export default {
     PeabodyGrid,
     EventKey
   },
+  mixins:[],
   props: {
     id: {
       type: String,

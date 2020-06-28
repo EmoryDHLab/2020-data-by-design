@@ -27,8 +27,6 @@ const Statuses = {
   [Mutations.Notebook.UPDATE_REQUEST]: StatusTypes.ERROR,
 }
 
-
-
 export default {
   // namespaced: true, //makes the members 'notebook/whatever' on the global scope
   state: {

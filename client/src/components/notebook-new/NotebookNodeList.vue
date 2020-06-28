@@ -38,6 +38,7 @@ export default {
   methods: {
     ...mapActions(["completeDrag"]),
     ...mapActions("mutableStore", ["loadMutableData"]),
+    ...mapActions("chapters", ["registerHighlight"]),
     addNoteTop(note) {
       this.addNote(note, true);
     },
@@ -70,6 +71,13 @@ export default {
 
       this.completeDrag();
 
+      if (newItem.type === notebookTypes.TEXT_HIGHLIGHT) {
+        const id = event.dataTransfer.getData("spanId")
+        if (id) {
+          this.registerHighlight({id});
+        }
+      }
+
       let insertAt = event.target.dataset.insertAt;
       const prevId = newItem.notebookId;
       if (prevId != null) {
@@ -92,7 +100,6 @@ export default {
       } else {
         this.items.push(newItem);
       }
-
       setTimeout(this.registerDropTargetEvents, 10);
 
       event.preventDefault();

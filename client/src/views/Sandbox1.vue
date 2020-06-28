@@ -1,6 +1,9 @@
 <template lang="html">
   <ChapterScaffold>
     <template slot="title">Sandbox</template>
+    <div>
+      Content before! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad aut commodi consequuntur cupiditate doloribus ex explicabo hic illo, ipsa ipsum itaque laboriosam laborum molestias optio, sit suscipit vel vero.
+    </div>
     <div style="display:flex">
       <div class="scrolly-states" style="flex: 1;">
         <div v-for="(s, k) in states" :key="`imgwrap${k}`"
@@ -21,6 +24,9 @@
           <div class="wp" v-html="st.content"></div>
         </basic-waypoint>
       </div>
+    </div>
+    <div>
+      Content after! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi consectetur deserunt dolores ea enim eum exercitationem labore non optio quae quasi qui quos, recusandae sed similique ullam vitae voluptas voluptate!
     </div>
   </ChapterScaffold>
 </template>

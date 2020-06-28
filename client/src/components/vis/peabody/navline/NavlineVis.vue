@@ -18,7 +18,7 @@
     <text x="300" :y="styles.line.start + 15" class="number" fill="#4A4A4A">1</text>
 
 
-    <g v-for="(lines, index) in startEndPoint(dataset.peabody.paragraphData)">
+    <g v-for="(lines, index) in startEndPoint(dataset.paragraphData)">
         <g v-if="index+1 <= getProgress">
           <!--Vertical Line-->
           <line :x1="lines.x1" :y1="lines.y1" :x2="lines.x2" :y2="lines.y2" style="stroke:#D9B89A; stroke-width:5; stroke-linecap:round"></line>
@@ -51,29 +51,29 @@
                           :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
                           :width="styles.block.width" :height="styles.block.width"
                           :fill=styles.color.defaultBlock
-                          :fill-opacity= dataset.peabody.highlights[index][i-1] ></rect>
+                          :fill-opacity= dataset.highlights[index][i-1] ></rect>
                     <!--VIS-->
                     <!--10: largest number of subparts in section-->
                     <g v-on:click="click = goto(index, i-1)"
                        @mouseover="hover = index*10 + i"
                        @mouseleave="hover = null">
-                      <rect v-if="dataset.peabody.vis[index][i-1] == '1' "
+                      <rect v-if="dataset.vis[index][i-1] == VisTypes.IMAGE "
                             x="406"
                             :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
                             :width="styles.block.width" :height="styles.block.width"
                             :fill=styles.color.image ></rect>
-                      <rect v-if="dataset.peabody.vis[index][i-1] == '2' "
+                      <rect v-if="dataset.vis[index][i-1] == VisTypes.INTERACTION "
                             x="406"
                             :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
                             :width="styles.block.width" :height="styles.block.width"
                             :fill=styles.color.intVis ></rect>
-                      <rect v-if="dataset.peabody.vis[index][i-1] == '3' "
+                      <rect v-if="dataset.vis[index][i-1] == VisTypes.VISUALIZATION "
                             x="406"
                             :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
                             :width="styles.block.width" :height="styles.block.width"
                             :fill=styles.color.stcVis ></rect>
 
-                      <rect v-if="hover == index*10 + i  && dataset.peabody.vis[index][i-1] != '0'"
+                      <rect v-if="hover == index*10 + i  && dataset.vis[index][i-1] != '0'"
                             x="406"
                             :y="lines.y1 + styles.block.verGap + (i-1)*(styles.block.gap + styles.block.width)"
                             :width="styles.block.width" :height="styles.block.width"
@@ -113,6 +113,9 @@
 import MetaVisualization from '@/mixins/vis/MetaVisualization'
 import NavlineBucket from './NavlineBucket'
 import ch_mut from '@/store/chapters-old/types'
+import { VisTypes } from '@/store/chapters/index'
+import { mapState, mapGetters } from 'vuex'
+
 // import * as d3 from 'd3'
 
 const DEFAULT_OPTIONS = {
@@ -158,7 +161,7 @@ const DEFAULT_OPTIONS = {
 };
 export default {
   data() {
-    return {hover: null, click: null}
+    return {hover: null, click: null, scroll: 0, VisTypes}
   },
   components: {
     NavlineBucket
@@ -172,6 +175,9 @@ export default {
       required: false,
       default: () => DEFAULT_OPTIONS
     },
+  },
+  mounted () {
+    window.addEventListener('scroll', event => this.scroll = window.scrollY)
   },
   computed: {
     /**
@@ -248,8 +254,13 @@ export default {
         .range([this.styles.margin.top, this.innerHeight]);
     },
     getProgress() {
-        return this.$store.getters.prog_pea;
-    }
+      const lastOffset = this.closestPastOffset(this.scroll);
+      if (!lastOffset) return 0;
+      const prog = this.offsets[lastOffset];
+      return Number(`${prog.section}.${prog.subsection}`);
+    },
+    //...mapState('chapters', ['scrollProgress'])
+    ...mapGetters('chapters', ['offsets', 'closestPastOffset'])
   },
   methods: {
       /**
