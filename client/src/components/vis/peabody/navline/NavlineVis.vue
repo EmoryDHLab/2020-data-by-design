@@ -114,7 +114,7 @@ import MetaVisualization from '@/mixins/vis/MetaVisualization'
 import NavlineBucket from './NavlineBucket'
 import ch_mut from '@/store/chapters-old/types'
 import { VisTypes } from '@/store/chapters/index'
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 // import * as d3 from 'd3'
 
@@ -263,6 +263,7 @@ export default {
     ...mapGetters('chapters', ['offsets', 'closestPastOffset'])
   },
   methods: {
+    ...mapActions('chapters', ['scrollTo']),
       /**
        * calculate line positions
        **/
@@ -287,9 +288,10 @@ export default {
           // console.log(arr)
           return arr;
       },
-      goto: function (index, i) {
-          let idname = "part" + index + "." + i;
-          this.$store.commit(ch_mut.SET_IDNAME, { id: idname });
+      goto: function (section, subsection) {
+          // let idname = "part" + index + "." + i;
+          // this.$store.commit(ch_mut.SET_IDNAME, { id: idname });
+        this.scrollTo({ section, subsection})
       },
     /**
      * Formats the data to match the navline format

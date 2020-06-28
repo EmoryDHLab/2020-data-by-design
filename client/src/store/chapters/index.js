@@ -9,7 +9,8 @@ const Mutations = {
   ADD_HIGHLIGHT: "ADD_HIGHLIGHT",
   REMOVE_HIGHLIGHT: "REMOVE_HIGHLIGHT",
   ADD_VIS: "ADD_VIS",
-  SET_TITLE: "SET_TITLE"
+  SET_TITLE: "SET_TITLE",
+  SCROLL_TO: "SCROLL_TO"
 }
 
 const findParentSection = (element, sections) => {
@@ -42,6 +43,7 @@ const store = {
       sections: [] /*id:String, subsections:n, offsets:[n], highlights:[n], visualizations:[n]*/
     },
     // scrollProgress: 0,
+    scrollTo: 0,
     highlightSpanCount: 0,
     unmatchedVis: []
   },
@@ -124,6 +126,9 @@ const store = {
     [Mutations.SET_TITLE] (state, {title}) {
       state.currChapter.title = title;
       state.currChapter.lastUpdated = Date.now();
+    },
+    [Mutations.SCROLL_TO] (state, {offset}) {
+      state.scrollTo = offset;
     }
   },
   actions: {
@@ -156,6 +161,10 @@ const store = {
     incrementHighlightSpans({state}) {
       state.highlightSpanCount++;
     },
+    scrollTo({commit, getters}, {section, subsection}) {
+      const offset = getters.currChapterSections[section].offsets[subsection];
+      commit(Mutations.SCROLL_TO, { offset });
+    }
   },
 }
 

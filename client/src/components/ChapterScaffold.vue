@@ -48,6 +48,7 @@ import DuboisNavlineVis from './vis/dubois/navline/NavlineVis'
 import PlayfairNavlineVis from './vis/playfair/navline/NavlineVis'
 import Notebook from './notebook-new/Notebook'
 import stickybits from 'stickybits'
+import { mapState } from 'vuex'
 // polyfill for css position:sticky
 stickybits('.--stick', { useStickyClasses: true });
 
@@ -132,9 +133,13 @@ export default {
         highlights: highlightsData,
         vis: visData
       }
-    }
+    },
+    ...mapState('chapters', ['scrollTo'])
   },
-  methods: {
+  watch: {
+    scrollTo (newVal, oldVal) {
+      window.scrollTo({top: newVal});
+    }
   }
 }
 </script>
