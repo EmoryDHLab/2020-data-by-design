@@ -1,5 +1,6 @@
 <template>
   <section :id="elementId">
+    <h1 v-text="title"></h1>
     <slot></slot>
   </section>
 </template>
@@ -11,10 +12,7 @@ import { mapActions, mapGetters } from 'vuex'
 let staticCount = 0;
 export default {
   props: {
-    // chapter: {
-    //   type: String,
-    //   required: true
-    // },
+    title: String
   },
   data () {
     return {
