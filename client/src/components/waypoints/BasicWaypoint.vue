@@ -69,6 +69,18 @@ export default {
   beforeDestroy () {
     // make sure we destroy the waypoint before the component is destroyed
     if (this.waypoint) this.waypoint.destroy()
+  },
+  watch: {
+    enabled (newVal, oldVal) {
+      if (newVal === true) {
+        this.enable();
+      } else if (newVal === false) {
+        this.disable();
+      }
+    },
+    offset (newVal, oldVal) {
+      this.waypoint.options.offset = newVal;
+    }
   }
 }
 </script>

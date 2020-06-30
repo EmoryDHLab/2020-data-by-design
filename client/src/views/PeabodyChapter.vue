@@ -58,40 +58,46 @@
         height='200px'
         width='100%'
         :mutableDataset="'my-peabody'"/>
-      <p>
-        As this detailed explanation makes clear, few twenty-first-century viewers could have intuited the information conveyed by the chart without first taking the time--much more than visualizations today most often require--in order to learn how to decode it. For most contemporary visualization researchers and designers, who champion the clarifying capacity of visualization; or for those who believe that data visualization is best deployed to “amplify” existing thought processes, Peabody’s method would be a complete and utter failure.
-      </p>
-      <p>
-        But for Peabody, this near-total abstraction was precisely the point. Her charts were intended to appeal to the senses directly, to provide what she called “outlines to the eye.” Her hope was that, by providing the outline of history, and only the outline, each student would be required to fill in the space that remained. The result would be a unique account of history--one that originated from the mind of each student--and that reflected their own process of producing historical knowledge.
-      </p>
-      <p>
-        Peabody’s emphasis on facilitating multiple interpretations amongst her students, rather than transmitting to them a single historical account, stands in direct contrast to someone like William Playfair, who, as discussed in Chapter One, designed his visualizations for that latter aim. It also
-        strongly anticipates a central tenet of contemporary feminist thought: namely, that the most complete knowledge is gained from bringing together multiple perspectives. Feminist philosophers such as Donna Haraway make the case that all knowledge is “situated,” meaning that it is produce by specific people in specific circumstances--cultural, historical, and geographic. In fact, Haraway uses the example of data visualization in order to elaborate her claim. She identifies a phenomenon she calls the “God Trick,” in which viewers are made to believe that they are seeing everything all at once, from up above, like a “god.” But it is a “trick” because the image only appears to show everything. What we as viewers too readily interpret as a neutral, third-party, or “godlike” perspective, is just as situated as any other.
-      </p>
-      <p>
-        The situated nature of historical knowledge is what Peabody designed her charts in order to express. [conclusion cont'd]
-      </p>
+
+      <div>
+        <p>
+          As this detailed explanation makes clear, few twenty-first-century viewers could have intuited the information conveyed by the chart without first taking the time--much more than visualizations today most often require--in order to learn how to decode it. For most contemporary visualization researchers and designers, who champion the clarifying capacity of visualization; or for those who believe that data visualization is best deployed to “amplify” existing thought processes, Peabody’s method would be a complete and utter failure.
+        </p>
+        <p>
+          But for Peabody, this near-total abstraction was precisely the point. Her charts were intended to appeal to the senses directly, to provide what she called “outlines to the eye.” Her hope was that, by providing the outline of history, and only the outline, each student would be required to fill in the space that remained. The result would be a unique account of history--one that originated from the mind of each student--and that reflected their own process of producing historical knowledge.
+        </p>
+        <p>
+          Peabody’s emphasis on facilitating multiple interpretations amongst her students, rather than transmitting to them a single historical account, stands in direct contrast to someone like William Playfair, who, as discussed in Chapter One, designed his visualizations for that latter aim. It also
+          strongly anticipates a central tenet of contemporary feminist thought: namely, that the most complete knowledge is gained from bringing together multiple perspectives. Feminist philosophers such as Donna Haraway make the case that all knowledge is “situated,” meaning that it is produce by specific people in specific circumstances--cultural, historical, and geographic. In fact, Haraway uses the example of data visualization in order to elaborate her claim. She identifies a phenomenon she calls the “God Trick,” in which viewers are made to believe that they are seeing everything all at once, from up above, like a “god.” But it is a “trick” because the image only appears to show everything. What we as viewers too readily interpret as a neutral, third-party, or “godlike” perspective, is just as situated as any other.
+        </p>
+        <p>
+          The situated nature of historical knowledge is what Peabody designed her charts in order to express. [conclusion cont'd]
+        </p>
+      </div>
     </Section>
     <Section title="Chart-Making as Method">
       <p>
         In addition encouraging each student to interpret the printed charts for themselves, Peabody also identified the process of visualization itself as a means of making historical knowledge. To this end, she also printed workbooks with sheets of blank charts--”blank centuries,” she called them--as in the image below. In this version of her pedagogical plan, she envisioned the exercise as not merely cross-referencing the list of events with their visual representation, but of enabling students to themselves create the visualizations they would then study.
       </p>
       <img src="./img/peabodyblank.png" width="60%">
-      <p>
-        Having traveled to many archives in the process of conducting research for this project, I’ve concluded that Julian Hawthorne wasn’t the only student to experience difficulty with Peabody’s system. Paging through multiple copies of her Polish-American System of Chronology, which concludes with several pages of blank charts, they tend to follow a similar pattern: a page or two with squares filled out in earnest, then a series of attempts seemingly abandoned halfway, and then a shift in purpose from study to play, with the grid becoming a structured canvas for creating geometric abstractions.
-      </p>
-      <p>
-        The difficulty of the Polish-American system seems to be both a liability of the form and also the point: Peabody developed her method at a time of national crisis—the decade leading up to the Civil War—and she recognized that the nation’s problems would be difficult to solve. More than that, she understood that solving these problems would require sustained effort and significant thought. Her goal with the Chronological History was to create a framework, both visual and intellectual, through which this difficult thinking could take place. And her hope was that her system might prompt an array of possible solutions—one coming from the creator of each chart. In other words, she hoped that by creating new narratives of the past, her students would also imagine alternate futures.
-      </p>
-      <p>
-        The political crisis that motivated the Peabody to create her Chronological History is required context for understanding Peabody’s ideas about the uses of historical knowledge. In addition, it helps to underscore how the images she created, as well as the methods she employed, were also politically situated. As I argue throughout this project, the idea of data visualization at its most basic level is culturally and politically situated as well.
-      </p>
-      <p>
-        While it requires a bit of background knowledge--or reading the textbook itself--for contemporary viewers to detect the politics of Peabody’s charts, other charts make their politics more explicit--for example, Emma Willard’s Temple of Time, which I explore in Chapter ##. In my analysis there, I discuss how Willard depicts the events of history as the pillars supporting her eponymous temple, with the present represented as an unfinished column, not yet secure enough to contribute to supporting the weight of the past. On the floor of the temple, she places the United States in the foreground, opening up towards the viewer, enfolding them in what was to come. Peabody explicitly identified Willard as a major source of inspiration for her own project, crediting Williard with creating “the most ingenious chart ever invented, besides (my own).”
-      </p>
-      <p>
-        In Chapter ##, I also discuss how Willard’s own influences, which tended to be to more canonical (because more conventional) visualization examples—Joseph Priestley’s New Chart of History, from 1796, which scholars claim was the most circulated chart of this sort of its time; and William Playfair’s Commercial and Political Atlas, from 1786, which I discuss in Chapter ##. According to historian Susan Schulten, Willard appreciated the efficiency of the form of the chart, but felt that it gave “little sense of the dimension, such as the relative importance of periods or the subjective experience of time.” Sure enough, while these earlier charts fail to provide a sense of the subjective experience of time, they do offer images that we can very easily interpret today.
-      </p>
+      <div>
+
+        <p>
+          Having traveled to many archives in the process of conducting research for this project, I’ve concluded that Julian Hawthorne wasn’t the only student to experience difficulty with Peabody’s system. Paging through multiple copies of her Polish-American System of Chronology, which concludes with several pages of blank charts, they tend to follow a similar pattern: a page or two with squares filled out in earnest, then a series of attempts seemingly abandoned halfway, and then a shift in purpose from study to play, with the grid becoming a structured canvas for creating geometric abstractions.
+        </p>
+        <p>
+          The difficulty of the Polish-American system seems to be both a liability of the form and also the point: Peabody developed her method at a time of national crisis—the decade leading up to the Civil War—and she recognized that the nation’s problems would be difficult to solve. More than that, she understood that solving these problems would require sustained effort and significant thought. Her goal with the Chronological History was to create a framework, both visual and intellectual, through which this difficult thinking could take place. And her hope was that her system might prompt an array of possible solutions—one coming from the creator of each chart. In other words, she hoped that by creating new narratives of the past, her students would also imagine alternate futures.
+        </p>
+        <p>
+          The political crisis that motivated the Peabody to create her Chronological History is required context for understanding Peabody’s ideas about the uses of historical knowledge. In addition, it helps to underscore how the images she created, as well as the methods she employed, were also politically situated. As I argue throughout this project, the idea of data visualization at its most basic level is culturally and politically situated as well.
+        </p>
+        <p>
+          While it requires a bit of background knowledge--or reading the textbook itself--for contemporary viewers to detect the politics of Peabody’s charts, other charts make their politics more explicit--for example, Emma Willard’s Temple of Time, which I explore in Chapter ##. In my analysis there, I discuss how Willard depicts the events of history as the pillars supporting her eponymous temple, with the present represented as an unfinished column, not yet secure enough to contribute to supporting the weight of the past. On the floor of the temple, she places the United States in the foreground, opening up towards the viewer, enfolding them in what was to come. Peabody explicitly identified Willard as a major source of inspiration for her own project, crediting Williard with creating “the most ingenious chart ever invented, besides (my own).”
+        </p>
+        <p>
+          In Chapter ##, I also discuss how Willard’s own influences, which tended to be to more canonical (because more conventional) visualization examples—Joseph Priestley’s New Chart of History, from 1796, which scholars claim was the most circulated chart of this sort of its time; and William Playfair’s Commercial and Political Atlas, from 1786, which I discuss in Chapter ##. According to historian Susan Schulten, Willard appreciated the efficiency of the form of the chart, but felt that it gave “little sense of the dimension, such as the relative importance of periods or the subjective experience of time.” Sure enough, while these earlier charts fail to provide a sense of the subjective experience of time, they do offer images that we can very easily interpret today.
+        </p>
+      </div>
       <div>
         Conlusion goes here
       </div>
@@ -123,6 +129,39 @@
       </div>
     </Section>
     <Section title="Conclusion">
+      <Scrollytell collect>
+
+
+        <template v-slot:fixed="{ scrolled }">
+          <img src="./img/_brookes.jpg" width="500px"/>
+          <h1>Scrolled through: {{scrolled}}</h1>
+        </template>
+
+
+        <template v-slot:1>
+          Scrolltext 1
+          yadayadayada
+        </template>
+
+        <template v-slot:2>
+          <p>
+            Scrolltext 2
+          </p>
+          <p>
+           yadayada
+          </p>
+        </template>
+
+        <template v-slot:3>
+          Scrolltext 3
+        </template>
+        <template v-slot:4>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus accusantium asperiores assumenda, blanditiis consequuntur, distinctio eius eum exercitationem fuga id ipsam maiores minima nisi nostrum porro quia rem rerum sunt.
+        </template>
+        <template v-slot:5>
+          2Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci animi aperiam autem, dolorum ex harum iste libero molestiae nemo quos rerum sed similique soluta voluptas voluptate! Aut incidunt vitae voluptas.
+        </template>
+      </Scrollytell>
       <p>
       And to me, there lies the principal lesson of Peabody’s charts—about what information constitutes knowledge, about how that knowledge is perceived, and about who is authorized to produce it. So that, to me, is why this project—the historical part and the technical one—is a humanistic one. Because it brings renewed attention to the role of interpretation, and to the modes of knowing outside of what we’d typically consider to be visualizable, such as intuition, or affect, or embodiment.
       </p>
@@ -155,6 +194,7 @@ import mutations from '@/store/dataset/types'
 import ch_mut from '@/store/chapters-old/types'
 import Section from '@/components/chapters/Section'
 import Highlightable from "@/mixins/Highlightable";
+import Scrollytell from "../components/scrollytelling/Scrollytell";
 
 export default {
   name: "ThePeabodyChapter",
@@ -165,6 +205,7 @@ export default {
     PeabodyTutorial,
     TimelineVis,
     Section,
+    Scrollytell
   },
   mixins: [Highlightable(".chapter__main")],
   data() {
