@@ -63,61 +63,6 @@ export default {
   props: {
     curChapter: String,
   },
-  data: () => ({
-    // timelineData: {
-    //     peabody: {
-    //       paragraphData: [3,5,10,4,4], //index = which section, value = number of sub-parts, shape of the following arrays.
-    //       highlights: [[0.7, 0.3, 0.],
-    //           [0., 0., 0., 0.2, 0.],
-    //           [0., 0.1, 0.6, 0., 0., 0.2, 0., 0.5, 0., 0.],
-    //           [0.8, 0., 0., 0.],
-    //           [0.6, 0., 0.2, 0.1]], //default: transparency = 0 for every block;
-    //       vis: [[1, 0, 2],
-    //             [2, 1, 0, 0, 2],
-    //             [2, 3, 0, 1, 0, 1, 3, 0, 2, 0],
-    //             [1, 1, 0, 3],
-    //             [0, 2, 0, 1]],// 1 -> image, 2 -> interaction, 3 -> static vis, 0 -> empty
-    //     },
-    //     dubois: {
-    //         paragraphData: [3,5,10,4,4], //index = which paragraph, value = number of sub-parts, shape of the following arrays.
-    //         highlights: [[0.7, 0.3, 0.],
-    //             [0., 0., 0., 0.2, 0.],
-    //             [0., 0.1, 0.6, 0., 0., 0.2, 0., 0.5, 0., 0.],
-    //             [0.8, 0., 0., 0.],
-    //             [0.6, 0., 0.2, 0.1]], //default: transparency = 0 for every block;
-    //         vis: [[1, 0, 2],
-    //             [2, 1, 0, 0, 2],
-    //             [2, 3, 0, 1, 0, 1, 3, 0, 2, 0],
-    //             [1, 1, 0, 3],
-    //             [0, 2, 0, 1]],
-    //     },
-    //     playfair: {
-    //         paragraphData: [3,5,10,4,4], //index = which paragraph, value = number of sub-parts, shape of the following arrays.
-    //         highlights: [[0.7, 0.3, 0.],
-    //             [0., 0.2, 0., 0.8, 0.2],
-    //             [0.3, 0.1, 0.6, 0.8, 0., 0.9, 0., 0.5, 0., 0.7],
-    //             [0.8, 0.4, 0., 0.],
-    //             [0.3, 0.8, 0.3, 0.7]], //default: transparency = 0 for every block;
-    //         vis: [[1, 4, 2],
-    //             [2, 4, 3, 1, 3],
-    //             [4, 3, 1, 2, 1, 1, 3, 1, 2, 1],
-    //             [1, 2, 4, 3],
-    //             [3, 4, 2, 1]],
-    //     },
-    // } // the data which will be fed into the timeline
-  }),
-  mounted () {
-    // get the mounding box of the chapter
-    // const mainBox = DOM.getBox(this.$el)
-    // get all visualizations in the chapter and map them to position and link
-    // const data = this.$children.filter(c => c.isVis).map(c => ({
-    //   position: DOM.getY(c.$el),
-    //   link: c.id }))
-    // set the calculated range in the timeline data
-    // this.$set(this.timelineData, "range", [0, mainBox.bottom - mainBox.top])
-    // set the datapoints in the timeline data
-    // this.$set(this.timelineData, "data", data)
-  },
   computed: {
     currentChapter: function() {
       return this.curChapter + "NavlineVis";

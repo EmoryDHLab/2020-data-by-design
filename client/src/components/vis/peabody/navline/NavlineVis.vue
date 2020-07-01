@@ -285,12 +285,9 @@ export default {
               start = end;
               x = (x === this.styles.line.left) ? this.styles.line.right : this.styles.line.left;
           }
-          // console.log(arr)
           return arr;
       },
       goto: function (section, subsection) {
-          // let idname = "part" + index + "." + i;
-          // this.$store.commit(ch_mut.SET_IDNAME, { id: idname });
         this.scrollTo({ section, subsection})
       },
     /**

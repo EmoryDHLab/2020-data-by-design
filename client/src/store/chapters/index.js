@@ -127,16 +127,6 @@ const store = {
     [Mutations.ADD_VIS] (state, {element}) {
       state.unmatchedVis.push(element);
       state.currChapter.lastUpdated = Date.now();
-      // const section = state.currChapter.sections[sectionIndex];
-      // if (!section) return;
-      // if (!section.visualizations) {
-      //   section.visualizations = [];
-      //   section.visualizations[subsection] = 1;
-      // } else if (section.visualizations[subsection]) {
-      //   section.visualizations[subsection]++;
-      // } else {
-      //   section.visualizations[subsection] = 1;
-      // }
     },
     [Mutations.SET_TITLE] (state, {title}) {
       state.currChapter.title = title;
@@ -166,12 +156,6 @@ const store = {
       if (element) {
         commit(Mutations.ADD_VIS, {element});
       }
-      // let { section, subsection } = findParentSection(element, getters.currChapterSections);
-      // if (!section) {
-      //   console.error("Visualization not in a Section!");
-      //   return false;
-      // }
-      // commit(Mutations.ADD_VIS, { sectionIndex: section, subsection})
     },
     incrementHighlightSpans({state}) {
       state.highlightSpanCount++;
