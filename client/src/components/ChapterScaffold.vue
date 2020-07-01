@@ -138,7 +138,7 @@ export default {
   },
   watch: {
     scrollTo (newVal, oldVal) {
-      window.scrollTo({top: newVal});
+      window.scrollTo({top: newVal, behavior: 'smooth'});
     }
   }
 }

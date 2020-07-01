@@ -51,13 +51,15 @@ const store = {
     currChapterTitle: state => state.currChapter.title,
     currChapterSections: state => state.currChapter.sections,
     lastUpdated: state => state.currChapter.lastUpdated,
-    offsets: state =>
-      state.currChapter.sections.reduce((obj, section, secIndex) => {
+    offsets: state => {
+      /*Register dependency:*/ state.currChapter.lastUpdated;
+      return state.currChapter.sections.reduce((obj, section, secIndex) => {
         section.offsets.forEach((offset, subsecIndex) => {
           obj[offset] = { section: secIndex, subsection: subsecIndex };
         });
         return obj;
-      }, {}),
+      }, {})
+    },
     closestPastOffset: (state, getters) => (currOffset) =>
       Object.keys(getters.offsets)
         .filter(offset => offset <= currOffset)
@@ -71,12 +73,25 @@ const store = {
       const highlights = Array.from({length: subsections}).fill(0);
       const vis = Array.from({length: subsections}).fill(0);
       const offsets = Array.from({length: subsections});
+
+      window.addEventListener('load', event => {
+        for (let i = 0; i < subsections; i++) {
+          const child = el.children[i];
+          let top = child.offsetTop;
+          let curr = child.offsetParent;
+          while (curr) {
+            top += curr.offsetTop;
+            curr = curr.offsetParent;
+          }
+          offsets[i] = top;
+          state.currChapter.lastUpdated = Date.now();
+        }
+      })
       for (let i = 0; i < subsections; i++) {
         const child = el.children[i];
         if (child.tagName.toUpperCase() === "IMG") {
           vis[i] = VisTypes.IMAGE;
         }
-        offsets[i] = child.offsetTop;
       }
       state.unmatchedVis
         .forEach(visEl => {
