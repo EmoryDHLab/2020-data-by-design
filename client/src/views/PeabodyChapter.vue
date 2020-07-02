@@ -10,9 +10,16 @@
       <p>
         But in the 1850s, Peabody set off to ride the rails. She traveled as far north as Rochester, NY; as far west as Louisville, KY; and as far south as Richmond, VA, in order to promote the US history textbook she had recently published, A Chronological History of the United States.
       </p>
-      <div>
-        Interactive map goes here
-      </div>
+      <MapScroller asset="railroadscaled.jpg" width="80vh"
+                   :current-position="mapPos"
+                   :positions="[
+                     {left: 0, top: 0, width: 100, height: 100},
+                     {left: 20, top: 20, width: 100, height: 100},
+                     {left: -70, top: -120, width: 300, height: 300}
+                  ]">
+      </MapScroller>
+      <button @click="mapPos++">+</button>
+      <button @click="mapPos--">-</button>
       <p>
         Along with boxes of books, Peabody traveled with a fabric roll the size of a living room rug, which contained floor-sized versions of the chronological history charts that illustrated the book. Peabody identified the four charts—in their vibrant, full-color detail—as key components of her pedagogical approach. As she describes in her “Preface to Teacher,” the charts were designed to impress “a chronological outline of the chain of events” of US history “on the mind, by means of that natural memorizer, the sense of sight.” Like Willard, Playfair, and other early proponents of data visualization, Peabody understood the eyes as the most COMPLETE. But Peabody’s charts were not intended to serve as mere conduits of information--part of a one-way transfer of knowledge from teacher to student. Rather, Peabody hoped to encourage a process of exchange between the producer and the perceiver of the charts. The charts’ design “does not pretend to be what an outline can never be, namely: a perfect framework for history,” she wrote in COMPLETE. Rather, through the process of interpreting the chronological data represented on the charts, each student would be prompted to develop their own narrative of the past.
       </p>
@@ -195,6 +202,7 @@ import ch_mut from '@/store/chapters-old/types'
 import Section from '@/components/chapters/Section'
 import Highlightable from "@/mixins/Highlightable";
 import Scrollytell from "../components/scrollytelling/Scrollytell";
+import MapScroller from "../components/scrollytelling/MapScroller";
 
 export default {
   name: "ThePeabodyChapter",
@@ -205,7 +213,8 @@ export default {
     PeabodyTutorial,
     TimelineVis,
     Section,
-    Scrollytell
+    Scrollytell,
+    MapScroller,
   },
   mixins: [Highlightable(".chapter__main")],
   data() {
@@ -213,6 +222,7 @@ export default {
       currentDataset: 0,
       scrolled: false,
       scrolledMax: 0,
+      mapPos: 0,
       imposter: {
         color: "#ff00ff",
         year: 1570,
