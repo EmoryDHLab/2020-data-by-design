@@ -14,8 +14,7 @@
                    :current-position="mapPos"
                    :positions="[
                      {left: 0, top: 0, width: 100, height: 100},
-                     {left: 20, top: 20, width: 100, height: 100},
-                     {left: -70, top: -120, width: 300, height: 300}
+                     {left: -90, top: -120, width: 300, height: 300},
                   ]">
       </MapScroller>
       <button @click="mapPos++">+</button>

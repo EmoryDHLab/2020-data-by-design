@@ -1,7 +1,6 @@
 <template>
   <div id="image" :style="styles">
     <img :src="src" :style="{ width: this.width }" alt=""/>
-    {{ viewLeft }}
   </div>
 
 </template>
@@ -33,21 +32,38 @@
     },
     data () {
       return {
-        viewLeft: 0,
-        viewTop: 0,
-        viewWidth: 100,
-        viewHeight: 100,
+        elapsed: 0,
+        forward: true,
       }
     },
     computed: {
+      currViewport() {
+        const currPos = this.positions[this.currentPosition];
+        if (this.elapsed === 0) {
+          return this.positions[this.currentPosition]
+        }
+        else {
+          const fromPos = this.forward ? this.positions[this.currentPosition - 1] : this.positions[this.currentPosition + 1]
+          if (currPos && fromPos) {
+            const interp = (dimension) => d3.interpolateNumber(fromPos[dimension], currPos[dimension])(this.elapsed);
+            return {
+              top: interp('top'),
+              left: interp('left'),
+              width: interp('width'),
+              height: interp('height')
+            }
+          }
+        }
+      },
       src () {
         return require(`../../assets/${this.asset}`)
       },
       styles () {
+        const viewport = this.currViewport;
         return {
           backgroundImage: `url(${this.src})`,
-          backgroundSize: `${this.viewWidth}vh ${this.viewHeight}vh`,
-          backgroundPosition: `${this.viewLeft}vh ${this.viewTop}vh`,
+          backgroundSize: `${viewport.width}vh ${viewport.height}vh`,
+          backgroundPosition: `${viewport.left}vh ${viewport.top}vh`,
           width: 'fit-content'
         }
       }
@@ -58,24 +74,18 @@
     },
     watch: {
       currentPosition (newVal, oldVal) {
-        const positions = this.positions[newVal];
-        if (positions) {
-          const interpolateLeft = d3.interpolateNumber(this.viewLeft, positions.left);
-          const interpolateTop = d3.interpolateNumber(this.viewTop, positions.top);
-          const interpolateWidth = d3.interpolateNumber(this.viewWidth, positions.width);
-          const interpolateHeight = d3.interpolateNumber(this.viewHeight, positions.height);
+        if (newVal > oldVal)
+          this.forward = true;
+        else this.forward = false;
 
-          const timer = d3.timer( elapsed => {
-            const t = elapsed / this.animationTime;
-            this.viewLeft = interpolateLeft(t);
-            this.viewTop = interpolateTop(t);
-            this.viewWidth = interpolateWidth(t);
-            this.viewHeight = interpolateHeight(t);
-            if (elapsed > this.animationTime) {
-              timer.stop();
-            }
-          })
-        }
+        const timer = d3.timer(elapsed => {
+          if (elapsed > this.animationTime) {
+            timer.stop();
+            this.elapsed = 0;
+          } else {
+            this.elapsed = elapsed / this.animationTime;
+          }
+        })
       }
     }
   }
