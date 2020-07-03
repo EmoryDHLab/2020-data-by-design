@@ -19,7 +19,7 @@
       <MapScroller asset="railroadscaled.jpg" width="60vh"
                    :current-position="mapPos"
                    :positions="[
-                     {left: 0, top: 0, width: 60, height: 60},
+                     {left: 0, top: 0, width: 100, height: 100},
                      {left: -170, top: -50, width: 300, height: 300},
                      {left: -90, top: -120, width: 300, height: 300},
                      {left: -140, top: -110, width: 280, height: 280},

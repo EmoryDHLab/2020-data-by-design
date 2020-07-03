@@ -1,6 +1,6 @@
 <template>
-  <div ref="image" id="image" :style="styles">
-    <img :src="src" :style="{ width: this.width }" alt=""/>
+  <div ref="div" id="image" :style="styles">
+    <img ref="img" :src="src" :style="{ width: this.width }" alt=""/>
   </div>
 
 </template>
@@ -60,17 +60,15 @@
       },
       styles () {
         const viewport = this.currViewport;
+        const dim = dimension => this.widthTimes(viewport[dimension] / 100);
+        // console.log(dim('width'), dim('height'), dim('left'), dim('top'))
         return {
           backgroundImage: `url(${this.src})`,
-          backgroundSize: `${viewport.width}vh ${viewport.height}vh`,
-          backgroundPosition: `${viewport.left}vh ${viewport.top}vh`,
+          backgroundSize: `${dim('width')} ${dim('height')}`,
+          backgroundPosition: `${dim('left')} ${dim('top')}`,
           width: 'fit-content'
         }
       }
-    },
-    mounted () {
-      console.log("D3");
-      console.dir(d3);
     },
     watch: {
       currentPosition (newVal, oldVal) {
@@ -78,8 +76,17 @@
           this.prevView = this.positions[oldVal];
         } else {
           let left, top, width, height;
-          [left, top] = this.$refs['image'].style.backgroundPosition.replace(/vh/g, '').split(' ').map(n => Number(n));
-          [width, height] = this.$refs['image'].style.backgroundSize.replace(/vh/g, '').split(' ').map(n => Number(n));
+          const imgWidth = Number(window.getComputedStyle(this.$refs['img']).width.replace(/px/g, ''));
+          console.log(imgWidth);
+          [left, top] = window.getComputedStyle(this.$refs['div']).backgroundPosition
+            .replace(/px/g, '')
+            .split(' ')
+            .map(n => Number(n) / imgWidth * 100);
+          [width, height] = window.getComputedStyle(this.$refs['div']).backgroundSize
+            .replace(/px/g, '')
+            .split(' ')
+            .map(n => Number(n) / imgWidth * 100);
+          console.log(left, top, width, height);
           this.prevView = { left, top, width, height };
         }
 
