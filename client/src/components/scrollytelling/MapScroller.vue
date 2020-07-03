@@ -1,5 +1,5 @@
 <template>
-  <div id="image" :style="styles">
+  <div ref="image" id="image" :style="styles">
     <img :src="src" :style="{ width: this.width }" alt=""/>
   </div>
 
@@ -22,7 +22,7 @@
       },
       animationTime: {
         type: Number,
-        default: 800
+        default: 1000
       },
       currentPosition: {
         type: Number,
@@ -33,7 +33,7 @@
     data () {
       return {
         elapsed: 0,
-        forward: true,
+        prevView: null
       }
     },
     computed: {
@@ -43,9 +43,9 @@
           return this.positions[this.currentPosition]
         }
         else {
-          const fromPos = this.forward ? this.positions[this.currentPosition - 1] : this.positions[this.currentPosition + 1]
-          if (currPos && fromPos) {
-            const interp = (dimension) => d3.interpolateNumber(fromPos[dimension], currPos[dimension])(this.elapsed);
+          if (currPos && this.prevView) {
+            const interp = (dimension) => d3.interpolateNumber(this.prevView[dimension], currPos[dimension])
+                                          (d3.easePolyInOut(this.elapsed));
             return {
               top: interp('top'),
               left: interp('left'),
@@ -74,9 +74,14 @@
     },
     watch: {
       currentPosition (newVal, oldVal) {
-        if (newVal > oldVal)
-          this.forward = true;
-        else this.forward = false;
+        if (this.elapsed == 0) {
+          this.prevView = this.positions[oldVal];
+        } else {
+          let left, top, width, height;
+          [left, top] = this.$refs['image'].style.backgroundPosition.replace(/vh/g, '').split(' ').map(n => Number(n));
+          [width, height] = this.$refs['image'].style.backgroundSize.replace(/vh/g, '').split(' ').map(n => Number(n));
+          this.prevView = { left, top, width, height };
+        }
 
         const timer = d3.timer(elapsed => {
           if (elapsed > this.animationTime) {

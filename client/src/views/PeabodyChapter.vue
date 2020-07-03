@@ -8,13 +8,21 @@
         Elizabeth Palmer Peabody was born in Massachusetts in 1804. Today, she is most famous for her proximity to more well-known writers of the American Renaissance, such as Ralph Waldo Emerson and Nathaniel Hawthorne. (Hawthorne was actually married to her sister, Sophia). But Peabody had impact in her own right: the bookstore that she ran out of her home, in Boston, functioned as the de facto salon for the transcendentalist movement. She edited and published the first version of Henry David Thoreau’s essay on civil disobedience. And she was an educational innovator: she is credited with starting the first kindergarten in the United States.
       </p>
       <p>
-        But in the 1850s, Peabody set off to ride the rails. She traveled as far north as Rochester, NY; as far west as Louisville, KY; and as far south as Richmond, VA, in order to promote the US history textbook she had recently published, A Chronological History of the United States.
+        But in the 1850s, Peabody set off to ride the rails. She traveled as far north as
+        <a href="#" @mouseover="mapPos=1" @mouseout="mapPos=0">Rochester, NY</a>;
+        as far west as
+        <a href="#" @mouseover="mapPos=2" @mouseout="mapPos=0">Louisville, KY</a>;
+        and as far south as
+        <a href="#" @mouseover="mapPos=3" @mouseout="mapPos=0">Richmond, VA</a>,
+        in order to promote the US history textbook she had recently published, A Chronological History of the United States.
       </p>
-      <MapScroller asset="railroadscaled.jpg" width="80vh"
+      <MapScroller asset="railroadscaled.jpg" width="60vh"
                    :current-position="mapPos"
                    :positions="[
-                     {left: 0, top: 0, width: 100, height: 100},
+                     {left: 0, top: 0, width: 60, height: 60},
+                     {left: -170, top: -50, width: 300, height: 300},
                      {left: -90, top: -120, width: 300, height: 300},
+                     {left: -140, top: -110, width: 280, height: 280},
                   ]">
       </MapScroller>
       <button @click="mapPos++">+</button>
