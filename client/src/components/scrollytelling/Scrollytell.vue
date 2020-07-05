@@ -81,7 +81,7 @@ export default {
   .scrollytell-fixed {
     flex: 1;
     top: 50px;
-    height: 100vh;
+    height: 100px;
     position: sticky;
     align-items: center;
   }
@@ -91,7 +91,6 @@ export default {
   }
 
   .scroll-item {
-    border: 0.5px solid black;
     padding: 5px;
     margin-bottom: 100vh;
     /*box-shadow: 1px 1px 1px 1px gray;*/

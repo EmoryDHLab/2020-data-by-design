@@ -25,8 +25,6 @@
                      {left: -140, top: -110, width: 280, height: 280},
                   ]">
       </MapScroller>
-      <button @click="mapPos++">+</button>
-      <button @click="mapPos--">-</button>
       <p>
         Along with boxes of books, Peabody traveled with a fabric roll the size of a living room rug, which contained floor-sized versions of the chronological history charts that illustrated the book. Peabody identified the four charts—in their vibrant, full-color detail—as key components of her pedagogical approach. As she describes in her “Preface to Teacher,” the charts were designed to impress “a chronological outline of the chain of events” of US history “on the mind, by means of that natural memorizer, the sense of sight.” Like Willard, Playfair, and other early proponents of data visualization, Peabody understood the eyes as the most COMPLETE. But Peabody’s charts were not intended to serve as mere conduits of information--part of a one-way transfer of knowledge from teacher to student. Rather, Peabody hoped to encourage a process of exchange between the producer and the perceiver of the charts. The charts’ design “does not pretend to be what an outline can never be, namely: a perfect framework for history,” she wrote in COMPLETE. Rather, through the process of interpreting the chronological data represented on the charts, each student would be prompted to develop their own narrative of the past.
       </p>
