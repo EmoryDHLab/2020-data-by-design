@@ -93,12 +93,12 @@ export default {
     setInterval(() => {
       if (scrolling && window.scrollY > top) {
         scrolling = false;
-        console.log(this.scrolled);
+        console.log(this.scrolled, top);
         const to = startingOffsets[this.scrolled + 1];
         const from = startingOffsets[this.scrolled];
         // const adjust = this.stuckHeights().slice(0,this.scrolled + 1).reduce((acc, curr) => acc + curr);
-        const adjust = this.offset(this.scrolled + 1);
-        console.log(from, to, window.scrollY + adjust);
+        const adjust = this.offset(this.scrolled);
+        console.log(from, to, window.scrollY + adjust, (window.scrollY + adjust - from) / (to - from));
         // if (window.scrollY >= this.lastScrollY) {
         //   if (this.scrolled >= this.textSlots.length) return;
         //   let nextHeight = this.$refs['textSlots'][this.scrolled].offsetTop;

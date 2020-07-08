@@ -91,6 +91,15 @@ export default {
 
 <style>
 
+a.blue-hover {
+  text-decoration: none;
+  color: #4a90e2;
+  font-weight: 400;
+}
+
+a.blue-hover:hover {
+  filter: brightness(130%);
+}
 .nb-user-highlight {
   background-color: yellow
 }

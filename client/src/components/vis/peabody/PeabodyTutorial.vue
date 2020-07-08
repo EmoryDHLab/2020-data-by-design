@@ -1,6 +1,6 @@
 <template>
   <div class='peabody-tutorial' aria-labelledby='' aria-describedby='right-hand-text'>
-    <div class='tutorial-flex' :class="{'tutorial-flex-center': slideNumber === 2}">
+    <div class='tutorial-flex'>
       <PeabodyGrid class='the-grid'
         :class='gridClasses'
         :showIndicator="false"
@@ -10,20 +10,19 @@
         :showSquares='showSquares'
         :id='id'
         />
-        <svg v-if='this.slideNumber === 2' class='big-line' :height='$attrs.height' viewBox ='0 0 90 600'>
-          <line x1='15' y1='1' x2='50' y2='1' stroke='orange'/>
-          <line x1='15' y1='599' x2='50' y2='599' stroke='orange'/>
-          <line x1='50' y1='599' x2='50' y2='1' stroke='orange'/>
-          <line x1='50' y1='302' x2='90' y2='302' stroke='orange'/>
-        </svg>
-        <div id="right-hand-text" class='right-hand-text'
-          :class="{'tutorial-flex-center': centerText}"
-          v-text='rightHandText'
-          :style='textStyles'>
-        </div>
+<!--        <svg v-if='this.slideNumber === 2' class='big-line' :height='$attrs.height' viewBox ='0 0 90 600'>-->
+<!--          <line x1='15' y1='1' x2='50' y2='1' stroke='orange'/>-->
+<!--          <line x1='15' y1='599' x2='50' y2='599' stroke='orange'/>-->
+<!--          <line x1='50' y1='599' x2='50' y2='1' stroke='orange'/>-->
+<!--          <line x1='50' y1='302' x2='90' y2='302' stroke='orange'/>-->
+<!--        </svg>-->
+<!--        <div id="right-hand-text" class='right-hand-text'-->
+<!--          :class="{'tutorial-flex-center': centerText}"-->
+<!--          v-text='rightHandText'-->
+<!--          :style='textStyles'>-->
+<!--        </div>-->
     </div>
     <svg class='tutorial-overlay'
-         @click="slideNumber++"
          viewBox='0 0 576 576' xmlns='http://www.w3.org/2000/svg'
          :width='$attrs.width'
          :height='$attrs.height'
@@ -39,10 +38,10 @@
         </marker>
       </defs>
 
-      <line v-if='this.slideNumber === 0' x1='576' y1='50' x2='90' y2='50' stroke='orange '
-        stroke-width='1.5' marker-end='url(#arrowhead)' />
+<!--      <line v-if='this.slideNumber === 0' x1='576' y1='50' x2='90' y2='50' stroke='orange '-->
+<!--        stroke-width='1.5' marker-end='url(#arrowhead)' />-->
 
-      <template v-if='slideNumber === 1 || slideNumber > 2 && slideNumber < 7'>
+      <template v-if='slideNumber > 1'>
         <text class='year' x='30' y='49'>1501</text>
         <text class='year' x='238' y='49'>1505</text>
         <text class='year' x='308' y='49'>1506</text>
@@ -65,18 +64,18 @@
       </template>
     </svg>
 
-    <EventKey v-if='slideNumber > 3'
-      :colors='eventKeyColors'
-      :showLegend='slideNumber === 4'
-      :showNumbers= 'slideNumber < 7'
-      :dropShadow='slideNumber < 6'
-      :style='eventKeyStyles'></EventKey>
-    <svg v-if='slideNumber === 5' viewBox='0 0 300 200' :style='countriesStyles'>
-      <g v-for="(color, index) in eventKeyColors.filter(color => color && color !== 'none')" :key='index'>
-        <rect :width='`30`' :height='`30`' :fill=color x='30' :y='index * 45'/>
-        <text v-text='colorToCountry[color]' x='70' :y='20 + index * 45'/>
-      </g>
-    </svg>
+<!--    <EventKey v-if='slideNumber > 2'-->
+<!--      :colors='eventKeyColors'-->
+<!--      :showLegend='slideNumber == 3'-->
+<!--      :showNumbers= 'slideNumber < 7'-->
+<!--      :dropShadow='slideNumber < 6'-->
+<!--      :style='eventKeyStyles'></EventKey>-->
+<!--    <svg v-if='slideNumber === 5' viewBox='0 0 300 200' :style='countriesStyles'>-->
+<!--      <g v-for="(color, index) in eventKeyColors.filter(color => color && color !== 'none')" :key='index'>-->
+<!--        <rect :width='`30`' :height='`30`' :fill=color x='30' :y='index * 45'/>-->
+<!--        <text v-text='colorToCountry[color]' x='70' :y='20 + index * 45'/>-->
+<!--      </g>-->
+<!--    </svg>-->
 
     <svg v-if='showDots' :width='$attrs.width' aria-label="Tutorial slide selection"
     viewBox="0 0 576 200">
@@ -94,13 +93,14 @@
         :fill='slideNumber === slide - 1 ? "lightgray" : "white"'
         cy=20
         r=10
-        @click='slideNumber = slide - 1'
-        @keydown='event => {
-            if (event.keyCode == 13) {
-              slideNumber = slide - 1;
-            }
-          }'
-        />
+      />
+<!--        @click='slideNumber = slide - 1'-->
+<!--        @keydown='event => {-->
+<!--            if (event.keyCode == 13) {-->
+<!--              slideNumber = slide - 1;-->
+<!--            }-->
+<!--          }'-->
+<!--        />-->
 
     </svg>
   </div>
@@ -126,11 +126,15 @@ export default {
     showDots: {
       type: Boolean,
       default: true
+    },
+    slideNumber: {
+      type: Number,
+      default: 0,
     }
   },
   data () {
     return {
-      slideNumber: 0,
+      // slideNumber: 0,
       maxSlideNumber: 7,
       gridWidth: 0,
       centerText: false,
@@ -152,6 +156,7 @@ export default {
         [this.colors.red]: 'England'
       }
     },
+    //No longer in use.
     rightHandText () {
       const arr =
       ['one year',
@@ -165,7 +170,7 @@ export default {
       return arr[this.slideNumber];
     },
     showSquares () {
-      return this.slideNumber > 2
+      return this.slideNumber > 1
     },
     gridClasses() {
       return {
@@ -203,7 +208,7 @@ export default {
         height: `calc(${gridWidth} / 5)`,
         position: 'absolute',
         left: gridWidth,
-        top: `calc(${gridWidth} / 2)`,
+        top: `calc(${gridWidth} / 1.5)`,
         transform: 'translate(-30%, -40%)',
       }
     },

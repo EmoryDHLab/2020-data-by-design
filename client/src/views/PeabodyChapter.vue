@@ -9,11 +9,11 @@
       </p>
       <p>
         But in the 1850s, Peabody set off to ride the rails. She traveled as far north as
-        <a href="#" @mouseover="mapPos=1" @mouseout="mapPos=0">Rochester, NY</a>;
+        <a class="blue-hover" href="#" @mouseover="mapPos=1" @mouseout="mapPos=0">Rochester, NY</a>;
         as far west as
-        <a href="#" @mouseover="mapPos=2" @mouseout="mapPos=0">Louisville, KY</a>;
+        <a class="blue-hover" href="#" @mouseover="mapPos=2" @mouseout="mapPos=0">Louisville, KY</a>;
         and as far south as
-        <a href="#" @mouseover="mapPos=3" @mouseout="mapPos=0">Richmond, VA</a>,
+        <a class="blue-hover" href="#" @mouseover="mapPos=3" @mouseout="mapPos=0">Richmond, VA</a>,
         in order to promote the US history textbook she had recently published, A Chronological History of the United States.
       </p>
       <MapScroller asset="railroadscaled.jpg" width="60vh"
@@ -37,11 +37,60 @@
       <p>
         Peabody’s system, like Bem’s, is based off a numbered grid, with each year in a century marked out in its own box. Each box is then subdivided, with each of the nine smaller squares corresponding to a particular type of historical event. In the top left corner is the space for wars, battles, and sieges; in the top middle is the space for conquests and unions; in the top right is the space for losses and divisions, and so on. Shapes that take up the entire box indicate an event of such magnitude or complexity that the other events in that same year hardly matter. The events are also color-coded, indicating the various countries involved in a particular event.
       </p>
-      <PeabodyTutorial
-      id="peabody-tutorial"
-      :showIndicator="false"
-      width='45vh'
-      height='45vh'/>
+      <Scrollytell collect>
+        <template v-slot:fixed="{ scrolled }">
+          <PeabodyTutorial
+            id="peabody-tutorial"
+            :showIndicator="false"
+            :showDots="false"
+            :slideNumber="scrolled"
+            width='45vh'
+            height='45vh'/>
+        </template>
+        <template v-slot:1>
+          <p>
+            Peabody’s system, like the Polish one, is based on a numbered grid, with each year in a century marked out in its own box.
+          </p>
+        </template>
+        <template v-slot:2>
+          <p>
+            Each box is then subdivided, with each of the nine smaller squares corresponding to a particular type of historical event.
+          </p>
+        </template>
+        <template v-slot:3>
+          <p>
+            In the top left corner is the space for wars, battles, and sieges; in the top middle is the space for conquests and unions;
+            in the top right is the space for losses and divisions, and so on.
+          </p>
+          <EventKey class="event-key" :colors="
+                [false, false, 'rgb(50, 91, 103)',
+                false, 'rgb(69, 136, 103)', false,
+                'rgb(141, 43, 29)', false, false]"
+                :style="{
+                  width: '20vh',
+                  marginLeft: '-5vh',
+                  marginTop: '2vh',
+                  zIndex: '100'
+                 }"
+                showLegend showNumbers dropShadow></EventKey>
+          <svg v-if='slideNumber === 5' viewBox='0 0 300 200' :style='countriesStyles'>
+            <g v-for="(color, index) in eventKeyColors.filter(color => color && color !== 'none')" :key='index'>
+              <rect :width='`30`' :height='`30`' :fill=color x='30' :y='index * 45'/>
+              <text v-text='colorToCountry[color]' x='70' :y='20 + index * 45'/>
+            </g>
+          </svg>
+        </template>
+        <template v-slot:4>
+          <p>
+            Shapes that take up the entire box indicate an event of such magnitude or complexity that the other events in that same year hardly matter.
+          </p>
+        </template>
+        <template v-slot:5>
+          <p>
+            The events are also color-coded, indicating the various countries involved in a particular event.
+          </p>
+        </template>
+      </Scrollytell>
       <p>
         As Peabody envisioned it—and described in her “Preface to Teacher”—the basic exercise was to read a chapter of the textbook, which contained a narrative account of the events of a century, and then convert the list of events that concluded the chapter into graphical form.
       </p>
@@ -201,6 +250,7 @@ import TimelineVis from '@/components/vis/timeline/TimelineVis'
 import PeabodyGrid from '@/components/vis/peabody/PeabodyGrid'
 import PeabodyMutable from '@/components/vis/peabody/PeabodyMutable'
 import PeabodyTutorial from '@/components/vis/peabody/PeabodyTutorial'
+import EventKey from "../components/vis/peabody/EventKey";
 import { EventBus } from '@/helpers/EventBus'
 import mutations from '@/store/dataset/types'
 import ch_mut from '@/store/chapters-old/types'
@@ -216,6 +266,7 @@ export default {
     PeabodyMutable,
     ChapterScaffold,
     PeabodyTutorial,
+    EventKey,
     TimelineVis,
     Section,
     Scrollytell,
@@ -251,6 +302,10 @@ export default {
 </script>
 
 <style scoped>
+
+  .event-key {
+
+  }
 .left-float {
   float: left;
 }
