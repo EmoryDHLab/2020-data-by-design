@@ -37,8 +37,10 @@
       <p>
         Peabody’s system, like Bem’s, is based off a numbered grid, with each year in a century marked out in its own box. Each box is then subdivided, with each of the nine smaller squares corresponding to a particular type of historical event. In the top left corner is the space for wars, battles, and sieges; in the top middle is the space for conquests and unions; in the top right is the space for losses and divisions, and so on. Shapes that take up the entire box indicate an event of such magnitude or complexity that the other events in that same year hardly matter. The events are also color-coded, indicating the various countries involved in a particular event.
       </p>
-      <Scrollytell collect>
-        <template v-slot:fixed="{ scrolled }">
+      <Scrollytell collect :scrollSlots="5">
+        <template v-slot:fixed="{ scrolled, progress }">
+          {{ progress }}
+          {{ scrolled }}
           <PeabodyTutorial
             id="peabody-tutorial"
             :showIndicator="false"
@@ -57,28 +59,23 @@
             Each box is then subdivided, with each of the nine smaller squares corresponding to a particular type of historical event.
           </p>
         </template>
-        <template v-slot:3>
+        <template v-slot:3="{ progress, scrolled }">
           <p>
             In the top left corner is the space for wars, battles, and sieges; in the top middle is the space for conquests and unions;
             in the top right is the space for losses and divisions, and so on.
           </p>
-          <EventKey class="event-key" :colors="
+          <EventKey class="event-key" :colors=" scrolled > 4 ?
                 [false, false, 'rgb(50, 91, 103)',
                 false, 'rgb(69, 136, 103)', false,
-                'rgb(141, 43, 29)', false, false]"
+                'rgb(141, 43, 29)', false, false] : Array(9)"
                 :style="{
                   width: '20vh',
-                  marginLeft: '-5vh',
+                  opacity: d3.interpolate(0,1)(progress),
+                  transform: d3.interpolateString('translateX(10vh)', 'translateX(-5vh)')(d3.easeQuadOut(d3.scaleLinear([0.5,1], [0,1])(progress))),
                   marginTop: '2vh',
                   zIndex: '100'
                  }"
                 showLegend showNumbers dropShadow></EventKey>
-          <svg v-if='slideNumber === 5' viewBox='0 0 300 200' :style='countriesStyles'>
-            <g v-for="(color, index) in eventKeyColors.filter(color => color && color !== 'none')" :key='index'>
-              <rect :width='`30`' :height='`30`' :fill=color x='30' :y='index * 45'/>
-              <text v-text='colorToCountry[color]' x='70' :y='20 + index * 45'/>
-            </g>
-          </svg>
         </template>
         <template v-slot:4>
           <p>
@@ -190,39 +187,39 @@
       </div>
     </Section>
     <Section title="Conclusion">
-      <Scrollytell collect>
+<!--      <Scrollytell collect>-->
 
 
-        <template v-slot:fixed="{ scrolled }">
-          <img src="./img/_brookes.jpg" width="500px"/>
-          <h1>Scrolled through: {{scrolled}}</h1>
-        </template>
+<!--        <template v-slot:fixed="{ scrolled }">-->
+<!--          <img src="./img/_brookes.jpg" width="500px"/>-->
+<!--          <h1>Scrolled through: {{scrolled}}</h1>-->
+<!--        </template>-->
 
 
-        <template v-slot:1>
-          Scrolltext 1
-          yadayadayada
-        </template>
+<!--        <template v-slot:1>-->
+<!--          Scrolltext 1-->
+<!--          yadayadayada-->
+<!--        </template>-->
 
-        <template v-slot:2>
-          <p>
-            Scrolltext 2
-          </p>
-          <p>
-           yadayada
-          </p>
-        </template>
+<!--        <template v-slot:2>-->
+<!--          <p>-->
+<!--            Scrolltext 2-->
+<!--          </p>-->
+<!--          <p>-->
+<!--           yadayada-->
+<!--          </p>-->
+<!--        </template>-->
 
-        <template v-slot:3>
-          Scrolltext 3
-        </template>
-        <template v-slot:4>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus accusantium asperiores assumenda, blanditiis consequuntur, distinctio eius eum exercitationem fuga id ipsam maiores minima nisi nostrum porro quia rem rerum sunt.
-        </template>
-        <template v-slot:5>
-          2Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci animi aperiam autem, dolorum ex harum iste libero molestiae nemo quos rerum sed similique soluta voluptas voluptate! Aut incidunt vitae voluptas.
-        </template>
-      </Scrollytell>
+<!--        <template v-slot:3>-->
+<!--          Scrolltext 3-->
+<!--        </template>-->
+<!--        <template v-slot:4>-->
+<!--          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus accusantium asperiores assumenda, blanditiis consequuntur, distinctio eius eum exercitationem fuga id ipsam maiores minima nisi nostrum porro quia rem rerum sunt.-->
+<!--        </template>-->
+<!--        <template v-slot:5>-->
+<!--          2Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci animi aperiam autem, dolorum ex harum iste libero molestiae nemo quos rerum sed similique soluta voluptas voluptate! Aut incidunt vitae voluptas.-->
+<!--        </template>-->
+<!--      </Scrollytell>-->
       <p>
       And to me, there lies the principal lesson of Peabody’s charts—about what information constitutes knowledge, about how that knowledge is perceived, and about who is authorized to produce it. So that, to me, is why this project—the historical part and the technical one—is a humanistic one. Because it brings renewed attention to the role of interpretation, and to the modes of knowing outside of what we’d typically consider to be visualizable, such as intuition, or affect, or embodiment.
       </p>
@@ -258,6 +255,7 @@ import Section from '@/components/chapters/Section'
 import Highlightable from "@/mixins/Highlightable";
 import Scrollytell from "../components/scrollytelling/Scrollytell";
 import MapScroller from "../components/scrollytelling/MapScroller";
+import * as d3 from "d3";
 
 export default {
   name: "ThePeabodyChapter",
@@ -275,6 +273,7 @@ export default {
   mixins: [Highlightable(".chapter__main")],
   data() {
     return {
+      d3: d3, //Makes the library accessible from within the template. (TODO: Is this good practice?)
       currentDataset: 0,
       scrolled: false,
       scrolledMax: 0,
@@ -302,10 +301,6 @@ export default {
 </script>
 
 <style scoped>
-
-  .event-key {
-
-  }
 .left-float {
   float: left;
 }

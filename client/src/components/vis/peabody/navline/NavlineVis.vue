@@ -10,7 +10,7 @@
     <text x="320" y="2120" class="small">Highlights</text>
     <text x="520" y="2120" class="small">Images</text>
     <text x="520" y="2175" class="small">Static Vis.</text>
-    <text x="320" y="2175" class="small">Interaction</text>
+    <text x="320" y="2175" class="small">Scrollytell</text>
 
     <!--Lines, ChapterBlocks, Numbers, Notes Init-->
     <rect :x="styles.line.left - styles.chapterBlock.width/2" :y="styles.line.start- styles.chapterBlock.width/2"

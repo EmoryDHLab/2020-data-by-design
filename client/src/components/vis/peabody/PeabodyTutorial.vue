@@ -41,7 +41,7 @@
 <!--      <line v-if='this.slideNumber === 0' x1='576' y1='50' x2='90' y2='50' stroke='orange '-->
 <!--        stroke-width='1.5' marker-end='url(#arrowhead)' />-->
 
-      <template v-if='slideNumber > 1'>
+      <template v-if='slideNumber > 0'>
         <text class='year' x='30' y='49'>1501</text>
         <text class='year' x='238' y='49'>1505</text>
         <text class='year' x='308' y='49'>1506</text>
@@ -64,18 +64,17 @@
       </template>
     </svg>
 
-<!--    <EventKey v-if='slideNumber > 2'-->
-<!--      :colors='eventKeyColors'-->
-<!--      :showLegend='slideNumber == 3'-->
-<!--      :showNumbers= 'slideNumber < 7'-->
-<!--      :dropShadow='slideNumber < 6'-->
-<!--      :style='eventKeyStyles'></EventKey>-->
-<!--    <svg v-if='slideNumber === 5' viewBox='0 0 300 200' :style='countriesStyles'>-->
-<!--      <g v-for="(color, index) in eventKeyColors.filter(color => color && color !== 'none')" :key='index'>-->
-<!--        <rect :width='`30`' :height='`30`' :fill=color x='30' :y='index * 45'/>-->
-<!--        <text v-text='colorToCountry[color]' x='70' :y='20 + index * 45'/>-->
-<!--      </g>-->
-<!--    </svg>-->
+    <EventKey v-if='slideNumber > 2'
+      :colors='eventKeyColors'
+      :showNumbers= true
+      :show-legend="false" :drop-shadow="false"
+      :style='eventKeyStyles'></EventKey>
+    <svg v-if='slideNumber === 5' viewBox='0 0 300 200' :style='countriesStyles'>
+      <g v-for="(color, index) in eventKeyColors.filter(color => color && color !== 'none')" :key='index'>
+        <rect :width='`30`' :height='`30`' :fill=color x='30' :y='index * 45'/>
+        <text v-text='colorToCountry[color]' x='70' :y='20 + index * 45'/>
+      </g>
+    </svg>
 
     <svg v-if='showDots' :width='$attrs.width' aria-label="Tutorial slide selection"
     viewBox="0 0 576 200">
@@ -193,7 +192,7 @@ export default {
     },
     eventKeyStyles() {
       const gridWidth = this.$attrs.width;
-      if (this.slideNumber > 5) {
+      // if (this.slideNumber > 5) {
         return {
           height: `calc(${gridWidth} / 8.8)`,
           position: 'absolute',
@@ -203,14 +202,14 @@ export default {
           // top: `calc(${gridWidth} / 3)`,
           transform: 'translate(-5%, 5%)'
         }
-      }
-      return {
-        height: `calc(${gridWidth} / 5)`,
-        position: 'absolute',
-        left: gridWidth,
-        top: `calc(${gridWidth} / 1.5)`,
-        transform: 'translate(-30%, -40%)',
-      }
+      // }
+      // return {
+      //   height: `calc(${gridWidth} / 5)`,
+      //   position: 'absolute',
+      //   left: gridWidth,
+      //   top: `calc(${gridWidth} / 1.5)`,
+      //   transform: 'translate(-30%, -40%)',
+      // }
     },
     countriesStyles() {
       return {

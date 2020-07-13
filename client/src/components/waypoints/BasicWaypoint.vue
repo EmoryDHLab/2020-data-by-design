@@ -13,7 +13,8 @@
  * http://imakewebthings.com/waypoints/
  */
 
-require('waypoints/lib/noframework.waypoints.min');
+require('./waypoints');
+
 export default {
   props: {
     enabled: {
@@ -25,6 +26,9 @@ export default {
       // this is the offset of the waypoint from the top of the window
       type: [String, Number],
       default: 0
+    },
+    contextId: {
+      type: String
     }
   },
   data: () => ({
@@ -47,6 +51,7 @@ export default {
   mounted () {
     const vm = this;
     // set up the waypoint config
+    const context = document.getElementById(this.contextId) || window;
     const conf = {
       // attach to this element
       element: this.$el,
@@ -54,6 +59,7 @@ export default {
       offset: this.offset,
       // set whether the waypoint is active (it won't emit events if it is off)
       enabled: this.enabled,
+      // context,
       handler: (direction) => {
         // emit a 'triggered' event no mater what
         vm.$emit('triggered')
@@ -61,10 +67,14 @@ export default {
           // emit triggered:up or triggered:down depending on direction
           vm.$emit(`triggered:${direction}`)
         }
+      },
+      scrollHandler: ({newScroll, oldScroll, direction, lastWaypoint, nextWaypoint}) => {
+        vm.$emit('scrolled', {newScroll, oldScroll, direction, lastWaypoint, nextWaypoint});
       }
     }
     // actually create the waypoint (store it in component data)
-    Object.assign(this.waypoint, {}, new Waypoint(conf))
+    const waypoint = new window.Waypoint(conf);
+    Object.assign(this.waypoint, {}, waypoint)
   },
   beforeDestroy () {
     // make sure we destroy the waypoint before the component is destroyed

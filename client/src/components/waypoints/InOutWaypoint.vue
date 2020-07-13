@@ -6,14 +6,15 @@
 
 <script>
 /**
+ * DOESN'T WORK FOR NOW - Dan J 7/9/20
  * This is an organizational element that can be used to put waypoints into the HTML
  * It emits events whenever the InviewWaypoint enters or exits the window.
  * The InviewWaypoint is backed by the waypoints library. You can find it at the link below
  * http://imakewebthings.com/waypoints/shortcuts/inview/
  */
 
-require('waypoints/lib/noframework.waypoints.min');
-require('waypoints/lib/shortcuts/inview.min');
+require('./waypoints');
+// require('waypoints/lib/noframework.waypoints.min');
 export default {
   props: {
     enabled: {

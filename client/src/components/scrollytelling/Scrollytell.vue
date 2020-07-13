@@ -12,11 +12,11 @@
           @triggered:up="scrollUp(slot)"
           @scrolled="scrolling"
           :offset="offset(slot)">
-          <slot :name="slot" :progress="progressTo(slot)"></slot>
+          <slot :name="slot" :scrolled="scrolled" :progress="progressTo(slot)"></slot>
         </basic-waypoint>
-        <slot :name="slot" :progress="progressTo(slot)" v-else></slot>
+        <slot :name="slot" :scrolled="scrolled" :progress="progressTo(slot)" v-else></slot>
       </div>
-      <div v-if="collect" class="scroll-item-dummy" :style="scrollItemStyles(scrollSlots + 1)"></div>
+<!--      <div v-if="collect" class="scroll-item-dummy" :style="scrollItemStyles(scrollSlots + 1)"></div>-->
     </div>
   </div>
 </template>
@@ -76,9 +76,12 @@ export default {
         for (let i = 0; i < index - 1; i++) {
           height += this.stuckHeights()[i];
         }
+        const textSlots = this.$refs['textSlots'];
+        const done = textSlots && this.scrolled == textSlots.length;
+        // const position = (textSlots && this.scrolled == textSlots.length) ? "static" : "sticky";
         return {
           position: "sticky",
-          top: height + 60 + "px",
+          top: height + 50 + "px",
         }
       }
     }
@@ -96,6 +99,7 @@ export default {
   },
   mounted () {
     this.mounted = true;
+    this.$store.dispatch('chapters/registerScrollytell', {element: this.$el});
     // const child = this.$refs['scrollContainer'];
     // let top = child.offsetTop;
     // let curr = child.offsetParent;
@@ -146,7 +150,7 @@ export default {
   .scrollytell-fixed {
     flex: 1;
     top: 50px;
-    height: 100px;
+    height: fit-content;
     position: sticky;
     align-items: center;
   }

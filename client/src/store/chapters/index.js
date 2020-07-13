@@ -9,6 +9,7 @@ const Mutations = {
   ADD_HIGHLIGHT: "ADD_HIGHLIGHT",
   REMOVE_HIGHLIGHT: "REMOVE_HIGHLIGHT",
   ADD_VIS: "ADD_VIS",
+  ADD_SCROLLYTELL: "ADD_SCROLLYTELL",
   SET_TITLE: "SET_TITLE",
   SCROLL_TO: "SCROLL_TO"
 }
@@ -45,7 +46,8 @@ const store = {
     // scrollProgress: 0,
     scrollTo: 0,
     highlightSpanCount: 0,
-    unmatchedVis: []
+    unmatchedVis: [],
+    unmatchedScrolly: []
   },
   getters: {
     currChapterTitle: state => state.currChapter.title,
@@ -93,12 +95,15 @@ const store = {
           vis[i] = VisTypes.IMAGE;
         }
       }
-      state.unmatchedVis
-        .forEach(visEl => {
-          const results = findParentSection(visEl, [...state.currChapter.sections, {id}]);
-          if (!results || results.section !== state.currChapter.sections.length) return;
-          vis[results.subsection] = VisTypes.VISUALIZATION;
-        })
+      const setVisType = visType => visEl => {
+        const results = findParentSection(visEl, [...state.currChapter.sections, {id}]);
+        if (!results || results.section !== state.currChapter.sections.length) return;
+        vis[results.subsection] = visType;
+      }
+
+      state.unmatchedVis.forEach(setVisType(VisTypes.VISUALIZATION));
+      state.unmatchedScrolly.forEach(setVisType(VisTypes.INTERACTION));
+
       state.currChapter.sections.push ({
         id,
         subsections,
@@ -128,6 +133,10 @@ const store = {
       state.unmatchedVis.push(element);
       state.currChapter.lastUpdated = Date.now();
     },
+    [Mutations.ADD_SCROLLYTELL] (state, {element}) {
+      state.unmatchedScrolly.push(element);
+      state.currChapter.lastUpdated = Date.now();
+    },
     [Mutations.SET_TITLE] (state, {title}) {
       state.currChapter.title = title;
       state.currChapter.lastUpdated = Date.now();
@@ -152,9 +161,14 @@ const store = {
       }
       commit(Mutations.ADD_HIGHLIGHT, { sectionIndex: section, subsection})
     },
-    registerVisualization({commit, getters}, {element}) {
+    registerVisualization({commit}, {element}) {
       if (element) {
         commit(Mutations.ADD_VIS, {element});
+      }
+    },
+    registerScrollytell({commit}, {element}) {
+      if (element) {
+        commit(Mutations.ADD_SCROLLYTELL, {element});
       }
     },
     incrementHighlightSpans({state}) {
