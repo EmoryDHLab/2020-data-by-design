@@ -63,6 +63,10 @@ export default {
   props: {
     curChapter: String,
   },
+  mounted () {
+    //TODO: Scroll to right before the most recent scrollytell
+    window.onbeforeunload = (e) => window.scrollTo({top: 0})
+  },
   computed: {
     currentChapter: function() {
       return this.curChapter + "NavlineVis";
@@ -85,7 +89,7 @@ export default {
     scrollTo (newVal, oldVal) {
       window.scrollTo({top: newVal, behavior: 'smooth'});
     }
-  }
+  },
 }
 </script>
 
