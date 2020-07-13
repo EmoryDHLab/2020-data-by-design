@@ -1,19 +1,22 @@
 <template>
   <div class="scrollytell">
     <div class="scrollytell-fixed">
-      <slot name="fixed" :scrolled="scrolled"></slot>
+      <slot name="fixed" :scrolled="scrolled" :progress="progressToNext"></slot>
     </div>
     <div ref="scrollContainer" class="scrollytell-scroll">
-      <div v-for="slot in textSlots" ref="textSlots" class="scroll-item" :style="scrollItemStyles(slot)">
-        <basic-waypoint
+      <div v-for="slot in scrollSlots" ref="textSlots" class="scroll-item" :style="scrollItemStyles(slot)">
+        <!--We use conditional rendering to only generate the waypoints once the slots have been rendered
+        and we're able to check their heights to generate the offsets.-->
+        <basic-waypoint v-if="mounted"
           @triggered:down="scrollDown(slot)"
           @triggered:up="scrollUp(slot)"
-          :offset="offset(slot)"
-          >
-          <slot :name="slot" :scrolled="scrolled"></slot>
+          @scrolled="scrolling"
+          :offset="offset(slot)">
+          <slot :name="slot" :progress="progressTo(slot)"></slot>
         </basic-waypoint>
+        <slot :name="slot" :progress="progressTo(slot)" v-else></slot>
       </div>
-      <div v-if="collect" class="scroll-item-dummy" :style="scrollItemStyles(textSlots.length)"></div>
+      <div v-if="collect" class="scroll-item-dummy" :style="scrollItemStyles(scrollSlots + 1)"></div>
     </div>
   </div>
 </template>
@@ -24,6 +27,10 @@ import BasicWaypoint from "../waypoints/BasicWaypoint";
 export default {
   components: {BasicWaypoint},
   props: {
+    scrollSlots: {
+      type: Number,
+      required: true
+    },
     collect: {
       type: Boolean,
       default: false,
@@ -32,19 +39,17 @@ export default {
   data () {
     return {
       scrolled: 0,
-      lastScrollY: 0,
-      toNext: 0,
-    }
-  },
-  computed: {
-    textSlots () {
-      return Object.keys(this.$slots).filter(key => Number.isInteger(+key));
-    },
-    scrollProgress () {
-
+      progressToNext: 0,
+      scrollContainer: {},
+      mounted: false,
     }
   },
   methods: {
+    scrolling(event) {
+      const last = event.lastWaypoint.triggerPoint;
+      const next = event.nextWaypoint.triggerPoint;
+      this.progressToNext = (window.scrollY - last) / (next - last);
+    },
     stuckHeights() {
       if (this.$refs['textSlots'])
         return this.$refs['textSlots'].map(element => element.offsetHeight);
@@ -58,10 +63,11 @@ export default {
       this.lastScrollY = window.scrollY;
     },
     offset (index) {
-      if (!this.collect || !this.stuckHeights()) {
+      if (!this.collect) {
         return 50;
       }
-      const ans = this.stuckHeights().slice(0,Number(index)).reduce((acc, curr) => acc + curr) + 60;
+      if (!this.mounted || !this.$refs["textSlots"]) return null;
+      const ans = this.stuckHeights().slice(0,Number(index - 1)).reduce((acc, curr) => acc + curr, 50);
       return ans;
     },
     scrollItemStyles (index) {
@@ -72,33 +78,44 @@ export default {
         }
         return {
           position: "sticky",
-          top: height + 50 + "px",
+          top: height + 60 + "px",
         }
       }
     }
   },
-  mounted () {
-    const child = this.$refs['scrollContainer'];
-    let top = child.offsetTop;
-    let curr = child.offsetParent;
-    while (curr) {
-      top += curr.offsetTop;
-      curr = curr.offsetParent;
+  computed: {
+    progressTo() {
+      return index => {
+        if (this.scrolled < index - 1)
+          return 0;
+        if (this.scrolled > index - 1)
+          return 1
+        return this.progressToNext;
+      };
     }
-    let scrolling = false;
-    window.addEventListener("scroll", (event) => {
-      scrolling = true;
-    })
-    const startingOffsets = this.$refs['textSlots'].map(el => el.offsetTop);
-    setInterval(() => {
-      if (scrolling && window.scrollY > top) {
-        scrolling = false;
-        console.log(this.scrolled, top);
-        const to = startingOffsets[this.scrolled + 1];
-        const from = startingOffsets[this.scrolled];
-        // const adjust = this.stuckHeights().slice(0,this.scrolled + 1).reduce((acc, curr) => acc + curr);
-        const adjust = this.offset(this.scrolled);
-        console.log(from, to, window.scrollY + adjust, (window.scrollY + adjust - from) / (to - from));
+  },
+  mounted () {
+    this.mounted = true;
+    // const child = this.$refs['scrollContainer'];
+    // let top = child.offsetTop;
+    // let curr = child.offsetParent;
+    // while (curr) {
+    //   top += curr.offsetTop;
+    //   curr = curr.offsetParent;
+    // }
+    // let scrolling = false;
+    // window.addEventListener("scroll", (event) => {
+    //   scrolling = true;
+    // })
+    // const startingOffsets = this.$refs['textSlots'].map(el => el.offsetTop);
+    // setInterval(() => {
+    //   if (scrolling && window.scrollY > top) {
+    //     scrolling = false;
+    //     console.log(this.scrolled, top);
+    //     const to = startingOffsets[this.scrolled + 1];
+    //     const from = startingOffsets[this.scrolled];
+    //     const adjust = this.stuckHeights().slice(0,this.scrolled + 1).reduce((acc, curr) => acc + curr);
+    //     console.log(adjust, to - from, window.scrollY + adjust - from + 56, (window.scrollY + adjust - from + 56) / (to - from));
         // if (window.scrollY >= this.lastScrollY) {
         //   if (this.scrolled >= this.textSlots.length) return;
         //   let nextHeight = this.$refs['textSlots'][this.scrolled].offsetTop;
@@ -115,8 +132,8 @@ export default {
         //   this.toNext = (window.scrollY - from) / (to - from + adjust)
         //   console.log(this.toNext, startingOffsets[this.scrolled + 1], startingOffsets[this.scrolled], window.scrollY)
         // }
-      }
-    }, 50)
+    //   }
+    // }, 50)
   },
 }
 
