@@ -41,9 +41,9 @@
           <!--paragraph number-->
           <text x="300" :y="lines.y2 + 15" :fill=styles.color.gray class="number">{{index + 2}}</text>
         </g>
-        <g v-if="index <= getProgress">
+        <g>
             <g v-for="i in lines.blocks">
-                <g v-if="index + i/10 <= getProgress">
+                <g>
                     <!--Notes Init-->
                     <!--(i-1) because v-for index start with 1 instead of 0-->
                     <rect v-on:click="click = goto(index, i-1)"
@@ -80,7 +80,7 @@
                             :fill=styles.color.lightgray ></rect>
                     </g>
                 </g>
-                <g v-else>
+                <g v-if="index + i/10 > getProgress">
                   <!--gray line for progress-->
                   <line :x1="lines.x1" :y1="lines.y1+ (i-1)*(styles.block.gap + styles.block.width)"
                         :x2="lines.x2" :y2="lines.y1 + styles.block.verGap*2 + (i-1)*(styles.block.gap + styles.block.width) + styles.block.width"
