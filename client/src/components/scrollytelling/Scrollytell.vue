@@ -4,19 +4,25 @@
       <slot name="fixed" :scrolled="scrolled" :progress="progressToNext"></slot>
     </div>
     <div ref="scrollContainer" class="scrollytell-scroll">
-      <div v-for="slot in scrollSlots" ref="textSlots" class="scroll-item" :style="scrollItemStyles(slot)">
+      <div v-if="collect" ref="collected" class="scrollytell-collected">
+        <div v-for="slot in scrolled">
+          <slot :name="slot" :scrolled="scrolled" :progress="progressTo(slot)"></slot>
+        </div>
+      </div>
+      <div v-for="(slot, index) in scrollSlots" ref="textSlots" class="scroll-item" :style="scrollItemStyles(slot)">
         <!--We use conditional rendering to only generate the waypoints once the slots have been rendered
         and we're able to check their heights to generate the offsets.-->
-        <basic-waypoint v-if="mounted"
+        <!--:style="{ opacity: Number(scrolled <= index)}"-->
+        <basic-waypoint v-if="mounted" v-show="scrolled <= index"
           @triggered:down="scrollDown(slot)"
           @triggered:up="scrollUp(slot)"
           @scrolled="scrolling"
           :offset="offset(slot)">
           <slot :name="slot" :scrolled="scrolled" :progress="progressTo(slot)"></slot>
         </basic-waypoint>
-        <slot :name="slot" :scrolled="scrolled" :progress="progressTo(slot)" v-else></slot>
+        <slot v-else :name="slot" :scrolled="scrolled" :progress="progressTo(slot)"></slot>
       </div>
-<!--      <div v-if="collect" class="scroll-item-dummy" :style="scrollItemStyles(scrollSlots + 1)"></div>-->
+      <div v-if="collect" class="scroll-item-dummy" :style="scrollItemStyles(scrollSlots + 1)"></div>
     </div>
   </div>
 </template>
@@ -67,21 +73,15 @@ export default {
         return 50;
       }
       if (!this.mounted || !this.$refs["textSlots"]) return null;
-      const ans = this.stuckHeights().slice(0,Number(index - 1)).reduce((acc, curr) => acc + curr, 50);
+      const ans = this.stuckHeights().slice(0,Number(index - 1)).reduce((acc, curr) => acc + curr, 0);
       return ans;
     },
     scrollItemStyles (index) {
-      if (this.collect && this.scrolled >= Number(index - 1)) {
-        let height = 0;
-        for (let i = 0; i < index - 1; i++) {
-          height += this.stuckHeights()[i];
-        }
-        const textSlots = this.$refs['textSlots'];
-        const done = textSlots && this.scrolled == textSlots.length;
-        // const position = (textSlots && this.scrolled == textSlots.length) ? "static" : "sticky";
+      if (this.collect && this.mounted && this.scrolled >= Number(index - 1)) {
+        const height = this.$refs["collected"].offsetHeight;
         return {
           position: "sticky",
-          top: height + 50 + "px",
+          top: height + 50 + "px"
         }
       }
     }
@@ -153,6 +153,16 @@ export default {
     height: fit-content;
     position: sticky;
     align-items: center;
+  }
+
+  .scrollytell-collected {
+    position: sticky;
+    top: 50px;
+    height: fit-content;
+  }
+
+  .scrollytell-collected div {
+    padding: 5px;
   }
 
   .scrollytell-scroll {
