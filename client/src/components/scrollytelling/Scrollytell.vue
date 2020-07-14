@@ -13,7 +13,7 @@
         <!--We use conditional rendering to only generate the waypoints once the slots have been rendered
         and we're able to check their heights to generate the offsets.-->
         <!--:style="{ opacity: Number(scrolled <= index)}"-->
-        <basic-waypoint v-if="mounted" v-show="scrolled <= index"
+        <basic-waypoint v-if="mounted" v-show="!collect || scrolled <= index"
           @triggered:down="scrollDown(slot)"
           @triggered:up="scrollUp(slot)"
           @scrolled="scrolling"
