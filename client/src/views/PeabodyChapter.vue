@@ -94,6 +94,10 @@
       <p>
         Returning to one of Peabody’s original charts, such as this chart of the seventeenth century, we can now see England represented in red, the Americas in orange, and the Dutch in teal. Those are the three colors that dominate the image. The French are also peripherally involved, in blue. By cross-referencing the chart to the table of events, we can identify, for example, the founding of Jamestown in 1607; and the settlement of Plymouth in 1620. Significantly, Peabody also registers the first enslaved Africans arriving in Virginia in that same year. While scholars and critics now recognize 1619 as the true year of that catalyzing event, it is meaningful that Peabody—on the side of abolition but by no means its most radical proponent—chose to picture that event in her chart.
       </p>
+      <PeabodyCanvas :width="'50vh'"></PeabodyCanvas>
+      <p>
+        asdf
+      </p>
       <div style="display:flex;">
         <peabody-grid
           :id="'peabody-vis-1'"
@@ -255,6 +259,7 @@ import Section from '@/components/chapters/Section'
 import Highlightable from "@/mixins/Highlightable";
 import Scrollytell from "../components/scrollytelling/Scrollytell";
 import MapScroller from "../components/scrollytelling/MapScroller";
+import PeabodyCanvas from "../components/vis/peabody/PeabodyCanvas";
 import * as d3 from "d3";
 
 export default {
@@ -268,6 +273,7 @@ export default {
     TimelineVis,
     Section,
     Scrollytell,
+    PeabodyCanvas,
     MapScroller,
   },
   mixins: [Highlightable(".chapter__main")],

@@ -13,7 +13,7 @@ const injects = {
 }
 
 // This mixin helps the visualization interface with vuex to get its data
-const Visualization = ({staticDataset, mutableDataset, notebookName } = {}) => ({
+const Visualization = ({staticDataset, mutableDataset, notebookName, saveProps } = {}) => ({
   props: {
     width: {
       type: String,
@@ -150,8 +150,11 @@ const Visualization = ({staticDataset, mutableDataset, notebookName } = {}) => (
       dragger.addEventListener("mouseout", e => dragger.style.opacity = "50%")
       if (notebookName) {
         dragger.addEventListener("dragstart", e => {
-          console.dir(e);
-          console.dir(this);
+          console.dir(this.$props);
+          let saved;
+          if (saveProps && saveProps.length > 0) {
+            saved = Object.fromEntries(saveProps.map(propName => [propName, this.$props[propName]]))
+          }
           const data = {
             ...this.staticId && { static: this.staticId },
             ...this.mutableId && { mutable: this.mutableId }
@@ -159,7 +162,7 @@ const Visualization = ({staticDataset, mutableDataset, notebookName } = {}) => (
           const notebookItem = {
             type: notebookTypes.VISUALIZATION,
             data: data,
-            metadata: notebookName
+            metadata: { name: notebookName, props: saved }
           }
           this.$store.dispatch("startDrag", notebookItem)
         })

@@ -33,16 +33,17 @@ export default {
     },
     currComponent () {
       if (this.isVis) {
-        return this.item.metadata;
+        return this.item.metadata.name;
       }
     },
     currComponentProps () {
-      return {
+      return Object.assign({
         isInNotebook: true,
         showIndicator: false,
+        width: '216px',
         ...this.item.data.static && { staticDataset: this.item.data.static },
         ...this.item.data.mutable && { mutableDataset: this.item.data.mutable }
-      }
+      }, this.item.metadata.props)
     }
   },
   components: noteableVisualizations

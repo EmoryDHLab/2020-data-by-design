@@ -9,8 +9,9 @@
   import Visualization from "@/mixins/vis/Visualization";
   import * as d3 from "d3";
 
+  //TODO: Think about what to do when dragged to notebook
   export default {
-    mixins: [Visualization()],
+    mixins: [Visualization({notebookName: "MapScroller", saveProps: ["asset", "positions", "animationTime"]})],
     props: {
       asset: {
         type: String,
@@ -66,7 +67,7 @@
           backgroundImage: `url(${this.src})`,
           backgroundSize: `${dim('width')} ${dim('height')}`,
           backgroundPosition: `${dim('left')} ${dim('top')}`,
-          width: 'fit-content'
+          width: this.width
         }
       }
     },
