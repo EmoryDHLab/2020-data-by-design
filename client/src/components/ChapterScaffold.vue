@@ -105,8 +105,14 @@ a.blue-hover:hover {
   filter: brightness(130%);
 }
 .nb-user-highlight {
-  background-color: yellow
+  background-color: hsl(60, 100%, 50%);
+  cursor: grab;
 }
+
+/*TODO: Use JavaScript to brighten self and all attached highlight spans on hover */
+/*.nb-user-highlight:hover {*/
+/*  background-color: hsl(60, 100%, 70%);*/
+/*}*/
 
 .chapter-nav {
   position: relative;
