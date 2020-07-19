@@ -2,14 +2,18 @@
   <div>
     <div class="container" :style="{width: width, height: width}">
       <svg viewBox="0 0 500 500" @mousemove="onMouseMove">
-        <rect v-if="overlay"
-              fill="gray" fill-opacity="50%"
-              :x="overlay.x" :y="overlay.y" :width="overlay.width" :height="overlay.height"/>
+        <svg v-if="overlay" :x="overlay.x" :y="overlay.y">
+          <rect fill="gray" fill-opacity="50%"
+                 :width="overlay.width" :height="overlay.height"/>
+          <rect fill="gray" fill-opacity="75%"
+                :x="overlay.miniX" :y="overlay.miniY"
+                :width="overlay.miniWidth" :height="overlay.miniHeight"></rect>
+        </svg>
       </svg>
       <canvas ref="canvas"></canvas>
     </div>
     <div class="swatch" :style="{ backgroundColor: currRgba }"></div>
-    <div v-if="currBox">({{ currBox.left }}, {{currBox.top}}) {{currYear}}</div>
+    <div v-if="currBox">({{ currBox.left }}, {{currBox.top}}) {{currNumber.number}} {{currYear}}</div>
   </div>
 </template>
 
@@ -39,37 +43,64 @@
         const pix = this.currPixel;
         let subtractLeft = dimensions.side;
         let subtractTop = dimensions.side;
-        if (this.pastMiddle.x) subtractLeft += dimensions.middle;
-        if (this.pastMiddle.y) subtractTop += dimensions.middle;
+        if (this.pastMiddle.pastX) subtractLeft += dimensions.middle;
+        if (this.pastMiddle.pastY) subtractTop += dimensions.middle;
         const left = (pix.x - subtractLeft * el.width) / (dimensions.box * el.width);
         const top = (pix.y - subtractTop * el.height) / (dimensions.box * el.height);
-        return {left: Math.trunc(left), top: Math.trunc(top)}
+        const leftTrunc = Math.trunc(left);
+        const topTrunc = Math.trunc(top);
+        return {
+          left: leftTrunc,
+          top: topTrunc,
+          leftProgress: Number(left - leftTrunc),
+          topProgress: Number(top - topTrunc)
+        }
       },
       pastMiddle () {
         const el = this.$refs["canvas"];
-        const middleBoundW = el.width / 2 + dimensions.middle * el.width;
-        const middleBoundH = el.height / 2 + dimensions.middle * el.height;
-        const x = this.currPixel.x > middleBoundW
-        const y = this.currPixel.y > middleBoundH
-        return { x, y }
+        const middleWidth = dimensions.middle / 2 * el.width;
+        const middleHeight = dimensions.middle / 2 * el.height;
+
+        const middleBoundW = after => el.width / 2 + (after ? middleWidth : -middleWidth);
+        const middleBoundH = below => el.height / 2 + (below ? middleHeight : -middleHeight);
+        const pastX = this.currPixel.x > middleBoundW(true)
+        const pastY = this.currPixel.y > middleBoundH(true)
+        const inMiddleX = !pastX && this.currPixel.x > middleBoundW(false);
+        const inMiddleY = !pastY && this.currPixel.y > middleBoundH(false);
+        return { pastX, pastY, inMiddleX, inMiddleY}
       },
       currYear () {
         return 1601 + this.currBox.top * 10 + this.currBox.left;
       },
+      currNumber () {
+        const x = Math.ceil(this.currBox.leftProgress * 3);
+        const y = Math.ceil(this.currBox.topProgress * 3);
+        return {number: 3 * (y - 1) + x, x, y};
+      },
       overlay () {
-        if (!this.canvas) return;
+        if (!this.canvas || this.pastMiddle.inMiddleX || this.pastMiddle.inMiddleY
+              ||  this.currBox.left > 9 || this.currBox.top > 9)
+          return;
+
         const boxWidth = dimensions.box * 500;
         const sideWidth = dimensions.side * 500;
         const middleWidth = dimensions.middle * 500;
 
         let boxLeft = sideWidth + this.currBox.left * boxWidth;
-        if (this.pastMiddle.x) boxLeft += middleWidth;
+        if (this.pastMiddle.pastX) boxLeft += middleWidth;
 
         let boxTop = sideWidth + this.currBox.top * boxWidth
-        if (this.pastMiddle.y) boxTop += middleWidth;
+        if (this.pastMiddle.pastY) boxTop += middleWidth;
 
-        return {x: boxLeft, y: boxTop, width: boxWidth, height: boxWidth }
-      }
+        return {
+          x: boxLeft, y: boxTop,
+          width: boxWidth, height: boxWidth,
+          miniX: (this.currNumber.x - 1) * boxWidth / 3,
+          miniY: (this.currNumber.y - 1) * boxWidth / 3,
+          miniWidth: boxWidth / 3,
+          miniHeight: boxWidth / 3
+        }
+      },
     },
     mounted () {
       const canvas = this.$refs["canvas"];
