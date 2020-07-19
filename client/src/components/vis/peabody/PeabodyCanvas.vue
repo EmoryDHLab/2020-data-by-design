@@ -12,7 +12,9 @@
       </svg>
       <canvas ref="canvas"></canvas>
     </div>
-    <div class="swatch" :style="{ backgroundColor: currRgba }"></div>
+    <div class="swatch" :style="{ backgroundColor: currRgba }">
+    </div>
+    <div>{{ currColor }}: {{ nearestColor }}</div>
     <div v-if="currBox">({{ currBox.left }}, {{currBox.top}}) {{currNumber.number}} {{currYear}}</div>
   </div>
 </template>
@@ -23,6 +25,13 @@
     side: 0.060,
     box: 0.085,
     middle: 0.029
+  }
+  const referenceColors = {
+    red: [119, 43, 21],
+    green: [68, 108, 73],
+    orange: [222, 145, 49],
+    yellowgreen: [184, 175, 109],
+    empty: [225, 200, 172]
   }
   export default {
     mixins: [Visualization()],
@@ -76,6 +85,22 @@
         const x = Math.ceil(this.currBox.leftProgress * 3);
         const y = Math.ceil(this.currBox.topProgress * 3);
         return {number: 3 * (y - 1) + x, x, y};
+      },
+      nearestColor () {
+        if (!this.currColor)
+          return;
+        const sq = n => n * n;
+        const distance = (c1, c2) => Math.sqrt(sq(c1[0] - c2[0]) + sq(c1[1] - c2[1]) + sq(c1[2] - c2[2]));
+        let shortestKey = null;
+        let shortestDist = 1000;
+        Object.keys(referenceColors).forEach(key => {
+          const dist = distance(referenceColors[key], this.currColor);
+          if (dist < shortestDist) {
+            shortestDist = dist;
+            shortestKey = key;
+          }
+        });
+        return shortestKey;
       },
       overlay () {
         if (!this.canvas || this.pastMiddle.inMiddleX || this.pastMiddle.inMiddleY
