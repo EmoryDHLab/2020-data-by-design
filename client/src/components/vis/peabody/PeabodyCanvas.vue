@@ -3,9 +3,9 @@
     <div class="container" :style="{width: width, height: width}">
       <svg viewBox="0 0 500 500" @mousemove="onMouseMove">
         <svg v-if="overlay" :x="overlay.x" :y="overlay.y">
-          <rect fill="gray" fill-opacity="50%"
+          <rect fill="gray" fill-opacity="30%"
                  :width="overlay.width" :height="overlay.height"/>
-          <rect fill="gray" fill-opacity="75%"
+          <rect fill="gray" fill-opacity="50%"
                 :x="overlay.miniX" :y="overlay.miniY"
                 :width="overlay.miniWidth" :height="overlay.miniHeight"></rect>
         </svg>
@@ -24,6 +24,7 @@
   const dimensions = {
     side: 0.060,
     box: 0.085,
+    boxLast: 0.09,
     middle: 0.029
   }
   const referenceColors = {
@@ -31,6 +32,7 @@
     green: [68, 108, 73],
     orange: [222, 145, 49],
     yellowgreen: [184, 175, 109],
+    turquoise: [60, 100, 100],
     empty: [225, 200, 172]
   }
   export default {
@@ -108,6 +110,7 @@
           return;
 
         const boxWidth = dimensions.box * 500;
+        const boxLastWidth = dimensions.boxLast * 500;
         const sideWidth = dimensions.side * 500;
         const middleWidth = dimensions.middle * 500;
 
@@ -119,7 +122,8 @@
 
         return {
           x: boxLeft, y: boxTop,
-          width: boxWidth, height: boxWidth,
+          width: this.currBox.left == 9 ? boxLastWidth : boxWidth,
+          height: boxWidth,
           miniX: (this.currNumber.x - 1) * boxWidth / 3,
           miniY: (this.currNumber.y - 1) * boxWidth / 3,
           miniWidth: boxWidth / 3,

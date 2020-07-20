@@ -7,6 +7,7 @@ import mutable from './mutable/index.js'
 import dataset from './dataset-new/index.js'
 // import chapters from './chapters-old/index.js'
 import chapters from './chapters/index.js'
+import footnotes from './footnotes/index'
 
 Vue.use(Vuex)
 
@@ -18,6 +19,7 @@ const store = new Vuex.Store({
     notebook,
     user,
     chapters: namespaced(chapters),
+    footnotes: namespaced(footnotes),
     datasetOld,
     dataset: namespaced(dataset),
   },

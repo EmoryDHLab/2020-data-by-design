@@ -29,7 +29,7 @@ export default {
     registerMutableData({commit, getters}, {id, data}) {
       if (getters.isRegisteredMutable(id)) {
         console.error(`visualization already registered with id ${id}! overriding...`)
-     }
+      }
       commit('addMutableData', {id, data});
       console.log("Registering " + id);
     },
