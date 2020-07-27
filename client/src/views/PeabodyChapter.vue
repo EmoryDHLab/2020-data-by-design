@@ -146,7 +146,7 @@
           <PeabodyCanvas v-model="overlayPos" :width="'40vh'"></PeabodyCanvas>
         </template>
         <template v-slot:1>
-          <EventKey
+          <EventKey v-model="overlayEventKeyPos"
             :style="{width: '25vh', position: 'relative', top: '5vh', float: 'right'}"></EventKey>
 
         </template>
@@ -444,6 +444,16 @@
           id: 300
         }
       };
+    },
+    computed: {
+      overlayEventKeyPos: {
+        get () {
+          return Math.round(10 * (this.overlayPos - Math.floor(this.overlayPos)));
+        },
+        set (newVal) {
+          this.overlayPos = Number(`${Math.floor(this.overlayPos)}.${newVal}`);
+        }
+      }
     },
     methods: {
       ...mapActions("chapters", ["setChapter"]),

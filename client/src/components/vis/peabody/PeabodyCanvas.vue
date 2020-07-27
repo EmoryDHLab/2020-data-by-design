@@ -12,10 +12,12 @@
       </svg>
       <canvas ref="canvas"></canvas>
     </div>
-    <div class="swatch" :style="{ backgroundColor: currRgba }">
+    <div v-if="debug">
+      <div class="swatch" :style="{ backgroundColor: currRgba }">
+      </div>
+      <div>{{ currColor }}: {{ nearestColor }}</div>
+      <div v-if="currBox">{{currBoxIndex}} ({{ currBox }} </div>
     </div>
-    <div>{{ currColor }}: {{ nearestColor }}</div>
-    <div v-if="currBox">{{currBoxIndex}} ({{ currBox }} </div>
   </div>
 </template>
 
@@ -50,6 +52,10 @@
       century: {
         type: Number,
         default: 1600
+      },
+      debug: {
+        type: Boolean,
+        default: false
       }
     },
     data () {
@@ -75,7 +81,6 @@
           const left = (squareIndex - 1) % 10;
           const topProgress = (1 + Math.floor((miniIndex - 1) / 3)) / 3;
           const leftProgress = (((miniIndex - 1) % 3) + 1) / 3;
-          console.log("currBox was set", miniIndex, top, left, topProgress, leftProgress)
           return {top, left, topProgress, leftProgress }
         }
         const pix = this.currPixel;
@@ -215,7 +220,6 @@
           if (validNum && validBox) {
             const toEmit = Number(`${this.currBoxIndex}.${newVal.number}`);
             this.lastEmitted = toEmit;
-            console.log("emitting", this.currBoxIndex, newVal.number, toEmit);
             this.$emit('input', toEmit);
           }
         }
