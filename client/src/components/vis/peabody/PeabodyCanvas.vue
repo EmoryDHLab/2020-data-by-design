@@ -15,7 +15,7 @@
     <div class="swatch" :style="{ backgroundColor: currRgba }">
     </div>
     <div>{{ currColor }}: {{ nearestColor }}</div>
-    <div v-if="currBox">({{ currBox.left }}, {{currBox.top}}) {{currNumber.number}} {{currYear}}</div>
+    <div v-if="currBox">{{currBoxIndex}} ({{ currBox }} </div>
   </div>
 </template>
 
@@ -37,11 +37,28 @@
   }
   export default {
     mixins: [Visualization()],
+    props: {
+      value: {
+        type: Number,
+        validator (number) {
+          console.log("from validator", number)
+          if (isNaN(number)) return false;
+          const oneDigitDecimal = String(number).slice(String(number).indexOf(".") + 1).length == 1;
+          return oneDigitDecimal && number >= 1 && number <= 100;
+        }
+      },
+      century: {
+        type: Number,
+        default: 1600
+      }
+    },
     data () {
       return {
         canvas: null,
         currColor: [0,0,0,0],
-        currPixel: {x: 0, y: 0}
+        currPixel: {x: 0, y: 0},
+        newValue: false, //handle changes in the value prop before looking at new mouse inputs
+        lastEmitted: null,
       }
     },
     computed: {
@@ -51,6 +68,16 @@
       currBox () {
         const el = this.$refs["canvas"];
         if (!this.canvas || !el ) return;
+        if (this.newValue) {
+          const squareIndex = Math.floor(this.value);
+          const miniIndex = Math.round(10 * (this.value - squareIndex));
+          const top = Math.floor((squareIndex - 1) / 10);
+          const left = (squareIndex - 1) % 10;
+          const topProgress = (1 + Math.floor((miniIndex - 1) / 3)) / 3;
+          const leftProgress = (((miniIndex - 1) % 3) + 1) / 3;
+          console.log("currBox was set", miniIndex, top, left, topProgress, leftProgress)
+          return {top, left, topProgress, leftProgress }
+        }
         const pix = this.currPixel;
         let subtractLeft = dimensions.side;
         let subtractTop = dimensions.side;
@@ -68,6 +95,12 @@
         }
       },
       pastMiddle () {
+        if (this.newValue) {
+          return {
+            pastX: this.currBox.left > 4, pastY: this.currBox.top > 4,
+            inMiddleX: false, inMiddleY: false
+          }
+        }
         const el = this.$refs["canvas"];
         const middleWidth = dimensions.middle / 2 * el.width;
         const middleHeight = dimensions.middle / 2 * el.height;
@@ -80,13 +113,20 @@
         const inMiddleY = !pastY && this.currPixel.y > middleBoundH(false);
         return { pastX, pastY, inMiddleX, inMiddleY}
       },
+      currBoxIndex () {
+        return 1 + this.currBox.top * 10 + this.currBox.left
+      },
       currYear () {
-        return 1601 + this.currBox.top * 10 + this.currBox.left;
+        return this.century + this.currBoxIndex;
       },
       currNumber () {
+        if (!this.currBox) return;
         const x = Math.ceil(this.currBox.leftProgress * 3);
         const y = Math.ceil(this.currBox.topProgress * 3);
-        return {number: 3 * (y - 1) + x, x, y};
+        if (x >= 0 && y >= 0) {
+          const number = 3 * (y - 1) + x;
+          return {number, x, y};
+        }
       },
       nearestColor () {
         if (!this.currColor)
@@ -106,7 +146,7 @@
       },
       overlay () {
         if (!this.canvas || this.pastMiddle.inMiddleX || this.pastMiddle.inMiddleY
-              ||  this.currBox.left > 9 || this.currBox.top > 9)
+              ||  this.currBox.left > 9 || this.currBox.top > 9 || !this.currNumber)
           return;
 
         const boxWidth = dimensions.box * 500;
@@ -145,6 +185,8 @@
     },
     methods: {
       onMouseMove (event) {
+        this.newValue = false;
+
         const el = this.$refs["canvas"];
         const width = el.offsetWidth;
         const height = el.offsetHeight;
@@ -156,6 +198,27 @@
         const imgData = this.canvas.getImageData(pixelX, pixelY, 1, 1);
         this.currColor = imgData.data;
 
+      }
+    },
+    watch: {
+      value (newVal, oldVal) {
+        if (newVal != oldVal && newVal !== this.lastEmitted) {
+          this.newValue = true;
+        }
+      },
+      currNumber (newVal, oldVal) {
+        if (newVal && newVal.number) {
+          if (oldVal && newVal.number === oldVal.number) return;
+          if (newVal.number === this.lastEmitted) return;
+          const validNum = newVal.number >= 1 && newVal.number <= 9;
+          const validBox = this.currBoxIndex >=1 && this.currBoxIndex <= 100;
+          if (validNum && validBox) {
+            const toEmit = Number(`${this.currBoxIndex}.${newVal.number}`);
+            this.lastEmitted = toEmit;
+            console.log("emitting", this.currBoxIndex, newVal.number, toEmit);
+            this.$emit('input', toEmit);
+          }
+        }
       }
     }
   }

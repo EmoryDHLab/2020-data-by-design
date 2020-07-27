@@ -103,6 +103,7 @@
                 [false, false, 'rgb(50, 91, 103)',
                 false, 'rgb(69, 136, 103)', false,
                 'rgb(141, 43, 29)', false, false] : Array(9)"
+
                     :style="{
                   width: '20vh',
                   opacity: d3.interpolate(0,1)(progress),
@@ -139,10 +140,18 @@
         that Peabody—on the side of abolition but by no means its most radical proponent—chose to picture that event in
         her chart.
       </p>
-      <PeabodyCanvas :width="'40vh'"></PeabodyCanvas>
-      <p>
-        asdf
-      </p>
+
+      <Scrollytell :scroll-slots="2">
+        <template v-slot:fixed>
+          <PeabodyCanvas v-model="overlayPos" :width="'40vh'"></PeabodyCanvas>
+        </template>
+        <template v-slot:1>
+          <EventKey
+            :style="{width: '25vh', position: 'relative', top: '5vh', float: 'right'}"></EventKey>
+
+        </template>
+      </Scrollytell>
+
       <div style="display:flex;">
         <peabody-grid
           :id="'peabody-vis-1'"
@@ -425,6 +434,7 @@
         scrolled: false,
         scrolledMax: 0,
         mapPos: 0,
+        overlayPos: 1.1,
         imposter: {
           color: "#ff00ff",
           year: 1570,

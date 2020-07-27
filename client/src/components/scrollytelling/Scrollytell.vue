@@ -148,7 +148,7 @@ export default {
   }
 
   .scrollytell-fixed {
-    flex: 1;
+    flex: 0 auto;
     top: 50px;
     height: fit-content;
     position: sticky;
