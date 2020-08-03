@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import PeabodyGrid from './PeabodyGrid'
+import PeabodyGrid from './newpeabodygrid/PeabodyGrid'
 import Visualization from '@/mixins/vis/Visualization'
 
 export default {
@@ -38,21 +38,21 @@ export default {
     }
   },
   methods: {
-    handleEventClick({year, type, data}) {
-      if (!data) {
-        const toAdd = {year, eventType: type, desc: "imposter", color: "#fd1f00"}
-        this.transform(dataObj => {
-            dataObj[year] = toAdd;
-            return dataObj;
-          }
-        );
-      } else {
-        this.transform(dataObj => {
-          delete dataObj[year];
-          return dataObj
-        })
-      }
-      console.log({year, type, data})
+    handleEventClick({year, type, sub}) {
+      // if (!data) {
+      //   const toAdd = {year, eventType: type, desc: "imposter", color: "#fd1f00"}
+      //   this.transform(dataObj => {
+      //       dataObj[year] = toAdd;
+      //       return dataObj;
+      //     }
+      //   );
+      // } else {
+      //   this.transform(dataObj => {
+      //     delete dataObj[year];
+      //     return dataObj
+      //   })
+      // }
+      console.log({year, type, sub})
       // if (!data) {
       //   this.addData({
       //     year,

@@ -1,10 +1,7 @@
 {
   "path": "static/data/",
   "datasets": {
-    "0": "SoH1500.csv",
-    "1": "SoH1600.csv",
-    "2": "SoH1700.csv",
-    "3": "SoH1800.csv",
+    "1": "peabody1600s.json",
     "longId": "jsontest.json"
   }
 }

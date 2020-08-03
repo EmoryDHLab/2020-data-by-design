@@ -20,7 +20,7 @@
 
     <g :style="{filter: dropShadow ? 'url(#shadow)' : 'none'}">
       <g v-for="(color, index) in colors" :key="index" @mouseover="hoveredNumber = index">
-        <rect
+        <rect v-if = "!Array.isArray(color)"
           stroke="#b3b3b3"
           stroke-width="0.5"
           :fill="(!color || color === 'none') ? 'white' : color"
@@ -29,6 +29,17 @@
           :x="1 + (index % 3) * 30"
           :y="1 + (Math.floor(index / 3)) * 30"
         />
+        <g v-else-if="color.length === 4">
+          <polygon v-for="(polygon, index) in fourPolygons(index)"
+                   :points="polygon"
+                   :fill="(!color[index] || color[index] === 'none') ? 'white' : color[index]"/>
+        </g>
+        <g v-else>
+          <polygon :points="polygons(index).top"
+                   :fill="(!color[0] || color[0] === 'none') ? 'white' : color[0]"/>
+          <polygon :points="polygons(index).bottom"
+                   :fill="(!color[1] || color[1] === 'none') ? 'white' : color[1]"/>
+        </g>
         <text v-if="showNumbers"
           class="number"
           :x="12 + (index % 3) * 30"
@@ -96,6 +107,24 @@ export default {
           "Deeds",
           "Deaths, of remarkable individuals"]
       }
+    }
+  },
+  methods: {
+    polygons (index) {
+      const left = 1 + (index % 3) * 30;
+      const top = 1 + (Math.floor(index / 3)) * 30;
+      const topTriangle = `${left}, ${top} ${left + 30}, ${top} ${left}, ${top + 30}`;
+      const bottomTriangle = `${left}, ${top + 30} ${left + 30}, ${top + 30} ${left + 30}, ${top}`
+      return {top: topTriangle, bottom: bottomTriangle};
+    },
+    fourPolygons (index) {
+      const topLeftX = 1 + (index % 3) * 30;
+      const topLeftY = 1 + (Math.floor(index / 3)) * 30;
+      const topTriangle = (left, top) => `${left}, ${top}, ${left + 15}, ${top}, ${left}, ${top + 30}`;
+      const bottomTriangle = (left, top) => `${left}, ${top + 30}, ${left + 15}, ${top + 30}, ${left + 15}, ${top}`;
+      return [
+        topTriangle(topLeftX, topLeftY), bottomTriangle(topLeftX, topLeftY),
+        topTriangle(topLeftX + 15, topLeftY), bottomTriangle(topLeftX + 15, topLeftY)]
     }
   },
   data() {

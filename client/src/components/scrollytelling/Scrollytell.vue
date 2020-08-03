@@ -1,6 +1,6 @@
 <template>
   <div class="scrollytell">
-    <div class="scrollytell-fixed">
+    <div class="scrollytell-fixed" :style="{ top: top + 'px' }">
       <slot name="fixed" :scrolled="scrolled" :progress="progressToNext"></slot>
     </div>
     <div ref="scrollContainer" class="scrollytell-scroll">
@@ -22,7 +22,7 @@
         </basic-waypoint>
         <slot v-else :name="slot" :scrolled="scrolled" :progress="progressTo(slot)"></slot>
       </div>
-      <div v-if="collect" class="scroll-item-dummy" :style="scrollItemStyles(scrollSlots + 1)"></div>
+<!--      <div v-if="collect" class="scroll-item-dummy" :style="scrollItemStyles(scrollSlots + 1)"></div>-->
     </div>
   </div>
 </template>
@@ -41,6 +41,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    top: {
+      type: Number,
+      default: 50,
+    }
   },
   data () {
     return {
@@ -55,6 +59,7 @@ export default {
       const last = event.lastWaypoint.triggerPoint;
       const next = event.nextWaypoint.triggerPoint;
       this.progressToNext = (window.scrollY - last) / (next - last);
+      this.$emit('scroll', { scrolled: this.scrolled, progress: this.progressToNext})
     },
     stuckHeights() {
       if (this.$refs['textSlots'])
@@ -70,7 +75,7 @@ export default {
     },
     offset (index) {
       if (!this.collect) {
-        return 50;
+        return this.top;
       }
       if (!this.mounted || !this.$refs["textSlots"]) return null;
       const ans = this.stuckHeights().slice(0,Number(index - 1)).reduce((acc, curr) => acc + curr, 0);
@@ -81,7 +86,7 @@ export default {
         const height = this.$refs["collected"].offsetHeight;
         return {
           position: "sticky",
-          top: height + 50 + "px"
+          top: height + this.top + "px"
         }
       }
     }
@@ -149,10 +154,10 @@ export default {
 
   .scrollytell-fixed {
     flex: 0 auto;
-    top: 50px;
     height: fit-content;
     position: sticky;
     align-items: center;
+    /*top set in template*/
   }
 
   .scrollytell-collected {

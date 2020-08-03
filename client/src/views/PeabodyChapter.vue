@@ -3,6 +3,15 @@
     <template slot='title'>
       Making History: Elizabeth Palmer Peabody’s Chronological Charts
     </template>
+<!--    <div style="display:flex;">-->
+<!--      <peabody-grid-->
+<!--        :id="'peabody-vis-1'"-->
+<!--        style='flex: 1'-->
+<!--        width='45vh'-->
+<!--        height='45vh'-->
+<!--        :mutableDataset="'my-peabody'"-->
+<!--        :staticDataset='"1"'/>-->
+<!--    </div>-->
     <Section>
       <p>
         Elizabeth Palmer Peabody was born in Massachusetts in 1804. Today, she is most famous for her proximity to more
@@ -73,13 +82,13 @@
         <template v-slot:fixed="{ scrolled, progress }">
           {{ progress }}
           {{ scrolled }}
-          <PeabodyTutorial
-            id="peabody-tutorial"
-            :showIndicator="false"
-            :showDots="false"
-            :slideNumber="scrolled"
-            width='45vh'
-            height='45vh'/>
+<!--          <PeabodyTutorial-->
+<!--            id="peabody-tutorial"-->
+<!--            :showIndicator="false"-->
+<!--            :showDots="false"-->
+<!--            :slideNumber="scrolled"-->
+<!--            width='45vh'-->
+<!--            height='45vh'/>-->
         </template>
         <template v-slot:1>
           <p>
@@ -130,45 +139,35 @@
         the textbook, which contained a narrative account of the events of a century, and then convert the list of
         events that concluded the chapter into graphical form.
       </p>
-      <p>
-        Returning to one of Peabody’s original charts, such as this chart of the seventeenth century, we can now see
-        England represented in red, the Americas in orange, and the Dutch in teal. Those are the three colors that
-        dominate the image. The French are also peripherally involved, in blue. By cross-referencing the chart to the
-        table of events, we can identify, for example, the founding of Jamestown in 1607; and the settlement of Plymouth
-        in 1620. Significantly, Peabody also registers the first enslaved Africans arriving in Virginia in that same
-        year. While scholars and critics now recognize 1619 as the true year of that catalyzing event, it is meaningful
-        that Peabody—on the side of abolition but by no means its most radical proponent—chose to picture that event in
-        her chart.
-      </p>
+      <div>
+        <p style="position: sticky; top: 60px">
+          With this exercise in mind, we might examine one of the charts, such as this one depicting the seventeenth century, and we might begin to see how England is represented in red, the Americas are represented in orange, and the Dutch in teal. Those are the three colors that dominate the image.
+          The French are also peripherally involved, in blue. By cross-referencing the chart to the table of events, as Peabody envisioned, we can identify, for example, the founding of Jamestown in 1607; and the settlement of Plymouth in 1620. Significantly, Peabody also registers the first enslaved Africans arriving in Virginia in that same year. While scholars and critics now recognize 1619 as the true year of that catalyzing event, it is meaningful that Peabody—on the side of abolition but by no means its most radical proponent—chose to picture that event in her chart.
+        </p>
+        <Scrollytell :scroll-slots="3" :top="210">
+          <template v-slot:fixed>
+            <PeabodyCanvas v-model="overlayPos" :width="'40vh'"></PeabodyCanvas>
+            {{overlayPos}}
+          </template>
+          <template v-slot:1>
+          </template>
+          <template v-slot:2>
+            <EventKey v-model="overlayEventKeyPos"
+                      :colors="overlayEventKeyColors"
+                      :style="{width: '25vh', position: 'relative', top: '5vh', float: 'right'}"></EventKey>
 
-      <Scrollytell :scroll-slots="2">
-        <template v-slot:fixed>
-          <PeabodyCanvas v-model="overlayPos" :width="'40vh'"></PeabodyCanvas>
-        </template>
-        <template v-slot:1>
-          <EventKey v-model="overlayEventKeyPos"
-            :style="{width: '25vh', position: 'relative', top: '5vh', float: 'right'}"></EventKey>
-
-        </template>
-      </Scrollytell>
-
-      <div style="display:flex;">
-        <peabody-grid
-          :id="'peabody-vis-1'"
-          style='flex: 1'
-          width='45vh'
-          height='45vh'
-          :mutableDataset="'my-peabody'"
-          :staticDataset='"1"'/>
-        <peabody-mutable
-          id='peabody-vis-2'
-          style='flex: 1'
-          :width="'45vh'"
-          height='45vh'
-          :staticDataset='"1"'
-          :mutableDataset="'my-peabody'"
-        />
+          </template>
+          <template v-slot:3>
+            <peabody-grid
+              id='peabody-vis'
+              style='flex: 1'
+              :width="'40vh'"
+              height='40vh'
+              :staticDataset='"1"'/>
+          </template>
+        </Scrollytell>
       </div>
+
       <timeline-vis
         id='vis2'
         height='200px'
@@ -394,7 +393,7 @@
   import {mapActions, mapGetters} from 'vuex'
   import ChapterScaffold from '@/components/ChapterScaffold'
   import TimelineVis from '@/components/vis/timeline/TimelineVis'
-  import PeabodyGrid from '@/components/vis/peabody/PeabodyGrid'
+  import PeabodyGrid from '@/components/vis/peabody/newpeabodygrid/PeabodyGrid'
   import PeabodyMutable from '@/components/vis/peabody/PeabodyMutable'
   import PeabodyTutorial from '@/components/vis/peabody/PeabodyTutorial'
   import EventKey from "../components/vis/peabody/EventKey";
@@ -429,7 +428,7 @@
     mixins: [Highlightable(".chapter__main")],
     data() {
       return {
-        d3: d3, //Makes the library accessible from within the template. (TODO: Is this good practice?)
+        d3: d3, //Makes the library accessible from within the template. (TODO: get rid of this, only access d3 from script)
         currentDataset: 0,
         scrolled: false,
         scrolledMax: 0,
@@ -453,6 +452,9 @@
         set (newVal) {
           this.overlayPos = Number(`${Math.floor(this.overlayPos)}.${newVal}`);
         }
+      },
+      overlayEventKeyColors() {
+        return [["orange", "red", "orange", "blue"], ["red", "orange"], "orange", false, false, false, false, false, "orange"]
       }
     },
     methods: {

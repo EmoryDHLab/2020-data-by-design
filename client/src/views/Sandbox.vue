@@ -1,48 +1,26 @@
 <template lang="html">
-  <div class="two-col-flex">
-    <div class="">
-      <h2>Data manipulator</h2>
-      <div class="">
-        <div class="flex-input">
-          <label>Year</label>
-          <input type="text" name="" v-model="newImgYear">
-        </div>
-        <div class="flex-input">
-          <label>Image Link</label>
-          <input type="text" name="" v-model="newImgPic">
-        </div>
-        <div class="flex-input">
-          <button type="button" @click="addDatapoint">Add Data</button>
-        </div>
-      </div>
-      <ol style="max-height: 300px; overflow-y: auto;">
-        <li v-for="point in points">
-          Year: {{ point.year }} | Image: "{{ point.img }}"
-        </li>
-      </ol>
-    </div>
-    <div class="">
-      <h2>Timeline</h2>
-      <Picline id="pic-line"
-        :dataset="images"
-        @focus-image="changeFocus"/>
-    </div>
-    <div class="">
-      <PicCollage id="pic-collage"
-        :dataset="images"
-        :focusedImg="focusedImg"/>
-    </div>
+  <div>
+    <PeabodyGrid :staticDataset="'1'" :mutableDataset="'1'">
+
+    </PeabodyGrid>
+    <PeabodyMutable :width="'400px'" :mutableDataset="'1'"></PeabodyMutable>
   </div>
 </template>
 
 <script>
 import Picline from '@/components/vis/Picline'
 import PicCollage from '@/components/vis/PicCollage'
+import EventSquare from '@/components/vis/peabody/newpeabodygrid/EventSquare'
+import PeabodyGrid from '@/components/vis/peabody/newpeabodygrid/PeabodyGrid'
+import PeabodyMutable from "../components/vis/peabody/PeabodyMutable";
 
 export default {
   components: {
+    PeabodyGrid,
+    PeabodyMutable,
     Picline,
-    PicCollage
+    PicCollage,
+    EventSquare
   },
   data: () => ({
     newImgYear: 1858,

@@ -40,7 +40,7 @@ const EventSquare = {
       type: Number,
       required: true
     },
-    eventsData: {
+    colors: {
       type: Array,
       required: true
     },
