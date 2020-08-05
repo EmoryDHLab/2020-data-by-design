@@ -275,6 +275,8 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
   /* Private */
   Context.prototype.handleScroll = function() {
     var triggeredGroups = {}
+    var triggeredWaypoints = []
+
     var axes = {
       horizontal: {
         newScroll: this.adapter.scrollLeft(),
@@ -315,7 +317,7 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
           lastWaypoint,
           nextWaypoint
         }
-        nextWaypoint.scrollHandler(event);
+        triggeredWaypoints.push([nextWaypoint, event])
       }
 
       for (var waypointKey in this.waypoints[axisKey]) {
@@ -337,6 +339,12 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 
     for (var groupKey in triggeredGroups) {
       triggeredGroups[groupKey].flushTriggers()
+    }
+
+    for (var tuple of triggeredWaypoints) {
+      var nextWaypoint = tuple[0];
+      var event = tuple[1]
+      nextWaypoint.scrollHandler(event);
     }
 
     this.oldScroll = {

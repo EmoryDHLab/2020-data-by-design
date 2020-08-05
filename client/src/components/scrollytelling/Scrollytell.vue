@@ -58,7 +58,7 @@ export default {
     scrolling(event) {
       const last = event.lastWaypoint.triggerPoint;
       const next = event.nextWaypoint.triggerPoint;
-      this.progressToNext = (window.scrollY - last) / (next - last);
+      this.progressToNext = (event.newScroll - last) / (next - last);
       this.$emit('scroll', { scrolled: this.scrolled, progress: this.progressToNext})
     },
     stuckHeights() {
@@ -67,11 +67,9 @@ export default {
     },
     scrollDown (index) {
       this.scrolled = Number(index);
-      this.lastScrollY = window.scrollY;
     },
     scrollUp (index) {
       this.scrolled = Number(index - 1);
-      this.lastScrollY = window.scrollY;
     },
     offset (index) {
       if (!this.collect) {
