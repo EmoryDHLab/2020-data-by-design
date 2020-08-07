@@ -18,14 +18,10 @@
 <script>
 import EventSquare from '@/components/vis/peabody/newpeabodygrid/EventSquare'
 
-/*
-  {
-    year: 1800,
-    events: {
+import { injects } from '@/mixins/vis/Visualization'
 
-    }
-  }
-*/
+const EventSquareInjected = Object.assign({ injects: [injects.registerEvents, injects.calcWidth, injects.data]}, EventSquare);
+
 export default {
   props: {
     yearData: {
@@ -50,7 +46,7 @@ export default {
     }
   },
   components: {
-    'event-square': EventSquare
+    'event-square': EventSquareInjected
   },
   computed: {
     evtWidth () {

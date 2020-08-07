@@ -80,15 +80,13 @@
       </p>
       <Scrollytell collect :scrollSlots="5">
         <template v-slot:fixed="{ scrolled, progress }">
-          {{ progress }}
-          {{ scrolled }}
-<!--          <PeabodyTutorial-->
-<!--            id="peabody-tutorial"-->
-<!--            :showIndicator="false"-->
-<!--            :showDots="false"-->
-<!--            :slideNumber="scrolled"-->
-<!--            width='45vh'-->
-<!--            height='45vh'/>-->
+          <PeabodyTutorial
+            id="peabody-tutorial"
+            :showIndicator="false"
+            :showDots="false"
+            :slideNumber="scrolled"
+            width='45vh'
+            height='45vh'/>
         </template>
         <template v-slot:1>
           <p>
@@ -140,30 +138,40 @@
         events that concluded the chapter into graphical form.
       </p>
       <div>
-        <p style="position: sticky; top: 60px">
+        <p :style="overlayIntroParagraphStyles">
           With this exercise in mind, we might examine one of the charts, such as this one depicting the seventeenth century, and we might begin to see how England is represented in red, the Americas are represented in orange, and the Dutch in teal. Those are the three colors that dominate the image.
           The French are also peripherally involved, in blue. By cross-referencing the chart to the table of events, as Peabody envisioned, we can identify, for example, the founding of Jamestown in 1607; and the settlement of Plymouth in 1620. Significantly, Peabody also registers the first enslaved Africans arriving in Virginia in that same year. While scholars and critics now recognize 1619 as the true year of that catalyzing event, it is meaningful that Peabody—on the side of abolition but by no means its most radical proponent—chose to picture that event in her chart.
         </p>
-        <Scrollytell :scroll-slots="3" :top="210">
+        <Scrollytell :scroll-slots="3" :top="210" @scroll="onOverlayScroll">
           <template v-slot:fixed>
             <PeabodyCanvas v-model="overlayPos" :width="'40vh'"></PeabodyCanvas>
-            {{overlayPos}}
           </template>
           <template v-slot:1>
-          </template>
-          <template v-slot:2>
             <EventKey v-model="overlayEventKeyPos"
                       :colors="overlayEventKeyColors"
-                      :style="{width: '25vh', position: 'relative', top: '5vh', float: 'right'}"></EventKey>
+                      :style="{width: '25vh', position: 'relative', top: '15vh' }"></EventKey>
+
+            <div class="event-box">
+              <div class="event-box-year"> {{overlayCurrYear}} </div>
+              <ul v-if="peabodyEvents && peabodyEvents[overlayCurrYear]">
+                <li v-for="[eventName, event] in Object.entries(peabodyEvents[overlayCurrYear])" :key="eventName">
+                  <EventSquare width="15" height="15"
+                               :colors="event.actors.map(actor => actorColors[actor])"></EventSquare>
+                  <span :class="{ 'selected-event': event.squares.includes(overlayEventKeyPos) }">
+                    {{ eventName }}
+                  </span>
+                </li>
+              </ul>
+            </div>
 
           </template>
-          <template v-slot:3>
+          <template v-slot:2>
             <peabody-grid
               id='peabody-vis'
               style='flex: 1'
               :width="'40vh'"
               height='40vh'
-              :staticDataset='"1"'/>
+              :staticDataset="staticDatasetId"/>
           </template>
         </Scrollytell>
       </div>
@@ -316,39 +324,6 @@
       </div>
     </Section>
     <Section title="Conclusion">
-      <!--      <Scrollytell collect>-->
-
-
-      <!--        <template v-slot:fixed="{ scrolled }">-->
-      <!--          <img src="./img/_brookes.jpg" width="500px"/>-->
-      <!--          <h1>Scrolled through: {{scrolled}}</h1>-->
-      <!--        </template>-->
-
-
-      <!--        <template v-slot:1>-->
-      <!--          Scrolltext 1-->
-      <!--          yadayadayada-->
-      <!--        </template>-->
-
-      <!--        <template v-slot:2>-->
-      <!--          <p>-->
-      <!--            Scrolltext 2-->
-      <!--          </p>-->
-      <!--          <p>-->
-      <!--           yadayada-->
-      <!--          </p>-->
-      <!--        </template>-->
-
-      <!--        <template v-slot:3>-->
-      <!--          Scrolltext 3-->
-      <!--        </template>-->
-      <!--        <template v-slot:4>-->
-      <!--          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus accusantium asperiores assumenda, blanditiis consequuntur, distinctio eius eum exercitationem fuga id ipsam maiores minima nisi nostrum porro quia rem rerum sunt.-->
-      <!--        </template>-->
-      <!--        <template v-slot:5>-->
-      <!--          2Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci animi aperiam autem, dolorum ex harum iste libero molestiae nemo quos rerum sed similique soluta voluptas voluptate! Aut incidunt vitae voluptas.-->
-      <!--        </template>-->
-      <!--      </Scrollytell>-->
       <p>
         And to me, there lies the principal lesson of Peabody’s charts—about what information constitutes knowledge,
         about how that knowledge is perceived, and about who is authorized to produce it. So that, to me, is why this
@@ -397,9 +372,6 @@
   import PeabodyMutable from '@/components/vis/peabody/PeabodyMutable'
   import PeabodyTutorial from '@/components/vis/peabody/PeabodyTutorial'
   import EventKey from "../components/vis/peabody/EventKey";
-  import {EventBus} from '@/helpers/EventBus'
-  import mutations from '@/store/dataset/types'
-  import ch_mut from '@/store/chapters-old/types'
   import Section from '@/components/chapters/Section'
   import Highlightable from "@/mixins/Highlightable";
   import Scrollytell from "../components/scrollytelling/Scrollytell";
@@ -407,6 +379,8 @@
   import PeabodyCanvas from "../components/vis/peabody/PeabodyCanvas";
   import Footnotes from "../components/general/Footnotes"
   import FootnoteReference from "../components/general/FootnoteReference";
+  import EventSquare from "../components/vis/peabody/newpeabodygrid/EventSquare";
+  import { actorColors, dataToYears } from "../helpers/PeabodyUtils";
   import * as d3 from "d3";
 
   export default {
@@ -422,6 +396,7 @@
       Scrollytell,
       PeabodyCanvas,
       MapScroller,
+      EventSquare,
       Footnotes,
       FootnoteRef: FootnoteReference
     },
@@ -429,22 +404,70 @@
     data() {
       return {
         d3: d3, //Makes the library accessible from within the template. (TODO: get rid of this, only access d3 from script)
-        currentDataset: 0,
+        staticDatasetId: '1',
+        century: 1600,
         scrolled: false,
         scrolledMax: 0,
         mapPos: 0,
         overlayPos: 1.1,
-        imposter: {
-          color: "#ff00ff",
-          year: 1570,
-          desc: "imposter",
-          eventType: 3,
-          actor: "England",
-          id: 300
-        }
+        overlayScroll: {
+          scrolled: null,
+          progress: null
+        },
+        actorColors
       };
     },
     computed: {
+      peabodyData () {
+        return this.$store.getters["dataset/getDatasetById"](this.staticDatasetId);
+      },
+      peabodyYears () {
+        if (Array.isArray(this.peabodyData)) {
+          return dataToYears(this.peabodyData);
+        }
+      },
+      peabodyEvents () {
+       if (Array.isArray(this.peabodyData)) {
+         return this.peabodyData.reduce((yearObj, entry) => {
+           let event = {
+             event: entry.event,
+             actors: entry.actors,
+             squares: entry.squares == "full" ? [1,2,3,4,5,6,7,8,9] : entry.squares
+           };
+           if (!yearObj[entry.year]) {
+             yearObj[entry.year] = {};
+           }
+           const existingObj = yearObj[entry.year][event.event];
+           if (!existingObj) {
+             yearObj[entry.year][event.event] = event;
+           } else {
+             existingObj.squares = event.squares.concat(existingObj.squares);
+             existingObj.actors = [...new Set([...existingObj.actors, ...event.actors])]
+           }
+           return yearObj;
+         }, {})
+       }
+      },
+      overlayCurrYear () {
+        return Math.floor(this.overlayPos) + this.century;
+      },
+      overlayIntroParagraphStyles () {
+        const styles = {
+          position: 'sticky',
+          top: '60px'
+        };
+        if (this.overlayScroll.scrolled == 1) {
+          const scale = d3.scaleLinear()
+                          .domain([0.14,0.3])
+                          .range([0, -225]);
+          scale.clamp(true);
+          const top = scale(this.overlayScroll.progress);
+          if (top) styles.transform = `translateY(${top}px)`;
+        } else if (this.overlayScroll.scrolled > 1) {
+          styles.opacity = 0;
+        }
+        return styles;
+      },
       overlayEventKeyPos: {
         get () {
           return Math.round(10 * (this.overlayPos - Math.floor(this.overlayPos)));
@@ -454,10 +477,22 @@
         }
       },
       overlayEventKeyColors() {
-        return [["orange", "red", "orange", "blue"], ["red", "orange"], "orange", false, false, false, false, false, "orange"]
-      }
+        if (this.peabodyYears) {
+          const index = Math.floor(this.overlayPos);
+          const yearData = this.peabodyYears[index + this.century];
+          if (yearData) {
+            return yearData.map( squareObj =>
+              squareObj ? squareObj.actors.map(actor => actorColors[actor]) : [false]);
+          }
+        }
+      },
     },
     methods: {
+      onOverlayScroll({ scrolled, progress }) {
+        console.log("got to scroll handler");
+        this.overlayScroll.scrolled = scrolled;
+        this.overlayScroll.progress = progress;
+      },
       ...mapActions("chapters", ["setChapter"]),
     },
     created() {
@@ -470,6 +505,40 @@
 </script>
 
 <style scoped>
+
+  .event-box {
+    position: relative;
+    top: 14vh;
+    left: 2.5vh;
+    margin-bottom: -300px;
+  }
+
+  .event-box ul {
+    list-style: none;
+    margin-left: 1.4vh;
+    padding-left: 0;
+  }
+
+  .event-box li {
+    display: flex;
+    align-items: center;
+  }
+  .event-box li svg {
+    margin-right: 5px;
+  }
+
+  .event-box-year {
+    font-family: monospace;
+    font-size: 2vh;
+  }
+
+
+  .selected-event {
+    /*border-left: 5px solid yellow;*/
+    /*background-color: yellow;*/
+    text-decoration: underline;
+  }
+
   .left-float {
     float: left;
   }

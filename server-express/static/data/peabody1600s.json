@@ -201,13 +201,13 @@
     "event": "General persecution of Quakers",
     "year": 1659,
     "squares": [6],
-    "actors": ["Americas"]
+    "actors": ["England"]
   },
   {
     "event": "Death of Mary Dyer",
     "year": 1659,
     "squares": [9],
-    "actors": ["Americas"]
+    "actors": ["England"]
   },
   {
     "event": "North Carolina settled by persecuted Quakers",
@@ -225,19 +225,19 @@
     "event": "New Netherlands surrendered to the English",
     "year": 1664,
     "squares": [3],
-    "actors": ["England"]
+    "actors": ["Holland"]
   },
   {
     "event": "New Jersey granted to Berkeley and Carteret",
     "year": 1665,
     "squares": "full",
-    "actors": ["Americas"]
+    "actors": ["England"]
   },
   {
     "event": "South Carolina settled. Locke's \"Grant Model\"",
     "year": 1670,
-    "squares": [9],
-    "actors": ["Americas"]
+    "squares": "full",
+    "actors": ["England"]
   },
   {
     "event": "King Philip's War",
@@ -267,7 +267,7 @@
     "event": "Bacon's Rebellion",
     "year": 1676,
     "squares": [8],
-    "actors": ["Americas"]
+    "actors": ["England"]
   },
   {
     "event": "\"Indian War\" in Virginia",
@@ -291,7 +291,7 @@
     "event": "Bacon dies",
     "year": 1676,
     "squares": [9],
-    "actors": ["Americas"]
+    "actors": ["England"]
   },
   {
     "event": "Pennsylvania and Delaware founded by Penn",
@@ -314,8 +314,8 @@
   {
     "event": "Sir Edmund Andros appointed governor of New England",
     "year": 1686,
-    "squares": [9],
-    "actors": ["Americas"]
+    "squares": [8],
+    "actors": ["England"]
   },
   {
     "event": "King William's War",
@@ -356,7 +356,7 @@
   {
     "event": "French found Biloxi on the Mississippi",
     "year": 1699,
-    "squares": [6],
+    "squares": [5],
     "actors": ["France"]
   }
 ]

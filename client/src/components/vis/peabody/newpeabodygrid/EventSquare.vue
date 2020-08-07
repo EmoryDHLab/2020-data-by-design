@@ -22,7 +22,6 @@
   </svg>
 </template>
 <script>
-import { injects } from '@/mixins/vis/Visualization'
 
 const events = {
   eventClicked: 'event-clicked',
@@ -31,11 +30,11 @@ const events = {
 }
 
 const EventSquare = {
-  inject: [injects.registerEvents, injects.calcWidth, injects.data],
+  // injects: [injects.registerEvents, injects.calcWidth, injects.data] ,
   props: {
     colors: {
       type: Array,
-      default: () => ["blue", "green"]
+      default: () => ["white"]
       // required: true
     },
     type: Number,
@@ -112,7 +111,7 @@ const EventSquare = {
       }
     },
   }
-}
+};
 
 export { events, EventSquare as default }
 </script>
