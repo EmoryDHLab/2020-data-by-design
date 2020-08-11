@@ -3,15 +3,15 @@
     <template slot='title'>
       Making History: Elizabeth Palmer Peabody’s Chronological Charts
     </template>
-<!--    <div style="display:flex;">-->
-<!--      <peabody-grid-->
-<!--        :id="'peabody-vis-1'"-->
-<!--        style='flex: 1'-->
-<!--        width='45vh'-->
-<!--        height='45vh'-->
-<!--        :mutableDataset="'my-peabody'"-->
-<!--        :staticDataset='"1"'/>-->
-<!--    </div>-->
+    <!--    <div style="display:flex;">-->
+    <!--      <peabody-grid-->
+    <!--        :id="'peabody-vis-1'"-->
+    <!--        style='flex: 1'-->
+    <!--        width='45vh'-->
+    <!--        height='45vh'-->
+    <!--        :mutableDataset="'my-peabody'"-->
+    <!--        :staticDataset='"1"'/>-->
+    <!--    </div>-->
     <Section>
       <p>
         Elizabeth Palmer Peabody was born in Massachusetts in 1804. Today, she is most famous for her proximity to more
@@ -29,7 +29,7 @@
         and as far south as
         <a class="blue-hover" href="#" @mouseover="mapPos=3" @mouseout="mapPos=0">Richmond, VA</a>,
         in order to promote the US history textbook she had recently published, A Chronological History of the United
-        States.
+        States. The book documented a new method of teaching history--one that had data visualization at its core.
       </p>
       <MapScroller asset="railroadscaled.jpg" width="60vh"
                    :current-position="mapPos"
@@ -45,14 +45,18 @@
         rug, which contained floor-sized versions of the chronological charts described in the book. Peabody identified
         the charts—in their vibrant, full-color detail—as key components of her visual pedagogy. As she describes in the
         “Advertisement” that begins the book, the charts were “intended to do for the science of history what maps do
-        for that of geography; and they will make [it] easy to lay the foundations of historical knowledge in the minds
-        of the young.”<FootnoteRef :number="1"></FootnoteRef> Like Willard, Playfair, and other early proponents of data visualization, Peabody understood the
-        value of visual mnemonics. But she did not intend her students to simply memorize the charts. Rather, she hoped
-        to encourage her students to participate in the process of knowledge production as they attempted to interpret
-        the chronological data presented by the charts. The charts “do[] not pretend to be what an outline can never be,
-        namely: a perfect frame work for history,” Peabody elsewhere explained.<FootnoteRef :number="2"></FootnoteRef> On the contrary, through the act of
-        interpretation, each student would be prompted to develop their own framework for understanding the events of
-        the past.
+        for that of geography; and they will make [it] easy to lay the foundations of historical knowledge
+        in the minds of the young.”
+        <FootnoteRef :number="1"></FootnoteRef>
+        Like Willard, Playfair, and other early proponents of data visualization, Peabody understood the value of visual
+        mnemonics. But she did not intend her students to simply memorize the charts. Rather, she hoped to encourage her
+        students to participate in the process of knowledge production as they attempted to interpret the chronological
+        data presented by the charts. The charts “do[] not pretend to be what an outline can never be, namely: a perfect
+        frame work for history,”
+        Peabody elsewhere explained.
+        <FootnoteRef :number="2"></FootnoteRef>
+        On the contrary, through the act of interpretation, each student would be prompted to develop their own
+        framework for understanding the events of the past.
       </p>
       <img src="./img/peabodytitlepage.jpg" width="60%"/>
     </Section>
@@ -61,22 +65,18 @@
         Peabody’s method of visualizing events of historical significance was inspired by a system developed in Poland
         in the 1820s, and popularized in subsequent decades by the military general (and erstwhile math teacher) Jósef
         Bem. The Polish System, as it was then called, employed a grid overlaid with shapes and colors to visually
-        represent events in time. Peabody first encountered Bem’s system in 1845 almost by chance, through a traveling
+        represent events in time.
+        <FootnoteRef :number="3"></FootnoteRef>
+        Peabody first encountered the system in 1845 almost by chance, through a traveling
         lecturer who briefly boarded with her family. The boarder, a man named Joseph Podbielski, had come from Poland
-        with copies of Bem’s charts. Peabody became “captivated” by the charts, according to one of her biographers,
-        Bruce Rhonda, as well as her nephew Julian Hawthorne, who served as her first student. By his own account,
-        Hawthorne was a challenging student: “I was always most inapt and grievous, in dates and mathematics
-        especially,” he recalled. But Peabody remained undaunted. She spent several years devoted to her own study of
-        the Polish System, culminating with the development of her own modified version, which she published as The
-        Polish-American System of Chronology in 1850.
-      </p>
-      <p>
-        Peabody’s system, like Bem’s, is based off a numbered grid, with each year in a century marked out in its own
-        box. Each box is then subdivided, with each of the nine smaller squares corresponding to a particular type of
-        historical event. In the top left corner is the space for wars, battles, and sieges; in the top middle is the
-        space for conquests and unions; in the top right is the space for losses and divisions, and so on. Shapes that
-        take up the entire box indicate an event of such magnitude or complexity that the other events in that same year
-        hardly matter. The events are also color-coded, indicating the various countries involved in a particular event.
+        with copies of Bem’s charts. Peabody became “captivated” by them, according to one of her biographers, Bruce
+        Rhonda, as well as her nephew Julian Hawthorne--Nathanial and Sophia’s son--who Peabody tapped to serve as her
+        test subject. By his own admission, Hawthorne posed somewhat of a pedagogical challenge. “I was always most
+        inapt and grievous, in dates and mathematics especially,” he later recalled.
+        <FootnoteRef :number="4"></FootnoteRef>
+        But Peabody was undeterred. She
+        went on to devote several years to a study of the Polish System, culminating with the development of her own
+        modified version--the Polish-American System that prompted her national tour.
       </p>
       <Scrollytell collect :scrollSlots="5">
         <template v-slot:fixed="{ scrolled, progress }">
@@ -133,16 +133,43 @@
         </template>
       </Scrollytell>
       <p>
-        As Peabody envisioned it—and described in her “Preface to Teacher”—the basic exercise was to read a chapter of
-        the textbook, which contained a narrative account of the events of a century, and then convert the list of
-        events that concluded the chapter into graphical form.
+        While the Polish-American System took a broadly Western Judeo-Christian approach to history, and covered an enormous expanse of time--the period between 2500 BCE and 1849 CE (what was then the present)--Peabody also saw the need for a textbook that focused solely on the United States. And so, shortly after the release of the Polish-American System, she began working on a second book that would be published, in 1856, as A Chronological History of the United States. The book contained four full-color plates, one for each of the centuries since the first European colonizers set foot on Indigeous American land. As Peabody envisioned it, the basic exercise was to read a chapter of the textbook, which contained a narrative account of the events of a single century, and then match the list of events that concluded the chapter with their graphical form.
       </p>
       <div>
         <p :style="overlayIntroParagraphStyles">
-          With this exercise in mind, we might examine one of the charts, such as this one depicting the seventeenth century, and we might begin to see how England is represented in red, the Americas are represented in orange, and the Dutch in teal. Those are the three colors that dominate the image.
-          The French are also peripherally involved, in blue. By cross-referencing the chart to the table of events, as Peabody envisioned, we can identify, for example, the founding of Jamestown in 1607; and the settlement of Plymouth in 1620. Significantly, Peabody also registers the first enslaved Africans arriving in Virginia in that same year. While scholars and critics now recognize 1619 as the true year of that catalyzing event, it is meaningful that Peabody—on the side of abolition but by no means its most radical proponent—chose to picture that event in her chart.
+          With this exercise in mind, we might examine one of the charts, such as this one depicting the seventeenth
+          century, and we might begin to see how England is represented in
+          <b :style="{color: actorColors.England}">red</b>,
+          the Americas are represented in
+          <b :style="{color: actorColors.Americas}">orange</b>,
+          and the Dutch in
+          <b :style="{color: actorColors.Holland}">teal</b>.
+          Those are the three colors that dominate the image.
+
+          The French are also peripherally involved, in
+          <b :style="{color: actorColors.France}">blue</b>.
+
+          By cross-referencing the chart to the table of events, as
+          Peabody envisioned, we can identify, for example,
+          <a class="blue-hover" href="#" @mouseover="overlayPos='7.5'">
+            the founding of Jamestown in 1607
+          </a>
+          and the
+          <a class="blue-hover" href="#" @mouseover="overlayPos='20.1'">
+            settlement of  Plymouth in 1620.
+          </a>
+          Significantly, Peabody also registers the
+          <a class="blue-hover" href="#" @mouseover="overlayPos='20.6'">
+            first enslaved Africans arriving in Virginia
+          </a>
+          in that same year. While scholars and critics now recognize 1619 as the true year of that catalyzing event, it is
+          meaningful that Peabody—on the side of abolition but by no means its most radical proponent—chose to picture
+          that event in her chart. <FootnoteRef :number="5"></FootnoteRef>
         </p>
-        <Scrollytell :scroll-slots="3" :top="210" @scroll="onOverlayScroll">
+        <Scrollytell :scroll-slots="3"
+                     :top="210"
+                     :margin="'70vh'"
+                     @scroll="onOverlayScroll">
           <template v-slot:fixed>
             <PeabodyCanvas v-model="overlayPos" :width="'40vh'"></PeabodyCanvas>
           </template>
@@ -152,7 +179,7 @@
                       :style="{width: '25vh', position: 'relative', top: '15vh' }"></EventKey>
 
             <div class="event-box">
-              <div class="event-box-year"> {{overlayCurrYear}} </div>
+              <div class="event-box-year"> {{overlayCurrYear}}</div>
               <ul v-if="peabodyEvents && peabodyEvents[overlayCurrYear]">
                 <li v-for="[eventName, event] in Object.entries(peabodyEvents[overlayCurrYear])" :key="eventName">
                   <EventSquare width="15" height="15"
@@ -166,6 +193,10 @@
 
           </template>
           <template v-slot:2>
+<!--            <p>-->
+<!--              As this detailed explanation makes clear, few twenty-first-century viewers could have intuited the information conveyed by the chart without first taking the time to learn how to decode it. And for most contemporary visualization researchers and designers, who champion the clarifying capacity of visualization; or for those who believe that data visualization is best deployed to “amplify” existing thought processes, Peabody’s method would be viewed as a failure.-->
+<!--              <FootnoteRef :number="6"></FootnoteRef>-->
+<!--            </p>-->
             <peabody-grid
               id='peabody-vis'
               style='flex: 1'
@@ -173,6 +204,11 @@
               height='40vh'
               :staticDataset="staticDatasetId"/>
           </template>
+<!--          <template v-slot:3>-->
+<!--            <p>-->
+<!--              In support of this perspective, consider this representation of the data of Peabody’s chart of the seventeenth century as a timeline, rather than a grid. The progression of events over the course of the century, culminating in a series of wars and rebellions in the late 1680s and early 1690s, becomes much more immediately legible.-->
+<!--            </p>-->
+<!--          </template>-->
         </Scrollytell>
       </div>
 
@@ -183,13 +219,6 @@
         :mutableDataset="'my-peabody'"/>
 
       <div>
-        <p>
-          As this detailed explanation makes clear, few twenty-first-century viewers could have intuited the information
-          conveyed by the chart without first taking the time--much more than visualizations today most often
-          require--in order to learn how to decode it. For most contemporary visualization researchers and designers,
-          who champion the clarifying capacity of visualization; or for those who believe that data visualization is
-          best deployed to “amplify” existing thought processes, Peabody’s method would be a complete and utter failure.
-        </p>
         <p>
           But for Peabody, this near-total abstraction was precisely the point. Her charts were intended to appeal to
           the senses directly, to provide what she called “outlines to the eye.” Her hope was that, by providing the
@@ -380,7 +409,7 @@
   import Footnotes from "../components/general/Footnotes"
   import FootnoteReference from "../components/general/FootnoteReference";
   import EventSquare from "../components/vis/peabody/newpeabodygrid/EventSquare";
-  import { actorColors, dataToYears } from "../helpers/PeabodyUtils";
+  import {actorColors, dataToYears} from "../helpers/PeabodyUtils";
   import * as d3 from "d3";
 
   export default {
@@ -418,48 +447,48 @@
       };
     },
     computed: {
-      peabodyData () {
+      peabodyData() {
         return this.$store.getters["dataset/getDatasetById"](this.staticDatasetId);
       },
-      peabodyYears () {
+      peabodyYears() {
         if (Array.isArray(this.peabodyData)) {
           return dataToYears(this.peabodyData);
         }
       },
-      peabodyEvents () {
-       if (Array.isArray(this.peabodyData)) {
-         return this.peabodyData.reduce((yearObj, entry) => {
-           let event = {
-             event: entry.event,
-             actors: entry.actors,
-             squares: entry.squares == "full" ? [1,2,3,4,5,6,7,8,9] : entry.squares
-           };
-           if (!yearObj[entry.year]) {
-             yearObj[entry.year] = {};
-           }
-           const existingObj = yearObj[entry.year][event.event];
-           if (!existingObj) {
-             yearObj[entry.year][event.event] = event;
-           } else {
-             existingObj.squares = event.squares.concat(existingObj.squares);
-             existingObj.actors = [...new Set([...existingObj.actors, ...event.actors])]
-           }
-           return yearObj;
-         }, {})
-       }
+      peabodyEvents() {
+        if (Array.isArray(this.peabodyData)) {
+          return this.peabodyData.reduce((yearObj, entry) => {
+            let event = {
+              event: entry.event,
+              actors: entry.actors,
+              squares: entry.squares == "full" ? [1, 2, 3, 4, 5, 6, 7, 8, 9] : entry.squares
+            };
+            if (!yearObj[entry.year]) {
+              yearObj[entry.year] = {};
+            }
+            const existingObj = yearObj[entry.year][event.event];
+            if (!existingObj) {
+              yearObj[entry.year][event.event] = event;
+            } else {
+              existingObj.squares = event.squares.concat(existingObj.squares);
+              existingObj.actors = [...new Set([...existingObj.actors, ...event.actors])]
+            }
+            return yearObj;
+          }, {})
+        }
       },
-      overlayCurrYear () {
+      overlayCurrYear() {
         return Math.floor(this.overlayPos) + this.century;
       },
-      overlayIntroParagraphStyles () {
+      overlayIntroParagraphStyles() {
         const styles = {
           position: 'sticky',
           top: '60px'
         };
         if (this.overlayScroll.scrolled == 1) {
           const scale = d3.scaleLinear()
-                          .domain([0.14,0.3])
-                          .range([0, -225]);
+            .domain([0.4, 0.7])
+            .range([0, -225]);
           scale.clamp(true);
           const top = scale(this.overlayScroll.progress);
           if (top) styles.transform = `translateY(${top}px)`;
@@ -469,10 +498,10 @@
         return styles;
       },
       overlayEventKeyPos: {
-        get () {
+        get() {
           return Math.round(10 * (this.overlayPos - Math.floor(this.overlayPos)));
         },
-        set (newVal) {
+        set(newVal) {
           this.overlayPos = Number(`${Math.floor(this.overlayPos)}.${newVal}`);
         }
       },
@@ -481,14 +510,14 @@
           const index = Math.floor(this.overlayPos);
           const yearData = this.peabodyYears[index + this.century];
           if (yearData) {
-            return yearData.map( squareObj =>
+            return yearData.map(squareObj =>
               squareObj ? squareObj.actors.map(actor => actorColors[actor]) : [false]);
           }
         }
       },
     },
     methods: {
-      onOverlayScroll({ scrolled, progress }) {
+      onOverlayScroll({scrolled, progress}) {
         console.log("got to scroll handler");
         this.overlayScroll.scrolled = scrolled;
         this.overlayScroll.progress = progress;
@@ -523,6 +552,7 @@
     display: flex;
     align-items: center;
   }
+
   .event-box li svg {
     margin-right: 5px;
   }

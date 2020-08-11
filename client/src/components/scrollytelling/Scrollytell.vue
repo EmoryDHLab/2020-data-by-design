@@ -44,6 +44,10 @@ export default {
     top: {
       type: Number,
       default: 50,
+    },
+    margin: { //bottom margin between items
+      type: String,
+      default: '100vh'
     }
   },
   data () {
@@ -84,8 +88,12 @@ export default {
         const height = this.$refs["collected"].offsetHeight;
         return {
           position: "sticky",
+          'margin-bottom': this.margin,
           top: height + this.top + "px"
         }
+      }
+      return {
+        'margin-bottom': this.margin,
       }
     }
   },
@@ -174,7 +182,7 @@ export default {
 
   .scroll-item {
     padding: 5px;
-    margin-bottom: 100vh;
+    /*margin-bottom: 100vh;*/
     /*box-shadow: 1px 1px 1px 1px gray;*/
   }
 
