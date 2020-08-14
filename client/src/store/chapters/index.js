@@ -14,7 +14,12 @@ const Mutations = {
   SCROLL_TO: "SCROLL_TO"
 }
 
-const findParentSection = (element, sections) => {
+function filteredChildren (element) {
+  const exclude = ['H1', 'H2', 'H3', 'H4', 'H5', 'H6'];
+  return Array.from(element.children).filter(el => !exclude.includes(el.tagName.toUpperCase()))
+}
+
+function findParentSection (element, sections) {
   console.log(element);
   const sectionIds = sections.map(section => section.id);
   const possibleIds = sectionIds.filter(id => id);
@@ -32,7 +37,7 @@ const findParentSection = (element, sections) => {
     return false;
   }
   const section = sectionIds.indexOf(parent.id);
-  const subsection = Array.prototype.indexOf.call(parent.children, curr);
+  const subsection = Array.prototype.indexOf.call(filteredChildren(parent), curr);
   return {section, subsection}
 }
 
@@ -71,14 +76,15 @@ const store = {
     [Mutations.ADD_SECTION] (state, {id}) {
       //Presumes this mutation gets called in section order
       const el = document.getElementById(id);
-      const subsections = el.childElementCount;
+      const children = filteredChildren(el);
+      const subsections = children.length;
       const highlights = Array.from({length: subsections}).fill(0);
       const vis = Array.from({length: subsections}).fill(0);
       const offsets = Array.from({length: subsections});
 
       window.addEventListener('load', event => {
         for (let i = 0; i < subsections; i++) {
-          const child = el.children[i];
+          const child = children[i];
           let top = child.offsetTop;
           let curr = child.offsetParent;
           while (curr) {
@@ -90,7 +96,7 @@ const store = {
         }
       })
       for (let i = 0; i < subsections; i++) {
-        const child = el.children[i];
+        const child = children[i];
         if (child.tagName.toUpperCase() === "IMG") {
           vis[i] = VisTypes.IMAGE;
         }
