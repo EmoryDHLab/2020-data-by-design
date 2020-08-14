@@ -82,7 +82,7 @@ const store = {
       const vis = Array.from({length: subsections}).fill(0);
       const offsets = Array.from({length: subsections});
 
-      window.addEventListener('load', event => {
+      const listener = event => {
         for (let i = 0; i < subsections; i++) {
           const child = children[i];
           let top = child.offsetTop;
@@ -94,7 +94,9 @@ const store = {
           offsets[i] = top;
           state.currChapter.lastUpdated = Date.now();
         }
-      })
+        window.removeEventListener('load', listener)
+      }
+      window.addEventListener('load', listener)
       for (let i = 0; i < subsections; i++) {
         const child = children[i];
         if (child.tagName.toUpperCase() === "IMG") {

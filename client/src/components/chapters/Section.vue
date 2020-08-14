@@ -10,6 +10,7 @@
 import { mapActions, mapGetters } from 'vuex'
 
 let staticCount = 0;
+window.addEventListener('load', (e) => staticCount = 0);
 export default {
   props: {
     title: String
@@ -20,7 +21,10 @@ export default {
     }
   },
   mounted () {
-    this.registerSection({id: this.elementId});
+    if (this.currChapterSections.length <= this.number) {
+      debugger;
+      this.registerSection({id: this.elementId});
+    }
   },
   computed: {
     ...mapGetters('chapters', ['currChapterTitle', 'currChapterSections']),

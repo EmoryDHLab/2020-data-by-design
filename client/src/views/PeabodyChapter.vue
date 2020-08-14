@@ -15,36 +15,38 @@
     <!--    </div>-->
     <Section>
       <div>
-      <p>
-        Elizabeth Palmer Peabody was born in Massachusetts in 1804. Today, she
-        is most famous for her proximity to more
-        well-known writers of the American Renaissance, such as Ralph Waldo
-        Emerson and Nathaniel Hawthorne. (Hawthorne
-        was actually married to her sister, Sophia). But Peabody had impact in
-        her own right: the bookstore that she ran
-        out of her home, in Boston, functioned as the de facto salon for the
-        transcendentalist movement. She edited and
-        published the first version of Henry David Thoreau’s essay on civil
-        disobedience. And she was an educational
-        innovator: she is credited with starting the first kindergarten in the
-        United States.
-      </p>
-      <p>
-        But in the 1850s, Peabody set off to ride the rails. She traveled as far
-        north as
-        <a class="blue-hover" href="#" @mouseover="mapPos=1"
-           @mouseout="mapPos=0">Rochester, NY</a>;
-        as far west as
-        <a class="blue-hover" href="#" @mouseover="mapPos=2"
-           @mouseout="mapPos=0">Louisville, KY</a>;
-        and as far south as
-        <a class="blue-hover" href="#" @mouseover="mapPos=3"
-           @mouseout="mapPos=0">Richmond, VA</a>,
-        in order to promote the US history textbook she had recently published,
-        A Chronological History of the United
-        States. The book documented a new method of teaching history--one that
-        had data visualization at its core.
-      </p>
+        <p>
+          Elizabeth Palmer Peabody was born in Massachusetts in 1804. Today, she
+          is most famous for her proximity to more
+          well-known writers of the American Renaissance, such as Ralph Waldo
+          Emerson and Nathaniel Hawthorne. (Hawthorne
+          was actually married to her sister, Sophia). But Peabody had impact in
+          her own right: the bookstore that she ran
+          out of her home, in Boston, functioned as the de facto salon for the
+          transcendentalist movement. She edited and
+          published the first version of Henry David Thoreau’s essay on civil
+          disobedience. And she was an educational
+          innovator: she is credited with starting the first kindergarten in the
+          United States.
+        </p>
+        <p>
+          But in the 1850s, Peabody set off to ride the rails. She traveled as
+          far
+          north as
+          <a class="blue-hover" href="#" @mouseover="mapPos=1"
+             @mouseout="mapPos=0">Rochester, NY</a>;
+          as far west as
+          <a class="blue-hover" href="#" @mouseover="mapPos=2"
+             @mouseout="mapPos=0">Louisville, KY</a>;
+          and as far south as
+          <a class="blue-hover" href="#" @mouseover="mapPos=3"
+             @mouseout="mapPos=0">Richmond, VA</a>,
+          in order to promote the US history textbook she had recently
+          published,
+          A Chronological History of the United
+          States. The book documented a new method of teaching history--one that
+          had data visualization at its core.
+        </p>
       </div>
       <MapScroller asset="railroadscaled.jpg" width="60vh"
                    :current-position="mapPos"
@@ -390,71 +392,231 @@
       </div>
       <div>
         <p>
-          The political crisis that motivated Peabody to publish her Chronological History is required context for understanding her ideas about the uses of historical knowledge. In addition, it helps to underscore how the images she created were themselves political. As I argue throughout this project, the idea of data visualization--at its most basic level--is culturally and politically situated as well.
+          The political crisis that motivated Peabody to publish her
+          Chronological History is required context for understanding her ideas
+          about the uses of historical knowledge. In addition, it helps to
+          underscore how the images she created were themselves political. As I
+          argue throughout this project, the idea of data visualization--at its
+          most basic level--is culturally and politically situated as well.
         </p>
         <p>
-          While it requires a bit of background knowledge--or taking the time to read the textbook--for contemporary viewers to detect the politics of Peabody’s charts, other charts make their politics more explicit--for example, Emma Willard’s Temple of Time, which I explore in Chapter ##. In my analysis there, I discuss how Willard depicts the events of history as the pillars supporting her eponymous temple, with the nineteenth century--then the present--represented as an unfinished column, not yet stable enough to support the weight of the past. On the ceiling of the temple, Willard catalogues key figures from each century, including statesmen, philosophers, discoverers, and poets. On the floor of the temple, she lays out the developments of major nation-states, their paths drawn as rivers subjected to the expansions and contractions of time. In the front and center of the floor, Willard places the path of the United States, opening up towards the viewer, enfolding them in the future to come. Although widely divergent from Peabody in terms of aesthetics, Peabody explicitly identified Willard as a major source of inspiration, crediting her with creating “the most ingenious chart ever invented, besides (my own).”
+          While it requires a bit of background knowledge--or taking the time to
+          read the textbook--for contemporary viewers to detect the politics of
+          Peabody’s charts, other charts make their politics more explicit--for
+          example, Emma Willard’s Temple of Time, which I explore in Chapter ##.
+          In my analysis there, I discuss how Willard depicts the events of
+          history as the pillars supporting her eponymous temple, with the
+          nineteenth century--then the present--represented as an unfinished
+          column, not yet stable enough to support the weight of the past. On
+          the ceiling of the temple, Willard catalogues key figures from each
+          century, including statesmen, philosophers, discoverers, and poets. On
+          the floor of the temple, she lays out the developments of major
+          nation-states, their paths drawn as rivers subjected to the expansions
+          and contractions of time. In the front and center of the floor,
+          Willard places the path of the United States, opening up towards the
+          viewer, enfolding them in the future to come. Although widely
+          divergent from Peabody in terms of aesthetics, Peabody explicitly
+          identified Willard as a major source of inspiration, crediting her
+          with creating “the most ingenious chart ever invented, besides (my
+          own).”
           <FootnoteRef :number="12"></FootnoteRef>
         </p>
         <p>
-          In Chapter ##, I discuss Willard’s own influences: Joseph Priestley’s New Chart of History, from 1796, among the most circulated charts of its time; and William Playfair’s Commercial and Political Atlas, from 1786, which I discuss in Chapter ##. According to historian Susan Schulten, Willard appreciated the efficiency of the form of Playfair’s charts, but felt that they gave “little sense of the dimension, such as the relative importance of periods or the subjective experience of time.” Sure enough, while these earlier charts fail to provide a sense of the subjective experience of time, they do offer images that we can very easily interpret today.
+          In Chapter ##, I discuss Willard’s own influences: Joseph Priestley’s
+          New Chart of History, from 1796, among the most circulated charts of
+          its time; and William Playfair’s Commercial and Political Atlas, from
+          1786, which I discuss in Chapter ##. According to historian Susan
+          Schulten, Willard appreciated the efficiency of the form of Playfair’s
+          charts, but felt that they gave “little sense of the dimension, such
+          as the relative importance of periods or the subjective experience of
+          time.” Sure enough, while these earlier charts fail to provide a sense
+          of the subjective experience of time, they do offer images that we can
+          very easily interpret today.
         </p>
         <p>
-          But clarity and communicative value were not among Peabody’s primary goals. She understood the value of her charts as provoking questions--and provoking thought. The significance of the data represented on the charts--and, in the case of the workbooks, even the choice of which data to present at all--was determined by the creator of each chart. If there was a single message communicated by her visualizations, it was that their meaning was not fixed--nor should it be. Rather, Peabody hoped to impress upon her viewers a sense of responsibility for creating informed interpretations of the abstractions they perceived--and then designing a course for future action.
+          But clarity and communicative value were not among Peabody’s primary
+          goals. She understood the value of her charts as provoking
+          questions--and provoking thought. The significance of the data
+          represented on the charts--and, in the case of the workbooks, even the
+          choice of which data to present at all--was determined by the creator
+          of each chart. If there was a single message communicated by her
+          visualizations, it was that their meaning was not fixed--nor should it
+          be. Rather, Peabody hoped to impress upon her viewers a sense of
+          responsibility for creating informed interpretations of the
+          abstractions they perceived--and then designing a course for future
+          action.
         </p>
       </div>
     </Section>
     <Section title="The Labor of Knowledge Production">
       <div>
-      <p>
-        Peabody consistently iterated upon her pedagogy. A third method by which she sought to communicate her method to her students was through large-scale versions of the charts--the cloth and paper rolls mentioned at the outset of this chapter. By all accounts, they were dazzling. They were painted in full color. (Peabody even commissioned a set of paints for this purpose). And the experience of sitting around the charts and contemplating the relationships between the colored squares was nothing short of transformative. “I have never known a system which placed the events of the history of all nations before the mind with such clearness, so little confusion, and so much permanency,” wrote Eliphalet Nott, then president of Union College. But because the “mural charts,” as Peabody termed them, were not valued as objects of knowledge in and of themselves, not a single one has been preserved.
-      </p>
-      <p>
-        The evidence of their pedagogical power, combined with their absence from the archive, is what has prompted me to undertake a project, with my lab group, to reimagine Peabody’s missing mural charts for the present. By first creating a touch matrix made of strips of copper tape, and then overlaying strips of individually addressable LEDs, we attempted to amplify the haptic and experiential aspects of Peabody’s original method.
-      </p>
+        <p>
+          Peabody consistently iterated upon her pedagogy. A third method by
+          which she sought to communicate her method to her students was through
+          large-scale versions of the charts--the cloth and paper rolls
+          mentioned at the outset of this chapter. By all accounts, they were
+          dazzling. They were painted in full color. (Peabody even commissioned
+          a set of paints for this purpose). And the experience of sitting
+          around the charts and contemplating the relationships between the
+          colored squares was nothing short of transformative. “I have never
+          known a system which placed the events of the history of all nations
+          before the mind with such clearness, so little confusion, and so much
+          permanency,” wrote Eliphalet Nott, then president of Union College.
+          But because the “mural charts,” as Peabody termed them, were not
+          valued as objects of knowledge in and of themselves, not a single one
+          has been preserved.
+        </p>
+        <p>
+          The evidence of their pedagogical power, combined with their absence
+          from the archive, is what has prompted me to undertake a project, with
+          my lab group, to reimagine Peabody’s missing mural charts for the
+          present. By first creating a touch matrix made of strips of copper
+          tape, and then overlaying strips of individually addressable LEDs, we
+          attempted to amplify the haptic and experiential aspects of Peabody’s
+          original method.
+        </p>
       </div>
       <div>
         [ GUIDED WALKTHROUGH OF PHYSICAL CHART, LAYERS AND FEATURES ]
       </div>
       <div>
-      <p>
-        Several students, over the course of several years, have worked with me to carefully align each strip of copper tape, and solder (and resolder) each of Floor Chart’s connections--and there are hundreds. As we performed this work, I found myself thinking back to Peabody’s own process of fabrication. For Peabody did not only display her mural charts as part of her marketing pitch; as an additional incentive, she also promised one to any teacher who purchased copies of the book for their entire class. Writing to a friend in 1850, Peabody revealed that she was “aching from the fatigue” of making the charts for each school.
-      </p>
-      <blockquote>
-    “Just now I am aching from the fatigue of making Charts for the Schools who will take the book… Every school must have a mural chart—& there is but one way of making them (until they can be made by ten thousands) & that is by stencilling [sic]… I can do one a day. But I must sell them cheap… To day I worked 15 hours—only sitting down to take my meals—& so I have done all week—so much fatigue stupefies one—but as soon as it is adopted in a few towns I shall be able to hire someone to do this drudgery for me.”
-        <br>
-        - Elizabeth Peabody, Letter to Samuel Gray Ward, September 1850
-      </blockquote>
-      <p>
-        Here, Peabody describes how she would stencil shapes and colors onto a large sheet of paper or cloth, and how a single chart took her 15 hours. She also discloses the intensity of her desire for her book to become profitable, not the least so that she could hire someone to “do this drudgery for me.” And while we no longer have access to any of the original mural charts, what we do have--in letters like these--is evidence both of the actual physical labor, as well as of the knowledge work that was involved in producing the charts. What this letter helps to underscore, with its reference to the “stecilling,” and to the “drudgery,” is how this is labor of a particular form: the labor of housework--labor that has, historically, been performed by women.
-      </p>
-      <p>
-        It is not a coincidence that Peabody understood the labor of making her mural charts as women’s work, and that those same charts were not preserved. Women’s work--whether it be housework, education, or art-making--has been long undervalued not only in terms of financial compensation but also in terms of social prestige. This is among the primary reasons why women’s work is far less present in the archives that preserve our records of the past--and that serve as the sources for the stories we tell in the present. A significant aim of this project is to amplify the contributions of the women, and members of other minoritized groups, that are otherwise excluded from the standard narratives of the history of data visualization, as they are from the standard narratives of history more generally. In support of this aim, we might apply Peabody’s ideas about the benefits of creating new narratives of history to the work of Peabody herself.
-      </p>
+        <p>
+          Several students, over the course of several years, have worked with
+          me to carefully align each strip of copper tape, and solder (and
+          resolder) each of Floor Chart’s connections--and there are hundreds.
+          As we performed this work, I found myself thinking back to Peabody’s
+          own process of fabrication. For Peabody did not only display her mural
+          charts as part of her marketing pitch; as an additional incentive, she
+          also promised one to any teacher who purchased copies of the book for
+          their entire class. Writing to a friend in 1850, Peabody revealed that
+          she was “aching from the fatigue” of making the charts for each
+          school.
+        </p>
+        <blockquote>
+          “Just now I am aching from the fatigue of making Charts for the
+          Schools who will take the book… Every school must have a mural chart—&
+          there is but one way of making them (until they can be made by ten
+          thousands) & that is by stencilling [sic]… I can do one a day. But I
+          must sell them cheap… To day I worked 15 hours—only sitting down to
+          take my meals—& so I have done all week—so much fatigue stupefies
+          one—but as soon as it is adopted in a few towns I shall be able to
+          hire someone to do this drudgery for me.”
+          - Elizabeth Peabody, Letter to Samuel Gray Ward, September 1850
+        </blockquote>
+        <p>
+          Here, Peabody describes how she would stencil shapes and colors onto a
+          large sheet of paper or cloth, and how a single chart took her 15
+          hours. She also discloses the intensity of her desire for her book to
+          become profitable, not the least so that she could hire someone to “do
+          this drudgery for me.” And while we no longer have access to any of
+          the original mural charts, what we do have--in letters like these--is
+          evidence both of the actual physical labor, as well as of the
+          knowledge work that was involved in producing the charts. What this
+          letter helps to underscore, with its reference to the “stecilling,”
+          and to the “drudgery,” is how this is labor of a particular form: the
+          labor of housework--labor that has, historically, been performed by
+          women.
+        </p>
+        <p>
+          It is not a coincidence that Peabody understood the labor of making
+          her mural charts as women’s work, and that those same charts were not
+          preserved. Women’s work--whether it be housework, education, or
+          art-making--has been long undervalued not only in terms of financial
+          compensation but also in terms of social prestige. This is among the
+          primary reasons why women’s work is far less present in the archives
+          that preserve our records of the past--and that serve as the sources
+          for the stories we tell in the present. A significant aim of this
+          project is to amplify the contributions of the women, and members of
+          other minoritized groups, that are otherwise excluded from the
+          standard narratives of the history of data visualization, as they are
+          from the standard narratives of history more generally. In support of
+          this aim, we might apply Peabody’s ideas about the benefits of
+          creating new narratives of history to the work of Peabody herself.
+        </p>
       </div>
     </Section>
     <Section title="Women’s Work as Knowledge and as Art">
       <p>
-        Many contemporary viewers, when seeing Peabody’s charts for the first time, observe that they look like paintings by Piet Mondrian, the famous Dutch modernist. To be sure, Peabody’s charts strongly resemble Mondrian’s own colorful, geometric grid. But Peabody’s self-account of the work involved in making the charts as a form of domestic labor brings to mind a second point of reference, which is not painting but quilting--an artform traditionally practiced by women.
+        Many contemporary viewers, when seeing Peabody’s charts for the first
+        time, observe that they look like paintings by Piet Mondrian, the famous
+        Dutch modernist. To be sure, Peabody’s charts strongly resemble
+        Mondrian’s own colorful, geometric grid. But Peabody’s self-account of
+        the work involved in making the charts as a form of domestic labor
+        brings to mind a second point of reference, which is not painting but
+        quilting--an artform traditionally practiced by women.
       </p>
       <img/>
-        [ IMAGES OF GEE’S BEND QUILTS ]
+      [ IMAGES OF GEE’S BEND QUILTS ]
       <p>
-        Pictured above are two quilts from the area of Alabama known as Gee’s Bend, a small, rural Black community, 35 miles south of Selma, that can trace its roots to a cotton plantation that was established there in the early nineteenth century. Gee’s Bend was also the site of a voting drive led by Dr. Martin Luther King just weeks before Selma’s Bloody Sunday. And it was horses from Gee’s Bend that carried Dr. King’s coffin through the streets of Atlanta during his funeral procession a short three years after that.
+        Pictured above are two quilts from the area of Alabama known as Gee’s
+        Bend, a small, rural Black community, 35 miles south of Selma, that can
+        trace its roots to a cotton plantation that was established there in the
+        early nineteenth century. Gee’s Bend was also the site of a voting drive
+        led by Dr. Martin Luther King just weeks before Selma’s Bloody Sunday.
+        And it was horses from Gee’s Bend that carried Dr. King’s coffin through
+        the streets of Atlanta during his funeral procession a short three years
+        after that.
       </p>
       <p>
-        But the quilts created by the Women of the Bend are arguably the area’s most enduring legacy. While valued by the residents of Gee’s Bend for centuries--as well as others from the region who traveled to Gee’s Bend to purchase them--the quilts have only recently begun to be recognized by art historians as key contributors to the development of modernist art. Exhibitions at the Whitney Museum in New York, in 2002; the Turner Contemporary in London, in 2019; and others, have confirmed how the quilts “predate like-minded works by their more famous abstract art cousins,” as art critic Ryan Leahey wrote in 2018. And while the lived experiences of the Gee’s Bend quilters--Black women who lived “in the wake” of slavery--could not be farther from that of Elizabeth Palmer Peabody--a white women born into the Boston elite--their creative work can (and has) performs a similar function with respect to the dominant narrative of their respective fields. Considering the women of Gee’s Bend in relation to Mondrian, as art historians have begun to do; or considering Peabody in relation to figures like Playfair, as I propose, what becomes clear is how women’s work of all kinds, ranging from education to quilting, has much to contribute to larger narratives of academic disciplines and professional fields.
+        But the quilts created by the Women of the Bend are arguably the area’s
+        most enduring legacy. While valued by the residents of Gee’s Bend for
+        centuries--as well as others from the region who traveled to Gee’s Bend
+        to purchase them--the quilts have only recently begun to be recognized
+        by art historians as key contributors to the development of modernist
+        art. Exhibitions at the Whitney Museum in New York, in 2002; the Turner
+        Contemporary in London, in 2019; and others, have confirmed how the
+        quilts “predate like-minded works by their more famous abstract art
+        cousins,” as
+        <a href="https://www.artsy.net/article/artsy-editorial-alabama-women-made-quilts-modern-art">
+          art critic Ryan Leahey wrote in 2018</a>. And while the lived
+        experiences of the Gee’s Bend quilters--Black women who lived “in the
+        wake” of slavery--could not be farther from that of Elizabeth Palmer
+        Peabody--a white women born into the Boston elite--their creative work
+        can (and has) performs a similar function with respect to the dominant
+        narrative of their respective fields. Considering the women of Gee’s
+        Bend in relation to Mondrian, as art historians have begun to do; or
+        considering Peabody in relation to figures like Playfair, as I propose,
+        what becomes clear is how women’s work of all kinds, ranging from
+        education to quilting, has much to contribute to larger narratives of
+        academic disciplines and professional fields.
       </p>
       <p>
-        To an even greater degree, the quilts of Gee’s Bend and the charts of Elizabeth Palmer Peabody converge in the systems of knowledge making that they represent. Both employ shape and color to represent events in the actual world--the quilts in order commemorate and uplift their ancestors and their stories; and the charts, as we have learned, to encourage creative responses to historical events. What’s more, both rely upon sense perception—and more specifically, the tactile experiences of the body—in order to assimilate those representations into knowledge. The embodied, experiential knowledge produced by the quilts, on the one hand; and the mural charts, on the other, resulted in a richer, more personal, and therefore more valuable form of knowledge than one which the work’s meaning was fixed by its creator. Through a comparison to the Gee’s Bend quilts, what emerges is the tri-part lesson of Peabody’s visualization scheme: the first about what forms of information constitute knowledge; the second about how that knowledge is produced; and the third about who is authorized to produce it.
+        To an even greater degree, the quilts of Gee’s Bend and the charts of
+        Elizabeth Palmer Peabody converge in the systems of knowledge making
+        that they represent. Both employ shape and color to represent events in
+        the actual world--the quilts in order commemorate and uplift their
+        ancestors and their stories; and the charts, as we have learned, to
+        encourage creative responses to historical events. What’s more, both
+        rely upon sense perception—and more specifically, the tactile
+        experiences of the body—in order to assimilate those representations
+        into knowledge. The embodied, experiential knowledge produced by the
+        quilts, on the one hand; and the mural charts, on the other, resulted in
+        a richer, more personal, and therefore more valuable form of knowledge
+        than one which the work’s meaning was fixed by its creator. Through a
+        comparison to the Gee’s Bend quilts, what emerges is the tri-part lesson
+        of Peabody’s visualization scheme: the first about what forms of
+        information constitute knowledge; the second about how that knowledge is
+        produced; and the third about who is authorized to produce it.
       </p>
     </Section>
     <Section title="Expanding the Archive of Data Visualization">
       <p>
-        Today, those who study history and culture are trained to recognize the value of alternate forms of knowledge, just as they are trained to look for the people, like Peabody, or like the women of Gee’s Bend, who might otherwise be viewed as outliers in relation to the dominant stories we tend to tell about the past. Theirs are the stories that we often lack sufficient evidence in order to tell completely, whether it’s evidence in the form of data, or evidence--like the lost mural charts--from the archive itself.
+        Today, those who study history and culture are trained to recognize the
+        value of alternate forms of knowledge, just as they are trained to look
+        for the people, like Peabody, or like the women of Gee’s Bend, who might
+        otherwise be viewed as outliers in relation to the dominant stories we
+        tend to tell about the past. Theirs are the stories that we often lack
+        sufficient evidence in order to tell completely, whether it’s evidence
+        in the form of data, or evidence--like the lost mural charts--from the
+        archive itself.
       </p>
       <p>
-        Here, again, is where Peabody’s method becomes valuable. Because it authorizes us as viewers, as scholars, and as students, to color in the details of the stories that we can only perceive in the abstract. Peabody’s hope, which we might carry into the present, is that we might all, when presented with the outlines of history, take it upon ourselves to color them in.
+        Here, again, is where Peabody’s method becomes valuable. Because it
+        authorizes us as viewers, as scholars, and as students, to color in the
+        details of the stories that we can only perceive in the abstract.
+        Peabody’s hope, which we might carry into the present, is that we might
+        all, when presented with the outlines of history, take it upon ourselves
+        to color them in.
       </p>
     </Section>
     <Footnotes>
