@@ -78,7 +78,7 @@
         went on to devote several years to a study of the Polish System, culminating with the development of her own
         modified version--the Polish-American System that prompted her national tour.
       </p>
-      <Scrollytell collect :scrollSlots="5">
+      <Scrollytell collect bottom-break :scrollSlots="5">
         <template v-slot:fixed="{ scrolled, progress }">
           <PeabodyTutorial
             id="peabody-tutorial"
@@ -166,11 +166,11 @@
           meaningful that Peabody—on the side of abolition but by no means its most radical proponent—chose to picture
           that event in her chart. <FootnoteRef :number="5"></FootnoteRef>
         </p>
-        <Scrollytell :scroll-slots="3"
+        <Scrollytell :scroll-slots="2"
                      :top="210"
                      :margin="'70vh'"
                      @scroll="onOverlayScroll">
-          <template v-slot:fixed>
+          <template v-slot:fixed="{scrolled, progress}">
             <PeabodyCanvas v-model="overlayPos" :width="'40vh'"></PeabodyCanvas>
           </template>
           <template v-slot:1>
@@ -193,32 +193,31 @@
 
           </template>
           <template v-slot:2>
-<!--            <p>-->
-<!--              As this detailed explanation makes clear, few twenty-first-century viewers could have intuited the information conveyed by the chart without first taking the time to learn how to decode it. And for most contemporary visualization researchers and designers, who champion the clarifying capacity of visualization; or for those who believe that data visualization is best deployed to “amplify” existing thought processes, Peabody’s method would be viewed as a failure.-->
-<!--              <FootnoteRef :number="6"></FootnoteRef>-->
-<!--            </p>-->
             <peabody-grid
               id='peabody-vis'
-              style='flex: 1'
+              style='transform: translateY(8px)'
               :width="'40vh'"
               height='40vh'
+              :highlighted="overlayPos"
+              @hover-start="onRecreatedGridHover"
               :staticDataset="staticDatasetId"/>
           </template>
-<!--          <template v-slot:3>-->
-<!--            <p>-->
-<!--              In support of this perspective, consider this representation of the data of Peabody’s chart of the seventeenth century as a timeline, rather than a grid. The progression of events over the course of the century, culminating in a series of wars and rebellions in the late 1680s and early 1690s, becomes much more immediately legible.-->
-<!--            </p>-->
-<!--          </template>-->
         </Scrollytell>
       </div>
 
       <timeline-vis
         id='vis2'
         height='200px'
-        width='100%'
-        :mutableDataset="'my-peabody'"/>
+        width='80%'
+        :staticDataset="'1'"/>
 
       <div>
+        <p>
+          As this detailed explanation makes clear, few twenty-first-century viewers could have intuited the information conveyed by the chart without first taking the time to learn how to decode it. And for most contemporary visualization researchers and designers, who champion the clarifying capacity of visualization; or for those who believe that data visualization is best deployed to “amplify” existing thought processes, Peabody’s method would be viewed as a failure.
+        </p>
+        <p>
+          In support of this perspective, consider this representation of the data of Peabody’s chart of the seventeenth century as a timeline, rather than a grid. The progression of events over the course of the century, culminating in a series of wars and rebellions in the late 1680s and early 1690s, becomes much more immediately legible.
+        </p>
         <p>
           But for Peabody, this near-total abstraction was precisely the point. Her charts were intended to appeal to
           the senses directly, to provide what she called “outlines to the eye.” Her hope was that, by providing the
@@ -487,8 +486,8 @@
         };
         if (this.overlayScroll.scrolled == 1) {
           const scale = d3.scaleLinear()
-            .domain([0.4, 0.7])
-            .range([0, -225]);
+            .domain([0.25, 0.7])
+            .range([0, -350]);
           scale.clamp(true);
           const top = scale(this.overlayScroll.progress);
           if (top) styles.transform = `translateY(${top}px)`;
@@ -517,6 +516,9 @@
       },
     },
     methods: {
+      onRecreatedGridHover({year, type, sub}) {
+        this.overlayPos = Number(`${year - this.century}.${type}`);
+      },
       onOverlayScroll({scrolled, progress}) {
         console.log("got to scroll handler");
         this.overlayScroll.scrolled = scrolled;

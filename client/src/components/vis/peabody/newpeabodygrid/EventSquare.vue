@@ -4,6 +4,7 @@
           stroke="#b3b3b3"
           stroke-width="0.5"
           :fill="colors[0]"
+          :class="classes"
           width="30"
           height="30"
           @mouseenter='hoverStart()'
@@ -12,6 +13,7 @@
     />
     <g v-else-if="colors.length > 1">
       <polygon v-for="(polygon, index) in polygons"
+               :class="classes"
                :points="polygon"
                :fill="colors[index]"
               @mouseenter='hoverStart(index)'
@@ -38,17 +40,8 @@ const EventSquare = {
       // required: true
     },
     type: Number,
-    year: Number
-  },
-  data () {
-    return {
-      // highlight: false,
-    }
-  },
-  created() {
-    if (this.registerEvents) {
-      this.registerEvents(this, Object.values(events))
-    }
+    year: Number,
+    highlighted: Boolean,
   },
   computed: {
     polygons () {
@@ -81,6 +74,11 @@ const EventSquare = {
       const topTriangle2 = `${left}, ${top} ${left}, ${top + 30} ${left + 15}, ${top + 15}`;
       return [topTriangle1, topTriangle2, this.twoPolygons[1]];
     },
+    classes() {
+      return {
+        'highlight': this.highlighted
+      }
+    },
   },
   methods: {
     clickedEvent(i) {
@@ -105,11 +103,6 @@ const EventSquare = {
         sub: i
       })
     },
-    classes(i) {
-      return {
-        // 'highlight': this.highlight
-      }
-    },
   }
 };
 
@@ -119,15 +112,12 @@ export { events, EventSquare as default }
   rect:not([fill]) {
     fill: #ffffff;
   }
-  rect:not([fill]):hover {
+  rect:not([fill]):hover, rect:not([fill]).highlight {
     fill: #d8d8d8;
   }
-  polygon:hover {
+
+  rect:hover, polygon:hover, .highlight {
     stroke: gold;
-    stroke-width: 3px;
-  }
-  .highlight {
-    stroke: gold;
-    stroke-width: 3px;
+    stroke-width: 5px;
   }
 </style>

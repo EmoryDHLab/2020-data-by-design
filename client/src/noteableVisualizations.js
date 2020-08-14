@@ -1,4 +1,4 @@
-import PeabodyGrid from "./components/vis/peabody/PeabodyGrid";
+import PeabodyGrid from "./components/vis/peabody/OLDPeabodyGrid";
 import PeabodyMutable from "./components/vis/peabody/PeabodyMutable";
 import MapScroller from "./components/scrollytelling/MapScroller";
 

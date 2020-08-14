@@ -3,7 +3,7 @@ const actorColors = {
   "Americas": "rgb(222,145,49)",
   "France": "rgb(60,100,100)",
   "Holland": "rgb(68,108,73)",
-  "Sweden": "rgb(247, 235, 5)"
+  "Sweden": "rgb(217,182,17)"
 }
 
 const dataToYears = data => {

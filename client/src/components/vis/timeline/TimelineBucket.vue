@@ -1,19 +1,22 @@
 <template lang="html">
   <g>
-    <timeline-event
-      v-for='(timelineEvent, key) in dataset'
-      :options="options"
-      :key='timelineEvent.id'
-      :dataset='timelineEvent'
-      :style='placeEvent(timelineEvent, key)'/>
+    <EventSquare
+      v-for='(timelineEvent, key) in dataset' :key="key"
+      :colors="timelineEvent.color"
+      :width="options.styles.timelineEvent.width"
+      :height="options.styles.timelineEvent.height"
+      :y="placeEvent(timelineEvent, key).dy"/>
   </g>
 </template>
 
 <script>
-import TimelineEvent from './TimelineEvent'
+import TimelineEvent from './TimelineEvent';
+import EventSquare from '../peabody/newpeabodygrid/EventSquare'
+
 export default {
   components: {
-    TimelineEvent
+    TimelineEvent,
+    EventSquare
   },
   props: {
     options: Object,
@@ -29,12 +32,11 @@ export default {
   },
   methods: {
     placeEvent (event, key) {
-      let dy = key * (this.options.styles.timelineEvent.gap + this.options.styles.timelineEvent.height)
-      let dx = key * (this.options.styles.timelineEvent.gap + this.options.styles.timelineEvent.width)
-      const vert = this.options.vertical;
-      return {
-        transform: `translate(${(vert)? dx : 0}px, -${(!vert)? dy : 0}px)`
-      }
+      // debugger;
+      let dy = this.options.styles.height / 2 - key * (this.options.styles.timelineEvent.gap + this.options.styles.timelineEvent.height)
+      // let dx = key * (this.options.styles.timelineEvent.gap + this.options.styles.timelineEvent.width)
+      // const vert = this.options.vertical;
+      return {dy}
     }
   }
 }

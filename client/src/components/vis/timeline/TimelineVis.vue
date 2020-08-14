@@ -8,8 +8,14 @@
           :key='timelineBucket.id'
           :bucketId='timelineBucket.id'
           :dataset='timelineBucket.events'
-          :style='placeBucket(timelineBucket)'/>
+          :style='placeBucket(timelineBucket.id)'/>
       </g>
+      <rect class="hover-year" v-for="i in 100"
+            :style="placeBucket(i + startPoint - 1)"
+            :y="(options.styles.timelineEvent.height * -4) + options.styles.timelineEvent.gap * -3"
+            :width="options.styles.timelineEvent.width"
+            :height="(options.styles.timelineEvent.height + options.styles.timelineEvent.gap) * 9">
+      </rect>
       <g v-show='options.showTicks' class='axis' :style='axisTransform' v-axis:x='getScale'></g>
     </g>
   </svg>
@@ -18,6 +24,7 @@
 <script>
 import Visualization from '@/mixins/vis/Visualization'
 import TimelineBucket from './TimelineBucket'
+import {actorColors} from "../../../helpers/PeabodyUtils";
 import * as d3 from 'd3'
 
 const DEFAULT_OPTIONS = {
@@ -38,7 +45,7 @@ const DEFAULT_OPTIONS = {
   },
   showTicks: true,
   getPosition: (event) => event.year,
-  getColor: (event) => event.color
+  getColor: (event) => event.actors.map(actor => actorColors[actor])
 }
 export default {
   components: {
@@ -78,15 +85,17 @@ export default {
       return { transform: 'translateY(' + (this.innerHeight) + 'px)'}
     },
     getViewBox () {
-      return '0 0 ' + this.styles.width + ' ' + this.styles.height
+      return '0 0 ' + (this.styles.width + this.styles.margin.left) + ' ' + this.styles.height
     },
     startPoint () {
       if (this.formattedData)
-        return Math.min(...this.formattedData.map(bucket => bucket.id))
+        return Math.round(this.formattedData[0].id / 100) * 100 + 1;
+        // return Math.min(...this.formattedData.map(bucket => bucket.id))
     },
     endPoint () {
       if (this.formattedData)
-        return Math.max(...this.formattedData.map(bucket => bucket.id))
+        return Math.round(this.formattedData[this.formattedData.length - 1].id / 100) * 100;
+        // return Math.max(...this.formattedData.map(bucket => bucket.id))
     },
     getScale() {
       return d3.scaleLinear()
@@ -96,8 +105,8 @@ export default {
   },
   methods: {
     dataFormatter (d) {
-      if (d && typeof d === "object") {
-        const data = Object.values(d)
+      if (d && Array.isArray(d) && d.length > 0) {
+        const data = d
           .map(evt => ({
             position: this.options.getPosition(evt),
             color: this.options.getColor(evt),
@@ -107,19 +116,20 @@ export default {
             if (!buckets[evt.position]) {
               buckets[evt.position] = {id: evt.position, events: []}
             }
-            buckets[evt.position].events.push(evt)
+            const squares = (evt.squares === "full") ? [1,2,3,4,5,6,7,8,9] : evt.squares;
+            squares.forEach(square => buckets[evt.position].events.push(evt));
             return buckets
           }, {})
-        return Object.values(data)
+        return Object.values(data);
       }
     },
-    placeBucket (bucket) {
+    placeBucket (year) {
       // console.log(this.getScale(bucket.id));
-      return {transform: 'translate('
-        + (this.getScale(bucket.id) - (this.styles.timelineEvent.width / 2))
-        + 'px, '
-        + (this.innerHeight - (this.styles.timelineEvent.height + this.styles.timelineEvent.gap))
+      return {transform: 'translateX('
+        + (this.getScale(year))
         + 'px)'}
+        // // + (this.innerHeight - (this.styles.timelineEvent.height + this.styles.timelineEvent.gap))
+        // + 'px)'}
     },
   },
   directives: {
@@ -135,4 +145,10 @@ export default {
 </script>
 
 <style scoped>
+  .hover-year {
+    opacity: 0
+  }
+  .hover-year:hover {
+    opacity: 0.1
+  }
 </style>

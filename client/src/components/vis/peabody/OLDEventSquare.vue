@@ -108,7 +108,7 @@ const EventSquare = {
   }
 }
 
-export { events, EventSquare as default }
+export { events, OLDEventSquare as default }
 </script>
 <style scoped>
   rect:not([fill]) {

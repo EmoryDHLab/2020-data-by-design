@@ -9,6 +9,7 @@
         <year-square
           v-for='n in 100'
           :showSquares='showSquares'
+          :highlightedSquare="n == highlightedYear ? highlightedSquare : null"
           :key='n-1'
           :sizes="options.sizes"
           :actorColors="actorColors"
@@ -43,6 +44,14 @@ const DEFAULT_OPTIONS = {
       width: String,
       height: String,
       id: String,
+      highlighted: {
+        type: Number,
+        validator (number) {
+          if (isNaN(number)) return false;
+          const oneDigitDecimal = String(number).slice(String(number).indexOf(".") + 1).length == 1;
+          return oneDigitDecimal && number >= 1 && number <= 100;
+        }
+      },
       options: { // styles and other internal visualization stuff
         type: Object,
         required: false,
@@ -125,6 +134,12 @@ const DEFAULT_OPTIONS = {
     getViewBox () {
       let width = this.getSVGWidth
       return '0 0 ' + width + ' ' + width
+    },
+    highlightedYear () {
+      return Math.floor(this.highlighted);
+    },
+    highlightedSquare () {
+      return Math.round((this.highlighted - this.highlightedYear) * 10);
     }
   },
   methods: {

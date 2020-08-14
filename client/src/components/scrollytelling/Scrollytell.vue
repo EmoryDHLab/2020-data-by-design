@@ -9,7 +9,8 @@
           <slot :name="slot" :scrolled="scrolled" :progress="progressTo(slot)"></slot>
         </div>
       </div>
-      <div v-for="(slot, index) in scrollSlots" ref="textSlots" class="scroll-item" :style="scrollItemStyles(slot)">
+      <div v-for="(slot, index) in scrollSlots" ref="textSlots" class="scroll-item"
+           :style="scrollItemStyles(slot)">
         <!--We use conditional rendering to only generate the waypoints once the slots have been rendered
         and we're able to check their heights to generate the offsets.-->
         <!--:style="{ opacity: Number(scrolled <= index)}"-->
@@ -44,6 +45,10 @@ export default {
     top: {
       type: Number,
       default: 50,
+    },
+    bottomBreak: {
+      type: Boolean,
+      default: false
     },
     margin: { //bottom margin between items
       type: String,
@@ -84,6 +89,8 @@ export default {
       return ans;
     },
     scrollItemStyles (index) {
+      if (!this.bottomBreak && index >= this.scrollSlots)
+        return {}
       if (this.collect && this.mounted && this.scrolled >= Number(index - 1)) {
         const height = this.$refs["collected"].offsetHeight;
         return {

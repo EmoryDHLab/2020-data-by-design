@@ -6,27 +6,35 @@
       v-for='n in 9'
       :width="sizes.rect + 1"
       :height="sizes.rect + 1"
+      :highlighted="highlightedSquare == n"
       :key='n'
       :type="n"
       :year="year"
       :x = "getEventXFromIndex(n - 1)"
       :y = "getEventYFromIndex(n - 1)"
       :colors="getEventData(n)"
+      v-on="eventListeners"
       />
   </g>
 </template>
 <script>
-import EventSquare from '@/components/vis/peabody/newpeabodygrid/EventSquare'
+import EventSquare, { events } from '@/components/vis/peabody/newpeabodygrid/EventSquare'
 
 import { injects } from '@/mixins/vis/Visualization'
 
-const EventSquareInjected = Object.assign({ injects: [injects.registerEvents, injects.calcWidth, injects.data]}, EventSquare);
+// const EventSquareInjected = Object.assign({ injects: [injects.registerEvents, injects.calcWidth, injects.data]}, EventSquare);
 
 export default {
+  inject: [
+    injects.registerEvents
+  ],
   props: {
     yearData: {
       type: Array,
       required: true
+    },
+    highlightedSquare: {
+      type: Number
     },
     year: {
       type: Number,
@@ -46,7 +54,12 @@ export default {
     }
   },
   components: {
-    'event-square': EventSquareInjected
+    'event-square': EventSquare
+  },
+  created() {
+    if (this.registerEvents) {
+      this.registerEvents(this, Object.values(events))
+    }
   },
   computed: {
     evtWidth () {
@@ -59,6 +72,10 @@ export default {
       return this.yearData.map( squareObj =>
         squareObj ? squareObj.actors.map(actor => this.actorColors[actor]) : [false])
     },
+    eventListeners () {
+      const listenerFor = eventName => eventArgs => this.$emit(eventName, eventArgs )
+      return Object.fromEntries(Object.values(events).map(event => [event, listenerFor(event)]))
+    }
   },
   methods: {
     getEventXFromIndex (i) {
