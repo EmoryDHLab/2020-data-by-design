@@ -19,7 +19,7 @@ export default {
 
 <style>
 @import url('https://fonts.googleapis.com/css?family=Markazi+Text|Libre+Baskerville:400,700|Roboto:100,300,400,500,700,900');
-p, h4, h5, h6, a, li {
+p, h4, h5, h6, a, li, blockquote {
 
   font-family: 'Roboto', arial;
   font-weight: 300;

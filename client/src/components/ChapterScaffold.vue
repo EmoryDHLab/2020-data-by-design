@@ -155,7 +155,7 @@ a.blue-hover:hover {
 .chapter {
   display: grid;
   grid-gap: 2%;
-  grid-template-columns: 14% 58% 24%;
+  grid-template-columns: 14% 45% 24%;
 }
 .chapter__main__title {
   grid-column: 2 / span 1;

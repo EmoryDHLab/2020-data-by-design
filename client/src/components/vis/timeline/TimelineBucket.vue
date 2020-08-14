@@ -3,6 +3,7 @@
     <EventSquare
       v-for='(timelineEvent, key) in dataset' :key="key"
       :colors="timelineEvent.color"
+      :year="bucketId"
       :width="options.styles.timelineEvent.width"
       :height="options.styles.timelineEvent.height"
       :y="placeEvent(timelineEvent, key).dy"/>

@@ -49,7 +49,7 @@ const DEFAULT_OPTIONS = {
         validator (number) {
           if (isNaN(number)) return false;
           const oneDigitDecimal = String(number).slice(String(number).indexOf(".") + 1).length == 1;
-          return oneDigitDecimal && number >= 1 && number <= 100;
+          return oneDigitDecimal && number >= 1 && number < 101;
         }
       },
       options: { // styles and other internal visualization stuff

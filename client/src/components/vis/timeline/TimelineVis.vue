@@ -11,6 +11,8 @@
           :style='placeBucket(timelineBucket.id)'/>
       </g>
       <rect class="hover-year" v-for="i in 100"
+            :class="{'highlighted': Math.floor(highlighted) == i}"
+            @mouseover="$emit('hover', i)"
             :style="placeBucket(i + startPoint - 1)"
             :y="(options.styles.timelineEvent.height * -4) + options.styles.timelineEvent.gap * -3"
             :width="options.styles.timelineEvent.width"
@@ -57,6 +59,7 @@ export default {
     mutableDataset: String,
     staticDataset: String,
     id: String,
+    highlighted: Number,
     options: {
       type: Object,
       required: false,
@@ -146,9 +149,11 @@ export default {
 
 <style scoped>
   .hover-year {
-    opacity: 0
+    fill-opacity: 0
   }
-  .hover-year:hover {
-    opacity: 0.1
+  .hover-year:hover, .hover-year.highlighted {
+    fill-opacity: 0.1;
+    stroke-width: 1;
+    stroke: gold
   }
 </style>
