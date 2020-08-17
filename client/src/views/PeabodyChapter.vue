@@ -344,6 +344,11 @@
           past.
           <FootnoteRef :number="10"></FootnoteRef>
         </p>
+        <PeabodyMutable
+          :width="'40vh'"
+          class="centered-image"
+          :staticDataset="'1'"
+          :mutableDataset="'my-peabody'"></PeabodyMutable>
       </div>
     </Section>
     <Section title="Making Knowledge by Making Charts">
@@ -501,6 +506,7 @@
           take my meals—& so I have done all week—so much fatigue stupefies
           one—but as soon as it is adopted in a few towns I shall be able to
           hire someone to do this drudgery for me.”
+          <br>
           - Elizabeth Peabody, Letter to Samuel Gray Ward, September 1850
         </blockquote>
         <p>

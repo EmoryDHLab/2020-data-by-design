@@ -1,5 +1,5 @@
 <template>
-  <div>
+<!--  <div>-->
     <svg :id="id"
          :width='width'
          :height='height'
@@ -19,7 +19,7 @@
           :year='getYear(n - 1)'/>
       </g>
     </svg>
-  </div>
+<!--  </div>-->
 
 </template>
 

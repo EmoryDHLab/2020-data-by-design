@@ -51,7 +51,7 @@ export default {
         html: note,
         notebookId: id,
         type: notebookTypes.TYPED_NOTE,
-        metadata: 'usernote'
+        metadata: {}
       }
       if (addToTop) {
         this.items.unshift(newItem)
@@ -209,10 +209,10 @@ export default {
   list-style: square;
 }
 
-.node-list-container ul li span:not(.note),
-.node-list-container ul li p{
-  background-color: yellow;
-}
+/*.node-list-container ul li span:not(.note),*/
+/*.node-list-container ul li p{*/
+/*  background-color: yellow;*/
+/*}*/
 
 .node-list-container ul li .note {
   white-space: pre-wrap;

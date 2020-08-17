@@ -44,7 +44,7 @@ function Highlightable(rootElementSelector, highlightableElements = ['P']) {
         if (isLoggedIn) {
           const notebook = this.$store.getters.notebook;
           notebook.filter(obj => obj.type === notebookTypes.TEXT_HIGHLIGHT)
-            .map(obj => this.deserializeRange(obj.metadata))
+            .map(obj => this.deserializeRange(obj.metadata.rangeData))
             .forEach(this.createHighlightFromRange);
         } else {
           this.removeAllHighlights();
@@ -293,7 +293,7 @@ function Highlightable(rootElementSelector, highlightableElements = ['P']) {
         const onDragStart = (event) => {
           //We have event.target, which is the element that the user clicked on; let's make sure we get the full highlight span.
           let currEl = span;
-          let metadata, html, dragImage;
+          let rangeData, html, dragImage;
 
           //Let's make sure we get its connected spans in cases where a highlight overflows into consecutive paragraph(s)
           if (currEl.classList.contains(overflowPrevClass) || currEl.classList.contains(overflowNextClass)) {
@@ -322,7 +322,7 @@ function Highlightable(rootElementSelector, highlightableElements = ['P']) {
               }
             }
 
-            metadata = deque[0].dataset.rangeData;
+            rangeData = deque[0].dataset.rangeData;
             html = deque
               .map(strippedAttributes)
               .map(el => el.outerHTML) //grab the element's html
@@ -345,10 +345,10 @@ function Highlightable(rootElementSelector, highlightableElements = ['P']) {
               blockContainer(deque[0]).appendChild(dragImage);
             }
           } else {
-            metadata = currEl.dataset.rangeData;
+            rangeData = currEl.dataset.rangeData;
             html = strippedAttributes(currEl).outerHTML;
           }
-          this.$store.dispatch("startDrag", {html, metadata, type: notebookTypes.TEXT_HIGHLIGHT})
+          this.$store.dispatch("startDrag", {html, metadata: { rangeData }, type: notebookTypes.TEXT_HIGHLIGHT})
           event.dataTransfer.setData("spanId", span.id);
 
           if (dragImage)
@@ -383,7 +383,7 @@ function Highlightable(rootElementSelector, highlightableElements = ['P']) {
             parents.unshift(`${curr.nodeName}[${siblingIndex}]`);
             curr = curr.parentNode;
           }
-          if (curr.id) parents.unshift("#" + curr.id);
+          if (curr.id) parents.unshift(`#'${curr.id}'`);
           return parents.join('/');
         }
         let startPath = pathToElement(range.startContainer);
@@ -391,9 +391,10 @@ function Highlightable(rootElementSelector, highlightableElements = ['P']) {
         return `${startPath}-${range.startOffset};${endPath}-${range.endOffset}`
       },
       deserializeRange(string) {
+        const dividersOutsideQuotes = /[-/](?=(?:[^']*'[^']*')*[^']*$)/g;
         const startEnd = string.split(';');
-        const startPath = startEnd[0].split(/\/|-/g);
-        const endPath = startEnd[1].split(/\/|-/g);
+        const startPath = startEnd[0].split(dividersOutsideQuotes);
+        const endPath = startEnd[1].split(dividersOutsideQuotes);
         const startOffset = startPath.pop();
         const endOffset = endPath.pop();
 
@@ -409,7 +410,7 @@ function Highlightable(rootElementSelector, highlightableElements = ['P']) {
               console.warn(`Element ${curr} has changed since the last highlight`);
             }
             return child;
-          }, document.querySelector(path[0]))
+          }, document.querySelector(path[0].replace(/'/g, "")))
 
         const range = new Range();
         range.setStart(pathToNode(startPath), startOffset);

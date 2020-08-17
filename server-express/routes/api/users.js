@@ -120,6 +120,8 @@ router.post('/current/notebook', auth.required, (req, res, next) => {
   const data = req.body.data || req.body.mutableData;
   const updateObj = {...notebook && {notebook: notebook}, ...data && {mutableData: data}}
 
+  console.dir(updateObj);
+
   return Users.findByIdAndUpdate(id, updateObj, {new: true, runValidators: true})
     .then((user) => {
       if(!user) {
@@ -128,6 +130,7 @@ router.post('/current/notebook', auth.required, (req, res, next) => {
       return res.json(user.notebookJSON());
     })
     .catch( err => {
+      console.error(err);
       res.status(422).json(err);
     });
 });

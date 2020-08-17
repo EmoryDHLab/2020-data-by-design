@@ -113,7 +113,7 @@ export default {
           "Treaties and Sundries",
           "Births",
           "Deeds",
-          "Deaths, of remarkable individuals"]
+          "Deaths, of Remarkable Individuals"]
       }
     }
   },

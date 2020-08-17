@@ -10,7 +10,7 @@ console.log(notebookTypes);
 const NotebookSchema = new Schema({
   html: String,
   notebookId: Number,
-  metadata: String,
+  metadata: Object,
   type: {
     type: Number,
     validate: {

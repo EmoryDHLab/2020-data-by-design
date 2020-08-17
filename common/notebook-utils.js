@@ -36,8 +36,8 @@ const isValidNotebook = notebook => {
     if (!Number.isInteger(item.notebookId)) {
       return invalid('must have an integer notebookId property');
     }
-    if (typeof item.metadata !== 'string') {
-      return invalid('must have a string metadata property');
+    if (typeof item.metadata !== 'object') {
+      return invalid('must have a object metadata property');
     }
   })
   return {valid: true}
@@ -61,6 +61,7 @@ const compareNotebooks = (nb1, nb2) => {
       if (field == notebookFields.data) {
         const data1 = item1[field];
         const data2 = item2[field];
+        if (!data1 && ! data2) return true;
         const same = Object.keys(data1).every(key => data1[key] === data2[key]) &&
           Object.keys(data2).every(key => data1[key] === data2[key])
         if (!same) return false;

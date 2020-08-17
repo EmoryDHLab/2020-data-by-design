@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="item.html" v-html="item.html">
+    <div v-if="item.html" v-html="item.html" :class="{highlight: isHighlight}">
     </div>
     <component v-if="isVis" :is="currComponent" v-bind="currComponentProps">
     </component>
@@ -31,19 +31,38 @@ export default {
     isVis () {
       return this.item.type == notebookTypes.VISUALIZATION;
     },
+    isHighlight () {
+      return this.item.type == notebookTypes.TEXT_HIGHLIGHT;
+    },
     currComponent () {
       if (this.isVis) {
         return this.item.metadata.name;
       }
+    },
+    staticDataset () {
+      if (this.item && this.item.data) {
+        return this.item.data.static;
+      }
+    },
+    mutableDataset () {
+      if (this.item && this.item.data) {
+        return this.item.data.static;
+      }
+    },
+    itemProps () {
+      if (this.item && this.item.metadata && this.item.metadata.props) {
+        return this.item.metadata.props;
+      }
+      return {}
     },
     currComponentProps () {
       return Object.assign({
         isInNotebook: true,
         showIndicator: false,
         width: '216px',
-        ...this.item.data.static && { staticDataset: this.item.data.static },
-        ...this.item.data.mutable && { mutableDataset: this.item.data.mutable }
-      }, this.item.metadata.props)
+        ...this.staticDataset && { staticDataset: this.staticDataset },
+        ...this.mutableDataset && { mutableDataset: this.mutableDataset }
+      }, this.itemProps)
     }
   },
   components: noteableVisualizations
@@ -51,5 +70,8 @@ export default {
 </script>
 
 <style scoped>
-
+.highlight {
+  display: inline;
+  background-color: yellow;
+}
 </style>
