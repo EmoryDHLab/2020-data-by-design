@@ -5,10 +5,10 @@
         <div class="text-content">
           <h1 class="title --biggest --color-grey">Data by Design</h1>
           <h1 class="subtitle --color-grey">
-            An Interactive History of Data Visualization 1786&ndash;1900
+            An Interactive History of Data Visualization, 1786&ndash;1900
           </h1>
           <hr>
-          <h3 class="subtitle --color-grey" style="font-size: 1em">What is the story we tell about the emergence of modern data visualization?
+          <h3 class="subtitle --color-grey" style="font-size: 20px; line-height: 1.5;">What is the story we tell about the emergence of modern data visualization?
             <br>How might we tell that story differently?
           </h3>
           <!--<div class="reading-progress">-->
@@ -24,8 +24,8 @@
 
       <div id="chapters" ref="chpts" class="chapters section" align="center">
         <h2 class="title subclass --bigger --color-dark-grey" style="margin-bottom: 40px;">Table of Contents</h2>
-        <h3 class="subtitle --color-grey" style="font-size: 1.5em">One sentence summary about the feature as a whole
-          <br>the second line sine wim laenme
+        <h3 class="subtitle --color-grey" style="font-size: 1.25em; line-height: 1.25">Data by Design is a work in progress.
+          <br>We will release drafts of each chapter as we complete them
         </h3>
         <div class="chapter-links">
           <div class="card"
@@ -35,7 +35,7 @@
                background-position: center;
                background-blend-mode: lighten;">
             <h2 class="boxHeading">A View “Simple and Complete”</h2>
-            <h3 style="font-size: 1em; margin-top: -1em">William Playfair and the Origins of Objective Display</h3>
+            <!--<h3 style="font-size: 1em; margin-top: -1em">William Playfair and the Origins of Objective Display</h3>-->
           </div>
           <div class="card"
                :style="{'background-image': 'url(' + require('./img/_brookes.jpg') + ')'}"
@@ -54,15 +54,15 @@
             <h2 class="boxHeading">Narratives of Possession</h2>
           </div>
           <div class="card"
-               :style="{'background-image': 'url(' + require('./img/duboisdata04.jpg') + ')'}"
+               :style="{'background-image': 'url(' + require('./img/_duboisdata01.jpg') + ')'}"
                style=" background-size: cover;
                background-color: rgba(255, 255, 255, 0.7);
                background-position: center;
                background-blend-mode: lighten;">
-            <h2 class="boxHeading">“Outlines to the Eye”</h2>
+            <h2 class="boxHeading">A Method of Making History</h2>
           </div>
           <div class="card"
-               :style="{'background-image': 'url(' + require('./img/_duboisdata01.jpg') + ')'}"
+               :style="{'background-image': 'url(' + require('./img/duboisdata04.jpg') + ')'}"
                style=" background-size: cover;
                background-color: rgba(255, 255, 255, 0.7);
                background-position: center;
@@ -71,58 +71,71 @@
           </div>
         </div>
         <div class="chapter-list">
-          <ChapListItem>
+          <ChapListItem style="-webkit-filter: grayscale(1);">
             <template slot="title">A View “Simple and Complete”</template>
-            <template slot="tag">William Playfair and the Origins of Objective Display</template>
-            Visualization has never been a neutral method. Each image carries an argument about how knowledge is produced, and who is authorized to produce it.
+            <template slot="tag">William Playfair and the Origins of Objectivity</template>
+            Data visualization has never been neutral or objective. There is a meaning -- and an argument -- conveyed through the design of each image.
+            <img src= "./img/navlinePic/playfair.png">
           </ChapListItem>
-          <ChapListItem>
+          <ChapListItem style="-webkit-filter: grayscale(1);">
             <template slot="title">Every Datapoint a Person</template>
             <template slot="tag">The Brookes Diagram and the Humanity of Data</template>
-            Images make arguments, but so too do people. How has the rhetorical force of visualization been wielded for political change?
+            Before there are data, there are people. People who offer up their lives to be counted as data -- or whose lives become data without consent.
+            <img src= "./img/navlinePic/everyData.png">
           </ChapListItem>
-          <ChapListItem>
+          <ChapListItem style="-webkit-filter: grayscale(1);">
             <template slot="title">Narratives of Possession</template>
             <template slot="tag"> Emma Willard, Shanawdithit, and the Power of Maps</template>
-            Maps can make nations and break them apart. How can maps reflect multiple histories and futures?
+            Maps can create nations and challenge them. How have maps been used to document multiple pasts?
           </ChapListItem>
+          <router-link to="/chapters/shape-of-history" style="text-decoration: none;">
           <ChapListItem>
-            <template slot="title">“Outlines to the Eye”</template>
-            <template slot="tag"> Elizabeth Palmer Peabody and the Work of Abstraction</template>
-            We tend to think that data visualizations should be efficient and clear. But when happens when they are designed to make viewers pause and reflect?
+            <template slot="title">A Method of Making History</template>
+            <template slot="tag"> Elizabeth Palmer Peabody and the Work of Knowledge</template>
+            We have come to believe that data visualizations should be clear and efficient. But there is value in designs that make us pause and reflect.
+            <img src= "./img/navlinePic/peabody.png">
           </ChapListItem>
-          <ChapListItem>
+          </router-link>
+          <ChapListItem style="-webkit-filter: grayscale(1);">
             <template slot="title">“The Color Line” as Data and Image</template>
             <template slot="tag"> W. E. B. Du Bois and the Argument of Visual Display</template>
             Data has always been wielded as a tool of the state. How can it be used for liberation instead?
+            <img src= "./img/navlinePic/dubois.png">
           </ChapListItem>
         </div>
       </div>
 
       <div id="features" class="features section" align="center">
-        <h2 class="title subclass --bigger --color-dark-grey">Features</h2>
-        <h3 class="subtitle subclass --color-grey">These features are still under development
-          <br> but feel free to look around!</h3>
-        <div class="feature-list">
-          <FeatureCard :largeMode="true" imageLink="https://cdn.shortpixel.ai/client/q_glossy,ret_img,w_660,h_382/https://discoverpods.com/wp-content/uploads/2018/12/maps-atlantic-oldtimer-car-compass-vintage-1442539-pxhere.com_-660x382.jpg">
-            <template slot="title">Take notes while you read</template>
-            Take note while reading, and access them whenever.
-          </FeatureCard>
-          <FeatureCard :largeMode="false" imageLink="bleh">
-            <template slot="title">Data Visualization For Reading</template>
-            A short introduction on the chapter here and here.
-          </FeatureCard>
-          <FeatureCard :largeMode="false" imageLink="bleh">
-            <template slot="title">Use Whiteboard For Idea Generation</template>
-            A short introduction on the chapter here and here.
-          </FeatureCard>
-        </div>
+        <h2 class="title subclass --bigger --color-dark-grey" style="margin-bottom: 40px;">Features</h2>
+        <h3 class="subtitle subclass --color-grey" style="font-size: 1.25em; line-height: 1.25">
+          This section is still under development.
+          In the meanwhile, please visit our <a href="https://dhlab.lmc.gatech.edu/category/databydesign/">research blog</a> <br>
+          to learn more about our features as we develop them. <br>
+          Please also feel free to <a href="mailto:lauren.klein@emory.edu">get in touch</a> with any suggestions or bug reports.
+        </h3>
+        <!--<div class="feature-list">-->
+          <!--<FeatureCard :largeMode="true" imageLink="https://cdn.shortpixel.ai/client/q_glossy,ret_img,w_660,h_382/https://discoverpods.com/wp-content/uploads/2018/12/maps-atlantic-oldtimer-car-compass-vintage-1442539-pxhere.com_-660x382.jpg">-->
+            <!--<template slot="title">Take notes while you read</template>-->
+            <!--Take note while reading, and access them whenever.-->
+          <!--</FeatureCard>-->
+          <!--<FeatureCard :largeMode="false" imageLink="bleh">-->
+            <!--<template slot="title">Data Visualization For Reading</template>-->
+            <!--A short introduction on the chapter here and here.-->
+          <!--</FeatureCard>-->
+          <!--<FeatureCard :largeMode="false" imageLink="bleh">-->
+            <!--<template slot="title">Use Whiteboard For Idea Generation</template>-->
+            <!--A short introduction on the chapter here and here.-->
+          <!--</FeatureCard>-->
+        <!--</div>-->
       </div>
 
       <div id="credits" class="credits section">
-        <h2 class="title subclass --bigger --color-dark-grey">Credits</h2>
-        <h3 class="subtitle subclass --color-grey">These features are still under development
-          <br> but feel free to look around!</h3>
+        <h2 class="title subclass --bigger --color-dark-grey" style="margin-bottom: 40px;">Credits</h2>
+        <h3 class="subtitle subclass --color-grey" style="font-size: 1.25em; line-height: 1.25;">
+          The Data by Design website and reading platform is being designed and developed
+          by <br>the Georgia Tech / Emory <a href="http://dhlab.lmc.gatech.edu/">Digital Humanities Lab</a>,
+          directed by Dr. Lauren Klein. <br>Meet the Data by Design project team.
+        </h3>
         <div class="card-grid">
 
           <div class="card name-card">
@@ -150,10 +163,16 @@
             <h3 class="description" style="font-weight: 300">description</h3>
           </div>
         </div>
+        <p style="text-align: center">Data by Design has been generously funded by a 2018-2019
+          <a href="https://www.neh.gov/grants/research/neh-mellon-fellowships-digital-publication">
+            NEH-Mellon Fellowship for Digital Publication
+          </a>.</p>
       </div>
     </main>
     <footer>
-      <p style="color: whitesmoke; padding: 1em">Designed and developed by Digital Humanities Lab</p>
+      <p style="color: whitesmoke; padding: 1em; font-weight: normal">
+        Designed and developed by the Georgia Tech / Emory Digital Humanities Lab
+      </p>
     </footer>
   </div>
 </template>
@@ -534,6 +553,7 @@
 
 <style scoped>
   .title {
+    text-shadow: 0px 2px 5px lightgray;
     margin-top: 0px;
     padding-top: 100px;
   }
@@ -544,9 +564,10 @@
     background-size: 600px;
   }
   .header .text-content {
-    max-width: 50%;
+    max-width: 55%;
   }
   .text-content h1.subtitle {
+    font-size: 27px;
     margin-top: -30px;
   }
   .chapter-links {
@@ -569,6 +590,13 @@
   }
   .chapter-links .card .title {
     flex: 1;
+  }
+
+  .chapter-list img {
+    margin-top: 1em;
+    max-height: 200px;
+    max-width: 95%;
+    width: auto;
   }
   .section .subtitle {
     margin-top: -20px;
@@ -602,7 +630,7 @@
   .feature-list div:not(:last-child) {
     margin-bottom: 48px;
   }
-  img{
+  .name-card img{
     border-radius: 50%;
   }
 </style>

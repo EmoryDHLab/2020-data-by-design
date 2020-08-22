@@ -59,6 +59,7 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "register-service-worker": "^1.0.0",
+    "save": "^2.4.0",
     "serve-favicon": "^2.0.1",
     "stickybits": "^3.4.1",
     "stream-transform": "^1.0.2",

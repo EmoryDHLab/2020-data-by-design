@@ -28,10 +28,12 @@
           style="font-size:14px">{{yearPoints.year}}</text>
         <text
           v-if="yearPoints.year % 2 != 0"
-          :transform="`rotate(-45),
-            translate(-${(55 + scaleY(yearPoints.count)) * 0.7071},
-            ${(scaleY(yearPoints.count) + 15) * 0.7071})`"
+          :transform="`rotate(45),
+            translate(${(10 + scaleY(yearPoints.count)) * 0.7071},
+        ${(scaleY(yearPoints.count) + 15) * 0.7071})`"
           style="font-size:14px">{{yearPoints.year}}</text>
+
+
       </g>
 
 

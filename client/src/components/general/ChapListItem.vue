@@ -1,10 +1,10 @@
 <template lang="html">
   <div :class="`chapter-list-item card ${(isActive) ? '--active' : ''}`">
     <div class="chapter-list-item__header">
-      <h2 class="title --uppercase" style="font-family: Roboto; color:#083871;">
+      <h2 class="title --uppercase" style="font-family: Roboto; color:#083871; font-size: 28px; font-weight: bold">
         <slot name="title"></slot>
       </h2>
-      <h3 class="tagline"><slot name="tag"></slot></h3>
+      <h3 class="tagline" style="font-size: 22px"><slot name="tag"></slot></h3>
     </div>
     <p class="overview">
       <slot></slot>
