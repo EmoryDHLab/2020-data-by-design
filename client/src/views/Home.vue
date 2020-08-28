@@ -46,7 +46,7 @@
             <h2 class="boxHeading">Every Datapoint a Person</h2>
           </div>
           <div class="card"
-               :style="{'background-image': 'url(' + require('./img/_fig2.jpg') + ')'}"
+               :style="{'background-image': 'url(' + require('./img/sketch2.jpg') + ')'}"
                style=" background-size: cover;
                background-color: rgba(255, 255, 255, 0.7);
                background-position: center;
@@ -54,7 +54,7 @@
             <h2 class="boxHeading">Narratives of Possession</h2>
           </div>
           <div class="card"
-               :style="{'background-image': 'url(' + require('./img/_duboisdata01.jpg') + ')'}"
+               :style="{'background-image': 'url(' + require('./img/_fig2.jpg') + ')'}"
                style=" background-size: cover;
                background-color: rgba(255, 255, 255, 0.7);
                background-position: center;
@@ -140,27 +140,35 @@
 
           <div class="card name-card">
             <img src="https://media.wired.com/photos/598e35994ab8482c0d6946e0/master/w_1164,c_limit/phonepicutres-TA.jpg"
-                 alt="placeholder" width="200" height="200">
+                 alt="placeholder" width="170" height="170">
             <h3 class="--big --uppercase">Dr. Lauren Klein</h3>
-            <h3 class="description" style="font-weight: 300">description</h3>
+            <h3 class="description" style="font-weight: 300">Project Director</h3>
+            <!--<p style="font-size: 15px"></p>-->
           </div>
           <div class="card name-card">
             <img src="https://media.wired.com/photos/598e35994ab8482c0d6946e0/master/w_1164,c_limit/phonepicutres-TA.jpg"
-                 alt="placeholder" width="200" height="200">
-            <h3 class="--big --uppercase">Adam Hayward</h3>
-            <h3 class="description" style="font-weight: 300">description</h3>
+                 alt="placeholder" width="170" height="170">
+            <h3 class="--big --uppercase">Dan Jutan</h3>
+            <h3 class="description" style="font-weight: 300">Project design and development</h3>
+            <!--<p>Georgia Tech BS Computer Science, ’22</p>-->
           </div>
           <div class="card name-card">
             <img src="https://media.wired.com/photos/598e35994ab8482c0d6946e0/master/w_1164,c_limit/phonepicutres-TA.jpg"
-                 alt="placeholder" width="200" height="200">
+                 alt="placeholder" width="170" height="170">
             <h3 class="--big --uppercase">Jianing Fu</h3>
-            <h3 class="description" style="font-weight: 300">description</h3>
+            <h3 class="description" style="font-weight: 300">Project design and development</h3>
           </div>
           <div class="card name-card">
             <img src="https://media.wired.com/photos/598e35994ab8482c0d6946e0/master/w_1164,c_limit/phonepicutres-TA.jpg"
-                 alt="placeholder" width="200" height="200">
+                 alt="placeholder" width="170" height="170">
             <h3 class="--big --uppercase">Qing Tian</h3>
-            <h3 class="description" style="font-weight: 300">description</h3>
+            <h3 class="description" style="font-weight: 300">Initial project design</h3>
+          </div>
+          <div class="card name-card">
+            <img src="https://media.wired.com/photos/598e35994ab8482c0d6946e0/master/w_1164,c_limit/phonepicutres-TA.jpg"
+                 alt="placeholder" width="170" height="170">
+            <h3 class="--big --uppercase">Adam Hayward</h3>
+            <h3 class="description" style="font-weight: 300">Project prototype</h3>
           </div>
         </div>
         <p style="text-align: center">Data by Design has been generously funded by a 2018-2019
@@ -208,332 +216,414 @@
             points: [
                 {
                     id: 0,
-                    img: require('./img/_northamerica.jpg'),
+                    img: require('./img/timeline/ch1-playfair/1786-2.jpg'),
                     year: 1786,
                     yearCount: 0,
                     width:30,
-                    height: 19
+                    height: 21
                 },
                 {
                     id: 1,
-                    img: require('./img/_northamerica.jpg'),
+                    img: require('./img/timeline/ch1-playfair/1786-3.png'),
                     year: 1786,
                     yearCount: 1,
                     width:30,
-                    height: 19
+                    height: 23
                 },
                 {
                     id: 2,
-                    year: 1786,
-                    yearCount: 2,
-                    img: require('./img/_duboisdata01.jpg'),
+                    year: 1801,
+                    yearCount: 0,
+                    img: require('./img/timeline/ch1-playfair/1801-0.jpg'),
                     width:30,
-                    height: 38
+                    height: 20
                 },
                 {
                     id: 3,
-                    img: require('./img/duboisdata04.jpg'),
-                    year: 1788,
-                    yearCount: 0,
+                    img: require('./img/timeline/ch1-playfair/1801-1(1).jpg'),
+                    year: 1801,
+                    yearCount: 1,
                     width:30,
-                    height: 38
+                    height: 23
                 },
                 {
                     id: 4,
-                    img: require('./img/_brookes.jpg'),
+                    img: require('./img/timeline/ch1-playfair/1801-1.jpg'),
                     year: 1801,
-                    yearCount: 0,
+                    yearCount: 2,
                     width:30,
                     height: 20
                 },
                 {
                     id: 5,
-                    img: require('./img/_northamerica.jpg'),
+                    img: require('./img/timeline/ch1-playfair/1801-2.jpg'),
                     year: 1801,
-                    yearCount: 1,
+                    yearCount: 3,
                     width:30,
                     height: 19
                 },
                 {
                     id: 6,
                     year: 1801,
-                    yearCount: 2,
-                    img: require('./img/_duboisdata01.jpg'),
+                    yearCount: 4,
+                    img: require('./img/timeline/ch1-playfair/1801-3.jpg'),
                     width:30,
-                    height: 38
+                    height: 20
                 },
                 {
                     id: 7,
                     year: 1801,
-                    yearCount: 3,
-                    img: require('./img/_duboisdata01.jpg'),
+                    yearCount: 4,
+                    img: require('./img/timeline/ch1-playfair/1801-4.jpg'),
                     width:30,
-                    height: 38
+                    height: 20
                 },
                 {
                     id: 8,
-                    year: 1801,
-                    yearCount: 4,
-                    img: require('./img/_duboisdata01.jpg'),
+                    year: 1821,
+                    yearCount: 0,
+                    img: require('./img/timeline/ch1-playfair/1821-2.jpg'),
                     width:30,
-                    height: 38
+                    height: 19
                 },
                 {
                     id: 9,
                     year: 1801,
                     yearCount: 5,
-                    img: require('./img/_brookes.jpg'),
+                    img: require('./img/timeline/ch2-brookes/1801-1.jpg'),
                     width:30,
-                    height: 20
+                    height: 22
                 },
                 {
                     id: 10,
-                    year: 1821,
+                    year: 1788,
                     yearCount: 0,
-                    img: require('./img/_brookes.jpg'),
+                    img: require('./img/timeline/ch2-brookes/1788-1.jpg'),
                     width:30,
-                    height: 20
+                    height: 21
                 },
                 {
                     id: 11,
-                    img: require('./img/_brookes.jpg'),
-                    year: 1821,
-                    yearCount: 1,
+                    img: require('./img/timeline/ch3-willard-shanawdithit/1829-00.jpg'),
+                    year: 1829,
+                    yearCount: 0,
                     width:30,
-                    height: 20
+                    height: 21
                 },
                 {
                     id: 12,
-                    year: 1858,
-                    yearCount: 0,
-                    img: require('./img/_brookes.jpg'),
+                    img: require('./img/timeline/ch3-willard-shanawdithit/1829-01.jpg'),
+                    year: 1829,
+                    yearCount: 1,
                     width:30,
-                    height: 20
+                    height: 43
                 },
                 {
                     id: 13,
+                    img: require('./img/timeline/ch3-willard-shanawdithit/1829-02.jpg'),
                     year: 1829,
-                    yearCount: 0,
-                    img: require('./img/_duboisdata01.jpg'),
+                    yearCount: 2,
                     width:30,
-                    height: 38
-                },
-                {
+                    height: 13
+                },{
                     id: 14,
+                    img: require('./img/timeline/ch3-willard-shanawdithit/1829-03.jpg'),
                     year: 1829,
-                    yearCount: 1,
-                    img: require('./img/_duboisdata01.jpg'),
+                    yearCount: 3,
                     width:30,
-                    height: 38
+                    height: 22
                 },
                 {
                     id: 15,
+                    img: require('./img/timeline/ch3-willard-shanawdithit/1829-04.jpg'),
                     year: 1829,
-                    yearCount: 2,
-                    img: require('./img/duboisdata04.jpg'),
+                    yearCount: 4,
                     width:30,
-                    height: 38
+                    height: 17
                 },
                 {
                     id: 16,
+                    img: require('./img/timeline/ch3-willard-shanawdithit/1829-05.jpg'),
                     year: 1829,
-                    yearCount: 3,
-                    img: require('./img/duboisdata04.jpg'),
+                    yearCount: 5,
                     width:30,
-                    height: 38
+                    height: 21
                 },
                 {
                     id: 17,
-                    year: 1829,
-                    yearCount: 4,
-                    img: require('./img/_duboisdata01.jpg'),
-                    width:30,
-                    height: 38
-                },
-                {
-                    id: 18,
-                    year: 1829,
-                    yearCount: 5,
-                    img: require('./img/_duboisdata01.jpg'),
-                    width:30,
-                    height: 38
-                },
-                {
-                    id: 19,
+                    img: require('./img/timeline/ch3-willard-shanawdithit/1829-06.gif'),
                     year: 1829,
                     yearCount: 6,
-                    img: require('./img/_northamerica.jpg'),
                     width:30,
-                    height: 19
+                    height: 21
                 },
                 {
                     id: 20,
+                    img: require('./img/timeline/ch3-willard-shanawdithit/1829-09.jpg'),
                     year: 1829,
                     yearCount: 7,
-                    img: require('./img/_northamerica.jpg'),
                     width:30,
-                    height: 19
+                    height: 21
                 },
                 {
                     id: 21,
+                    img: require('./img/timeline/ch3-willard-shanawdithit/1829-10.jpg'),
                     year: 1829,
                     yearCount: 8,
-                    img: require('./img/_northamerica.jpg'),
                     width:30,
-                    height: 19
+                    height: 21
                 },
                 {
                     id: 22,
+                    img: require('./img/timeline/ch3-willard-shanawdithit/1829-11.jpg'),
                     year: 1829,
                     yearCount: 9,
-                    img: require('./img/_northamerica.jpg'),
                     width:30,
-                    height: 19
+                    height: 21
                 },
                 {
                     id: 23,
+                    img: require('./img/timeline/ch3-willard-shanawdithit/1829-12.jpg'),
                     year: 1829,
                     yearCount: 10,
-                    img: require('./img/_duboisdata01.jpg'),
                     width:30,
-                    height: 38
+                    height: 37
                 },
                 {
                     id: 24,
+                    img: require('./img/timeline/ch3-willard-shanawdithit/1829-13.jpg'),
                     year: 1829,
                     yearCount: 11,
-                    img: require('./img/duboisdata04.jpg'),
                     width:30,
-                    height: 38
+                    height: 37
                 },
                 {
                     id: 25,
+                    img: require('./img/timeline/ch3-willard-shanawdithit/1829-14.jpg'),
                     year: 1829,
                     yearCount: 12,
-                    img: require('./img/duboisdata04.jpg'),
                     width:30,
-                    height: 38
+                    height: 37
                 },
                 {
                     id: 26,
+                    img: require('./img/timeline/ch3-willard-shanawdithit/1829-15.jpg'),
                     year: 1829,
                     yearCount: 13,
-                    img: require('./img/_brookes.jpg'),
                     width:30,
-                    height: 20
+                    height: 37
                 },
                 {
                     id: 27,
+                    img: require('./img/timeline/ch3-willard-shanawdithit/1829-16.jpg'),
                     year: 1829,
                     yearCount: 14,
-                    img: require('./img/_brookes.jpg'),
                     width:30,
-                    height: 20
+                    height: 37
                 },
                 {
                     id: 28,
+                    img: require('./img/timeline/ch3-willard-shanawdithit/1829-17.jpg'),
                     year: 1829,
                     yearCount: 15,
-                    img: require('./img/_brookes.jpg'),
+                    width:30,
+                    height: 25
+                },
+                {
+                    id: 29,
+                    img: require('./img/timeline/ch3-willard-shanawdithit/1829-18.jpg'),
+                    year: 1829,
+                    yearCount: 16,
+                    width:30,
+                    height: 28
+                },
+                {
+                    id: 30,
+                    img: require('./img/timeline/ch3-willard-shanawdithit/1846-1.jpg'),
+                    year: 1846,
+                    yearCount: 0,
+                    width:30,
+                    height: 22
+                },
+                {
+                    id: 31,
+                    img: require('./img/timeline/ch4-peabody/1856-1.jpg'),
+                    year: 1856,
+                    yearCount: 0,
+                    width:30,
+                    height: 30
+                },
+                {
+                    id: 32,
+                    img: require('./img/timeline/ch4-peabody/1856-2.jpg'),
+                    year: 1856,
+                    yearCount: 1,
+                    width:30,
+                    height: 31
+                },
+                {
+                    id: 33,
+                    img: require('./img/timeline/ch4-peabody/1856-3.jpg'),
+                    year: 1856,
+                    yearCount: 2,
+                    width:30,
+                    height: 31
+                },
+                {
+                    id: 34,
+                    img: require('./img/timeline/ch4-peabody/1856-4.jpg'),
+                    year: 1856,
+                    yearCount: 3,
+                    width:30,
+                    height: 30
+                },
+                {
+                    id: 35,
+                    img: require('./img/timeline/ch5-dubois/1900-01.png'),
+                    year: 1900,
+                    yearCount: 0,
                     width:30,
                     height: 20
                 },
                 {
-                    id: 29,
-                    img: require('./img/_northamerica.jpg'),
-                    year: 1846,
-                    yearCount: 0,
-                    width: 30,
-                    height: 19
-                },
-                {
-                    id: 30,
-                    year: 1856,
-                    yearCount: 0,
-                    img: require('./img/_duboisdata01.jpg'),
-                    width:30,
-                    height: 38
-                },
-                {
-                    id: 31,
-                    year: 1856,
-                    yearCount: 1,
-                    img: require('./img/_northamerica.jpg'),
-                    width:30,
-                    height: 19
-                },
-                {
-                    id: 32,
-                    year: 1856,
-                    yearCount: 2,
-                    img: require('./img/_duboisdata01.jpg'),
-                    width:30,
-                    height: 38
-                },
-                {
-                    id: 33,
-                    year: 1856,
-                    yearCount: 3,
-                    img: require('./img/duboisdata04.jpg'),
-                    width:30,
-                    height: 38
-                },
-                {
-                    id: 34,
-                    year: 1900,
-                    yearCount: 0,
-                    img: require('./img/duboisdata04.jpg'),
-                    width:30,
-                    height: 38
-                },
-                {
-                    id: 35,
-                    year: 1900,
-                    yearCount: 1,
-                    img: require('./img/_duboisdata01.jpg'),
-                    width:30,
-                    height: 38
-                },
-                {
                     id: 36,
+                    img: require('./img/timeline/ch5-dubois/1900-02.png'),
                     year: 1900,
-                    yearCount: 2,
-                    img: require('./img/_duboisdata01.jpg'),
+                    yearCount: 1,
                     width:30,
-                    height: 38
+                    height: 20
                 },
                 {
                     id: 37,
+                    img: require('./img/timeline/ch5-dubois/1900-03.png'),
                     year: 1900,
-                    yearCount: 3,
-                    img: require('./img/_duboisdata01.jpg'),
+                    yearCount: 2,
                     width:30,
-                    height: 38
+                    height: 20
                 },
                 {
                     id: 38,
+                    img: require('./img/timeline/ch5-dubois/1900-04.png'),
                     year: 1900,
-                    yearCount: 4,
-                    img: require('./img/duboisdata04.jpg'),
+                    yearCount: 3,
                     width:30,
-                    height: 38
+                    height: 20
                 },
                 {
                     id: 39,
+                    img: require('./img/timeline/ch5-dubois/1900-05.jpg'),
                     year: 1900,
-                    yearCount: 5,
-                    img: require('./img/duboisdata04.jpg'),
+                    yearCount: 4,
                     width:30,
-                    height: 38
+                    height: 20
                 },
                 {
                     id: 40,
+                    img: require('./img/timeline/ch5-dubois/1900-06.jpg'),
+                    year: 1900,
+                    yearCount: 5,
+                    width:30,
+                    height: 20
+                },
+                {
+                    id: 41,
+                    img: require('./img/timeline/ch5-dubois/1900-07.jpg'),
                     year: 1900,
                     yearCount: 6,
-                    img: require('./img/_duboisdata01.jpg'),
                     width:30,
-                    height: 38
+                    height: 20
                 },
+                {
+                    id: 42,
+                    img: require('./img/timeline/ch5-dubois/1900-08.jpg'),
+                    year: 1900,
+                    yearCount: 7,
+                    width:30,
+                    height: 20
+                },
+                {
+                    id: 43,
+                    img: require('./img/timeline/ch5-dubois/1900-09.jpg'),
+                    year: 1900,
+                    yearCount: 8,
+                    width:30,
+                    height: 20
+                },
+                {
+                    id: 44,
+                    img: require('./img/timeline/ch5-dubois/1900-10.jpg'),
+                    year: 1900,
+                    yearCount: 9,
+                    width:30,
+                    height: 20
+                },
+                {
+                    id: 45,
+                    img: require('./img/timeline/ch5-dubois/1900-11.jpg'),
+                    year: 1900,
+                    yearCount: 10,
+                    width:30,
+                    height: 20
+                },
+                {
+                    id: 46,
+                    img: require('./img/timeline/ch5-dubois/1900-12.jpg'),
+                    year: 1900,
+                    yearCount: 11,
+                    width:30,
+                    height: 20
+                },
+                {
+                    id: 47,
+                    img: require('./img/timeline/ch5-dubois/1900-13.jpg'),
+                    year: 1900,
+                    yearCount: 12,
+                    width:30,
+                    height: 20
+                },
+                {
+                    id: 48,
+                    img: require('./img/timeline/ch5-dubois/1900-14.jpg'),
+                    year: 1900,
+                    yearCount: 13,
+                    width:30,
+                    height: 20
+                },
+                {
+                    id: 49,
+                    img: require('./img/timeline/ch5-dubois/1900-15.jpg'),
+                    year: 1900,
+                    yearCount: 14,
+                    width:30,
+                    height: 20
+                },
+                {
+                    id: 50,
+                    img: require('./img/timeline/ch5-dubois/1900-16.jpg'),
+                    year: 1900,
+                    yearCount: 15,
+                    width:30,
+                    height: 20
+                },
+                {
+                    id: 51,
+                    img: require('./img/timeline/ch5-dubois/1900-17.jpg'),
+                    year: 1900,
+                    yearCount: 16,
+                    width:30,
+                    height: 20
+                },
+                {
+                    id: 52,
+                    img: require('./img/timeline/ch5-dubois/1900-18.jpg'),
+                    year: 1900,
+                    yearCount: 17,
+                    width:30,
+                    height: 20
+                },
+
+
+
             ].reduce((obj, item, index) => ({
                 ...obj,
                 [index]: {
@@ -558,10 +648,10 @@
     padding-top: 100px;
   }
   .wholePage {
-    background-image: url("./img/grid.png");
-    background-repeat: no-repeat;
-    background-position: top right;
-    background-size: 600px;
+    background-image: url("./img/grid.png"), url("./img/curve-trimmed.png");
+    background-repeat: no-repeat, no-repeat;
+    background-position: top right, left top;
+    background-size: 40%, 100%;
   }
   .header .text-content {
     max-width: 55%;
@@ -625,7 +715,7 @@
     text-align: center;
     padding: 30px 30px;
     flex: 1;
-    max-width: 250px;
+    max-width: 175px;
   }
   .feature-list div:not(:last-child) {
     margin-bottom: 48px;

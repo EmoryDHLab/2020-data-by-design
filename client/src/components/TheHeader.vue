@@ -27,7 +27,7 @@
       <p class="header-nav-link">Features</p>
       <router-link class="header-nav-link"
         :to="{ path: '/', hash: 'credits' }">Credits</router-link>
-      <router-link class="header-nav-link" to="/notebook">Notebook</router-link>
+      <!--<router-link class="header-nav-link" to="/notebook">Notebook</router-link>-->
     </vue-nav>
   </header>
 </template>
