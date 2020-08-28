@@ -300,7 +300,7 @@
                     yearCount: 0,
                     img: require('./img/timeline/ch2-brookes/1788-1.jpg'),
                     width:30,
-                    height: 21
+                    height: 20
                 },
                 {
                     id: 11,
@@ -483,7 +483,7 @@
                     year: 1900,
                     yearCount: 0,
                     width:30,
-                    height: 20
+                    height: 38
                 },
                 {
                     id: 36,
@@ -491,7 +491,7 @@
                     year: 1900,
                     yearCount: 1,
                     width:30,
-                    height: 20
+                    height: 38
                 },
                 {
                     id: 37,
@@ -499,7 +499,7 @@
                     year: 1900,
                     yearCount: 2,
                     width:30,
-                    height: 20
+                    height: 37
                 },
                 {
                     id: 38,
@@ -507,7 +507,7 @@
                     year: 1900,
                     yearCount: 3,
                     width:30,
-                    height: 20
+                    height: 37
                 },
                 {
                     id: 39,
@@ -515,7 +515,7 @@
                     year: 1900,
                     yearCount: 4,
                     width:30,
-                    height: 20
+                    height: 37
                 },
                 {
                     id: 40,
@@ -523,7 +523,7 @@
                     year: 1900,
                     yearCount: 5,
                     width:30,
-                    height: 20
+                    height: 40
                 },
                 {
                     id: 41,
@@ -531,7 +531,7 @@
                     year: 1900,
                     yearCount: 6,
                     width:30,
-                    height: 20
+                    height: 36
                 },
                 {
                     id: 42,
@@ -539,7 +539,7 @@
                     year: 1900,
                     yearCount: 7,
                     width:30,
-                    height: 20
+                    height: 37
                 },
                 {
                     id: 43,
@@ -547,7 +547,7 @@
                     year: 1900,
                     yearCount: 8,
                     width:30,
-                    height: 20
+                    height: 37
                 },
                 {
                     id: 44,
@@ -555,7 +555,7 @@
                     year: 1900,
                     yearCount: 9,
                     width:30,
-                    height: 20
+                    height: 37
                 },
                 {
                     id: 45,
@@ -563,7 +563,7 @@
                     year: 1900,
                     yearCount: 10,
                     width:30,
-                    height: 20
+                    height: 37
                 },
                 {
                     id: 46,
@@ -571,7 +571,7 @@
                     year: 1900,
                     yearCount: 11,
                     width:30,
-                    height: 20
+                    height: 37
                 },
                 {
                     id: 47,
@@ -579,7 +579,7 @@
                     year: 1900,
                     yearCount: 12,
                     width:30,
-                    height: 20
+                    height: 37
                 },
                 {
                     id: 48,
@@ -587,7 +587,7 @@
                     year: 1900,
                     yearCount: 13,
                     width:30,
-                    height: 20
+                    height: 37
                 },
                 {
                     id: 49,
@@ -595,7 +595,7 @@
                     year: 1900,
                     yearCount: 14,
                     width:30,
-                    height: 20
+                    height: 19
                 },
                 {
                     id: 50,
@@ -603,7 +603,7 @@
                     year: 1900,
                     yearCount: 15,
                     width:30,
-                    height: 20
+                    height: 19
                 },
                 {
                     id: 51,
@@ -611,7 +611,7 @@
                     year: 1900,
                     yearCount: 16,
                     width:30,
-                    height: 20
+                    height: 19
                 },
                 {
                     id: 52,
@@ -619,7 +619,7 @@
                     year: 1900,
                     yearCount: 17,
                     width:30,
-                    height: 20
+                    height: 19
                 },
 
 

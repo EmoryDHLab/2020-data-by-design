@@ -39,7 +39,43 @@
 
       <g v-for="point in dataset" :style = positionPointX(point)>
         <!--frames-->
-        <g v-if="point.year % 2 == 0"
+        <g v-if="point.year == 1900"
+           :transform="`translate(${point.yearCount * 10 - styles.frame.width/2 - 160},${(styles.height + styles.margin.bottom)/2 - 10})`"
+           @mouseover="hover = point"
+           @mouseleave="hover = null">
+
+          <g v-if="hover == point">
+            <rect x="-15" width="60" :height="point.height*2" rx="1" fill="#989898"></rect>
+            <polygon points="15,-5 10,1 20,1" style="fill:#989898"></polygon>
+            <image
+                    :xlink:href="point.href"
+                    :width="56"
+                    :x="point.x - (point.width)/2"
+                    :y="point.y"
+            ></image>
+          </g>
+
+          <g v-else>
+            <rect x="0" width="30" :height="point.height" rx="1" fill="#989898"></rect>
+            <g :transform="`translate(0)`">
+              <polygon points="15,-5 10,1 20,1" style="fill:#989898"></polygon>
+            </g>
+            <image
+                    :xlink:href="point.href"
+                    :width="26"
+                    :x="point.x"
+                    :y="point.y"
+            ></image>
+          </g>
+
+          <g v-show="hover == point">
+            <line x1="15" y1="-75" x2="15" y2="0" style="stroke:#4A90E2;stroke-width:2"></line>
+            <polygon points="15,-85 10,-75 20,-75" style="fill:#4A90E2"></polygon>
+          </g>
+
+        </g>
+
+        <g v-else-if="point.year % 2 == 0"
            :transform="`translate(${point.yearCount * 10 - styles.frame.width/2},${(styles.height + styles.margin.bottom)/2 - 10})`"
            @mouseover="hover = point"
            @mouseleave="hover = null">
