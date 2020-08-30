@@ -310,26 +310,27 @@
                     width:30,
                     height: 21
                 },
+                // {
+                //     id: 12,
+                //     img: require('./img/timeline/ch3-willard-shanawdithit/1829-01.jpg'),
+                //     year: 1829,
+                //     yearCount: 1,
+                //     width:30,
+                //     height: 43
+                // },
+                // {
+                //     id: 13,
+                //     img: require('./img/timeline/ch3-willard-shanawdithit/1829-02.jpg'),
+                //     year: 1829,
+                //     yearCount: 2,
+                //     width:30,
+                //     height: 13
+                // },
                 {
-                    id: 12,
-                    img: require('./img/timeline/ch3-willard-shanawdithit/1829-01.jpg'),
-                    year: 1829,
-                    yearCount: 1,
-                    width:30,
-                    height: 43
-                },
-                {
-                    id: 13,
-                    img: require('./img/timeline/ch3-willard-shanawdithit/1829-02.jpg'),
-                    year: 1829,
-                    yearCount: 2,
-                    width:30,
-                    height: 13
-                },{
                     id: 14,
                     img: require('./img/timeline/ch3-willard-shanawdithit/1829-03.jpg'),
                     year: 1829,
-                    yearCount: 3,
+                    yearCount: 1,
                     width:30,
                     height: 22
                 },
@@ -337,47 +338,47 @@
                     id: 15,
                     img: require('./img/timeline/ch3-willard-shanawdithit/1829-04.jpg'),
                     year: 1829,
-                    yearCount: 4,
+                    yearCount: 2,
                     width:30,
                     height: 17
                 },
-                {
-                    id: 16,
-                    img: require('./img/timeline/ch3-willard-shanawdithit/1829-05.jpg'),
-                    year: 1829,
-                    yearCount: 5,
-                    width:30,
-                    height: 21
-                },
-                {
-                    id: 17,
-                    img: require('./img/timeline/ch3-willard-shanawdithit/1829-06.gif'),
-                    year: 1829,
-                    yearCount: 6,
-                    width:30,
-                    height: 21
-                },
+                // {
+                //     id: 16,
+                //     img: require('./img/timeline/ch3-willard-shanawdithit/1829-05.jpg'),
+                //     year: 1829,
+                //     yearCount: 5,
+                //     width:30,
+                //     height: 21
+                // },
+                // {
+                //     id: 17,
+                //     img: require('./img/timeline/ch3-willard-shanawdithit/1829-06.gif'),
+                //     year: 1829,
+                //     yearCount: 6,
+                //     width:30,
+                //     height: 21
+                // },
                 {
                     id: 20,
                     img: require('./img/timeline/ch3-willard-shanawdithit/1829-09.jpg'),
                     year: 1829,
-                    yearCount: 7,
+                    yearCount: 3,
                     width:30,
                     height: 21
                 },
-                {
-                    id: 21,
-                    img: require('./img/timeline/ch3-willard-shanawdithit/1829-10.jpg'),
-                    year: 1829,
-                    yearCount: 8,
-                    width:30,
-                    height: 21
-                },
+                // {
+                //     id: 21,
+                //     img: require('./img/timeline/ch3-willard-shanawdithit/1829-10.jpg'),
+                //     year: 1829,
+                //     yearCount: 8,
+                //     width:30,
+                //     height: 21
+                // },
                 {
                     id: 22,
                     img: require('./img/timeline/ch3-willard-shanawdithit/1829-11.jpg'),
                     year: 1829,
-                    yearCount: 9,
+                    yearCount: 4,
                     width:30,
                     height: 21
                 },
@@ -385,7 +386,7 @@
                     id: 23,
                     img: require('./img/timeline/ch3-willard-shanawdithit/1829-12.jpg'),
                     year: 1829,
-                    yearCount: 10,
+                    yearCount: 5,
                     width:30,
                     height: 37
                 },
@@ -393,7 +394,7 @@
                     id: 24,
                     img: require('./img/timeline/ch3-willard-shanawdithit/1829-13.jpg'),
                     year: 1829,
-                    yearCount: 11,
+                    yearCount: 6,
                     width:30,
                     height: 37
                 },
@@ -401,7 +402,7 @@
                     id: 25,
                     img: require('./img/timeline/ch3-willard-shanawdithit/1829-14.jpg'),
                     year: 1829,
-                    yearCount: 12,
+                    yearCount: 7,
                     width:30,
                     height: 37
                 },
@@ -409,7 +410,7 @@
                     id: 26,
                     img: require('./img/timeline/ch3-willard-shanawdithit/1829-15.jpg'),
                     year: 1829,
-                    yearCount: 13,
+                    yearCount: 8,
                     width:30,
                     height: 37
                 },
@@ -417,23 +418,23 @@
                     id: 27,
                     img: require('./img/timeline/ch3-willard-shanawdithit/1829-16.jpg'),
                     year: 1829,
-                    yearCount: 14,
+                    yearCount: 9,
                     width:30,
                     height: 37
                 },
-                {
-                    id: 28,
-                    img: require('./img/timeline/ch3-willard-shanawdithit/1829-17.jpg'),
-                    year: 1829,
-                    yearCount: 15,
-                    width:30,
-                    height: 25
-                },
+                // {
+                //     id: 28,
+                //     img: require('./img/timeline/ch3-willard-shanawdithit/1829-17.jpg'),
+                //     year: 1829,
+                //     yearCount: 15,
+                //     width:30,
+                //     height: 25
+                // },
                 {
                     id: 29,
                     img: require('./img/timeline/ch3-willard-shanawdithit/1829-18.jpg'),
                     year: 1829,
-                    yearCount: 16,
+                    yearCount: 10,
                     width:30,
                     height: 28
                 },
