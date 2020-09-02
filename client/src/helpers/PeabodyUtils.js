@@ -7,6 +7,7 @@ const actorColors = {
 }
 
 const dataToYears = data => {
+  //Passes actors arrays BY REFERENCE
   return data.reduce((yearsObj, curr) => {
     if (!yearsObj[curr.year]) {
       yearsObj[curr.year] = Array(9).fill(undefined);

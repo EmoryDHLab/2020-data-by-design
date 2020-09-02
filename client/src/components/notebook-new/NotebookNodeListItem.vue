@@ -46,7 +46,7 @@ export default {
     },
     mutableDataset () {
       if (this.item && this.item.data) {
-        return this.item.data.static;
+        return this.item.data.mutable;
       }
     },
     itemProps () {

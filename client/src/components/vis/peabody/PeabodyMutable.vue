@@ -31,7 +31,20 @@
               <option v-for="actorChoice in Object.keys(actors)" :style="{ color: actors[actorChoice]}">{{actorChoice}}</option>
             </optgroup>
           </select>
+          <a class="remove-actor blue-hover" @click="removeActor(index)" href="javascript:void(0);">Remove</a>
         </div>
+<!--        <div v-if="userAddedEvents[this.editingNumber]">-->
+<!--          <div class="actor-select" v-for="(actor, index) in userAddedEvents[editingNumber].actors">-->
+<!--            <EventSquare class="event-square" width="16px" :colors="[actors[actor]]"></EventSquare>-->
+<!--            <select v-model="userAddedEvents[editingNumber].actors[index]">-->
+<!--              <optgroup>-->
+<!--                <option disabled value="">Actor...</option>-->
+<!--                <option v-for="actorChoice in Object.keys(actors)" :style="{ color: actors[actorChoice]}">{{actorChoice}}</option>-->
+<!--              </optgroup>-->
+<!--            </select>-->
+<!--          </div>-->
+<!--        </div>-->
+        <a class="add-new-actor blue-hover" href="javascript:void(0);" @click="addNewActor">Add Actor</a>
       </div>
     </div>
   </div>
@@ -100,18 +113,58 @@ export default {
       }
     },
     years() {
-      if (this.data && Array.isArray(this.data) && this.data.length > 0) {
+      if (Array.isArray(this.data) && this.data.length > 0) {
         return dataToYears(this.data);
       }
     },
-    currSquareActors() {
-      if (this.years && this.years[this.editing.year]) {
-        return this.years[this.editing.year][this.editing.square - 1].actors
+    currSquareEvent() {
+      if (Array.isArray(this.data) && this.editing.year) {
+        const events = this.data
+          .filter(event => event.year == this.editing.year)
+          .filter(event => event.squares.includes("full") || event.squares.includes(this.editing.square));
+        if (events && events[0]) {
+          return events[0];
+        }
       }
+    },
+    currSquareActors() {
+      if (this.currSquareEvent) {
+        return this.currSquareEvent.actors;
+      }
+      // if (this.years && this.years[this.editing.year]) {
+      //   return this.years[this.editing.year][this.editing.square - 1].actors
+      // }
       return []
     }
   },
   methods: {
+    addNewActor() {
+      if (this.currSquareActors.length) {
+        this.currSquareActors.push("Americas");
+      } else {
+        const newEvent  = {
+          event: `User-added event ${this.editingNumber}`,
+          year: this.editing.year,
+          squares: [this.editing.square],
+          actors: ["Americas"]
+        }
+        this.transform(dataobj => {
+          dataobj.push(newEvent);
+          return dataobj;
+        });
+      }
+      // if (this.newActors)
+      // this.newActors.push(Object.keys(this.actors)[0]);
+    },
+    removeActor (index) {
+      this.currSquareActors.splice(index, 1);
+      if (this.currSquareActors.length == 0) {
+        this.transform(dataobj => {
+          dataobj.splice(dataobj.indexOf(this.currSquareEvent), 1);
+          return dataobj;
+        });
+      }
+    },
     handleEventClick({year, type, sub}) {
       this.editing.year = year;
       this.editing.square = type;
@@ -188,5 +241,17 @@ export default {
   .actor-select .event-square {
     display: inline-block;
     margin-right: 1vh;
+  }
+
+  a.add-new-actor, a.remove-actor {
+    text-decoration: underline;
+  }
+
+  a.add-new-actor {
+    margin-left: 10%;
+  }
+
+  a.remove-actor {
+    margin-left: 10%;
   }
 </style>

@@ -19,7 +19,7 @@
 </template>
 <script>
 import EventSquare, { events } from '@/components/vis/peabody/newpeabodygrid/EventSquare'
-
+import {actorColors} from "../../../../helpers/PeabodyUtils";
 import { injects } from '@/mixins/vis/Visualization'
 
 // const EventSquareInjected = Object.assign({ injects: [injects.registerEvents, injects.calcWidth, injects.data]}, EventSquare);
@@ -42,7 +42,9 @@ export default {
     },
     actorColors: {
       type: Object,
-      required: true,
+      default () {
+        return actorColors;
+      }
     },
     showSquares: {
       type: Boolean,
@@ -59,6 +61,11 @@ export default {
   created() {
     if (this.registerEvents) {
       this.registerEvents(this, Object.values(events))
+    }
+  },
+  mounted() {
+    if (this.yearData) {
+      console.log(this.yearData);
     }
   },
   computed: {

@@ -304,6 +304,13 @@
           from the mind of each student--and that
           reflected their own process of producing historical knowledge.
         </p>
+      </div>
+        <PeabodyQuiz
+          :events="this.quizEvents"
+          :years="this.quizYears"
+          :width="'80%'">
+        </PeabodyQuiz>
+      <div>
         <p>
           Peabody’s emphasis on facilitating multiple interpretations amongst
           her students, rather than transmitting to
@@ -633,6 +640,24 @@
       <template v-slot:2>
         “A Method of Laying the Foundation of History,” 172
       </template>
+      <template v-slot:4>
+
+      </template>
+      <template v-slot:5>
+
+      </template>
+      <template v-slot:6>
+
+      </template>
+      <template v-slot:7>
+
+      </template>
+      <template v-slot:8>
+
+      </template>
+      <template v-slot:9>
+
+      </template>
     </Footnotes>
     <!--        @hover-start="hoverStart"-->
     <!--        @hover-end="hoverEnd"-->
@@ -660,10 +685,12 @@
     from "../components/vis/peabody/newpeabodygrid/EventSquare";
   import {actorColors, dataToYears} from "../helpers/PeabodyUtils";
   import * as d3 from "d3";
+  import PeabodyQuiz from "../components/vis/peabody/quiz/PeabodyQuiz";
 
   export default {
     name: "ThePeabodyChapter",
     components: {
+      PeabodyQuiz,
       PeabodyGrid,
       PeabodyMutable,
       ChapterScaffold,
@@ -692,7 +719,8 @@
           scrolled: null,
           progress: null
         },
-        actorColors
+        quizYears: [1619, 1620, 1629, 1630],
+        actorColors,
       };
     },
     computed: {
@@ -702,6 +730,13 @@
       peabodyYears() {
         if (Array.isArray(this.peabodyData)) {
           return dataToYears(this.peabodyData);
+        }
+      },
+      quizEvents() {
+        if (Array.isArray(this.peabodyData)) {
+          return this.peabodyData
+            .filter(entry => this.quizYears.includes(entry.year))
+            .sort((entry1, entry2) => entry1.year - entry2.year);
         }
       },
       peabodyEvents() {
