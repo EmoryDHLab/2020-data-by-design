@@ -139,21 +139,21 @@
         <div class="card-grid">
 
           <div class="card name-card">
-            <img src="https://media.wired.com/photos/598e35994ab8482c0d6946e0/master/w_1164,c_limit/phonepicutres-TA.jpg"
+            <img src="http://lklein.com/wp-content/uploads/2018/12/Lauren-Klein-square-med-forweb.jpg"
                  alt="placeholder" width="170" height="170">
             <h3 class="--big --uppercase">Dr. Lauren Klein</h3>
             <h3 class="description" style="font-weight: 300">Project Director</h3>
             <!--<p style="font-size: 15px"></p>-->
           </div>
           <div class="card name-card">
-            <img src="https://media.wired.com/photos/598e35994ab8482c0d6946e0/master/w_1164,c_limit/phonepicutres-TA.jpg"
+            <img src="./img/credit/Dan.png"
                  alt="placeholder" width="170" height="170">
             <h3 class="--big --uppercase">Dan Jutan</h3>
             <h3 class="description" style="font-weight: 300">Project design and development</h3>
             <!--<p>Georgia Tech BS Computer Science, ’22</p>-->
           </div>
           <div class="card name-card">
-            <img src="https://media.wired.com/photos/598e35994ab8482c0d6946e0/master/w_1164,c_limit/phonepicutres-TA.jpg"
+            <img src="./img/credit/Jianing.png"
                  alt="placeholder" width="170" height="170">
             <h3 class="--big --uppercase">Jianing Fu</h3>
             <h3 class="description" style="font-weight: 300">Project design and development</h3>
