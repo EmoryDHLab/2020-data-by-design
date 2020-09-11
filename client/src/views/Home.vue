@@ -87,6 +87,7 @@
             <template slot="title">Narratives of Possession</template>
             <template slot="tag"> Emma Willard, Shanawdithit, and the Power of Maps</template>
             Maps can create nations and challenge them. How have maps been used to document multiple pasts?
+            <img src= "./img/navlinePic/possession.png">
           </ChapListItem>
           <router-link to="/chapters/shape-of-history" style="text-decoration: none;">
           <ChapListItem>
@@ -159,13 +160,13 @@
             <h3 class="description" style="font-weight: 300">Project design and development</h3>
           </div>
           <div class="card name-card">
-            <img src="https://media.wired.com/photos/598e35994ab8482c0d6946e0/master/w_1164,c_limit/phonepicutres-TA.jpg"
+            <img src="./img/credit/Qing.jpeg"
                  alt="placeholder" width="170" height="170">
             <h3 class="--big --uppercase">Qing Tian</h3>
             <h3 class="description" style="font-weight: 300">Initial project design</h3>
           </div>
           <div class="card name-card">
-            <img src="https://media.wired.com/photos/598e35994ab8482c0d6946e0/master/w_1164,c_limit/phonepicutres-TA.jpg"
+            <img src="./img/credit/Adam.jpeg"
                  alt="placeholder" width="170" height="170">
             <h3 class="--big --uppercase">Adam Hayward</h3>
             <h3 class="description" style="font-weight: 300">Project prototype</h3>
