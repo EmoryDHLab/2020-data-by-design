@@ -160,7 +160,7 @@
             <h3 class="description" style="font-weight: 300">Project design and development</h3>
           </div>
           <div class="card name-card">
-            <img src="./img/credit/Qing.jpeg"
+            <img src="./img/credit/Qing.png"
                  alt="placeholder" width="170" height="170">
             <h3 class="--big --uppercase">Qing Tian</h3>
             <h3 class="description" style="font-weight: 300">Initial project design</h3>
