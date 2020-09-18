@@ -2,6 +2,7 @@ import axios from 'axios'
 
 const dev = process.env.NODE_ENV == 'development'
 const url = dev ? '/api/' : 'http://192.241.150.89:3000/api/';
+console.warn("We're in " + (dev ? 'development' : 'production') + " mode, calling our api at " + url);
 
 function setAuthorization (token) {
   axios.defaults.headers.common['Authorization'] = `Token ${token}`

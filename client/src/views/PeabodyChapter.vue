@@ -640,23 +640,37 @@
       <template v-slot:2>
         “A Method of Laying the Foundation of History,” 172
       </template>
+      <template v-slot:3>
+        In <i>Cartographies of Time</i>,
+        Daniel Rosenberg and Anthony Grafton report that the system “swept across Europe and North America,”
+        becoming approved across the French educational system in the 1830s, and revised throughout the 1800s.
+      </template>
       <template v-slot:4>
-
+        Rhonda 277.
       </template>
       <template v-slot:5>
-
+        Ref 1619 project.
       </template>
       <template v-slot:6>
-
+        Ref Stuart Card.
       </template>
       <template v-slot:7>
-
+        Need cite.
       </template>
       <template v-slot:8>
-
+        Ref situated knowledges.
       </template>
       <template v-slot:9>
-
+        Ref Data Feminism discussion of god trick here.
+      </template>
+      <template v-slot:10>
+        Ref “Laying the Foundation of History” essay.
+      </template>
+      <template v-slot:11>
+        “The old world is covered with bad institutions which men have created, very often with positively good intentions, but on false notions, or, at least, without large and profound ideas,” she explains in the preface “to students in history” which begins the book. “These institutions have done infinite mischiefs, and are perpetuated and reproduced by the activity of the wicked and the passivity of the good,” she continues. “Whether the new world shall estimate and sift out these evils, or repeat these mistakes, depends on young Americans, who are now sitting in schoolrooms all over the country, unconscious of their powers and consequent responsibilities” (CH 7).
+      </template>
+      <template v-slot:12>
+        Need cite. Probably Susan Schulten?
       </template>
     </Footnotes>
     <!--        @hover-start="hoverStart"-->
