@@ -28,17 +28,19 @@
           style="font-size:14px">{{yearPoints.year}}</text>
         <text
           v-if="yearPoints.year % 2 != 0"
-          :transform="`rotate(-45),
-            translate(-${(55 + scaleY(yearPoints.count)) * 0.7071},
-            ${(scaleY(yearPoints.count) + 15) * 0.7071})`"
+          :transform="`rotate(45),
+            translate(${(10 + scaleY(yearPoints.count)) * 0.7071},
+        ${(scaleY(yearPoints.count) + 15) * 0.7071})`"
           style="font-size:14px">{{yearPoints.year}}</text>
+
+
       </g>
 
 
       <g v-for="point in dataset" :style = positionPointX(point)>
         <!--frames-->
         <g v-if="point.year % 2 == 0"
-           :transform="`translate(${point.yearCount * 10 - styles.frame.width/2},${(styles.height + styles.margin.bottom)/2 - 10})`"
+           :transform="`translate(${point.yearCount * 10 - styles.frame.width/2 + posAdjust(point.year)},${(styles.height + styles.margin.bottom)/2 - 10})`"
            @mouseover="hover = point"
            @mouseleave="hover = null">
 
@@ -74,7 +76,7 @@
         </g>
 
         <g v-if="point.year % 2 != 0"
-           :transform="`translate(${22 + point.yearCount * 10},${(styles.margin.top + styles.margin.bottom - styles.framepadding)/2})`"
+           :transform="`translate(${22 + point.yearCount * 10 + posAdjust(point.year)},${(styles.margin.top + styles.margin.bottom - styles.framepadding)/2})`"
            @mouseover="hover = point"
            @mouseleave="hover = null">
 
@@ -242,6 +244,14 @@ export default {
     positionPointX (point) {
         const dx = this.scaleX(point.year) - this.styles.line.height/2
         return `transform: translate(${dx}px, 0px);`
+    },
+    posAdjust(year) {
+        if (year === 1900) {
+            return -160;
+        }
+        else {
+            return 0;
+        }
     },
     imgWidth (point) {
         let w, h;

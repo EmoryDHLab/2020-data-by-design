@@ -26,21 +26,21 @@ p, h4, h5, h6, a, li, blockquote {
   color: #2c3e50;
 }
 p {
-  font-size: 16px;
-  /*font-weight: lighter;*/
+  font-size: 18px;
+  font-weight: 300;
 }
 h1 {
-  font-family: Libre Baskerville;
+  font-family: Baskerville;
   font-weight: bold;
 }
 
 h2 {
-  font-family: Libre Baskerville;
+  font-family: Baskerville;
   font-weight: normal;
 }
 h3 {
   font-family: Roboto, sans-serif;
-  font-weight: normal;
+  font-weight: 300;
 }
 body {
   margin:0
@@ -61,8 +61,8 @@ button:active {
   background-color: #083871;
 }
 footer {
-  background-color: slategrey;
-  padding: 10px 100px;
+  background-color: rgb(74,74,74);;
+  padding: 3px 7%;
 }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -82,7 +82,7 @@ footer {
 }
 
 .--biggest {
-  font-size: 4em;
+  font-size: 70px;
 }
 .--bigger {
   font-size: 3em;

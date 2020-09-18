@@ -1,9 +1,9 @@
-<template lang="html">
+<template lang="html" xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <header>
     <div class="header-title">
-      <router-link class="--ignore-highlight" to="/">
+      <a class="--ignore-highlight" href="https://dhlab.lmc.gatech.edu">
         <h2 class="header-title-content">DH Lab</h2>
-      </router-link>
+      </a>
     </div>
     <vue-nav class="header-nav">
       <router-link class="header-nav-link" to="/">Home</router-link>
@@ -13,16 +13,21 @@
           :to="{ path: '/', hash: 'chapters' }">Chapters
         </router-link>
         </template>
+        <nav-drop-down-item class="drop-down-item">A View “Simple and Complete”</nav-drop-down-item>
+        <nav-drop-down-item class="drop-down-item">Every Datapoint a Person</nav-drop-down-item>
+        <nav-drop-down-item class="drop-down-item">Narratives of Possession</nav-drop-down-item>
         <nav-drop-down-item class="drop-down-item">
-          <router-link to="/chapters/shape-of-history">Shape of History</router-link>
+          <router-link to="/chapters/shape-of-history">A Method of Making History</router-link>
         </nav-drop-down-item>
-        <nav-drop-down-item class="drop-down-item">Du Bois</nav-drop-down-item>
+        <nav-drop-down-item class="drop-down-item">“The Color Line” as Data and Image</nav-drop-down-item>
       </nav-drop-down>
-      <router-link class="header-nav-link --allow-inexact"
-        :to="{ path: '/', hash: 'features' }">Features</router-link>
+      <!--<router-link class="header-nav-link &#45;&#45;allow-inexact"-->
+        <!--:to="{ path: '/', hash: 'features' }">Features</router-link>-->
+      <!--non-clickable placeholder-->
+      <p class="header-nav-link">Features</p>
       <router-link class="header-nav-link"
         :to="{ path: '/', hash: 'credits' }">Credits</router-link>
-      <router-link class="header-nav-link" to="/notebook">Notebook</router-link>
+      <!--<router-link class="header-nav-link" to="/notebook">Notebook</router-link>-->
     </vue-nav>
   </header>
 </template>
@@ -78,10 +83,11 @@ header {
 
 .header-title-content {
   color: inherit;
-  white-space: nowrap;
+  /*white-space: nowrap;*/
   text-decoration: none;
   display: inline-block;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Helvetica', sans-serif;
+  font-weight: bold;
 }
 
 .header-title-content:hover {
