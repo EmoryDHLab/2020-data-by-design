@@ -3,9 +3,9 @@
     <div class="container" :style="{width: width, height: width}">
       <svg viewBox="0 0 500 500" @mousemove="onMouseMove">
         <svg v-if="overlay" :x="overlay.x" :y="overlay.y">
-          <rect fill="gray" fill-opacity="30%"
+          <rect :fill="overlayColor" fill-opacity="30%"
                  :width="overlay.width" :height="overlay.height"/>
-          <rect fill="gray" fill-opacity="50%"
+          <rect :fill="overlayColor" fill-opacity="50%"
                 :x="overlay.miniX" :y="overlay.miniY"
                 :width="overlay.miniWidth" :height="overlay.miniHeight"></rect>
         </svg>
@@ -29,6 +29,15 @@
     boxLast: 0.09,
     middle: 0.029
   }
+  const blankDimensions = {
+    side: 0.046,
+    box: 0.081,
+    boxRatio: 1.01,
+    boxBorder: 0.0088,
+    boxLast: 0.081,
+    middle: 0.021
+  }
+
   const referenceColors = {
     red: [119, 43, 21],
     green: [68, 108, 73],
@@ -60,6 +69,7 @@
     data () {
       return {
         canvas: null,
+        img: null,
         currColor: [0,0,0,0],
         currPixel: {x: 0, y: 0},
         newValue: false, //handle changes in the value prop before looking at new mouse inputs
@@ -67,6 +77,15 @@
       }
     },
     computed: {
+      isBlank () {
+        return this.century === 0;
+      },
+      overlayColor () {
+        return this.isBlank ? '#fcd547' : 'gray';
+      },
+      dimensions () {
+        return this.isBlank ? blankDimensions : dimensions;
+      },
       currRgba () {
         return "rgba(" + this.currColor.reduce((acc, curr) => `${acc},${curr}`) + ")";
       },
@@ -83,12 +102,19 @@
           return {top, left, topProgress, leftProgress }
         }
         const pix = this.currPixel;
-        let subtractLeft = dimensions.side;
-        let subtractTop = dimensions.side;
-        if (this.pastMiddle.pastX) subtractLeft += dimensions.middle;
-        if (this.pastMiddle.pastY) subtractTop += dimensions.middle;
-        const left = (pix.x - subtractLeft * el.width) / (dimensions.box * el.width);
-        const top = (pix.y - subtractTop * el.height) / (dimensions.box * el.height);
+        let subtractLeft = this.dimensions.side;
+        let subtractTop = this.dimensions.side;
+        if (this.pastMiddle.pastX) subtractLeft += this.dimensions.middle - (this.dimensions.boxBorder || 0);
+        if (this.pastMiddle.pastY) subtractTop += this.dimensions.middle - (this.dimensions.boxBorder || 0);
+        let boxHeight = this.dimensions.box * el.height;
+        let boxWidth = this.dimensions.box * el.width;
+        if (this.dimensions.boxRatio) boxWidth *= this.dimensions.boxRatio;
+        if (this.dimensions.boxBorder) {
+          boxHeight += this.dimensions.boxBorder * el.height;
+          boxWidth += this.dimensions.boxBorder * el.width;
+        }
+        const left = (pix.x - subtractLeft * el.width) / (boxWidth);
+        const top = (pix.y - subtractTop * el.height) / (boxHeight);
         const leftTrunc = Math.trunc(left);
         const topTrunc = Math.trunc(top);
         return {
@@ -106,8 +132,8 @@
           }
         }
         const el = this.$refs["canvas"];
-        const middleWidth = dimensions.middle / 2 * el.width;
-        const middleHeight = dimensions.middle / 2 * el.height;
+        const middleWidth = this.dimensions.middle / 2 * el.width;
+        const middleHeight = this.dimensions.middle / 2 * el.height;
 
         const middleBoundW = after => el.width / 2 + (after ? middleWidth : -middleWidth);
         const middleBoundH = below => el.height / 2 + (below ? middleHeight : -middleHeight);
@@ -153,26 +179,36 @@
               ||  this.currBox.left > 9 || this.currBox.top > 9 || !this.currNumber)
           return;
 
-        const boxWidth = dimensions.box * 500;
-        const boxLastWidth = dimensions.boxLast * 500;
-        const sideWidth = dimensions.side * 500;
-        const middleWidth = dimensions.middle * 500;
+        const boxHeight = this.dimensions.box * 500;
+        const boxWidth = this.dimensions.boxRatio ? boxHeight * this.dimensions.boxRatio : boxHeight;
+        const boxLastWidth = this.dimensions.boxLast * 500;
+        const sideWidth = this.dimensions.side * 500;
+        const middleWidth = this.dimensions.middle * 500;
 
-        let boxLeft = sideWidth + this.currBox.left * boxWidth;
+        let boxLeft = sideWidth + this.boxBorders.left + this.currBox.left * boxWidth;
         if (this.pastMiddle.pastX) boxLeft += middleWidth;
 
-        let boxTop = sideWidth + this.currBox.top * boxWidth
+        let boxTop = sideWidth + this.boxBorders.top + this.currBox.top * boxHeight;
         if (this.pastMiddle.pastY) boxTop += middleWidth;
 
         return {
           x: boxLeft, y: boxTop,
           width: this.currBox.left == 9 ? boxLastWidth : boxWidth,
-          height: boxWidth,
+          height: boxHeight,
           miniX: (this.currNumber.x - 1) * boxWidth / 3,
-          miniY: (this.currNumber.y - 1) * boxWidth / 3,
+          miniY: (this.currNumber.y - 1) * boxHeight / 3,
           miniWidth: boxWidth / 3,
-          miniHeight: boxWidth / 3
+          miniHeight: boxHeight / 3
         }
+      },
+      boxBorders () { //cumulative
+        let boxBordersLeft = 0, boxBordersTop = 0;
+        if (this.dimensions.boxBorder) {
+          const borderWidth = this.dimensions.boxBorder * 500;
+          boxBordersLeft = (this.currBox.left - this.pastMiddle.pastX) * borderWidth;
+          boxBordersTop = (this.currBox.top - this.pastMiddle.pastY) * borderWidth;
+        }
+        return {left: boxBordersLeft, top: boxBordersTop}
       },
     },
     mounted () {
@@ -185,9 +221,16 @@
       img.addEventListener('load', () => {
         ctx.drawImage(img, 0, 0, 500, 500);
       })
-      img.src = require('../../../assets/1600s.jpg');
+      this.img = img;
+      this.setImg();
     },
     methods: {
+      setImg () {
+        if (this.img) {
+          const imgName = this.isBlank ? 'blank' : this.century + 's';
+          this.img.src = require(`../../../assets/PeabodyImg/${imgName}.jpg`);
+        }
+      },
       onMouseMove (event) {
         this.newValue = false;
 
@@ -222,6 +265,9 @@
             this.$emit('input', toEmit);
           }
         }
+      },
+      century () {
+        this.setImg();
       }
     }
   }

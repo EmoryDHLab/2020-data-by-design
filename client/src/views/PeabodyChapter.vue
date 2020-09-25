@@ -372,7 +372,16 @@
         create the visualizations they would
         then study.
       </p>
-      <img class="centered-image" src="./img/peabodyblank.png" width="40%"/>
+      <div class="multi-canvas">
+        <ul>
+          <li><a class="blue-hover" :style="colorIfSelected(0)" @mouseover="selectedCentury = 0">Blank</a></li>
+          <li><a class="blue-hover" :style="colorIfSelected(1500)" @mouseover="selectedCentury = 1500">1500s</a></li>
+          <li><a class="blue-hover" :style="colorIfSelected(1600)" @mouseover="selectedCentury = 1600">1600s</a></li>
+          <li><a class="blue-hover" :style="colorIfSelected(1700)" @mouseover="selectedCentury = 1700">1700s</a></li>
+          <li><a class="blue-hover" :style="colorIfSelected(1800)" @mouseover="selectedCentury = 1800">1800s</a></li>
+        </ul>
+        <PeabodyCanvas :width="'40vh'" :century="selectedCentury"></PeabodyCanvas>
+      </div>
       <div>
         <p>
           The prospect of creating a chronological chart is quite daunting, as
@@ -725,6 +734,7 @@
         d3: d3, //Makes the library accessible from within the template. (TODO: get rid of this, only access d3 from script)
         staticDatasetId: '1',
         century: 1600,
+        selectedCentury: 0, //0 = blank. for the multi peabody canvas
         scrolled: false,
         scrolledMax: 0,
         mapPos: 0,
@@ -813,6 +823,13 @@
           }
         }
       },
+      colorIfSelected() {
+        return century => {
+          if (this.selectedCentury === century) {
+            return {color: 'orange'};
+          }
+        }
+      },
     },
     methods: {
       onRecreatedGridHover({year, type, sub}) {
@@ -867,6 +884,28 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  .multi-canvas {
+    margin-left: auto;
+    margin-right: auto;
+    width: 40vh;
+  }
+  .multi-canvas ul {
+    text-align: center;
+  }
+  .multi-canvas ul li {
+    display: inline-block;
+  }
+
+  .multi-canvas ul li:not(:first-child)::before {
+    content: '•';
+    font-size: 20px;
+    display: block;
+    float: left;
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-top: -2px;
   }
 
   .selected-event {

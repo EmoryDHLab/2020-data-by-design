@@ -102,7 +102,7 @@ a.blue-hover {
 }
 
 a.blue-hover:hover {
-  filter: brightness(130%);
+  color: #7bbdff;
 }
 .nb-user-highlight {
   background-color: hsl(60, 100%, 50%);
