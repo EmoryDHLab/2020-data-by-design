@@ -1,7 +1,6 @@
 <template>
   <div class="container">
     <div id="chart" style="background-color: #F3ECCB; font-family: 'Dancing Script', cursive"></div>
-    <button id="start">Transition</button>
   </div>
 </template>
 
@@ -13,11 +12,13 @@
         mounted() {
             this.generateSvg();
         },
+
         methods: {
             generateSvg() {
+                let zoom = 2.35
                 let margin = {top: 50, right: 100, bottom: 50, left: 50},
-                    width = 960 - margin.left - margin.right,
-                    height = 600 - margin.top - margin.bottom;
+                    width = window.innerWidth/zoom - margin.left - margin.right,
+                    height = window.innerWidth/zoom/1.6 - margin.top - margin.bottom;
 
 
                 //scales
@@ -44,10 +45,8 @@
                     importDots, exportDots;
                 let title1, title2, title3, title4, title5;
 
-                d3.csv("playfair_nums_def.csv").then(function (csvData) {
+                d3.csv("/playfair_nums_def.csv").then(function (csvData) {
 
-                    // if (error) throw error;
-                    console.log(csvData);
                     csvData.forEach(function (d) {
                         d.Imports = +d.Imports; //ensures data is in number format
                         d.Exports = +d.Exports;
@@ -340,9 +339,9 @@
 
                     //)******************************************CREATE GRAPH LABEL - borrowed from former student*******//
                     var ellipseX = ((width * 3) / 10);
-                    var ellipseY = 150;
-                    var textX = ((width * 2) / 15);
-                    var textY = 110;
+                    var ellipseY = 130;
+                    var textX = ((width * 2) / 15) - 30;
+                    var textY = 90;
                     //add Label
                     title1 = svg.append("ellipse")
                         .attr("id", "currValue")
@@ -364,7 +363,7 @@
                     title3 = svg.append("text")
                         .attr("id", "currValue")
                         .attr("class", "titleText")
-                        .attr("x", textX + 10)
+                        .attr("x", textX)
                         .attr("y", textY).attr("opacity", 0)
                         .style("font-size", 'x-large')
                         .style("font-family", 'maranalloregular')
@@ -383,7 +382,7 @@
                         .attr("class", "titleText3")
                         .attr("transform", "translate(55,0)")
                         .append("text")
-                        .attr("x", (textX - 60))
+                        .attr("x", (textX - 70))
                         .attr("y", (textY + 80)).attr("opacity", 0)
                         .style("font-size", 'xx-large')
                         .style("font-family", 'maranalloregular')
@@ -395,7 +394,7 @@
 
                     // add line labels
                     exportText = svg.append("text")
-                        .attr("transform", "translate(" + (width - 320) + "," + (height - 250) + ") rotate(" + (-75) + ")")
+                        .attr("transform", "translate(" + (width - 320/zoom - 100) + "," + (height - 250/zoom) + ") rotate(" + (-75) + ")")
                         .attr("dy", ".35em")
                         .attr("text-anchor", "start")
                         // .attr("visibility","hidden")
@@ -403,7 +402,7 @@
                         .style("fill", "black")
                         .text("Line of Exports");
                     importText = svg.append("text")
-                        .attr("transform", "translate(" + (width - 690) + "," + (height - 55) + ") rotate(" + (-11) + ")")
+                        .attr("transform", "translate(" + (width - 690/zoom - 120) + "," + (height - 55/zoom - 20) + ") rotate(" + (-11) + ")")
                         .attr("dy", ".35em")
                         .attr("text-anchor", "start")
                         .attr("opacity", 0)
@@ -414,7 +413,8 @@
                 });
 
                 let stage = 0;
-                d3.select("#start").on("click", function () {
+                d3.select("#chart").on("click", function () {
+                    console.log("scroll");
                     if (stage === 0) {
                         changeOpacity(xLabel);
                         changeOpacity(timeLabel);
