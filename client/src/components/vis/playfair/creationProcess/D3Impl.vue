@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <div id="chart" style="background-color: #F3ECCB; font-family: 'Dancing Script', cursive"></div>
+    Some Math can go here
   </div>
 </template>
 
@@ -12,11 +13,64 @@
         mounted() {
             this.generateSvg();
         },
-
+        props: {
+            slideNumber: {
+                type: Number,
+                default: 0,
+            },
+        },
+        data () {
+            return {
+                maxSlideNumber: 8,
+                svg: null,
+                exportText: null, importText: null, yLabel: null, xLabel: null, moneyLabel: null,
+                timeLabel: null, importLine: null, exportLine: null, areaGreen: null, areaPink: null,
+                importDots: null, exportDots: null,
+                title1: null, title2: null, title3: null, title4: null, title5: null,
+            }
+        },
+        watch: {
+            slideNumber (newValue) {
+                console.log(this.slideNumber);
+                if (this.slideNumber === 1) {
+                    this.changeOpacity(this.xLabel);
+                    this.changeOpacity(this.timeLabel);
+                } else if (this.slideNumber === 2) {
+                    this.changeOpacity(this.yLabel);
+                    this.changeOpacity(this.moneyLabel);
+                } else if (this.slideNumber === 3) {
+                    //bumpy line
+                } else if (this.slideNumber === 4) {
+                    this.changeOpacity(this.importLine);
+                    this.changeOpacity(this.importText)
+                } else if (this.slideNumber === 5) {
+                    this.changeOpacity(this.exportLine);
+                    this.changeOpacity(this.exportText);
+                } else if (this.slideNumber === 6) {
+                    this.changeOpacity(this.areaGreen);
+                    this.changeOpacity(this.areaPink)
+                } else if (this.slideNumber === 7) {
+                    this.changeOpacity(this.title1);
+                    this.changeOpacity(this.title3);
+                    this.changeOpacity(this.title4);
+                    this.changeOpacity(this.title5);
+                } else if (this.slideNumber === 8) {
+                    //data + line adjust
+                    this.changeOpacity(this.importDots);
+                    this.changeOpacity(this.exportDots);
+                }
+            }
+        },
         methods: {
+            changeOpacity(element) {
+                element.transition()
+                    .attr("opacity", 1)
+                    .duration(800);
+            },
             generateSvg() {
-                let zoom = 2.35
-                let margin = {top: 50, right: 100, bottom: 50, left: 50},
+                let self = this;
+                let zoom = 3;
+                let margin = {top: 25, right: 60, bottom: 25, left: 25},
                     width = window.innerWidth/zoom - margin.left - margin.right,
                     height = window.innerWidth/zoom/1.6 - margin.top - margin.bottom;
 
@@ -31,22 +85,21 @@
                 var y = d3.scaleLinear()
                     .range([height, 0]);
 
-                var svg = d3.select("#chart").append("svg")
+                self.svg = d3.select("#chart").append("svg")
                     .attr("class", "chart")
-                    .attr("width", width + margin.left + margin.right)
+                    .attr("width", width + margin.left + margin.right+25)
                     .attr("height", height + margin.top + margin.bottom)
                     .append("g")
                     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
                 var interval = 200000;
 
-                let exportText, importText, xLabel, yLabel, moneyLabel,
+                let exportText, importText, yLabel, moneyLabel,
                     timeLabel, importLine, exportLine, areaGreen, areaPink,
                     importDots, exportDots;
                 let title1, title2, title3, title4, title5;
 
                 d3.csv("/playfair_nums_def.csv").then(function (csvData) {
-
                     csvData.forEach(function (d) {
                         d.Imports = +d.Imports; //ensures data is in number format
                         d.Exports = +d.Exports;
@@ -192,11 +245,11 @@
                     /*************************append all of the graphics to the canvas**************************************/
 
 
-                    svg.datum(csvData); //binds data, makes static and not interactive
+                    self.svg.datum(csvData); //binds data, makes static and not interactive
 
                     //bg color borrowed from former student
                     //makes inner graph lighter
-                    svg.append("rect")
+                    self.svg.append("rect")
                         .attr("height", height)
                         .attr("width", width)
                         .attr("fill", "white")
@@ -204,7 +257,7 @@
 
 
                     //import dots
-                    importDots = svg.selectAll("dot")
+                    self.importDots = self.svg.selectAll("dot")
                         .data(csvData)
                         .enter().append("circle")
                         .attr("r", 3)
@@ -218,7 +271,7 @@
                         .attr("opacity", 0);
 
                     //export dots
-                    exportDots = svg.selectAll("dot")
+                    self.exportDots = self.svg.selectAll("dot")
                         .data(csvData)
                         .enter().append("circle")
                         .attr("r", 3)
@@ -234,25 +287,25 @@
                     /**DIFFERENCE GRAPH**/
 
                     //clip path area above imports line
-                    svg.append("clipPath")
+                    self.svg.append("clipPath")
                         .attr("id", "clip-above")
                         .append("path")
                         .attr("d", area.y0(0));
 
                     // area below the imports line
-                    svg.append("clipPath")
+                    self.svg.append("clipPath")
                         .attr("id", "clip-below")
                         .append("path")
                         .attr("d", area.y0(height));
 
-                    areaGreen = svg.append("path")
+                    self.areaGreen = self.svg.append("path")
                         // .attr("class", "area above")
                         .attr("clip-path", "url(#clip-above)")
                         .attr("d", area.y0(d => y(d.Exports)))
                         .attr("opacity", 0)
                         .style("fill", '#ABAF7B');
 
-                    areaPink = svg.append("path")
+                    self.areaPink = self.svg.append("path")
                         .attr("class", "area below")
                         .attr("clip-path", "url(#clip-below)")
                         .attr("d", area.y0(d => y(d.Exports)))
@@ -263,21 +316,21 @@
 
 
                     //line imports
-                    importLine = svg.append("path")
+                    self.importLine = self.svg.append("path")
                         .attr("class", "line")
                         .attr("d", line).attr("opacity", 0)
                         .style("stroke", '#D6BF24')
                         .style("stroke-width", "5px");
 
                     //line exports
-                    exportLine = svg.append("path")
+                    self.exportLine = self.svg.append("path")
                         .attr("class", "line exports")
                         .attr("d", line2).attr("opacity", 0)
                         .style("stroke", '#BB877F')
                         .style("stroke-width", "5px");
 
                     //x axis
-                    xLabel = svg.append("g")
+                    self.xLabel = self.svg.append("g")
                         .attr("transform", "translate(0," + height + ")") //orients x-axis to bottom of chart (default is top)
                         .attr("class", "axis")
                         .attr("opacity", 0)
@@ -286,22 +339,22 @@
                         .call(xAxis);
 
                     // "time" label
-                    timeLabel = svg.append("text")
+                    self.timeLabel = self.svg.append("text")
                         .attr("transform", "translate(" + (width / 2) + ")")
-                        .attr("y", -10) //place label with correct space adjacent to graph
+                        .attr("y", -7) //place label with correct space adjacent to graph
                         .attr("class", "axis-labels").attr("opacity", 0)
                         .style("text-anchor", "middle")
                         .style("font-family", 'Times New Roman')
                         .text("Time");
 
                     //y axis
-                    yLabel = svg.append("g")
+                    self.yLabel = self.svg.append("g")
                         .attr("transform", "translate(" + width + ",0)") //orients y-axis to right of chart (default is left)
                         .attr("class", "axis").attr("opacity", 0)
                         .call(yAxis);
 
                     //styles the grid lines based on y-axis values - integer million lines are bolded
-                    svg.selectAll('g.tick line')
+                    self.svg.selectAll('g.tick line')
                         .style("stroke-width", function (d) {
                             if ((d / 1000000) % 1 === 0) {
                                 return 2;
@@ -318,9 +371,9 @@
 
 
                     //"money" label
-                    moneyLabel = svg.append("text")
+                    self.moneyLabel = self.svg.append("text")
                         .attr("transform", "rotate(-90)")
-                        .attr("y", 0 - margin.left / 2) //place it with correct space adjacent to graph
+                        .attr("y", 0 - margin.left) //place it with correct space adjacent to graph
                         .attr("x", 0 - (height / 2))
                         .attr("dy", "1em")
                         .attr("class", "axis-labels").attr("opacity", 0)
@@ -330,7 +383,7 @@
 
 
                     //outline around inner chart
-                    svg.append("rect")
+                    self.svg.append("rect")
                         .attr("height", height)
                         .attr("width", width + margin.right)
                         .attr("fill", "transparent")
@@ -339,52 +392,58 @@
 
                     //)******************************************CREATE GRAPH LABEL - borrowed from former student*******//
                     var ellipseX = ((width * 3) / 10);
-                    var ellipseY = 130;
+                    var ellipseY = 110;
+                    let ellipseRX = 120;
+                    let ellipseRY = 80;
                     var textX = ((width * 2) / 15) - 30;
-                    var textY = 90;
+                    var textY = ellipseY - ellipseRY/4;
+
                     //add Label
-                    title1 = svg.append("ellipse")
+                    self.title1 = self.svg.append("ellipse")
                         .attr("id", "currValue")
                         .attr("cx", ellipseX)
                         .attr("cy", ellipseY)
-                        .attr("rx", 150)
-                        .attr("ry", 105)
+                        .attr("rx", ellipseRX)
+                        .attr("ry", ellipseRY)
                         .attr("fill", "#FCE2B0")
                         .attr("stroke", "black")
                         .attr("stroke-width", 1).attr("opacity", 0);
-                    title2 = svg.append("ellipse")
+                    self.title2 = self.svg.append("ellipse")
                         .attr("id", "currValue")
                         .attr("cx", ellipseX)
                         .attr("cy", ellipseY)
-                        .attr("rx", 150)
-                        .attr("ry", 105)
+                        .attr("rx", ellipseRX)
+                        .attr("ry", ellipseRY)
                         .attr("fill", "#FF4F4F")
                         .attr("stroke-width", 0).attr("opacity", 0);
-                    title3 = svg.append("text")
+                    self.title3 = self.svg.append("text")
                         .attr("id", "currValue")
                         .attr("class", "titleText")
                         .attr("x", textX)
                         .attr("y", textY).attr("opacity", 0)
-                        .style("font-size", 'x-large')
+                        .attr("font-size", "1.25em")
+                        // .style("font-size", 'x-large')
                         .style("font-family", 'maranalloregular')
                         .text("EXPORTS & IMPORTS");
-                    title4 = svg.append("text")
+                    self.title4 = self.svg.append("text")
                         .attr("id", "currValue")
                         .attr("class", "titleText2")
                         .attr("x", textX + 60)
-                        .attr("y", textY + 40) //adjusts vertical space between text liens
+                        .attr("y", textY + 30) //adjusts vertical space between text liens
                         .attr("opacity", 0)
-                        .style("font-size", 'xx-large')
+                        .attr("font-size", "1.5em")
+                        // .style("font-size", 'xx-large')
                         .style("font-family", 'chancery_cursiveitalic')
                         .text("to and from all");
-                    title5 = svg.append("g")
+                    self.title5 = self.svg.append("g")
                         .attr("id", "currValue")
                         .attr("class", "titleText3")
                         .attr("transform", "translate(55,0)")
                         .append("text")
-                        .attr("x", (textX - 70))
-                        .attr("y", (textY + 80)).attr("opacity", 0)
-                        .style("font-size", 'xx-large')
+                        .attr("x", (textX - 50))
+                        .attr("y", (textY + 60)).attr("opacity", 0)
+                        .attr("font-size", "1.5em")
+                        // .style("font-size", 'xx-large')
                         .style("font-family", 'maranalloregular')
                         .style("position", 'fixed')
                         .style("border-left", '75px')
@@ -393,7 +452,7 @@
 
 
                     // add line labels
-                    exportText = svg.append("text")
+                    self.exportText = self.svg.append("text")
                         .attr("transform", "translate(" + (width - 320/zoom - 100) + "," + (height - 250/zoom) + ") rotate(" + (-75) + ")")
                         .attr("dy", ".35em")
                         .attr("text-anchor", "start")
@@ -401,7 +460,7 @@
                         .attr("opacity", 0)
                         .style("fill", "black")
                         .text("Line of Exports");
-                    importText = svg.append("text")
+                    self.importText = self.svg.append("text")
                         .attr("transform", "translate(" + (width - 690/zoom - 120) + "," + (height - 55/zoom - 20) + ") rotate(" + (-11) + ")")
                         .attr("dy", ".35em")
                         .attr("text-anchor", "start")
@@ -414,43 +473,42 @@
 
                 let stage = 0;
                 d3.select("#chart").on("click", function () {
-                    console.log("scroll");
+                    // console.log();
                     if (stage === 0) {
-                        changeOpacity(xLabel);
-                        changeOpacity(timeLabel);
+                        self.changeOpacity(self.xLabel);
+                        self.changeOpacity(timeLabel);
                     } else if (stage === 1) {
-                        changeOpacity(yLabel);
-                        changeOpacity(moneyLabel);
+                        self.changeOpacity(yLabel);
+                        self.changeOpacity(moneyLabel);
                     } else if (stage === 2) {
-                        changeOpacity(importDots);
-                        changeOpacity(exportDots);
-                    } else if (stage === 3) {
-                        changeOpacity(importLine);
-                        changeOpacity(importText)
+                        //bumpy line
+                    } else if (self.slideNumber === 3) {
+                        self.changeOpacity(importLine);
+                        self.changeOpacity(importText)
                     } else if (stage === 4) {
-                        changeOpacity(exportLine);
-                        changeOpacity(exportText);
+                        self.changeOpacity(exportLine);
+                        self.changeOpacity(exportText);
                     } else if (stage === 5) {
-                        changeOpacity(areaGreen);
-                        changeOpacity(areaPink)
+                        self.changeOpacity(areaGreen);
+                        self.changeOpacity(areaPink)
                     } else if (stage === 6) {
-                        changeOpacity(title1);
+                        self.changeOpacity(title1);
                         title2.transition()
                             .attr("opacity", .1)
                             .duration(800);
-                        changeOpacity(title3);
-                        changeOpacity(title4);
-                        changeOpacity(title5);
+                        self.changeOpacity(title3);
+                        self.changeOpacity(title4);
+                        self.changeOpacity(title5);
+                    } else if (stage === 7) {
+                        //data + line adjust
+                        self.changeOpacity(importDots);
+                        self.changeOpacity(exportDots);
                     }
-                    if (stage < 6) stage++;
+                    //missing data
+                    if (stage < 7) stage++;
                 });
+            },
 
-                function changeOpacity(element) {
-                    element.transition()
-                        .attr("opacity", 1)
-                        .duration(800);
-                }
-            }
         }
     }
 </script>

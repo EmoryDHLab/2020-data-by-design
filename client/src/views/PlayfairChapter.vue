@@ -31,7 +31,53 @@
         To produce a copperplate engraving such as the one that produced “Exports & Imports to and from all of North America,” the engraver must carve the image directly into the eponymous copper plate—a process that requires significant physical strength. Playfair’s error was in fact a common one—a slip of a tired hand—but its frequent occurrence would not have made it any more tolerable to the man who was already, by his own account, “long anxious” to be acknowledged as an innovator. Unlike the array of computational methods used today to create data visualizations—from standalone platforms such as Adobe Illustrator or Tableau, to software libraries such as ggplot or D3—each of which allow for easy revision, the engraving process employed by Playfair resulted in an image that was irreversibly inscribed into copper. When considered in the context of the time and money he had invested in the project, might as well have been set in proverbial stone.
       </p>
       <!--vis-->
-        <d3Impl/>
+
+      <Scrollytell collect bottom-break :scrollSlots="8">
+        <template v-slot:fixed="{ scrolled, progress }">
+          <d3Impl :slideNumber="scrolled"/>
+        </template>
+        <template v-slot:1>
+          <p>
+            Canvas
+          </p>
+        </template>
+        <template v-slot:2>
+          <p>
+            X-axis
+          </p>
+        </template>
+        <template v-slot:3>
+          <p>
+            Y-axis
+          </p>
+        </template>
+        <template v-slot:4>
+          <p>
+            bumpy line
+          </p>
+        </template>
+        <template v-slot:5>
+          <p>
+            smoother line
+          </p>
+        </template>
+        <template v-slot:6>
+          <p>
+            shapding
+          </p>
+        </template>
+        <template v-slot:7>
+          <p>
+            medallion
+          </p>
+        </template>
+        <template v-slot:8>
+          <p>
+            original data
+          </p>
+        </template>
+      </Scrollytell>
+
       <p>This chapter explores the visual strategies employed by William Playfair, and his writing about same, in order to make the case for visualization as a method of argument—that is to say, as a method that carries with it a specific set of beliefs about the significance of data and its relation to visual display. No contemporary visualization designer would deny the many choices they make when giving a dataset visual form—nor, likely, would Playfair himself. But beyond the choices involved in creating any particular visualization are a larger set of assumptions about visual knowledge more broadly. These have to do with the value of that knowledge, the processes by which it is produced, and how—and by whom—it is intended to be perceived.
       </p>
     </Section>
@@ -39,65 +85,6 @@
       <p>
         As indicated by the engraving error in “Exports & Imports to and from all of North America,” Playfair drew his charts’ data lines freehand. In point of fact, there is no indication that he plotted any actual data points before engraving the lines of import and export themselves. What’s more, Playfair did not even intend to include the data he used to guide the creation of the charts in the Atlas. It was only after soliciting feedback from James Watt, of steam engine fame—and for whom Playfair worked in his youth—that he received the advice to include his charts’ data in tabular form. “It might be proper,” Watt advised, “to give in letter press the Tables from which the Charts have been constructed… for the charts now seem to rest on your own authority, and it will naturally be enquired from whence you have derived our intelligence.”
       </p>
-      <Scrollytell collect bottom-break :scrollSlots="5">
-        <template v-slot:fixed="{ scrolled, progress }">
-          <PeabodyTutorial
-            id="peabody-tutorial"
-            :showIndicator="false"
-            :showDots="false"
-            :slideNumber="scrolled"
-            width='45vh'
-            height='45vh'/>
-        </template>
-        <template v-slot:1>
-          <p>
-            Peabody’s system, like the Polish one, is based on a numbered grid,
-            with each year in a century marked out
-            in its own box.
-          </p>
-        </template>
-        <template v-slot:2>
-          <p>
-            Each box is then subdivided, with each of the nine smaller squares
-            corresponding to a particular type of
-            historical event.
-          </p>
-        </template>
-        <template v-slot:3="{ progress, scrolled }">
-          <p>
-            In the top left corner is the space for wars, battles, and sieges;
-            in the top middle is the space for
-            conquests and unions;
-            in the top right is the space for losses and divisions, and so on.
-          </p>
-          <EventKey class="event-key" :colors=" scrolled > 4 ?
-                [false, false, 'rgb(50, 91, 103)',
-                false, 'rgb(69, 136, 103)', false,
-                'rgb(141, 43, 29)', false, false] : Array(9)"
-
-                    :style="{
-                  width: '20vh',
-                  opacity: d3.interpolate(0,1)(progress),
-                  transform: d3.interpolateString('translateX(10vh)', 'translateX(-5vh)')(d3.easeQuadOut(d3.scaleLinear([0.5,1], [0,1])(progress))),
-                  marginTop: '2vh',
-                  zIndex: '100'
-                 }"
-                    showLegend showNumbers dropShadow></EventKey>
-        </template>
-        <template v-slot:4>
-          <p>
-            Shapes that take up the entire box indicate an event of such
-            magnitude or complexity that the other events
-            in that same year hardly matter.
-          </p>
-        </template>
-        <template v-slot:5>
-          <p>
-            The events are also color-coded, indicating the various countries
-            involved in a particular event.
-          </p>
-        </template>
-      </Scrollytell>
     </Section>
 
 
