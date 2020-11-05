@@ -23,15 +23,16 @@
             return {
                 maxSlideNumber: 8,
                 svg: null,
+                line1: null,
                 exportText: null, importText: null, yLabel: null, xLabel: null, moneyLabel: null,
-                timeLabel: null, importLine: null, exportLine: null, areaGreen: null, areaPink: null,
+                timeLabel: null, importLine: null, exportLine: null, bumpyLine: null, areaGreen: null, areaPink: null,
                 importDots: null, exportDots: null,
                 title1: null, title2: null, title3: null, title4: null, title5: null,
             }
         },
         watch: {
             slideNumber (newValue) {
-                console.log(this.slideNumber);
+                // console.log(this.slideNumber);
                 if (this.slideNumber === 1) {
                     this.changeOpacity(this.xLabel);
                     this.changeOpacity(this.timeLabel);
@@ -39,8 +40,14 @@
                     this.changeOpacity(this.yLabel);
                     this.changeOpacity(this.moneyLabel);
                 } else if (this.slideNumber === 3) {
-                    //bumpy line
+                    this.changeOpacity(this.bumpyLine);
+
                 } else if (this.slideNumber === 4) {
+                    this.changeOpacityBack(this.bumpyLine);
+                    // this.bumpyLine.transition()
+                    //     .attr("d", this.line1)
+                    //     .attr("transform", "")
+                    //     .duration(800);
                     this.changeOpacity(this.importLine);
                     this.changeOpacity(this.importText)
                 } else if (this.slideNumber === 5) {
@@ -65,6 +72,11 @@
             changeOpacity(element) {
                 element.transition()
                     .attr("opacity", 1)
+                    .duration(800);
+            },
+            changeOpacityBack(element) {
+                element.transition()
+                    .attr("opacity", 0)
                     .duration(800);
             },
             generateSvg() {
@@ -94,10 +106,6 @@
 
                 var interval = 200000;
 
-                let exportText, importText, yLabel, moneyLabel,
-                    timeLabel, importLine, exportLine, areaGreen, areaPink,
-                    importDots, exportDots;
-                let title1, title2, title3, title4, title5;
 
                 d3.csv("/playfair_nums_def.csv").then(function (csvData) {
                     csvData.forEach(function (d) {
@@ -183,7 +191,7 @@
 
                         //imports line - yellow
                         //TODO: curve format -> not basis
-                    var line = d3.area()
+                    self.line1 = d3.area()
                             .curve(d3.curveCardinal) //makes the line curvy
                             .defined(function (d) {
                                 return d.Imports;
@@ -255,35 +263,6 @@
                         .attr("fill", "white")
                         .attr("opacity", .2);
 
-
-                    //import dots
-                    self.importDots = self.svg.selectAll("dot")
-                        .data(csvData)
-                        .enter().append("circle")
-                        .attr("r", 3)
-                        .attr("fill", "#D6BF24")
-                        .attr("cx", function (d) {
-                            return x(d.Years);
-                        })
-                        .attr("cy", function (d) {
-                            return y(d.Imports);
-                        })
-                        .attr("opacity", 0);
-
-                    //export dots
-                    self.exportDots = self.svg.selectAll("dot")
-                        .data(csvData)
-                        .enter().append("circle")
-                        .attr("r", 3)
-                        .attr("fill", "#BB877F")
-                        .attr("cx", function (d) {
-                            return x(d.Years);
-                        })
-                        .attr("cy", function (d) {
-                            return y(d.Exports);
-                        })
-                        .attr("opacity", 0);
-
                     /**DIFFERENCE GRAPH**/
 
                     //clip path area above imports line
@@ -318,7 +297,7 @@
                     //line imports
                     self.importLine = self.svg.append("path")
                         .attr("class", "line")
-                        .attr("d", line).attr("opacity", 0)
+                        .attr("d", self.line1).attr("opacity", 0)
                         .style("stroke", '#D6BF24')
                         .style("stroke-width", "5px");
 
@@ -328,6 +307,43 @@
                         .attr("d", line2).attr("opacity", 0)
                         .style("stroke", '#BB877F')
                         .style("stroke-width", "5px");
+
+                    //line bumpy
+                    self.bumpyLine = self.svg.append("path")
+                        .attr("opacity", 0)
+                        .attr("fill", "none")
+                        .attr("transform", "translate(-98 80),scale(0.415 0.5)")
+                        .attr("d", "M231.7,391.73c94.31,4.3,204-24.91,285.67-36.19,119.35-7.78,202.15-10.18,299.7-19.67,124.29-16.83,75.32-.65,147-55,42.66-21,82.8-4,107.2-50.52C1091.4,208.53,1089,316,1090.2,325.9c-4,47.62,2,104.09,46.1,77.6,31-22.77,32.66-64.15,57.33-102.57,4.6-11.62,23.86-30.53,26.91-34.35C1236.35,208,1285,194,1282.3,195.5c20.61-9.31,34.26-20.84,64-21")
+                        .style("stroke", '#444444')
+                        .style("stroke-width", "5px");
+
+                    //import dots
+                    self.importDots = self.svg.selectAll("dot")
+                        .data(csvData)
+                        .enter().append("circle")
+                        .attr("r", 3)
+                        .attr("fill", "#444444")
+                        .attr("cx", function (d) {
+                            return x(d.Years);
+                        })
+                        .attr("cy", function (d) {
+                            return y(d.Imports);
+                        })
+                        .attr("opacity", 0);
+
+                    //export dots
+                    self.exportDots = self.svg.selectAll("dot")
+                        .data(csvData)
+                        .enter().append("circle")
+                        .attr("r", 3)
+                        .attr("fill", "#444444")
+                        .attr("cx", function (d) {
+                            return x(d.Years);
+                        })
+                        .attr("cy", function (d) {
+                            return y(d.Exports);
+                        })
+                        .attr("opacity", 0);
 
                     //x axis
                     self.xLabel = self.svg.append("g")
@@ -471,42 +487,6 @@
 
                 });
 
-                let stage = 0;
-                d3.select("#chart").on("click", function () {
-                    // console.log();
-                    if (stage === 0) {
-                        self.changeOpacity(self.xLabel);
-                        self.changeOpacity(timeLabel);
-                    } else if (stage === 1) {
-                        self.changeOpacity(yLabel);
-                        self.changeOpacity(moneyLabel);
-                    } else if (stage === 2) {
-                        //bumpy line
-                    } else if (self.slideNumber === 3) {
-                        self.changeOpacity(importLine);
-                        self.changeOpacity(importText)
-                    } else if (stage === 4) {
-                        self.changeOpacity(exportLine);
-                        self.changeOpacity(exportText);
-                    } else if (stage === 5) {
-                        self.changeOpacity(areaGreen);
-                        self.changeOpacity(areaPink)
-                    } else if (stage === 6) {
-                        self.changeOpacity(title1);
-                        title2.transition()
-                            .attr("opacity", .1)
-                            .duration(800);
-                        self.changeOpacity(title3);
-                        self.changeOpacity(title4);
-                        self.changeOpacity(title5);
-                    } else if (stage === 7) {
-                        //data + line adjust
-                        self.changeOpacity(importDots);
-                        self.changeOpacity(exportDots);
-                    }
-                    //missing data
-                    if (stage < 7) stage++;
-                });
             },
 
         }
