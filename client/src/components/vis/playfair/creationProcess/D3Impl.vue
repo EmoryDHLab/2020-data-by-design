@@ -23,9 +23,11 @@
             return {
                 maxSlideNumber: 8,
                 svg: null,
-                line1: null,
+                line1: null, line2: null,
                 exportText: null, importText: null, yLabel: null, xLabel: null, moneyLabel: null,
-                timeLabel: null, importLine: null, exportLine: null, bumpyLine: null, areaGreen: null, areaPink: null,
+                timeLabel: null, importLine: null, exportLine: null,
+                importLine1801d: null, exportLine1801d: null, importLineFirstDraft: null, exportLineFirstDraft: null,
+                areaGreen: null, areaPink: null,
                 importDots: null, exportDots: null,
                 title1: null, title2: null, title3: null, title4: null, title5: null,
             }
@@ -33,35 +35,46 @@
         watch: {
             slideNumber (newValue) {
                 // console.log(this.slideNumber);
-                if (this.slideNumber === 1) {
+                if (this.slideNumber === 2) {
                     this.changeOpacity(this.xLabel);
                     this.changeOpacity(this.timeLabel);
-                } else if (this.slideNumber === 2) {
+                } else if (this.slideNumber === 3) {
                     this.changeOpacity(this.yLabel);
                     this.changeOpacity(this.moneyLabel);
-                } else if (this.slideNumber === 3) {
-                    this.changeOpacity(this.bumpyLine);
-
                 } else if (this.slideNumber === 4) {
-                    this.changeOpacityBack(this.bumpyLine);
-                    // this.bumpyLine.transition()
-                    //     .attr("d", this.line1)
-                    //     .attr("transform", "")
-                    //     .duration(800);
-                    this.changeOpacity(this.importLine);
-                    this.changeOpacity(this.importText)
+                    this.changeOpacity(this.importLineFirstDraft);
+                    this.changeOpacity(this.exportLineFirstDraft);
                 } else if (this.slideNumber === 5) {
-                    this.changeOpacity(this.exportLine);
-                    this.changeOpacity(this.exportText);
+                    this.importLineFirstDraft.transition()
+                        .attr("d", this.importLine1801d)
+                        .attr("transform", "")
+                        .duration(800);
+                    this.exportLineFirstDraft.transition()
+                        .attr("d", this.exportLine1801d)
+                        .attr("transform", "")
+                        .duration(800);
                 } else if (this.slideNumber === 6) {
+                    this.importLineFirstDraft.transition()
+                        .attr("d", this.line1)
+                        .attr("transform", "")
+                        .duration(800);
+                    this.changeOpacity(this.importText);
+                    this.exportLineFirstDraft.transition()
+                        .attr("d", this.line2)
+                        .attr("transform", "")
+                        .duration(800);
+                    this.changeOpacity(this.exportText);
+                    this.changeOpacityBack(this.areaPink);
+                    this.changeOpacityBack(this.areaGreen);
+                } else if (this.slideNumber === 7) {
                     this.changeOpacity(this.areaGreen);
                     this.changeOpacity(this.areaPink)
-                } else if (this.slideNumber === 7) {
+                } else if (this.slideNumber === 8) {
                     this.changeOpacity(this.title1);
                     this.changeOpacity(this.title3);
                     this.changeOpacity(this.title4);
                     this.changeOpacity(this.title5);
-                } else if (this.slideNumber === 8) {
+                } else if (this.slideNumber === 9) {
                     //data + line adjust
                     this.changeOpacity(this.importDots);
                     this.changeOpacity(this.exportDots);
@@ -111,7 +124,13 @@
                     csvData.forEach(function (d) {
                         d.Imports = +d.Imports; //ensures data is in number format
                         d.Exports = +d.Exports;
+                        d.Imports1801 = +d.Imports1801;
+                        d.Exports1801 = +d.Exports1801;
+                        d.ImportsDraft = +d.ImportsDraft;
+                        d.ExportsDraft = +d.ExportsDraft;
                     });
+
+
 
                     //calculate values to determine y domain
                     var maxImport = d3.max(csvData, function (d) {
@@ -199,8 +218,40 @@
                             .x(d => x(d.Years))
                             .y(d => y(d.Imports));
 
+                    self.importLine1801d = d3.area()
+                        .curve(d3.curveCatmullRom) //makes the line curvy
+                        .defined(function (d) {
+                            return d.Imports1801;
+                        }) //limits this line to defined data
+                        .x(d => x(d.Years))
+                        .y(d => y(d.Imports1801));
+
+                    self.exportLine1801d = d3.area()
+                        .curve(d3.curveCatmullRom) //makes the line curvy
+                        .defined(function (d) {
+                            return d.Exports1801;
+                        }) //limits this line to defined data
+                        .x(d => x(d.Years))
+                        .y(d => y(d.Exports1801));
+
+                    var importDraftd = d3.area()
+                        .curve(d3.curveCatmullRom) //makes the line curvy
+                        .defined(function (d) {
+                            return d.ImportsDraft;
+                        }) //limits this line to defined data
+                        .x(d => x(d.Years))
+                        .y(d => y(d.ImportsDraft));
+
+                    var exportDraftd = d3.area()
+                        .curve(d3.curveCatmullRom) //makes the line curvy
+                        .defined(function (d) {
+                            return d.ExportsDraft;
+                        }) //limits this line to defined data
+                        .x(d => x(d.Years))
+                        .y(d => y(d.ExportsDraft));
+
                     //exports line - pink
-                    var line2 = d3.area()
+                    self.line2 = d3.area()
                         .curve(d3.curveCardinal)//makes the line curvy
                         .defined(function (d) {
                             return d.Exports;
@@ -297,25 +348,88 @@
                     //line imports
                     self.importLine = self.svg.append("path")
                         .attr("class", "line")
-                        .attr("d", self.line1).attr("opacity", 0)
+                        .attr("d", self.line1)
+                        .attr("opacity", 0)
                         .style("stroke", '#D6BF24')
-                        .style("stroke-width", "5px");
+                        .style("stroke-width", "3px");
 
                     //line exports
                     self.exportLine = self.svg.append("path")
                         .attr("class", "line exports")
-                        .attr("d", line2).attr("opacity", 0)
+                        .attr("d", self.line2)
+                        .attr("opacity", 0)
                         .style("stroke", '#BB877F')
-                        .style("stroke-width", "5px");
+                        .style("stroke-width", "3px");
 
-                    //line bumpy
-                    self.bumpyLine = self.svg.append("path")
+                    self.importLine1801 = self.svg.append("path")
                         .attr("opacity", 0)
                         .attr("fill", "none")
-                        .attr("transform", "translate(-98 80),scale(0.415 0.5)")
-                        .attr("d", "M231.7,391.73c94.31,4.3,204-24.91,285.67-36.19,119.35-7.78,202.15-10.18,299.7-19.67,124.29-16.83,75.32-.65,147-55,42.66-21,82.8-4,107.2-50.52C1091.4,208.53,1089,316,1090.2,325.9c-4,47.62,2,104.09,46.1,77.6,31-22.77,32.66-64.15,57.33-102.57,4.6-11.62,23.86-30.53,26.91-34.35C1236.35,208,1285,194,1282.3,195.5c20.61-9.31,34.26-20.84,64-21")
-                        .style("stroke", '#444444')
-                        .style("stroke-width", "5px");
+                        // .attr("transform", "translate(-98 80),scale(0.415 0.5)")
+                        // .attr("d", "M231.7,391.73c94.31,4.3,204-24.91,285.67-36.19,119.35-7.78,202.15-10.18,299.7-19.67,124.29-16.83,75.32-.65,147-55,42.66-21,82.8-4,107.2-50.52C1091.4,208.53,1089,316,1090.2,325.9c-4,47.62,2,104.09,46.1,77.6,31-22.77,32.66-64.15,57.33-102.57,4.6-11.62,23.86-30.53,26.91-34.35C1236.35,208,1285,194,1282.3,195.5c20.61-9.31,34.26-20.84,64-21")
+                        .attr("d", self.importLine1801d)
+                        .style("stroke", '#D6BF24')
+                        .style("stroke-width", "3px");
+
+                    self.exportLine1801 = self.svg.append("path")
+                        .attr("opacity", 0)
+                        .attr("fill", "none")
+                        .attr("d", self.exportLine1801d)
+                        // .attr("transform", "translate(0 40),scale(0.415 0.5)")
+                        // .attr("d", "M0,494.6c14.42-.08,51.38-3.28,96-11,15.77-2.72,31.82.35,51,1,33.56,1.15,72.14,1.3,103-4,47.07-12.5,59.13-13.39,66-14,5.54-.48,7.2,5.24,50,1.89l.3-.31s46.24-10.85,51.14-11.7l32.86-4.66C738.4,375.32,745.24,108.14,760,94.65c8.55-50.73,25.3-58.59,32-51.89,7.59,\n" +
+                        //     "7.59,2,28.53,4,40,6.7,39.29,8.84,82.09,4.44\n" +
+                        //     ",122-.88,8-.64,51.32,6.48,51.32,14.83,9.15,15.31-47.18,\n" +
+                        //     "18.46-72.46.55-4.37.32-25.35,7.73-25.35l1.84.76,3.78,43.8c3.82,95.74-11.16,136.71,3.83,136.71,18,4.24,9.29-23.55,24.06-22l.3.61c5.21,5.9,5.69,55.47,12.14,55.47,8.35-5.43,\n" +
+                        //     "9.06-23.89,12.66-48.12,4.83-19.66,25.28-16.56,42.38-42.29,16.32-13.43,17.77-12.55,26-21.59,6-14.6,10.52-34.73,16.48-49.33,7-23.41,12.29-45.21,18.16-68.74C997,134,1012.24,68.71,1020,69.94c14.6-.62,8.47,42.11,22.49,42.11l14.88-28.28C1065,73.07,1109,15.23,1109,3.65l5.14-2.77")
+                        .style("stroke", '#BB877F')
+                        .style("stroke-width", "3px");
+
+                    // self.svg.append("path")
+                    //     .attr("opacity", 1)
+                    //     .attr("fill", "none")
+                    //     .attr("transform", "translate(0 40),scale(0.415 0.5)")
+                    //     .attr("d", "M0,494.6c14.42-.08,51.38-3.28,96-11,15.77-2.72,31.82.35,51,1,33.56,1.15,72.14,1.3,103-4,47.07-12.5,59.13-13.39,66-14,5.54-.48,7.2,5.24,50,1.89l.3-.31s46.24-10.85,51.14-11.7l32.86-4.66C738.4,375.32,745.24,108.14,760,94.65c8.55-50.73,25.3-58.59,32-51.89,7.59,\n" +
+                    //         "7.59,2,28.53,4,40,6.7,39.29,8.84,82.09,4.44\n" +
+                    //         ",122-.88,8-.64,51.32,6.48,51.32,14.83,9.15,15.31-47.18,\n" +
+                    //         "18.46-72.46.55-4.37.32-25.35,7.73-25.35l1.84.76,3.78,43.8c3.82,95.74-11.16,136.71,3.83,136.71,18,4.24,9.29-23.55,24.06-22l.3.61c5.21,5.9,5.69,55.47,12.14,55.47,8.35-5.43,\n" +
+                    //         "9.06-23.89,12.66-48.12,4.83-19.66,25.28-16.56,42.38-42.29,16.32-13.43,17.77-12.55,26-21.59,6-14.6,10.52-34.73,16.48-49.33,7-23.41,12.29-45.21,18.16-68.74C997,134,1012.24,68.71,1020,69.94c14.6-.62,8.47,42.11,22.49,42.11l14.88-28.28C1065,73.07,1109,15.23,1109,3.65l5.14-2.77")
+                    //     .style("stroke", '#58403c')
+                    //     .style("stroke-width", "3px");
+
+                    self.importLineFirstDraft = self.svg.append("path")
+                        .attr("opacity", 0)
+                        .attr("fill", "none")
+                        // .attr("transform", "translate(0 195),scale(1.1 1.1)")
+                        // .attr("d", "M.17,74.54a78.58,78.58,0,0,1,13.44-1,94.5,94.5,0,0,0,9.6-.48c4.7-.62,9.83-.69,13.92-1.92,9.87-3,13-3.84,11.52-3.84,1.11-1.14,6.69,1,10.08-1,3-1.73,8.15-1.29,9.9-1.29,1.69-.38,6.24.48,7.38.33,8.4-3.23,9.36-1.12,13.44-1.92,5-1,13.08-2.59,18.24-2.88,24.56-1.39,20.84-5,34.08-7.2,6.89-1.16,15,.31,22.56-1,4.1,0,5.8-1.89,8.64-1.92,10.37-.12,16.76,2.66,24.48,1.92,4.36-.42,3.05-1.26,11-3.36,1.62-.43,5.24.26,9.12-.48s8.15-3,10.56-3.36c8.71-.56,17.49-.54,24.48-2.88,3.1-2.07,5-3.7,8.16-5.76,7.56-2.33,17.15-3.13,24.42-16.71,7.79-2.9,14.07-1.38,21.11-2.06-1.85.36-2.57,1.12,2.17-2.26l2.7-13.16c-.56.1,2.89-15.11,5.76,51.47,0,2.22-1.46,17.27,1.06,17.82,4.81,0,10.68.42,16.22.42")
+                        .attr("d", importDraftd)
+                        .style("stroke", '#D6BF24')
+                        .style("stroke-width", "3px");
+                    //
+                    // self.svg.append("path")
+                    //     .attr("opacity", 1)
+                    //     .attr("fill", "none")
+                    //     .attr("transform", "translate(0 195),scale(1.1 1.1)")
+                    //     .attr("d", "M.17,74.54a78.58,78.58,0,0,1,13.44-1,94.5,94.5,0,0,0,9.6-.48c4.7-.62,9.83-.69,13.92-1.92,9.87-3,13-3.84,11.52-3.84,1.11-1.14,6.69,1,10.08-1,3-1.73,8.15-1.29,9.9-1.29,1.69-.38,6.24.48,7.38.33,8.4-3.23,9.36-1.12,13.44-1.92,5-1,13.08-2.59,18.24-2.88,24.56-1.39,20.84-5,34.08-7.2,6.89-1.16,15,.31,22.56-1,4.1,0,5.8-1.89,8.64-1.92,10.37-.12,16.76,2.66,24.48,1.92,4.36-.42,3.05-1.26,11-3.36,1.62-.43,5.24.26,9.12-.48s8.15-3,10.56-3.36c8.71-.56,17.49-.54,24.48-2.88,3.1-2.07,5-3.7,8.16-5.76,7.56-2.33,17.15-3.13,24.42-16.71,7.79-2.9,14.07-1.38,21.11-2.06-1.85.36-2.57,1.12,2.17-2.26l2.7-13.16c-.56.1,2.89-15.11,5.76,51.47,0,2.22-1.46,17.27,1.06,17.82,4.81,0,10.68.42,16.22.42")
+                    //     .style("stroke", '#7a6e15')
+                    //     .style("stroke-width", "2px");
+
+                    self.exportLineFirstDraft = self.svg.append("path")
+                        .attr("opacity", 0)
+                        .attr("fill", "none")
+                        .attr("d", exportDraftd)
+                        // .attr("transform", "translate(0 80),scale(1.1 1.1)")
+                        // .attr("d", "M.48,185.37l1-.57c42.4,1,27.21-2.06,36.42-1.67,7.73.33,14.2-2.16,14.2-2.72a87.51,87.51,0,0,0,18.71-1.76c3.21-.64,9,2.45,13.92,0,9.61-4.76,18.7-.93,26.4-3.84,7.15-2.7,13,.21,15.84-3.36,3.45-4.32,8.49-2.4,9.12-2.4,4.91-5,8.62-4.33,19.2-2.88,7.88-1.39,12.09,1.22,16.92,1.22l.55.17c5.42.83,8.6.09,22.37-6.19,5-2.28,6.73-7.57,10.48-7.72,13.12-.49,21.39-10.94,22.17-11.33.75-1.53,7.74-7.1,11-11.67s5-6.24,6.24-6.24c0,0,4.23-11.53,7.71-11.53,2.5-2.94,4.93-5.13,5.73-8.63,1.35-5.92,2.19-10.71,6.24-14.88C267.05,87,265.9,79,268.83,75.79c0-2.28,1.28-10.58,2.58-10.58,5-22.82,12.62-16.2,6.51-15.86v.15c.28-4.92,2.54-13.33,1.72-15.33,2.39-9.51,3.9-18.46,\n" +
+                        //     "6.3-28,.85-1.73,1.7-3.47,2.56-5.2,1.87,0,5.73,1,7.46,1,2.37,21.54,1,24.06,3.36,45.6,0,2.15,2.94,33.94,5.15,38.48,3.69,0,3-10.86,3-13,0-7.63-2.57-39.12,1-42.75.81-10,1.64,93.48,4.28,117.63.52,4.78,3.55-2.75,4.34-3.4,1.34-20.74,4.94-34.22,5.17-31,4,55.38,6.28,4.4,11.88,2\n")
+                        .style("stroke", '#BB877F')
+                        .style("stroke-width", "3px");
+
+                    // self.exportLineFirstDraft = self.svg.append("path")
+                    //     .attr("opacity", 1)
+                    //     .attr("fill", "none")
+                    //     .attr("transform", "translate(0 80),scale(1.1 1.1)")
+                    //     .attr("d", "M.48,185.37l1-.57c42.4,1,27.21-2.06,36.42-1.67,7.73.33,14.2-2.16,14.2-2.72a87.51,87.51,0,0,0,18.71-1.76c3.21-.64,9,2.45,13.92,0,9.61-4.76,18.7-.93,26.4-3.84,7.15-2.7,13,.21,15.84-3.36,3.45-4.32,8.49-2.4,9.12-2.4,4.91-5,8.62-4.33,19.2-2.88,7.88-1.39,12.09,1.22,16.92,1.22l.55.17c5.42.83,8.6.09,22.37-6.19,5-2.28,6.73-7.57,10.48-7.72,13.12-.49,21.39-10.94,22.17-11.33.75-1.53,7.74-7.1,11-11.67s5-6.24,6.24-6.24c0,0,4.23-11.53,7.71-11.53,2.5-2.94,4.93-5.13,5.73-8.63,1.35-5.92,2.19-10.71,6.24-14.88C267.05,87,265.9,79,268.83,75.79c0-2.28,1.28-10.58,2.58-10.58,5-22.82,12.62-16.2,6.51-15.86v.15c.28-4.92,2.54-13.33,1.72-15.33,2.39-9.51,3.9-18.46,\n" +
+                    //         "6.3-28,.85-1.73,1.7-3.47,2.56-5.2,1.87,0,5.73,1,7.46,1,2.37,21.54,1,24.06,3.36,45.6,0,2.15,2.94,33.94,5.15,38.48,3.69,0,3-10.86,3-13,0-7.63-2.57-39.12,1-42.75.81-10,1.64,93.48,4.28,117.63.52,4.78,3.55-2.75,4.34-3.4,1.34-20.74,4.94-34.22,5.17-31,4,55.38,6.28,4.4,11.88,2\n")
+                    //     .style("stroke", '#5e4440')
+                    //     .style("stroke-width", "2px");
 
                     //import dots
                     self.importDots = self.svg.selectAll("dot")

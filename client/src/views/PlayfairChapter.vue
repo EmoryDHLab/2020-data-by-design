@@ -32,7 +32,7 @@
       </p>
       <!--vis-->
 
-      <Scrollytell collect bottom-break :scrollSlots="8">
+      <Scrollytell collect bottom-break :scrollSlots="9">
         <template v-slot:fixed="{ scrolled, progress }">
           <d3Impl :slideNumber="scrolled"/>
         </template>
@@ -53,25 +53,30 @@
         </template>
         <template v-slot:4>
           <p>
-            bumpy line
+            First Draft
           </p>
         </template>
         <template v-slot:5>
           <p>
-            smoother line
+            bumpy line
           </p>
         </template>
         <template v-slot:6>
           <p>
-            shapding
+            smoother line
           </p>
         </template>
         <template v-slot:7>
           <p>
-            medallion
+            shapding
           </p>
         </template>
         <template v-slot:8>
+          <p>
+            medallion
+          </p>
+        </template>
+        <template v-slot:9>
           <p>
             original data
           </p>
