@@ -64,9 +64,9 @@ export default {
     }
   },
   mounted() {
-    if (this.yearData) {
-      console.log(this.yearData);
-    }
+    // if (this.yearData) {
+    //   console.log(this.yearData);
+    // }
   },
   computed: {
     evtWidth () {

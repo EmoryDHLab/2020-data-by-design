@@ -20,7 +20,6 @@ function filteredChildren (element) {
 }
 
 function findParentSection (element, sections) {
-  console.log(element);
   const sectionIds = sections.map(section => section.id);
   const possibleIds = sectionIds.filter(id => id);
   if (!possibleIds) return false;

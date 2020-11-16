@@ -1,7 +1,10 @@
 {
   "path": "static/data/",
   "datasets": {
-    "1": "peabody1600s.json",
+    "peabody1500": "peabody1500s.json",
+    "peabody1600": "peabody1600s.json",
+    "peabody1700": "peabody1700s.json",
+    "peabody1800": "peabody1800s.json",
     "longId": "jsontest.json"
   }
 }

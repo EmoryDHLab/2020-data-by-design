@@ -14,7 +14,7 @@
           :sizes="options.sizes"
           :actorColors="actorColors"
           :class='`year-square-${n}`'
-          :style='translateYear(n)'
+          :style='translateYear(n - 1)'
           :yearData='getYearData(n - 1)'
           :year='getYear(n - 1)'/>
       </g>
@@ -62,10 +62,6 @@ const DEFAULT_OPTIONS = {
     },
     mutableDataset: {
       type: String
-    },
-    dynamicStartYear: {
-      type: Boolean,
-      default: false
     },
     showSquares: {
       type: Boolean,
@@ -129,7 +125,7 @@ const DEFAULT_OPTIONS = {
     },
     startYear () {
       if (this.isEmpty) return 0;
-      return Math.min(...Object.keys(this.years))
+      return 1 + Math.round(Math.min(...Object.keys(this.years)) / 100) * 100;
     },
     getViewBox () {
       let width = this.getSVGWidth
@@ -144,7 +140,7 @@ const DEFAULT_OPTIONS = {
   },
   methods: {
     getYear (n) {
-      return this.startYear + n - 1
+      return this.startYear + n;
     },
     getYearData (n) {
       if (this.years) {
@@ -163,8 +159,8 @@ const DEFAULT_OPTIONS = {
     translateYear (n) {
       return {
         'transform': 'translate('
-        + this.getYearXFromIndex(n - 1) + 'px,'
-        + this.getYearYFromIndex(n - 1) + 'px)'
+        + this.getYearXFromIndex(n) + 'px,'
+        + this.getYearYFromIndex(n) + 'px)'
       }
     },
   }

@@ -1,9 +1,14 @@
 <template>
   <svg viewBox="0 0 30 30">
-    <rect v-if="colors.length == 1"
+    <defs>
+      <pattern id="diagonalHatch" width="5" height="10" patternUnits="userSpaceOnUse">
+        <line x1="0" y1="0" x2="0" y2="10" style="stroke:orange; stroke-width:4" />
+      </pattern>
+    </defs>
+    <rect v-if="computedColors.length == 1"
           stroke="#b3b3b3"
           stroke-width="0.5"
-          :fill="colors[0]"
+          :fill="computedColors"
           :class="classes"
           width="30"
           height="30"
@@ -11,11 +16,11 @@
           @mouseleave='hoverEnd()'
           @click='clickedEvent()'
     />
-    <g v-else-if="colors.length > 1">
+    <g v-else-if="computedColors.length > 1">
       <polygon v-for="(polygon, index) in polygons"
                :class="classes"
                :points="polygon"
-               :fill="colors[index]"
+               :fill="computedColors[index]"
               @mouseenter='hoverStart(index)'
               @mouseleave='hoverEnd(index)'
               @click='clickedEvent(index)'
@@ -49,7 +54,20 @@ const EventSquare = {
         case 2: return this.twoPolygons
         case 3: return this.threePolygons
         case 4: return this.fourPolygons
+        //edge case for full year with three actors
+        case 5: return this.threePolygonsSplit
       }
+    },
+    computedColors () {
+      return this.colors.map ( color => {
+        if (!color) {
+          return "white";
+        }
+        if (color.toLowerCase() === "native") {
+          return "url(#diagonalHatch)";
+        }
+        return color;
+      })
     },
     twoPolygons () {
       const left = 0;
@@ -74,6 +92,17 @@ const EventSquare = {
       const topTriangle2 = `${left}, ${top} ${left}, ${top + 30} ${left + 15}, ${top + 15}`;
       return [topTriangle1, topTriangle2, this.twoPolygons[1]];
     },
+    //edge case for full year with three actors
+    threePolygonsSplit () {
+      const left = 0;
+      const top = 0;
+      const botTriangle1 = `${left + 15}, ${top + 15} ${left + 30}, ${top} ${left + 30}, ${top + 30}`;
+      const botTriangle2 = `${left + 15}, ${top + 15} ${left}, ${top + 30} ${left + 30}, ${top + 30}`;
+      const threePol = this.threePolygons;
+      threePol.pop();
+      threePol.push(botTriangle1, botTriangle2);
+      return threePol;
+    },
     classes() {
       return {
         'highlight': this.highlighted
@@ -82,7 +111,6 @@ const EventSquare = {
   },
   methods: {
     clickedEvent(i) {
-      console.log("emitted", this.year, this.type, i)
       this.$emit(events.eventClicked, {
         year: this.year,
         type: this.type,

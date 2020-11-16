@@ -1,0 +1,134 @@
+[
+  {
+    "year": 1501,
+    "actors": ["England"],
+    "squares": [6],
+    "event": "Henry VII. grants patent for colonizing America."
+  },
+  {
+    "year": 1512,
+    "actors": ["Spain"],
+    "squares": [8],
+    "event": "Ponce de Leon discovers Florida."
+  },
+  {
+    "year": 1517,
+    "actors": ["England"],
+    "squares": [8],
+    "event": "Sebastian Cabot's last voyage in the English service."
+  },
+  {
+    "year": 1520,
+    "actors": ["Americas"],
+    "squares": [3],
+    "event": "Chicorans enslaved by the Spanish"
+  },
+  {
+    "year": 1520,
+    "actors": ["Spain"],
+    "squares": [8],
+    "event": "Vázquez de Ayllón's Piracy on Chicora."
+  },
+  {
+    "year": 1523,
+    "actors": ["France"],
+    "squares": [8],
+    "event": "Verrazzani explores American coasts for France."
+  },
+  {
+    "year": 1525,
+    "actors": ["Spain"],
+    "squares": [8],
+    "event": "Stephen Gomez tries to discover North West Passage to India for Spain."
+  },
+  {
+    "year": 1526,
+    "actors": ["Spain"],
+    "squares": [8],
+    "event": "Pamphilo de Narvaez attempts to conquer Florida."
+  },
+  {
+    "year": 1534,
+    "actors": ["France"],
+    "squares": [8],
+    "event": "James Cartier discovers River St. Lawrence."
+  },
+  {
+    "year": 1537,
+    "actors": ["Spain"],
+    "squares": [8],
+    "event": "Ferdinand de Soto attempts to conquer Florida."
+  },
+  {
+    "year": 1540,
+    "actors": ["France"],
+    "squares": [9],
+    "event": "Roberval and Cartier try in vain to colonize Canada."
+  },
+  {
+    "year": 1542,
+    "actors": ["Spain"],
+    "squares": [9],
+    "event": "Ferdinand de Soto dies on the Mississippi."
+  },
+  {
+    "year": 1562,
+    "actors": ["France"],
+    "squares": [8],
+    "event": "Coligny sends a Huguenot Colony to America."
+  },
+  {
+    "year": 1565,
+    "actors": ["Spain"],
+    "squares": [1],
+    "event": "Menéndez conquers the French colony (founding St. Augustine)"
+  },
+  {
+    "year": 1565,
+    "actors": ["Spain", "France"],
+    "squares": [2],
+    "event": "Menéndez conquers the French colony (founding St. Augustine)"
+  },
+  {
+    "year": 1565,
+    "actors": ["Spain"],
+    "squares": [5, 8],
+    "event": "Foundation of St. Augustine by Menéndez"
+  },
+  {
+    "year": 1565,
+    "actors": ["France"],
+    "squares": [3],
+    "event": "Menéndez conquers the French colony (founding St. Augustine)"
+  },
+  {
+    "year": 1576,
+    "actors": ["England"],
+    "squares": [8],
+    "event": "Martin Frobisher renews English Explorations."
+  },
+{
+    "year": 1578,
+    "actors": ["England"],
+    "squares": [8, 9],
+    "event": "Sir Humphrey Gilbert's Voyage and Death."
+  },
+ {
+    "year": 1579,
+    "actors": ["England"],
+    "squares": [8],
+    "event": "Sir Francis Drake discovers Oregon, and names it New Albion."
+  },
+  {
+    "year": 1584,
+    "actors": ["England"],
+    "squares": [8],
+    "event": "Sir Walter Raleigh gets patent to colonize."
+  },
+  {
+    "year": 1585,
+    "actors": ["England"],
+    "squares": [8],
+    "event": "Sir W. R.'s unsuccessful colony at Roanoke, carried out by Sir Richard Grenville."
+  }
+]

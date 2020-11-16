@@ -1,0 +1,758 @@
+[
+  {
+    "year": 1701,
+    "event": "French Found Detroit and Kaskasia",
+    "squares": [
+      5
+    ],
+    "actors": [
+      "France"
+    ]
+  },
+  {
+    "year": 1704,
+    "event": "French and Native American allies massacre English settlement in Deerfield, New Hampshire (Raid on Deerfield)",
+    "squares": [
+      1
+    ],
+    "actors": [
+      "France",
+      "Americas",
+      "England"
+    ]
+  },
+  {
+    "year": 1708,
+    "event": "French and Native American allies massacre English settlement in Haverhill, New Hampshire (Raid on Haverhill)",
+    "squares": [
+      1
+    ],
+    "actors": [
+      "France",
+      "Americas",
+      "England"
+    ]
+  },
+  {
+    "year": 1710,
+    "event": "English Conquer Portroyal in Acadia",
+    "squares": [
+      2
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1713,
+    "event": "Peace of Urecht restores all conquests to France",
+    "squares": [
+      6
+    ],
+    "actors": [
+      "England",
+      "France"
+    ]
+  },
+  {
+    "year": 1715,
+    "event": "Tuscarooras, expelled from their native hunting grounds in South Carolina by German Emigrants, join the Five Nations",
+    "squares": [
+      3
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1718,
+    "event": "Founding of New Orleans",
+    "squares": [
+      5
+    ],
+    "actors": [
+      "France"
+    ]
+  },
+  {
+    "year": 1725,
+    "event": "Death of the Jesuit Missionary Sébastien Râle in Maine",
+    "squares": [
+      9
+    ],
+    "actors": [
+      "France"
+    ]
+  },
+  {
+    "year": 1728,
+    "event": "Destruction of the Natchez tribe by the French",
+    "squares": [
+      1
+    ],
+    "actors": [
+      "France"
+    ]
+  },
+  {
+    "year": 1728,
+    "event": "Destruction of the Natchez tribe by the French",
+    "squares": [
+      2
+    ],
+    "actors": [
+      "France",
+      "Americas"
+    ]
+  },
+  {
+    "year": 1728,
+    "event": "Destruction of the Natchez tribe by the French",
+    "squares": [
+      3
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1732,
+    "event": "Georgia Washington born in Virginia",
+    "squares": [
+      7
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1733,
+    "event": "Georgia founded by James Oglethorpe",
+    "squares": "full",
+    "actors": [
+      "England"
+    ]
+  },
+  {
+    "year": 1742,
+    "event": "Oglethorpe and Native American allies drive Spaniards out of Georgia",
+    "squares": [
+      1
+    ],
+    "actors": [
+      "England"
+    ]
+  },
+  {
+    "year": 1742,
+    "event": "Oglethorpe and Native American allies drive Spaniards out of Georgia",
+    "squares": [
+      2
+    ],
+    "actors": [
+      "Americas",
+      "Spain"
+    ]
+  },
+  {
+    "year": 1742,
+    "event": "Oglethorpe and Native American allies drive Spaniards out of Georgia",
+    "squares": [
+      3
+    ],
+    "actors": [
+      "Spain"
+    ]
+  },
+  {
+    "year": 1745,
+    "event": "Louisburg captured by William Pepperell of Boston",
+    "squares": [
+      1
+    ],
+    "actors": [
+      "England",
+      "France"
+    ]
+  },
+  {
+    "year": 1748,
+    "event": "Peace of Aix-le-Chapelle restores Louisburg to France",
+    "squares": [
+      6
+    ],
+    "actors": [
+      "France",
+      "England"
+    ]
+  },
+  {
+    "year": 1750,
+    "event": "Franklin's experiments on electricity?",
+    "squares": [
+      8
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1754,
+    "event": "Washington's mission to the Frence, at Venango. His victory at Great Meadows.",
+    "squares": [
+      1
+    ],
+    "actors": [
+      "England",
+      "France"
+    ]
+  },
+  {
+    "year": 1754,
+    "event": "Native American depredations were made upon the frontiers of Maine",
+    "squares": [
+      8
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1755,
+    "event": "Braddock defeated by French",
+    "squares": [
+      1
+    ],
+    "actors": [
+      "France",
+      "Americas"
+    ]
+  },
+  {
+    "year": 1755,
+    "event": "Expulsion of the Acadians",
+    "squares": [
+      3
+    ],
+    "actors": [
+      "France"
+    ]
+  },
+  {
+    "year": 1758,
+    "event": "Final capture of Louisburg by the English",
+    "squares": [
+      1
+    ],
+    "actors": [
+      "England",
+      "France"
+    ]
+  },
+  {
+    "year": 1759,
+    "event": "Quebec captured.",
+    "squares": [
+      1
+    ],
+    "actors": [
+      "England",
+      "France"
+    ]
+  },
+  {
+    "year": 1759,
+    "event": "Wolfe and Montcalm both fall",
+    "squares": [
+      9
+    ],
+    "actors": [
+      "England",
+      "France"
+    ]
+  },
+  {
+    "year": 1760,
+    "event": "English conquer Canada and the French lose it",
+    "squares": [
+      2
+    ],
+    "actors": [
+      "England",
+      "France"
+    ]
+  },
+  {
+    "year": 1760,
+    "event": "English conquer Canada and the French lose it",
+    "squares": [
+      3
+    ],
+    "actors": [
+      "France"
+    ]
+  },
+  {
+    "year": 1763,
+    "event": "Treaty of Paris",
+    "squares": [
+      6
+    ],
+    "actors": [
+      "England",
+      "France"
+    ]
+  },
+  {
+    "year": 1763,
+    "event": "Pontiac's Conspiracy",
+    "squares": [
+      8
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1765,
+    "event": "Stamp Act (repealed the next year)",
+    "squares": [
+      6
+    ],
+    "actors": [
+      "England"
+    ]
+  },
+  {
+    "year": 1767,
+    "event": "Parliament imposes duties on tea and other articles imported by the Colonies",
+    "squares": [
+      6
+    ],
+    "actors": [
+      "England"
+    ]
+  },
+  {
+    "year": 1769,
+    "event": "Pontiac makes treaty of peace",
+    "squares": [
+      6
+    ],
+    "actors": [
+      "England",
+      "Americas"
+    ]
+  },
+  {
+    "year": 1769,
+    "event": "Pontiac killed",
+    "squares": [
+      9
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1770,
+    "event": "Boston Massacre",
+    "squares": [
+      3
+    ],
+    "actors": [
+      "England",
+      "Americas"
+    ]
+  },
+  {
+    "year": 1770,
+    "event": "James Otis and Josiah Quincy defend soldiers charged in Boston Massacre",
+    "squares": [
+      8
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1773,
+    "event": "Boston Tea Party and other demonstrations",
+    "squares": [
+      6
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1774,
+    "event": "First Continental Congress at Philidelphia",
+    "squares": [
+      5
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1774,
+    "event": "British Parliament passes the Port Bill",
+    "squares": [
+      6
+    ],
+    "actors": [
+      "England"
+    ]
+  },
+  {
+    "year": 1775,
+    "event": "Revolutionary War begins",
+    "squares": "full",
+    "actors": [
+      "Americas",
+      "England"
+    ]
+  },
+  {
+    "year": 1775,
+    "event": "General Montgomery dies in Quebec",
+    "squares": [
+      9
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1776,
+    "event": "Declaration of Independence; American victories in the Revolutionary War",
+    "squares": "full",
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1776,
+    "event": "British defeat in the battle of Trenton",
+    "squares": [
+      3
+    ],
+    "actors": [
+      "England"
+    ]
+  },
+  {
+    "year": 1777,
+    "event": "Revolutionary War continues",
+    "squares": "full",
+    "actors": [
+      "Americas",
+      "England"
+    ]
+  },
+  {
+    "year": 1777,
+    "event": "Embassy to France",
+    "squares": [
+      6
+    ],
+    "actors": [
+      "Americas",
+      "France"
+    ]
+  },
+  {
+    "year": 1777,
+    "event": "Lafayette and French officers join the war",
+    "squares": [
+      8
+    ],
+    "actors": [
+      "France"
+    ]
+  },
+  {
+    "year": 1778,
+    "event": "Victory at Valley Forge",
+    "squares": [
+      1
+    ],
+    "actors": [
+      "Americas",
+      "England"
+    ]
+  },
+  {
+    "year": 1778,
+    "event": "Savannah taken by the British",
+    "squares": [
+      2
+    ],
+    "actors": [
+      "England",
+      "Americas"
+    ]
+  },
+  {
+    "year": 1778,
+    "event": "Defeat on Quaker Hill",
+    "squares": [
+      3
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1778,
+    "event": "Alliance with France",
+    "squares": [
+      6
+    ],
+    "actors": [
+      "Americas",
+      "France"
+    ]
+  },
+  {
+    "year": 1778,
+    "event": "Massacre at Wyoming by Tories and Iroquois allies",
+    "squares": [
+      9
+    ],
+    "actors": [
+      "England",
+      "Americas"
+    ]
+  },
+  {
+    "year": 1779,
+    "event": "General losses for the Americans, especially at the South",
+    "squares": "full",
+    "actors": [
+      "England",
+      "Americas"
+    ]
+  },
+  {
+    "year": 1780,
+    "event": "Victories at Hanging Rock and King's Mountain",
+    "squares": "full",
+    "actors": [
+      "Americas",
+      "England"
+    ]
+  },
+  {
+    "year": 1780,
+    "event": "French reinforcement, under the command of Count Rochambeau",
+    "squares": [
+      6
+    ],
+    "actors": [
+      "Americas",
+      "France"
+    ]
+  },
+  {
+    "year": 1780,
+    "event": "Treason of Benedict Arnold",
+    "squares": [
+      8
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1780,
+    "event": "Major Andre's death",
+    "squares": [
+      9
+    ],
+    "actors": [
+      "England"
+    ]
+  },
+  {
+    "year": 1781,
+    "event": "Victories at Cowpens; Guildfort Court House, Eutaw Springs, and Yorktown end the war",
+    "squares": "full",
+    "actors": [
+      "Americas",
+      "France",
+      "England"
+    ]
+  },
+  {
+    "year": 1783,
+    "event": "England acknowledges Independence of U.S.",
+    "squares": "full",
+    "actors": [
+      "Americas",
+      "England"
+    ]
+  },
+  {
+    "year": 1787,
+    "event": "Shay's Rebellion",
+    "squares": [
+      1
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1787,
+    "event": "Constitutional Convention",
+    "squares": [
+      5
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1789,
+    "event": "Federal Union begins. Washington takes office as President.",
+    "squares": "full",
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1790,
+    "event": "General Harmar defeated in Northwest Indian War",
+    "squares": [
+      1
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1791,
+    "event": "General St. Clair defeated in Northwest Indian War",
+    "squares": [
+      1
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1791,
+    "event": "Vermont Admitted to the Union",
+    "squares": [
+      2
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1792,
+    "event": "Kentucy separated from Virginia, and admitted",
+    "squares": [
+      2
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1794,
+    "event": "General Wayne ends the Northwest Indian War",
+    "squares": [
+      1
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1794,
+    "event": "Jay's Treaty is signed",
+    "squares": [
+      6
+    ],
+    "actors": [
+      "England",
+      "Americas"
+    ]
+  },
+  {
+    "year": 1795,
+    "event": "Treaty made with Barbary Powers",
+    "squares": [
+      6
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1797,
+    "event": "John Adams takes office as 2nd President of the United States",
+    "squares": [
+      5
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1798,
+    "event": "Short French War",
+    "squares": [
+      1
+    ],
+    "actors": [
+      "Americas",
+      "France"
+    ]
+  },
+  {
+    "year": 1799,
+    "event": "Tenessee admitted to the Union",
+    "squares": [
+      2
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1799,
+    "event": "Washington's death",
+    "squares": [
+      9
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1800,
+    "event": "Federal Government moved from Philidelphia to the City of Washington, in the District of Columbia",
+    "squares": [
+      5
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1800,
+    "event": "Treaty of peace with Bonaparte",
+    "squares": [
+      6
+    ],
+    "actors": [
+      "Americas",
+      "France"
+    ]
+  }
+]

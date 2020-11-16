@@ -16,6 +16,7 @@
     "app:dev": "cd client && vue-cli-service serve",
     "start:dev": "run-p api:dev app:dev",
     "api": "NODE_ENV=production forever start server-express/app.js",
+    "mongo:wsl": "sudo service mongodb start",
     "start": "run-s build api",
     "start:reset": "RESET_DB=true npm run start",
     "restart": "run-s stop start",

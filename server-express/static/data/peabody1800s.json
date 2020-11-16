@@ -1,0 +1,738 @@
+[
+  {
+    "year": 1801,
+    "event": "Thomas Jefferson, third President of U.S.A., takes office",
+    "squares": [
+      5
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1802,
+    "event": "Ohio, 17th State, admitted to Union",
+    "squares": [
+      2
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1803,
+    "event": "Difficulties with Tripoli",
+    "squares": [
+      1
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1803,
+    "event": "Jefferson buys Louisiana",
+    "squares": [
+      8
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1804,
+    "event": "Lear's treaty with Barbary Powers",
+    "squares": [
+      6
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1804,
+    "event": "Decatur's and Eaton's exploits in the Barbary States",
+    "squares": [
+      8
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1804,
+    "event": "Hamilton's death",
+    "squares": [
+      9
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1807,
+    "event": "Foreign slave trade abolished",
+    "squares": [
+      6
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1807,
+    "event": "Burr's trial",
+    "squares": [
+      8
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1809,
+    "event": "James Madison, fourth President of U.S.A., takes office",
+    "squares": [
+      5
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1811,
+    "event": "Battle of Tippecanoe",
+    "squares": [
+      1
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1811,
+    "event": "Tecumseh's confederation",
+    "squares": [
+      8
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1812,
+    "event": "War with England",
+    "squares": [
+      1
+    ],
+    "actors": [
+      "Americas",
+      "England"
+    ]
+  },
+  {
+    "year": 1812,
+    "event": "Louisiana admitted",
+    "squares": [
+      2
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1812,
+    "event": "British losses from the naval victories of Commodores Hull, Jones, Decatur, Bainbridge, and the American privateers; and the land victories of Colonels Wool, Brown, and Miller.",
+    "squares": [
+      3
+    ],
+    "actors": [
+      "England"
+    ]
+  },
+  {
+    "year": 1812,
+    "event": "Gen. Hull's surrender of Detroit",
+    "squares": [
+      6
+    ],
+    "actors": [
+      "Americas",
+      "England"
+    ]
+  },
+  {
+    "year": 1813,
+    "event": "Victories of Winchester, Croghan, Perry, Harrison, Scott, and Jacksan by land; and of Lawrence, Porster, Allen, and Burroughs by sea.",
+    "squares": "full",
+    "actors": [
+      "Americas",
+      "England"
+    ]
+  },
+  {
+    "year": 1813,
+    "event": "Tecumseh killed",
+    "squares": [
+      9
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1814,
+    "event": "Victories of Fort Erie, Chippeway, Lundy's Lane, Baltimore, Plattsburg, and in Florida.",
+    "squares": "full",
+    "actors": [
+      "Americas",
+      "England"
+    ]
+  },
+  {
+    "year": 1814,
+    "event": "English capitulate at Ghent, notwithstanding their successes on the coast, burning of Washington, etc.",
+    "squares": [
+      6
+    ],
+    "actors": [
+      "Americas",
+      "England"
+    ]
+  },
+  {
+    "year": 1815,
+    "event": "Jackson's final victory at New Orleans",
+    "squares": [
+      1
+    ],
+    "actors": [
+      "Americas",
+      "England"
+    ]
+  },
+  {
+    "year": 1815,
+    "event": "Treaty with Algiers",
+    "squares": [
+      6
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1815,
+    "event": "Decatur's victories at Algiers (Second Barbary War)",
+    "squares": [
+      8
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1816,
+    "event": "Indiana, 19th State, admitted",
+    "squares": [
+      2
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1816,
+    "event": "United States Bank rechartered",
+    "squares": [
+      6
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1817,
+    "event": "James Monroe, fifth President, takes office",
+    "squares": [
+      1
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1817,
+    "event": "Mississippi admitted",
+    "squares": [
+      2
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1817,
+    "event": "First Seminole War begins",
+    "squares": [
+      5
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1818,
+    "event": "Illinois, 21st State, admitted to Union",
+    "squares": [
+      2
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1819,
+    "event": "Alabama, 22nd State, admitted to Union",
+    "squares": [
+      2
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1820,
+    "event": "Maine, 23rd State, admitted to Union",
+    "squares": [
+      2
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1820,
+    "event": "Missouri compromise signed, violating ordinance of 1787",
+    "squares": [
+      6
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1821,
+    "event": "Missouri, 24th State, admitted to Union.",
+    "squares": [
+      2
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1821,
+    "event": "Controvery in Congress surrounding Missouri Compromise",
+    "squares": [
+      6
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1824,
+    "event": "Great Protective Tariff",
+    "squares": [
+      6
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1824,
+    "event": "Lafayette's visit",
+    "squares": [
+      8
+    ],
+    "actors": [
+      "France"
+    ]
+  },
+  {
+    "year": 1825,
+    "event": "Join Quincy Adams, sixth President, takes office",
+    "squares": [
+      5
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1825,
+    "event": "Treaty with the Creeks after conflicts in Georgia",
+    "squares": [
+      6
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1826,
+    "event": "Adams and Jefferson die, July 4th",
+    "squares": [
+      9
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1827,
+    "event": "Anti-Masonry movement",
+    "squares": [
+      6
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1827,
+    "event": "Morgan's abduction",
+    "squares": [
+      9
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1829,
+    "event": "Andrew Jacsion, seventh President, takes office",
+    "squares": [
+      5
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1830,
+    "event": "Treaty of United States with turkey",
+    "squares": [
+      6
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1832,
+    "event": "Blackhawk's War",
+    "squares": [
+      1
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1832,
+    "event": "Nullification in South Carolina",
+    "squares": [
+      6
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1832,
+    "event": "Jackson lays veto on the United States Bank",
+    "squares": [
+      8
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1833,
+    "event": "Jackson removes deposits from U.S. Bank",
+    "squares": [
+      8
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1835,
+    "event": "Jackson's proclamation against the french",
+    "squares": [
+      8
+    ],
+    "actors": [
+      "Americas",
+      "France"
+    ]
+  },
+  {
+    "year": 1835,
+    "event": "Death of Lafayette",
+    "squares": [
+      9
+    ],
+    "actors": [
+      "France"
+    ]
+  },
+  {
+    "year": 1836,
+    "event": "Florida War begins with massacre of Dade's command",
+    "squares": "full",
+    "actors": [
+      "Americas",
+      "Native"
+    ]
+  },
+  {
+    "year": 1837,
+    "event": "Martin Van Buren, eighth President, takes office",
+    "squares": [
+      5
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1838,
+    "event": "Mormon War",
+    "squares": [
+      1
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1838,
+    "event": "Insurrection in Canada",
+    "squares": [
+      6
+    ],
+    "actors": [
+      "England",
+      "Americas"
+    ]
+  },
+  {
+    "year": 1838,
+    "event": "Van Buren's proclamation about the Canada difficulties",
+    "squares": [
+      8
+    ],
+    "actors": [
+      "Americas",
+      "England"
+    ]
+  },
+  {
+    "year": 1839,
+    "event": "Difficulties on the frontiers of Maine and new Brunswick compromised for a time, by Scott, without a war",
+    "squares": [
+      6
+    ],
+    "actors": [
+      "Americas",
+      "England"
+    ]
+  },
+  {
+    "year": 1841,
+    "event": "William H. Harrison, ninth President, takes office. John Tyler succeeds after Harrison's death",
+    "squares": [
+      5
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1841,
+    "event": "William H. Harrison dies",
+    "squares": [
+      9
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1842,
+    "event": "Dorr's insurrection in Rhode Island",
+    "squares": [
+      1
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1842,
+    "event": "Ashburton treaty between the U.S. and British North American colonies",
+    "squares": [
+      6
+    ],
+    "actors": [
+      "Americas",
+      "England"
+    ]
+  },
+  {
+    "year": 1842,
+    "event": "Colonel Worth brought the Florida war to an end",
+    "squares": [
+      8
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1844,
+    "event": "Texas applies for admission; not received till next year",
+    "squares": [
+      2
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1845,
+    "event": "Second Mormon War",
+    "squares": [
+      1
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1845,
+    "event": "Iowa and Florida admitted",
+    "squares": [
+      2
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1845,
+    "event": "James K. Polk, eleventh President, takes office",
+    "squares": [
+      5
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1846,
+    "event": "Oregon Treaty",
+    "squares": [
+      6
+    ],
+    "actors": [
+      "Americas",
+      "England"
+    ]
+  },
+  {
+    "year": 1846,
+    "event": "Mexican-American War begins",
+    "squares": "full",
+    "actors": [
+      "Americas",
+      "Mexico"
+    ]
+  },
+  {
+    "year": 1847,
+    "event": "Taylor's and Scott's victories in the Mexican-American War",
+    "squares": "full",
+    "actors": [
+      "Americas",
+      "Mexico"
+    ]
+  },
+  {
+    "year": 1848,
+    "event": "Treaty of Guadalupe Hidalgo",
+    "squares": [
+      6
+    ],
+    "actors": [
+      "Americas",
+      "Mexico"
+    ]
+  },
+  {
+    "year": 1848,
+    "event": "James Marshall discovers the gold in California, at Sutter's mill",
+    "squares": [
+      8
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1849,
+    "event": "Zachary Taylor, twelfth President, takes office",
+    "squares": [
+      5
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1850,
+    "event": "California, 31st State, admitted free.",
+    "squares": [
+      2
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1850,
+    "event": "Domestic slave-trade abolished in District of Columbia; Stringent Fugitive Slave Law promulgated (Compromise of 1850)",
+    "squares": [
+      6
+    ],
+    "actors": [
+      "Americas"
+    ]
+  },
+  {
+    "year": 1850,
+    "event": "President Taylor dies",
+    "squares": [
+      9
+    ],
+    "actors": [
+      "Americas"
+    ]
+  }
+]

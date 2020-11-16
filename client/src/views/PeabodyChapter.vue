@@ -4,15 +4,6 @@
       A Method of Making History: Elizabeth Palmer Peabody’s Chronological
       Charts
     </template>
-    <!--    <div style="display:flex;">-->
-    <!--      <peabody-grid-->
-    <!--        :id="'peabody-vis-1'"-->
-    <!--        style='flex: 1'-->
-    <!--        width='45vh'-->
-    <!--        height='45vh'-->
-    <!--        :mutableDataset="'my-peabody'"-->
-    <!--        :staticDataset='"1"'/>-->
-    <!--    </div>-->
     <Section>
       <div>
         <p>
@@ -273,7 +264,7 @@
         width='100%'
         :highlighted="overlayPos"
         @hover="num =>this.overlayPos = Number(`${num}.1`)"
-        :staticDataset="'1'"/>
+        :staticDataset="staticDatasetId"/>
 
       <div>
         <p>
@@ -351,11 +342,6 @@
           past.
           <FootnoteRef :number="10"></FootnoteRef>
         </p>
-        <PeabodyMutable
-          :width="'40vh'"
-          class="centered-image"
-          :staticDataset="'1'"
-          :mutableDataset="'my-peabody'"></PeabodyMutable>
       </div>
     </Section>
     <Section title="Making Knowledge by Making Charts">
@@ -372,16 +358,7 @@
         create the visualizations they would
         then study.
       </p>
-      <div class="multi-canvas">
-        <ul>
-          <li><a class="blue-hover" :style="colorIfSelected(0)" @mouseover="selectedCentury = 0">Blank</a></li>
-          <li><a class="blue-hover" :style="colorIfSelected(1500)" @mouseover="selectedCentury = 1500">1500s</a></li>
-          <li><a class="blue-hover" :style="colorIfSelected(1600)" @mouseover="selectedCentury = 1600">1600s</a></li>
-          <li><a class="blue-hover" :style="colorIfSelected(1700)" @mouseover="selectedCentury = 1700">1700s</a></li>
-          <li><a class="blue-hover" :style="colorIfSelected(1800)" @mouseover="selectedCentury = 1800">1800s</a></li>
-        </ul>
-        <PeabodyCanvas :width="'40vh'" :century="selectedCentury"></PeabodyCanvas>
-      </div>
+      <SplitCanvasQuiz :width="'100%'"/>
       <div>
         <p>
           The prospect of creating a chronological chart is quite daunting, as
@@ -393,6 +370,25 @@
           abandoned halfway; and then a shift in purpose from study to play, the
           grid becoming a canvas for geometric abstraction.
         </p>
+      </div>
+      <Scrollytell :scroll-slots="4" :margin="'20vh'">
+        <template v-slot:1>
+          <CaptionedImage src="peabodyblank/1994-rect.png">Caption goes here</CaptionedImage>
+        </template>
+        <template v-slot:2>
+          <CaptionedImage src="peabodyblank/1977-rect.png">Caption goes here</CaptionedImage>
+        </template>
+        <template v-slot:3>
+          <div class="horiz-flex">
+            <CaptionedImage src="peabodyblank/1983-rect.png">Caption goes here</CaptionedImage>
+            <CaptionedImage src="peabodyblank/1984-rect.png">Caption goes here</CaptionedImage>
+          </div>
+        </template>
+        <template v-slot:4>
+
+        </template>
+      </Scrollytell>
+      <div>
         <p>
           The Polish-American system is, above all else, hard. But its
           difficulty seems to be both a liability of the form and also the
@@ -685,7 +681,6 @@
     <!--        @hover-start="hoverStart"-->
     <!--        @hover-end="hoverEnd"-->
 
-
   </chapter-scaffold>
 </template>
 
@@ -704,11 +699,13 @@
   import PeabodyCanvas from "../components/vis/peabody/PeabodyCanvas";
   import Footnotes from "../components/general/Footnotes"
   import FootnoteReference from "../components/general/FootnoteReference";
+  import CaptionedImage from "../components/general/CaptionedImage";
   import EventSquare
     from "../components/vis/peabody/newpeabodygrid/EventSquare";
   import {actorColors, dataToYears} from "../helpers/PeabodyUtils";
   import * as d3 from "d3";
   import PeabodyQuiz from "../components/vis/peabody/quiz/PeabodyQuiz";
+  import SplitCanvasQuiz from "../components/vis/peabody/newquiz/SplitCanvasQuiz";
 
   export default {
     name: "ThePeabodyChapter",
@@ -726,15 +723,16 @@
       MapScroller,
       EventSquare,
       Footnotes,
-      FootnoteRef: FootnoteReference
+      FootnoteRef: FootnoteReference,
+      SplitCanvasQuiz,
+      CaptionedImage
     },
     mixins: [Highlightable(".chapter__main")],
     data() {
       return {
         d3: d3, //Makes the library accessible from within the template. (TODO: get rid of this, only access d3 from script)
-        staticDatasetId: '1',
+        staticDatasetId: 'peabody1600',
         century: 1600,
-        selectedCentury: 0, //0 = blank. for the multi peabody canvas
         scrolled: false,
         scrolledMax: 0,
         mapPos: 0,
@@ -823,13 +821,6 @@
           }
         }
       },
-      colorIfSelected() {
-        return century => {
-          if (this.selectedCentury === century) {
-            return {color: 'orange'};
-          }
-        }
-      },
     },
     methods: {
       onRecreatedGridHover({year, type, sub}) {
@@ -852,6 +843,10 @@
 </script>
 
 <style scoped>
+
+  .horiz-flex {
+    display: flex;
+  }
 
   .event-box {
     position: relative;
@@ -886,27 +881,6 @@
     margin-right: auto;
   }
 
-  .multi-canvas {
-    margin-left: auto;
-    margin-right: auto;
-    width: 40vh;
-  }
-  .multi-canvas ul {
-    text-align: center;
-  }
-  .multi-canvas ul li {
-    display: inline-block;
-  }
-
-  .multi-canvas ul li:not(:first-child)::before {
-    content: '•';
-    font-size: 20px;
-    display: block;
-    float: left;
-    margin-left: 2px;
-    margin-right: 2px;
-    margin-top: -2px;
-  }
 
   .selected-event {
     /*border-left: 5px solid yellow;*/
