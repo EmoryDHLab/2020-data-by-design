@@ -636,6 +636,12 @@
         all, when presented with the outlines of history, take it upon ourselves
         to color them in.
       </p>
+      <PeabodyMutable
+        :staticDataset="'womensrights'"
+        :width="'50vh'"
+        :actors="womensRightsActorColors"
+        :mutableDataset="'womenshistory'">
+      </PeabodyMutable>
     </Section>
     <Footnotes>
       <template v-slot:1>
@@ -702,7 +708,7 @@
   import CaptionedImage from "../components/general/CaptionedImage";
   import EventSquare
     from "../components/vis/peabody/newpeabodygrid/EventSquare";
-  import {actorColors, dataToYears} from "../helpers/PeabodyUtils";
+  import {actorColors, womensRightsActorColors, dataToYears} from "../helpers/PeabodyUtils";
   import * as d3 from "d3";
   import PeabodyQuiz from "../components/vis/peabody/quiz/PeabodyQuiz";
   import SplitCanvasQuiz from "../components/vis/peabody/newquiz/SplitCanvasQuiz";
@@ -742,6 +748,7 @@
           progress: null
         },
         quizYears: [1619, 1620, 1629, 1630],
+        womensRightsActorColors,
         actorColors,
       };
     },

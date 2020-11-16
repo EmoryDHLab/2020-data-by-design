@@ -9,6 +9,7 @@
       :highlighted="editingNumber"
       :showIndicator="false"
       :mutableDataset="mutableDataset"
+      :actor-colors="actors"
       @event-clicked="handleEventClick"
     />
     <div class="sidebar">
@@ -17,6 +18,9 @@
       </p>
       <div v-else>
         <h1>{{editing.year}}</h1>
+        <h2 class="event-title">
+          {{currSquareEvent.event}}
+        </h2>
         <h2>
           <EventSquare width="16px"
                        :colors="currSquareActors.length ? currSquareActors.map(actor => actors[actor]) : ['lightgray']">
@@ -228,6 +232,11 @@ export default {
      margin-top: -1.5vh;
      margin-bottom: 1vh;
      font-size: 1.5vh;
+   }
+
+   h2.event-title {
+     font-family: Roboto;
+     margin-bottom: 2vh;
    }
   .actor-select optgroup {
     font-size: 16pt;

@@ -9,6 +9,12 @@ const actorColors = {
   "Native": "native"
 }
 
+const womensRightsActorColors = {
+  "Legislature": actorColors.England,
+  "Women": actorColors.Americas,
+  "Court": actorColors.France
+}
+
 const dataToYears = data => {
   //Passes actors arrays BY REFERENCE
   return data.reduce((yearsObj, curr) => {
@@ -52,4 +58,4 @@ const dataToYears = data => {
   }, {})
 }
 
-export { actorColors, dataToYears }
+export { actorColors, dataToYears, womensRightsActorColors }
