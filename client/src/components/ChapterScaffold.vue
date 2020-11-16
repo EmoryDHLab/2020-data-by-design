@@ -6,7 +6,7 @@
           id="nav-timeline"
           class="chapter__timeline-col__timeline --stick"
           width="100%"
-          height="100%"
+          height="90vh"
           :dataset="timelineData"
         ></component>
       </aside>
@@ -174,9 +174,9 @@ a.blue-hover:hover {
 
 .chapter__timeline-col__timeline {
   position: sticky;
-  top: 0;
-  width: 100%;
-  height: 100vh;
+  top: 10vh;
+  /*width: 100%;*/
+  /*height: 100vh;*/
 }
 
 .chapter__notebook-col {
@@ -187,7 +187,6 @@ a.blue-hover:hover {
 
 .chapter__notebook {
   position: sticky;
-  top: 0;
   width: 100%;
   height: 100vh;
 }

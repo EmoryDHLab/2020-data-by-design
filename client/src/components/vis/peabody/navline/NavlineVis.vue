@@ -1,16 +1,19 @@
 <template lang="html">
-  <svg width="3309" height="2523" viewBox="70 100 600 2500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg :width="width" :height="height" viewBox="70 100 600 2500" fill="none" xmlns="http://www.w3.org/2000/svg">
     <text x="250" y="210" class="heavy">Progress</text>
     <!--LEGENDS-->
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M270 2191H305V2226H270V2191Z" :fill=styles.color.defaultBlock />
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M480 2191H515V2226H480V2191Z" :fill=styles.color.image />
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M270 2248H305V2283H270V2248Z" :fill=styles.color.intVis />
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M480 2248H515V2283H480V2248Z" :fill=styles.color.stcVis />
-    <text x="340" y="2150" class="number" fill="#4A4A4A">LEGENDS</text>
-    <text x="320" y="2220" class="small">Highlights</text>
-    <text x="520" y="2220" class="small">Images</text>
-    <text x="520" y="2275" class="small">Static Vis.</text>
-    <text x="320" y="2275" class="small">Scrollytell</text>
+    <g style="transform: translateY(20vh)">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M270 2191H305V2226H270V2191Z" :fill=styles.color.defaultBlock />
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M480 2191H515V2226H480V2191Z" :fill=styles.color.image />
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M270 2248H305V2283H270V2248Z" :fill=styles.color.intVis />
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M480 2248H515V2283H480V2248Z" :fill=styles.color.stcVis />
+
+      <text x="340" y="2150" class="number" fill="#4A4A4A">LEGENDS</text>
+      <text x="320" y="2220" class="small">Highlights</text>
+      <text x="520" y="2220" class="small">Images</text>
+      <text x="520" y="2275" class="small">Static Vis.</text>
+      <text x="320" y="2275" class="small">Scrollytell</text>
+    </g>
 
     <!--Lines, ChapterBlocks, Numbers, Notes Init-->
     <rect :x="styles.line.left - styles.chapterBlock.width/2" :y="styles.line.start- styles.chapterBlock.width/2"
