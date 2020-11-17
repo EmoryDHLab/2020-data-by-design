@@ -7,7 +7,7 @@ const datasets = {
   0:'/../static/data/SoH1500.csv',
   1:'/../static/data/SoH1600.csv',
   2:'/../static/data/SoH1700.csv',
-  3:'/../static/data/SoH1800.csv'
+  3:'/../static/data/SoH1800.csv',
 }
 
 const toPeabodyFormat = (output, currentData) => {
