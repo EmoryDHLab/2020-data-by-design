@@ -217,7 +217,7 @@
           <FootnoteRef :number="5"></FootnoteRef>
         </p>
         <Scrollytell :scroll-slots="2"
-                     :top="210"
+                     :top="310"
                      :margin="'70vh'"
                      @scroll="onOverlayScroll">
           <template v-slot:fixed="{scrolled, progress}">
@@ -801,7 +801,7 @@
         if (this.overlayScroll.scrolled == 1) {
           const scale = d3.scaleLinear()
             .domain([0.25, 0.7])
-            .range([0, -350]);
+            .range([0, -310]);
           scale.clamp(true);
           const top = scale(this.overlayScroll.progress);
           if (top) styles.transform = `translateY(${top}px)`;
@@ -834,7 +834,6 @@
         this.overlayPos = Number(`${year - this.century}.${type}`);
       },
       onOverlayScroll({scrolled, progress}) {
-        console.log("got to scroll handler");
         this.overlayScroll.scrolled = scrolled;
         this.overlayScroll.progress = progress;
       },
