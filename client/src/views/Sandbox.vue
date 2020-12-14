@@ -1,21 +1,27 @@
 <template lang="html">
-  <div>
-    <PeabodyGrid :staticDataset="'1'" :mutableDataset="'1'">
-
-    </PeabodyGrid>
-    <PeabodyMutable :width="'400px'" :mutableDataset="'1'"></PeabodyMutable>
-  </div>
+  <DocRenderer docId="1wizLoDtZKwD8a39D6qv_mg8vhh4HtFiZ14q6rvH8LfY" :section-component="sectionComponent" :section-title-prop="'title'">
+    <template v-slot:TestSlot>
+      <b>Test slot!</b>
+    </template>
+    <template v-slot:AnotherSlot>
+      <p>Another slot goes here</p>
+    </template>
+  </DocRenderer>
 </template>
 
 <script>
+
+import Section from '@/components/chapters/Section';
 import Picline from '@/components/vis/Picline'
 import PicCollage from '@/components/vis/PicCollage'
 import EventSquare from '@/components/vis/peabody/newpeabodygrid/EventSquare'
 import PeabodyGrid from '@/components/vis/peabody/newpeabodygrid/PeabodyGrid'
 import PeabodyMutable from "../components/vis/peabody/PeabodyMutable";
+import DocRenderer from "../docs-integration/DocRenderer"
 
 export default {
   components: {
+    DocRenderer,
     PeabodyGrid,
     PeabodyMutable,
     Picline,
@@ -23,6 +29,7 @@ export default {
     EventSquare
   },
   data: () => ({
+    sectionComponent: Section,
     newImgYear: 1858,
     newImgPic: "bad/badder",
     focusedImg: "0",
