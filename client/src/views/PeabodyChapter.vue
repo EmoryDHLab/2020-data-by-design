@@ -13,7 +13,7 @@
           Emerson and Nathaniel Hawthorne. (Hawthorne
           was actually married to her sister, Sophia). But Peabody had impact in
           her own right: the bookstore that she ran
-          out of her home, in Boston, functioned as the de facto salon for the
+          out of her home, in Boston, functioned as the defacto salon for the
           transcendentalist movement. She edited and
           published the first version of Henry David Thoreau’s essay on civil
           disobedience. And she was an educational
