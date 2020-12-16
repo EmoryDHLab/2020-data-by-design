@@ -22,6 +22,13 @@ export default {
       type: String,
       default: "title"
     },
+    footnoteRefComponent: {
+      type: Object
+    },
+    footnoteRefProp: {
+      type: String,
+      default: "number"
+    },
     components: {
       type: Object,
       default () {
@@ -32,6 +39,29 @@ export default {
   },
   render (h) {
     const title = (this.docJson && this.docJson.metadata) ? this.docJson.metadata.title : this.docId;
+
+    const parseInner = innerData => {
+      debugger;
+      const tagMatches = innerData.matchAll(/\<(\w)>(.+)<\/\w>/g);
+      const elementsArray = [];
+      let lastIndex = 0;
+      for (const match of tagMatches) {
+        const tagName = match[1];
+        const tagInner = match[2];
+        const textBefore = innerData.slice(lastIndex, match.index);
+        if (textBefore) {
+          elementsArray.push(textBefore);
+        }
+        elementsArray.push(h(tagName, parseInner(tagInner)));
+        lastIndex = match.index + match[0].length;
+        console.dir(match);
+      }
+      const remaining = innerData.slice(lastIndex);
+      if (remaining) {
+        elementsArray.push(remaining);
+      }
+      return elementsArray;
+    }
 
     const createFromObj = (obj) => {
       const tag = Object.keys(obj)[0].toLowerCase();
@@ -67,12 +97,13 @@ export default {
         return h(tag, {attrs: {src: source, title, alt}});
       }
       if (typeof data == "string") {
-        return h(tag, {domProps: {innerHTML: data}});
+        return h(tag, parseInner(data));
       }
     }
 
     if (this.docJson && this.docJson.content) {
       const content = this.docJson.content;
+
       if (this.sectionRegex && this.sectionComponent) {
         const sections = [];
         content.forEach( (el, index) => {
@@ -103,6 +134,7 @@ export default {
            ));
         }
       }
+
       return h('div', content.map(createFromObj))
     }
   },
