@@ -41,26 +41,27 @@ export default {
     const title = (this.docJson && this.docJson.metadata) ? this.docJson.metadata.title : this.docId;
 
     const parseInner = innerData => {
-      debugger;
-      const tagMatches = innerData.matchAll(/\<(\w)>(.+)<\/\w>/g);
-      const elementsArray = [];
-      let lastIndex = 0;
-      for (const match of tagMatches) {
-        const tagName = match[1];
-        const tagInner = match[2];
-        const textBefore = innerData.slice(lastIndex, match.index);
-        if (textBefore) {
-          elementsArray.push(textBefore);
+      if (innerData) {
+        const dummy = document.createElement("template");
+        dummy.innerHTML = innerData;
+        const map = (arraylike, func) => Array.prototype.map.call(arraylike, func);
+        const nodeToVDOM = node => {
+          if (node.nodeType == Node.TEXT_NODE) {
+            //Footnotes and inline components checking goes here
+            return node.data;
+          }
+          const attrs = Object.fromEntries(
+            map(node.attributes,
+              (({name, value}) => ([name, value]))
+            )
+          );
+          if (node.hasChildNodes) {
+            return h(node.tagName, { attrs }, map(node.childNodes, nodeToVDOM));
+          }
+          return h(node.tagName, { attrs });
         }
-        elementsArray.push(h(tagName, parseInner(tagInner)));
-        lastIndex = match.index + match[0].length;
-        console.dir(match);
+        return map(dummy.content.childNodes, nodeToVDOM);
       }
-      const remaining = innerData.slice(lastIndex);
-      if (remaining) {
-        elementsArray.push(remaining);
-      }
-      return elementsArray;
     }
 
     const createFromObj = (obj) => {
