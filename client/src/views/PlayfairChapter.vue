@@ -1,5 +1,5 @@
 <template lang="html">
-  <chapter-scaffold v-bind:curChapter="'Playfair'">
+  <chapter-scaffold v-bind:curChapter="'Peabody'">
     <template slot='title'>
       Visualization as Argument: William Playfair and the View “Simple and Complete”
     </template>
@@ -119,110 +119,250 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
-import ChapterScaffold from '@/components/ChapterScaffold'
-import { EventBus } from '@/helpers/EventBus'
-import mutations from '@/store/dataset/types'
-import ch_mut from '@/store/chapters-old/types'
+  import {mapActions, mapGetters} from 'vuex'
+  import ChapterScaffold from '@/components/ChapterScaffold'
+  import TimelineVis from '@/components/vis/timeline/TimelineVis'
+  import PeabodyGrid from '@/components/vis/peabody/newpeabodygrid/PeabodyGrid'
+  import PeabodyMutable from '@/components/vis/peabody/PeabodyMutable'
+  import PeabodyTutorial from '@/components/vis/peabody/PeabodyTutorial'
+  import EventKey from "../components/vis/peabody/EventKey";
+  import Section from '@/components/chapters/Section'
+  import Highlightable from "@/mixins/Highlightable";
+  import Scrollytell from "../components/scrollytelling/Scrollytell";
+  import MapScroller from "../components/scrollytelling/MapScroller";
+  import PeabodyCanvas from "../components/vis/peabody/PeabodyCanvas";
+  import Footnotes from "../components/general/Footnotes"
+  import FootnoteReference from "../components/general/FootnoteReference";
+  import EventSquare
+    from "../components/vis/peabody/newpeabodygrid/EventSquare";
+  import {actorColors, dataToYears} from "../helpers/PeabodyUtils";
+  import * as d3 from "d3";
+  import PeabodyQuiz from "../components/vis/peabody/quiz/PeabodyQuiz";
+  import d3Impl from "../components/vis/playfair/creationProcess/D3Impl";
 
-export default {
-  name: 'PlayfairChapter',
-  components: {
-    ChapterScaffold,
-  },
-  data () {
-    return {
-      currentDataset: 0,
-      scrolled: false,
-      scrolledMax: 0,
-      imposter: {
-        color: "#ff00ff",
-        year: 1570,
-        desc: "imposter",
-        eventType: 3,
-        actor: 'England',
-        id: 300
-      }
-    }
-  },
-  methods: {
-    handleScroll () {
-        this.scrolled = window.scrollY > 0;
-        if (this.scrolled && window.scrollY > this.scrolledMax) {
-            let y = window.scrollY;
-            this.scrolledMax = y;
-            let idname = '0.0';
-            for (let ref in this.$refs) {
-                if (this.$refs[ref].offsetTop < y) {
-                    idname = ref.substring(4);
-                } else {
-                    break;
-                }
-            }
-            this.$store.commit(ch_mut.SET_PROGRESS_PLA, { id: idname });
-        }
+  export default {
+    name: "ThePeabodyChapter",
+    components: {
+      d3Impl,
+      PeabodyQuiz,
+      PeabodyGrid,
+      PeabodyMutable,
+      ChapterScaffold,
+      PeabodyTutorial,
+      EventKey,
+      TimelineVis,
+      Section,
+      Scrollytell,
+      PeabodyCanvas,
+      MapScroller,
+      EventSquare,
+      Footnotes,
+      FootnoteRef: FootnoteReference
     },
-    hoverStart (payload) {
-      console.log("hover start:", payload.datasetId)
-      if (!payload.data) return;
-      this.$store.commit(mutations.HIGHLIGHT_DATA, { id: payload.datasetId, data: payload.data })
-    },
-    hoverEnd (payload) {
-      console.log("hover end:", payload.datasetId)
-      if (!payload.data) return;
-      this.$store.commit(mutations.UNHIGHLIGHT_DATA, { id: payload.datasetId, data: payload.data })
-    },
-    mountDatasets () {
-      return this.$store.dispatch('loadDatasets')
-    },
-    scrollMeTo(part) {
-        let element = this.$refs[part];
-        let top = element.offsetTop;
-
-        window.scrollTo(0, top);
-    },
-  },
-  created () {
-    const self = this;
-    this.mountDatasets()
-      .then(() => {
-        const id = "helloWorld",
-          fromId = self.currentDataset,
-          options = { isMutable: true }
-        self.$store.commit('DUPLICATE_DATASET', { id, fromId, options })
-        self.currentDataset = "helloWorld"
-      });
-    this.$store.watch(
-        (state)=>{
-            return this.$store.getters.idName
+    mixins: [Highlightable(".chapter__main")],
+    data() {
+      return {
+        d3: d3, //Makes the library accessible from within the template. (TODO: get rid of this, only access d3 from script)
+        staticDatasetId: '1',
+        century: 1600,
+        selectedCentury: 0, //0 = blank. for the multi peabody canvas
+        scrolled: false,
+        scrolledMax: 0,
+        mapPos: 0,
+        overlayPos: 1.1,
+        overlayScroll: {
+          scrolled: null,
+          progress: null
         },
-        (newValue, oldValue)=>{
-            //something changed do something
-            this.scrollMeTo(newValue);
-        });
-    window.addEventListener('scroll', this.handleScroll);
-  },
-  destroyed () {
+        quizYears: [1619, 1620, 1629, 1630],
+        actorColors,
+      };
+    },
+    computed: {
+      peabodyData() {
+        return this.$store.getters["dataset/getDatasetById"](this.staticDatasetId);
+      },
+      peabodyYears() {
+        if (Array.isArray(this.peabodyData)) {
+          return dataToYears(this.peabodyData);
+        }
+      },
+      quizEvents() {
+        if (Array.isArray(this.peabodyData)) {
+          return this.peabodyData
+            .filter(entry => this.quizYears.includes(entry.year))
+            .sort((entry1, entry2) => entry1.year - entry2.year);
+        }
+      },
+      peabodyEvents() {
+        if (Array.isArray(this.peabodyData)) {
+          return this.peabodyData.reduce((yearObj, entry) => {
+            let event = {
+              event: entry.event,
+              actors: entry.actors,
+              squares: entry.squares == "full" ? [1, 2, 3, 4, 5, 6, 7, 8, 9] : entry.squares
+            };
+            if (!yearObj[entry.year]) {
+              yearObj[entry.year] = {};
+            }
+            const existingObj = yearObj[entry.year][event.event];
+            if (!existingObj) {
+              yearObj[entry.year][event.event] = event;
+            } else {
+              existingObj.squares = event.squares.concat(existingObj.squares);
+              existingObj.actors = [...new Set([...existingObj.actors, ...event.actors])]
+            }
+            return yearObj;
+          }, {})
+        }
+      },
+      overlayCurrYear() {
+        return Math.floor(this.overlayPos) + this.century;
+      },
+      overlayIntroParagraphStyles() {
+        const styles = {
+          position: 'sticky',
+          top: '60px'
+        };
+        if (this.overlayScroll.scrolled == 1) {
+          const scale = d3.scaleLinear()
+            .domain([0.25, 0.7])
+            .range([0, -350]);
+          scale.clamp(true);
+          const top = scale(this.overlayScroll.progress);
+          if (top) styles.transform = `translateY(${top}px)`;
+        } else if (this.overlayScroll.scrolled > 1) {
+          styles.opacity = 0;
+        }
+        return styles;
+      },
+      overlayEventKeyPos: {
+        get() {
+          return Math.round(10 * (this.overlayPos - Math.floor(this.overlayPos)));
+        },
+        set(newVal) {
+          this.overlayPos = Number(`${Math.floor(this.overlayPos)}.${newVal}`);
+        }
+      },
+      overlayEventKeyColors() {
+        if (this.peabodyYears) {
+          const index = Math.floor(this.overlayPos);
+          const yearData = this.peabodyYears[index + this.century];
+          if (yearData) {
+            return yearData.map(squareObj =>
+              squareObj ? squareObj.actors.map(actor => actorColors[actor]) : [false]);
+          }
+        }
+      },
+      colorIfSelected() {
+        return century => {
+          if (this.selectedCentury === century) {
+            return {color: 'orange'};
+          }
+        }
+      },
+    },
+    methods: {
+      onRecreatedGridHover({year, type, sub}) {
+        this.overlayPos = Number(`${year - this.century}.${type}`);
+      },
+      onOverlayScroll({scrolled, progress}) {
+        console.log("got to scroll handler");
+        this.overlayScroll.scrolled = scrolled;
+        this.overlayScroll.progress = progress;
+      },
+      ...mapActions("chapters", ["setChapter"]),
+    },
+    created() {
+      this.setChapter({title: "Peabody"});
+    },
+    destroyed() {
       window.removeEventListener('scroll', this.handleScroll);
-  }
-}
+    }
+  };
 </script>
 
 <style scoped>
+
+  .event-box {
+    position: relative;
+    top: 14vh;
+    left: 1.8vh;
+    margin-bottom: -300px;
+  }
+
+  .event-box ul {
+    list-style: none;
+    margin-left: 1.4vh;
+    padding-left: 0;
+  }
+
+  .event-box li {
+    display: flex;
+    align-items: center;
+  }
+
+  .event-box li svg {
+    margin-right: 5px;
+  }
+
+  .event-box-year {
+    font-family: monospace;
+    font-size: 2vh;
+  }
+
+  .centered-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .multi-canvas {
+    margin-left: auto;
+    margin-right: auto;
+    width: 40vh;
+  }
+  .multi-canvas ul {
+    text-align: center;
+  }
+  .multi-canvas ul li {
+    display: inline-block;
+  }
+
+  .multi-canvas ul li:not(:first-child)::before {
+    content: '•';
+    font-size: 20px;
+    display: block;
+    float: left;
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-top: -2px;
+  }
+
+  .selected-event {
+    /*border-left: 5px solid yellow;*/
+    /*background-color: yellow;*/
+    text-decoration: underline;
+  }
+
   .left-float {
-    float:left;
+    float: left;
   }
+
   .right-float {
-    float:right;
+    float: right;
   }
+
   .left-float.aligned {
-    padding-top: .5em;
+    padding-top: 0.5em;
     padding-right: 1em;
   }
+
   .right-float.aligned {
-    padding-top: .5em;
+    padding-top: 0.5em;
     padding-left: 1em;
   }
+
   p {
     text-align: justify;
   }
