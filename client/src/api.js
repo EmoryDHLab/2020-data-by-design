@@ -58,5 +58,10 @@ export default {
         clearAuthorization()
         throw err
       })
+  },
+
+  //Google Docs stuff!
+  getDoc(docID) {
+    return axios.get(`${url}/doc/${docID}`)
   }
 }
