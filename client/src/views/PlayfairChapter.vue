@@ -182,6 +182,60 @@
           <FootnoteRef :number="19"></FootnoteRef>
         </p>
         <!-- Visualization that shows difference b/t data and chart -->
+
+        <!--vis-->
+
+        <Scrollytell collect bottom-break :scrollSlots="9">
+          <template v-slot:fixed="{ scrolled, progress }">
+            <d3Impl :slideNumber="scrolled"/>
+          </template>
+          <template v-slot:1>
+            <p>
+              Canvas
+            </p>
+          </template>
+          <template v-slot:2>
+            <p>
+              X-axis
+            </p>
+          </template>
+          <template v-slot:3>
+            <p>
+              Y-axis
+            </p>
+          </template>
+          <template v-slot:4>
+            <p>
+              First Draft
+            </p>
+          </template>
+          <template v-slot:5>
+            <p>
+              bumpy line
+            </p>
+          </template>
+          <template v-slot:6>
+            <p>
+              smoother line
+            </p>
+          </template>
+          <template v-slot:7>
+            <p>
+              shapding
+            </p>
+          </template>
+          <template v-slot:8>
+            <p>
+              medallion
+            </p>
+          </template>
+          <template v-slot:9>
+            <p>
+              original data
+            </p>
+          </template>
+        </Scrollytell>
+        
         <p>
           For Playfair, his lack of data was not of concern. His intention was
           to model a new “mode of painting to the eye,” one that—following John
