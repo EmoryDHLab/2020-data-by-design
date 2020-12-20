@@ -23,7 +23,7 @@
         </section>
       </div>
       <aside class="chapter__notebook-col">
-        <Notebook class="chapter__notebook"/>
+        <Notebook class="chapter__notebook --stick"/>
       </aside>
     </section>
   </main>
@@ -182,13 +182,13 @@ a.blue-hover:hover {
 .chapter__notebook-col {
   grid-column: 3 / span 1;
   box-sizing: border-box;
-  position: relative;
 }
 
 .chapter__notebook {
-  position: sticky;
   width: 100%;
   height: 100vh;
+  top: 8vh;
+  position: sticky;
 }
 
 .centered {
