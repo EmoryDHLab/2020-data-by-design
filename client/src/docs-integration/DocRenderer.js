@@ -38,7 +38,9 @@ export default {
     docId: String
   },
   render (h) {
-    const title = (this.docJson && this.docJson.metadata) ? this.docJson.metadata.title : this.docId;
+    if (!this.docJson) {
+      return h("p", "Loading...")
+    }
 
     const parseInner = innerData => {
       if (innerData) {
@@ -73,14 +75,15 @@ export default {
           return h('div', this.$slots[slotName]);
         }
         if (data.headers.length >= 1 && data.headers[0] == "Component") {
+          debugger;
           const componentName = data.headers[1];
           if (componentName in this.components) {
             const component = registeredComponents[componentName];
-            console.dir(component.props);
             let props = {};
             data.rows.forEach( ([propName, value]) => {
               if (propName in component.props) {
-                const coerced = component.props[propName](value);
+                const typeFunc = component.props[propName].type || component.props[propName];
+                const coerced = typeFunc();
                 props[propName] = coerced;
               }
             })
@@ -103,6 +106,7 @@ export default {
     }
 
     if (this.docJson && this.docJson.content) {
+
       const content = this.docJson.content;
 
       if (this.sectionRegex && this.sectionComponent) {
