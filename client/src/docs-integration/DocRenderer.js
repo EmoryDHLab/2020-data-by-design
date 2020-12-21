@@ -62,7 +62,7 @@ export default {
         for (let match of inlineSlotMatches) {
           const slotName = match[1];
           const inner = match[2];
-          const slot = inner ? this.$scopedSlots[slotName]({inner}) : this.$slots[slotName];
+          const slot = (inner && this.$scopedSlots[slotName]) ? this.$scopedSlots[slotName]({inner}) : this.$slots[slotName];
           if (slot) {
             insertions.push({
               start: match.index,
