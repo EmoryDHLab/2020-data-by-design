@@ -1,6 +1,7 @@
 import api from "../api";
 import registeredComponents from "./registered-components";
 import {register} from "register-service-worker";
+import FootnoteReference from "../components/general/FootnoteReference";
 
 export default {
   data () {
@@ -23,7 +24,8 @@ export default {
       default: "title"
     },
     footnoteRefComponent: {
-      type: Object
+      type: Object,
+      default: () => FootnoteReference,
     },
     footnoteRefProp: {
       type: String,
@@ -31,9 +33,7 @@ export default {
     },
     components: {
       type: Object,
-      default () {
-        return registeredComponents;
-      }
+      default: () => registeredComponents
     },
     docId: String
   },
@@ -49,8 +49,39 @@ export default {
         const map = (arraylike, func) => Array.prototype.map.call(arraylike, func);
         const nodeToVDOM = node => {
           if (node.nodeType == Node.TEXT_NODE) {
-            //Footnotes and inline components checking goes here
-            return node.data;
+            const footnoteMatches = node.data.matchAll(/\[\^(\d+)\]/g);
+            const inlineSlotMatches = node.data.matchAll(/\[\^(\d*[a-zA-z]+\d*)\]/g);
+            const insertions = [];
+            for (let match of footnoteMatches) {
+              const number = Number(match[1]);
+              insertions.push({
+                  start: match.index,
+                  end: match.index + match[0].length,
+                  insert: h(this.footnoteRefComponent, { props: { [this.footnoteRefProp]: number } } )
+              })
+            }
+            for (let match of inlineSlotMatches) {
+              const slotName = match[1];
+              if (this.$slots[slotName]) {
+                insertions.push({
+                  start: match.index,
+                  end: match.index + match[0].length,
+                  insert: this.$slots[slotName]
+                })
+              }
+            }
+            if (!insertions.length) return node.data
+            const returnArr = [];
+            let lastIndex = 0;
+            insertions
+              .sort( (a, b) => a.start - b.start)
+              .forEach( ( {start, end, insert}) => {
+                if (lastIndex != start)
+                  returnArr.push(node.data.slice(lastIndex, start))
+                returnArr.push(insert);
+                lastIndex = end;
+              })
+            return returnArr;
           }
           const attrs = Object.fromEntries(
             map(node.attributes,
@@ -72,18 +103,17 @@ export default {
       if (tag == "table") {
         if (data.headers.length == 1 && data.rows.length == 0) {
           const slotName = data.headers[0];
-          return h('div', this.$slots[slotName]);
+          return this.$slots[slotName];
         }
         if (data.headers.length >= 1 && data.headers[0] == "Component") {
-          debugger;
           const componentName = data.headers[1];
           if (componentName in this.components) {
             const component = registeredComponents[componentName];
             let props = {};
             data.rows.forEach( ([propName, value]) => {
               if (propName in component.props) {
-                const typeFunc = component.props[propName].type || component.props[propName];
-                const coerced = typeFunc();
+                const constructor = component.props[propName].type || component.props[propName];
+                const coerced = constructor();
                 props[propName] = coerced;
               }
             })

@@ -6,6 +6,9 @@
     <template v-slot:AnotherSlot>
       <p>Another slot goes here</p>
     </template>
+    <template v-slot:InlineSlot>
+      <TestInlineComponent :word="'a word'"></TestInlineComponent>
+    </template>
   </DocRenderer>
 </template>
 
@@ -17,6 +20,7 @@ import PicCollage from '@/components/vis/PicCollage'
 import EventSquare from '@/components/vis/peabody/newpeabodygrid/EventSquare'
 import PeabodyGrid from '@/components/vis/peabody/newpeabodygrid/PeabodyGrid'
 import PeabodyMutable from "../components/vis/peabody/PeabodyMutable";
+import TestInlineComponent from "../docs-integration/TestInlineComponent";
 import DocRenderer from "../docs-integration/DocRenderer"
 
 export default {
@@ -26,7 +30,8 @@ export default {
     PeabodyMutable,
     Picline,
     PicCollage,
-    EventSquare
+    EventSquare,
+    TestInlineComponent
   },
   data: () => ({
     sectionComponent: Section,
