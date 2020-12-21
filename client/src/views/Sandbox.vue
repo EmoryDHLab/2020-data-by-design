@@ -6,8 +6,8 @@
     <template v-slot:AnotherSlot>
       <p>Another slot goes here</p>
     </template>
-    <template v-slot:InlineSlot>
-      <TestInlineComponent :word="'a word'"></TestInlineComponent>
+    <template v-slot:InlineSlot="{inner}">
+      <TestInlineComponent :word="'a word'"></TestInlineComponent><b>{{inner}}</b>
     </template>
   </DocRenderer>
 </template>

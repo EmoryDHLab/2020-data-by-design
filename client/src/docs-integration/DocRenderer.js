@@ -42,57 +42,63 @@ export default {
       return h("p", "Loading...")
     }
 
+    const map = (arraylike, func) => Array.prototype.map.call(arraylike, func);
+
+    const nodeToVDOM = node => {
+      if (node.nodeType == Node.TEXT_NODE) {
+        const footnoteMatches = node.data.matchAll(/\[\^(\d+)\]/g);
+        const inlineSlotMatches = node.data.matchAll(/\[\^(\d*[a-zA-z]+\d*)\](?:(.+)\[\/\1\])*/g);
+        const insertions = [];
+        for (let match of footnoteMatches) {
+          const number = Number(match[1]);
+          insertions.push({
+            start: match.index,
+            end: match.index + match[0].length,
+            insert: h(this.footnoteRefComponent, { props: { [this.footnoteRefProp]: number } } )
+          })
+        }
+        for (let match of inlineSlotMatches) {
+          const slotName = match[1];
+          const inner = match[2];
+          const slot = inner ? this.$scopedSlots[slotName]({inner}) : this.$slots[slotName];
+          if (slot) {
+            insertions.push({
+              start: match.index,
+              end: match.index + match[0].length,
+              insert: slot
+            })
+          }
+        }
+        if (!insertions.length) return node.data
+        const returnArr = [];
+        let lastIndex = 0;
+        insertions
+          .sort( (a, b) => a.start - b.start)
+          .forEach( ( {start, end, insert}) => {
+            if (lastIndex != start)
+              returnArr.push(node.data.slice(lastIndex, start))
+            returnArr.push(insert);
+            lastIndex = end;
+          })
+        if (lastIndex != node.data.length)
+          returnArr.push(node.data.slice(lastIndex));
+        return returnArr;
+      }
+      const attrs = Object.fromEntries(
+        map(node.attributes,
+          (({name, value}) => ([name, value]))
+        )
+      );
+      if (node.hasChildNodes) {
+        return h(node.tagName, { attrs }, map(node.childNodes, nodeToVDOM));
+      }
+      return h(node.tagName, { attrs });
+    }
+
     const parseInner = innerData => {
       if (innerData) {
         const dummy = document.createElement("template");
         dummy.innerHTML = innerData;
-        const map = (arraylike, func) => Array.prototype.map.call(arraylike, func);
-        const nodeToVDOM = node => {
-          if (node.nodeType == Node.TEXT_NODE) {
-            const footnoteMatches = node.data.matchAll(/\[\^(\d+)\]/g);
-            const inlineSlotMatches = node.data.matchAll(/\[\^(\d*[a-zA-z]+\d*)\]/g);
-            const insertions = [];
-            for (let match of footnoteMatches) {
-              const number = Number(match[1]);
-              insertions.push({
-                  start: match.index,
-                  end: match.index + match[0].length,
-                  insert: h(this.footnoteRefComponent, { props: { [this.footnoteRefProp]: number } } )
-              })
-            }
-            for (let match of inlineSlotMatches) {
-              const slotName = match[1];
-              if (this.$slots[slotName]) {
-                insertions.push({
-                  start: match.index,
-                  end: match.index + match[0].length,
-                  insert: this.$slots[slotName]
-                })
-              }
-            }
-            if (!insertions.length) return node.data
-            const returnArr = [];
-            let lastIndex = 0;
-            insertions
-              .sort( (a, b) => a.start - b.start)
-              .forEach( ( {start, end, insert}) => {
-                if (lastIndex != start)
-                  returnArr.push(node.data.slice(lastIndex, start))
-                returnArr.push(insert);
-                lastIndex = end;
-              })
-            return returnArr;
-          }
-          const attrs = Object.fromEntries(
-            map(node.attributes,
-              (({name, value}) => ([name, value]))
-            )
-          );
-          if (node.hasChildNodes) {
-            return h(node.tagName, { attrs }, map(node.childNodes, nodeToVDOM));
-          }
-          return h(node.tagName, { attrs });
-        }
         return map(dummy.content.childNodes, nodeToVDOM);
       }
     }
