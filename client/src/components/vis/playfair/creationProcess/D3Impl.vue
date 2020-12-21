@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div id="chart" style="background-color: #F3ECCB; font-family: 'Dancing Script', cursive"></div>
-    Some Math can go here
+
   </div>
 </template>
 
@@ -23,7 +23,7 @@
             return {
                 maxSlideNumber: 8,
                 svg: null,
-                line1: null, line2: null,
+                ukCumCaseLine: null, ukNewCaseLine: null,
                 exportText: null, importText: null, yLabel: null, xLabel: null, moneyLabel: null,
                 timeLabel: null, importLine: null, exportLine: null,
                 importLine1801d: null, exportLine1801d: null, importLineFirstDraft: null, exportLineFirstDraft: null,
@@ -55,12 +55,12 @@
                         .duration(800);
                 } else if (this.slideNumber === 6) {
                     this.importLineFirstDraft.transition()
-                        .attr("d", this.line1)
+                        .attr("d", this.ukCumCaseLine)
                         .attr("transform", "")
                         .duration(800);
                     this.changeOpacity(this.importText);
                     this.exportLineFirstDraft.transition()
-                        .attr("d", this.line2)
+                        .attr("d", this.ukNewCaseLine)
                         .attr("transform", "")
                         .duration(800);
                     this.changeOpacity(this.exportText);
@@ -129,7 +129,6 @@
                         d.ImportsDraft = +d.ImportsDraft;
                         d.ExportsDraft = +d.ExportsDraft;
                     });
-
 
 
                     //calculate values to determine y domain
@@ -204,13 +203,13 @@
                         .tickSizeOuter([0])
                         .tickFormat(tickFormatterY); //calls custom format function
 
-                    //line & line2 are area svg for the difference graph (ow would be line svg)
+                    //line & ukNewCaseLine are area svg for the difference graph (ow would be line svg)
 
                     /****LINE AND AREA FOR DEFINED DATA****/
 
                         //imports line - yellow
                         //TODO: curve format -> not basis
-                    self.line1 = d3.area()
+                    self.ukCumCaseLine = d3.area()
                             .curve(d3.curveCardinal) //makes the line curvy
                             .defined(function (d) {
                                 return d.Imports;
@@ -251,7 +250,7 @@
                         .y(d => y(d.ExportsDraft));
 
                     //exports line - pink
-                    self.line2 = d3.area()
+                    self.ukNewCaseLine = d3.area()
                         .curve(d3.curveCardinal)//makes the line curvy
                         .defined(function (d) {
                             return d.Exports;
@@ -348,7 +347,7 @@
                     //line imports
                     self.importLine = self.svg.append("path")
                         .attr("class", "line")
-                        .attr("d", self.line1)
+                        .attr("d", self.ukCumCaseLine)
                         .attr("opacity", 0)
                         .style("stroke", '#D6BF24')
                         .style("stroke-width", "3px");
@@ -356,7 +355,7 @@
                     //line exports
                     self.exportLine = self.svg.append("path")
                         .attr("class", "line exports")
-                        .attr("d", self.line2)
+                        .attr("d", self.ukNewCaseLine)
                         .attr("opacity", 0)
                         .style("stroke", '#BB877F')
                         .style("stroke-width", "3px");
