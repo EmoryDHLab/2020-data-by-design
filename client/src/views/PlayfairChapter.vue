@@ -235,7 +235,7 @@
             </p>
           </template>
         </Scrollytell>
-        
+
         <p>
           For Playfair, his lack of data was not of concern. His intention was
           to model a new “mode of painting to the eye,” one that—following John
@@ -404,6 +404,7 @@
           reduce complexity, and to produce a simple, more comprehensible view.
         </p>
         <!-- Jianing's vis of multiple datasets that can be swapped out goes here -->
+        <D3ImplCovid/>
         <p>
           What do these visualizations of incredibly varied data, each of which
           look roughly the same, tell us about the assumptions embedded in their
@@ -494,10 +495,12 @@
   import * as d3 from "d3";
   import PeabodyQuiz from "../components/vis/peabody/quiz/PeabodyQuiz";
   import d3Impl from "../components/vis/playfair/creationProcess/D3Impl";
+  import D3ImplCovid from "../components/vis/playfair/creationProcess/D3ImplCovid";
 
   export default {
     name: "ThePeabodyChapter",
     components: {
+      D3ImplCovid,
       d3Impl,
       PeabodyQuiz,
       PeabodyGrid,
