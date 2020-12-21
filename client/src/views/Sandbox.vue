@@ -1,5 +1,5 @@
 <template lang="html">
-  <DocRenderer docId="1wizLoDtZKwD8a39D6qv_mg8vhh4HtFiZ14q6rvH8LfY" :section-component="sectionComponent" :section-title-prop="'title'">
+  <DocRenderer docId="1_-FrAZVLYF74Kc1U-fpK6ugrIkqYisZEbI0Z2yVUb0I" :section-component="sectionComponent" :section-title-prop="'title'">
     <template v-slot:TestSlot>
       <b>Test slot!</b>
     </template>
