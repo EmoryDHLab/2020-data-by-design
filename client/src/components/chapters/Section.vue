@@ -1,6 +1,6 @@
 <template>
   <section :id="elementId">
-    <h1 v-if="title.trim() !== 'Introduction'" v-text="title"></h1>
+    <h1 v-if="title && title.trim() !== 'Introduction'" v-text="title"></h1>
     <slot></slot>
   </section>
 </template>
