@@ -498,141 +498,31 @@
   import D3ImplCovid from "../components/vis/playfair/creationProcess/D3ImplCovid";
 
   export default {
-    name: "ThePeabodyChapter",
+    name: "PlayfairChapter",
     components: {
       D3ImplCovid,
       d3Impl,
-      PeabodyQuiz,
-      PeabodyGrid,
-      PeabodyMutable,
       ChapterScaffold,
-      PeabodyTutorial,
       EventKey,
       TimelineVis,
       Section,
       Scrollytell,
       PeabodyCanvas,
       MapScroller,
-      EventSquare,
       Footnotes,
       FootnoteRef: FootnoteReference
     },
     mixins: [Highlightable(".chapter__main")],
     data() {
       return {
-        d3: d3, //Makes the library accessible from within the template. (TODO: get rid of this, only access d3 from script)
-        staticDatasetId: '1',
-        century: 1600,
-        selectedCentury: 0, //0 = blank. for the multi peabody canvas
-        scrolled: false,
-        scrolledMax: 0,
-        mapPos: 0,
-        overlayPos: 1.1,
-        overlayScroll: {
-          scrolled: null,
-          progress: null
-        },
-        quizYears: [1619, 1620, 1629, 1630],
-        actorColors,
       };
     },
     computed: {
-      peabodyData() {
-        return this.$store.getters["dataset/getDatasetById"](this.staticDatasetId);
-      },
-      peabodyYears() {
-        if (Array.isArray(this.peabodyData)) {
-          return dataToYears(this.peabodyData);
-        }
-      },
-      quizEvents() {
-        if (Array.isArray(this.peabodyData)) {
-          return this.peabodyData
-            .filter(entry => this.quizYears.includes(entry.year))
-            .sort((entry1, entry2) => entry1.year - entry2.year);
-        }
-      },
-      peabodyEvents() {
-        if (Array.isArray(this.peabodyData)) {
-          return this.peabodyData.reduce((yearObj, entry) => {
-            let event = {
-              event: entry.event,
-              actors: entry.actors,
-              squares: entry.squares == "full" ? [1, 2, 3, 4, 5, 6, 7, 8, 9] : entry.squares
-            };
-            if (!yearObj[entry.year]) {
-              yearObj[entry.year] = {};
-            }
-            const existingObj = yearObj[entry.year][event.event];
-            if (!existingObj) {
-              yearObj[entry.year][event.event] = event;
-            } else {
-              existingObj.squares = event.squares.concat(existingObj.squares);
-              existingObj.actors = [...new Set([...existingObj.actors, ...event.actors])]
-            }
-            return yearObj;
-          }, {})
-        }
-      },
-      overlayCurrYear() {
-        return Math.floor(this.overlayPos) + this.century;
-      },
-      overlayIntroParagraphStyles() {
-        const styles = {
-          position: 'sticky',
-          top: '60px'
-        };
-        if (this.overlayScroll.scrolled == 1) {
-          const scale = d3.scaleLinear()
-            .domain([0.25, 0.7])
-            .range([0, -350]);
-          scale.clamp(true);
-          const top = scale(this.overlayScroll.progress);
-          if (top) styles.transform = `translateY(${top}px)`;
-        } else if (this.overlayScroll.scrolled > 1) {
-          styles.opacity = 0;
-        }
-        return styles;
-      },
-      overlayEventKeyPos: {
-        get() {
-          return Math.round(10 * (this.overlayPos - Math.floor(this.overlayPos)));
-        },
-        set(newVal) {
-          this.overlayPos = Number(`${Math.floor(this.overlayPos)}.${newVal}`);
-        }
-      },
-      overlayEventKeyColors() {
-        if (this.peabodyYears) {
-          const index = Math.floor(this.overlayPos);
-          const yearData = this.peabodyYears[index + this.century];
-          if (yearData) {
-            return yearData.map(squareObj =>
-              squareObj ? squareObj.actors.map(actor => actorColors[actor]) : [false]);
-          }
-        }
-      },
-      colorIfSelected() {
-        return century => {
-          if (this.selectedCentury === century) {
-            return {color: 'orange'};
-          }
-        }
-      },
     },
     methods: {
-      onRecreatedGridHover({year, type, sub}) {
-        this.overlayPos = Number(`${year - this.century}.${type}`);
-      },
-      onOverlayScroll({scrolled, progress}) {
-        console.log("got to scroll handler");
-        this.overlayScroll.scrolled = scrolled;
-        this.overlayScroll.progress = progress;
-      },
-      ...mapActions("chapters", ["setChapter"]),
     },
     created() {
-      this.setChapter({title: "Peabody"});
+      this.setChapter({title: "Playfair"});
     },
     destroyed() {
       window.removeEventListener('scroll', this.handleScroll);
