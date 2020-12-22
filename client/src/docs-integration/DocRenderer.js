@@ -2,9 +2,10 @@ import api from "../api";
 import registeredComponents from "./registered-components";
 import {register} from "register-service-worker";
 import FootnoteReference from "../components/general/FootnoteReference";
+import Section from "../components/chapters/Section";
 
 export default {
-  data () {
+  data() {
     return {
       docJson: null,
     }
@@ -12,12 +13,13 @@ export default {
   props: {
     sectionRegex: {
       type: RegExp,
-      default () {
+      default() {
         return /<b>Section:(.+)<\/b>/g
       }
     },
     sectionComponent: {
-      type: Object
+      type: Object,
+      default: () => Section
     },
     sectionTitleProp: {
       type: String,
@@ -37,7 +39,7 @@ export default {
     },
     docId: String
   },
-  render (h) {
+  render(h) {
     if (!this.docJson) {
       return h("p", "Loading...")
     }
@@ -54,13 +56,13 @@ export default {
           insertions.push({
             start: match.index,
             end: match.index + match[0].length,
-            insert: h(this.footnoteRefComponent, { props: { [this.footnoteRefProp]: number } } )
+            insert: h(this.footnoteRefComponent, {props: {[this.footnoteRefProp]: number}})
           })
         }
         for (let match of inlineSlotMatches) {
           const slotName = match[1];
           const inner = match[2];
-          const slot = inner ? this.$scopedSlots[slotName]({inner}) : this.$slots[slotName];
+          const slot = (inner && this.$scopedSlots[slotName]) ? this.$scopedSlots[slotName]({inner}) : this.$slots[slotName];
           if (slot) {
             insertions.push({
               start: match.index,
@@ -73,8 +75,8 @@ export default {
         const returnArr = [];
         let lastIndex = 0;
         insertions
-          .sort( (a, b) => a.start - b.start)
-          .forEach( ( {start, end, insert}) => {
+          .sort((a, b) => a.start - b.start)
+          .forEach(({start, end, insert}) => {
             if (lastIndex != start)
               returnArr.push(node.data.slice(lastIndex, start))
             returnArr.push(insert);
@@ -90,9 +92,9 @@ export default {
         )
       );
       if (node.hasChildNodes) {
-        return h(node.tagName, { attrs }, map(node.childNodes, nodeToVDOM));
+        return h(node.tagName, {attrs}, map(node.childNodes, nodeToVDOM));
       }
-      return h(node.tagName, { attrs });
+      return h(node.tagName, {attrs});
     }
 
     const parseInner = innerData => {
@@ -116,7 +118,7 @@ export default {
           if (componentName in this.components) {
             const component = registeredComponents[componentName];
             let props = {};
-            data.rows.forEach( ([propName, value]) => {
+            data.rows.forEach(([propName, value]) => {
               if (propName in component.props) {
                 const constructor = component.props[propName].type || component.props[propName];
                 const coerced = constructor();
@@ -143,16 +145,16 @@ export default {
 
     if (this.docJson && this.docJson.content) {
 
-      const content = this.docJson.content;
+      const content = this.docJson.content.filter(obj => obj.p !== "")
 
       if (this.sectionRegex && this.sectionComponent) {
         const sections = [];
-        content.forEach( (el, index) => {
+        content.forEach((el, index) => {
           const [key, value] = Object.entries(el)[0];
           if (typeof value == "string") {
             const firstMatch = this.sectionRegex.exec(value);
             if (firstMatch && firstMatch.length >= 1) {
-              let pushObj = { index };
+              let pushObj = {index};
               if (firstMatch.length == 2) {
                 pushObj.title = firstMatch[1];
               }
@@ -161,18 +163,24 @@ export default {
           }
         });
         if (sections.length > 0) {
-         return h('div',
-           sections.map( ({index, title}, arrIndex)  =>
-              (
-               h(this.sectionComponent, {
-                 props: {[this.sectionTitleProp]: title}
-               },
-                 content
-                   .slice(index + 1, sections[arrIndex + 1] ? sections[arrIndex + 1].index : content.length)
-                   .map(createFromObj)
-               )
-             )
-           ));
+          // if (sections[0].)
+          console.log(sections);
+          const renderArr = [];
+          if (sections[0].index != 0) {
+            renderArr.push(...(content.slice(0, sections[0].index).map(createFromObj)));
+          }
+          renderArr.push(...sections.map(({index, title}, arrIndex) =>
+            (
+              h(this.sectionComponent, {
+                  props: {[this.sectionTitleProp]: title}
+                },
+                content
+                  .slice(index + 1, sections[arrIndex + 1] ? sections[arrIndex + 1].index : content.length)
+                  .map(createFromObj)
+              )
+            )
+          ));
+          return h('div', renderArr);
         }
       }
 
