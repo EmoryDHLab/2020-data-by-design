@@ -74,6 +74,7 @@ const store = {
   mutations: {
     [Mutations.ADD_SECTION] (state, {id}) {
       //Presumes this mutation gets called in section order
+      debugger;
       const el = document.getElementById(id);
       const children = filteredChildren(el);
       const subsections = children.length;

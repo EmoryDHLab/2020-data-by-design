@@ -145,7 +145,7 @@ export default {
 
     if (this.docJson && this.docJson.content) {
 
-      const content = this.docJson.content;
+      const content = this.docJson.content.filter(obj => obj.p !== "")
 
       if (this.sectionRegex && this.sectionComponent) {
         const sections = [];
