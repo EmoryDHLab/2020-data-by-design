@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div id="chartWomen" style="background-color: #F3ECCB; font-family: 'Dancing Script', cursive"></div>
+    <div id="chartStacked" style="background-color: #F3ECCB; font-family: 'Dancing Script', cursive"></div>
   </div>
 </template>
 
@@ -21,24 +21,21 @@
         methods: {
             generateSvg() {
                 let self = this;
-                let zoom = 3;
+                let zoom = 3.5;
                 let margin = {top: 25, right: 50, bottom: 25, left: 25},
-                    width = window.innerWidth/zoom/0.77 - margin.left - margin.right,
+                    width = window.innerWidth/zoom/1 - margin.left - margin.right,
                     height = window.innerWidth/zoom/1.6 - margin.top - margin.bottom;
 
                 let x = d3.scaleTime()
                     .range([0, width]);
 
-                // let x = d3.scaleBand()
-                //     .range([0, width])
-                //     .padding([0.2]);
 
                 let y = d3.scaleLinear()
                     .range([height, 0]);
 
-                self.svg = d3.select("#chartWomen").append("svg")
-                    .attr("class", "chartWomen")
-                    .attr("width", width + margin.left + margin.right+25)
+                self.svg = d3.select("#chartStacked").append("svg")
+                    .attr("class", "chartStacked")
+                    .attr("width", width + margin.left + margin.right+280)
                     .attr("height", height + margin.top + margin.bottom)
                     .append("g")
                     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -116,18 +113,62 @@
 
                     // x.domain(groups);
 
-                    var color = d3.scaleOrdinal()
+                    let color = d3.scaleOrdinal()
                         .domain(subgroups)
                         .range(['#ABAF7B','#E4AE95']);
 
-                    var stackedData = d3.stack()
+                    let stackedData = d3.stack()
                         .keys(subgroups)
                         (playfairData);
+
+
+                    let exportArcs = [];
+                    let importArcs = [];
+                    let yearAngle = 3.32;
+                    let radiusScale = 12;
+                    for (let idx = 0; idx < playfairData.length; idx++) {
+                        let endAng;
+                        let startAng = (playfairData[idx].Years - 1700)*yearAngle * Math.PI/180;
+                        if (idx != playfairData.length -1) {
+                            endAng = (playfairData[(idx+1)%playfairData.length].Years - 1700)*yearAngle * Math.PI/180;
+                        } else endAng = 2* Math.PI;
+                        let ea = d3.arc()
+                            .innerRadius(0)
+                            .outerRadius(playfairData[idx].Imports/ interval*radiusScale)
+                            .startAngle(startAng)
+                            .endAngle(endAng);
+                        exportArcs.push(ea);
+                        let ia = d3.arc()
+                            .innerRadius(0)
+                            .outerRadius((playfairData[idx].Imports + playfairData[idx].Exports)/ interval*radiusScale)
+                            .startAngle(startAng)
+                            .endAngle(endAng);
+                        importArcs.push(ia);
+                    }
+
 
                     /*************************append all of the graphics to the canvas**************************************/
 
 
                     self.svg.datum(playfairData); //binds data, makes static and not interactive
+
+                    let coxXposition = 630;
+                    let coxYPosition = height/2 + 55;
+                    for (let idx = 0; idx < playfairData.length; idx++) {
+                        self.svg.append("path")
+                            .attr("transform", "translate(" + coxXposition + "," + coxYPosition + ") ")
+                            .style("fill", "#E4AE95")
+                            .style("stroke", "#c0c0c0")
+                            .style("stroke-width", 0.2)
+                            .attr("d", importArcs[idx]);
+                        self.svg.append("path")
+                            .attr("transform", "translate(" + coxXposition + "," + coxYPosition + ") ")
+                            .style("fill", "#ABAF7B")
+                            .style("stroke", "#969696")
+                            .style("stroke-width", 0.2)
+                            .attr("d", exportArcs[idx]);
+                    }
+
 
                     //bg color borrowed from former student
                     //makes inner graph lighter
@@ -137,7 +178,7 @@
                         .attr("fill", "white")
                         .attr("opacity", .2);
 
-
+                    //stacked bar vis
                     self.svg.append("g")
                         .selectAll("g")
                         // Enter in the stack data = loop key per key = group per group
@@ -148,10 +189,10 @@
                         // enter a second time = loop subgroup per subgroup to add all rectangles
                           .data(function(d) { return d; })
                           .enter().append("rect")
-                          .attr("x", function(d) { return (2.5 + d.data.Years - 1700) * 5.775; })
+                          .attr("x", function(d) { return (2.5 + d.data.Years - 1700) * 3.61; })
                           .attr("y", function(d) { return y(d[1]); })
                           .attr("height", function(d) { return y(d[0]) - y(d[1]); })
-                          .attr("width",30);
+                          .attr("width",20);
 
                     //x axis
                     self.svg.append("g")
@@ -160,7 +201,6 @@
                         .style("font-size", 'large')
                         .style("font-family", "chancery_cursiveitalic")
                         .call(xAxis);
-
 
                     //y axis
                     self.svg.append("g")
@@ -215,11 +255,11 @@
 
                     //)******************************************CREATE GRAPH LABEL - borrowed from former student*******//
                     var ellipseX = ((width * 3) / 10) ;
-                    var ellipseY = 110;
-                    let ellipseRX = 120;
-                    let ellipseRY = 80;
+                    var ellipseY = 100;
+                    let ellipseRX = 105;
+                    let ellipseRY = 70;
                     var textX = ellipseX - ellipseRX + 15;
-                    var textY = ellipseY - ellipseRY/4 - 5;
+                    var textY = ellipseY - ellipseRY/4;
 
                     //add Label
                     self.title1 = self.svg.append("ellipse")
@@ -236,7 +276,7 @@
                         .attr("class", "titleText")
                         .attr("x", textX)
                         .attr("y", textY)
-                        .attr("font-size", "1.25em")
+                        .attr("font-size", "1.1em")
                         // .style("font-size", 'x-large')
                         .style("font-family", 'maranalloregular')
                         .text("EXPORTS & IMPORTS");
@@ -244,8 +284,8 @@
                         .attr("id", "currValue")
                         .attr("class", "titleText2")
                         .attr("x", textX + 60)
-                        .attr("y", textY + 30) //adjusts vertical space between text liens
-                        .attr("font-size", "1.5em")
+                        .attr("y", textY + 25) //adjusts vertical space between text liens
+                        .attr("font-size", "1.3em")
                         // .style("font-size", 'xx-large')
                         .style("font-family", 'chancery_cursiveitalic')
                         .text("to and from all");
@@ -255,8 +295,8 @@
                         .attr("transform", "translate(55,0)")
                         .append("text")
                         .attr("x", (textX - 50))
-                        .attr("y", (textY + 60))
-                        .attr("font-size", "1.5em")
+                        .attr("y", (textY + 50))
+                        .attr("font-size", "1.25em")
                         // .style("font-size", 'xx-large')
                         .style("font-family", 'maranalloregular')
                         .style("position", 'fixed')
@@ -266,19 +306,34 @@
 
 
                     // add line labels
-                    self.exportText = self.svg.append("text")
-                        .attr("transform", "translate(" + (width - 320/zoom - 130) + "," + (height - 250/zoom + 50) + ") rotate(" + (0) + ")")
+                    self.importText = self.svg.append("text")
+                        .attr("transform", "translate(" + (width - 320/zoom - 80) + "," + (height - 250/zoom + 50) + ") rotate(" + (0) + ")")
                         .attr("dy", ".35em")
                         .attr("text-anchor", "start")
                         // .attr("visibility","hidden")
                         .style("fill", "black")
-                        .text("Exports");
-                    self.importText = self.svg.append("text")
-                        .attr("transform", "translate(" + (width - 690/zoom + 30) + "," + (height - 55/zoom - 100) + ") rotate(" + (0) + ")")
+                        .text("Imports");
+                    self.exportText = self.svg.append("text")
+                        .attr("transform", "translate(" + (width - 690/zoom + 70) + "," + (height - 55/zoom - 100) + ") rotate(" + (0) + ")")
                         .attr("dy", ".35em")
                         .attr("text-anchor", "start")
                         .style("fill", "black")
+                        .text("Exports");
+
+                    //add cox labels
+                    self.svg.append("text")
+                        .attr("transform", "translate(" + (width - 320/zoom + 300) + "," + (height - 250/zoom - 50) + ") rotate(" + (0) + ")")
+                        .attr("dy", ".35em")
+                        .attr("text-anchor", "start")
+                        // .attr("visibility","hidden")
+                        .style("fill", "black")
                         .text("Imports");
+                    self.svg.append("text")
+                        .attr("transform", "translate(" + (width - 690/zoom + 400) + "," + (height - 55/zoom - 200) + ") rotate(" + (0) + ")")
+                        .attr("dy", ".35em")
+                        .attr("text-anchor", "start")
+                        .style("fill", "black")
+                        .text("Exports");
 
 
                 });
