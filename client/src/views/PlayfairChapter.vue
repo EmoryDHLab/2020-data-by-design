@@ -122,6 +122,10 @@
         <D3ImplCovid key="1"/>
       </template>
 
+      <template v-slot:[slots.sideBySide]>
+        <StackedBar key="1"/>
+      </template>
+
     </DocRenderer>
   </chapter-scaffold>
 </template>
@@ -140,13 +144,20 @@
   import d3Impl from "../components/vis/playfair/creationProcess/D3Impl";
   import D3ImplCovid
     from "../components/vis/playfair/creationProcess/D3ImplCovid";
+  import D3ImplWomen
+      from "../components/vis/playfair/creationProcess/D3ImplWomen";
+  import D3ImplIncome
+      from "../components/vis/playfair/creationProcess/D3ImplIncome";
+  import StackedBar
+      from "../components/vis/playfair/creationProcess/StackedBar";
   import DocRenderer from "../docs-integration/DocRenderer";
 
   export default {
     name: "PlayfairChapter",
     components: {
       DocRenderer,
-      D3ImplCovid,
+      D3ImplCovid, D3ImplWomen, D3ImplIncome,
+      StackedBar,
       d3Impl,
       ChapterScaffold,
       EventKey,
