@@ -1,16 +1,14 @@
 <template>
   <div class="container">
-    <div id="chartCovid" style="background-color: #F3ECCB; font-family: 'Dancing Script', cursive"></div>
+    <div id="chartWomen" style="background-color: #F3ECCB; font-family: 'Dancing Script', cursive"></div>
   </div>
 </template>
 
 <script>
     import * as d3 from "d3";
 
-    //usa data:  https://www.brookings.edu/multi-chapter-report/vital-statistics-on-congress/
-    //uk data: https://coronavirus.data.gov.uk/details/download
     export default {
-        name: "D3ImplCovid",
+        name: "D3ImplWomen",
         mounted() {
             this.generateSvg();
         },
@@ -21,9 +19,6 @@
             },
         },
         methods: {
-            perCapita(capita, population, count) {
-                return (capita*count/population).toFixed(2);
-            },
             generateSvg() {
                 let self = this;
                 let zoom = 3;
@@ -31,33 +26,28 @@
                     width = window.innerWidth/zoom/0.77 - margin.left - margin.right,
                     height = window.innerWidth/zoom/1.6 - margin.top - margin.bottom;
 
-
-                //scales
-                //"D3's time scale is an extension of d3.scale.linear that uses JavaScript Date objects as the domain representation.
-                //Thus, unlike the normal linear scale, domain values are coerced to dates rather than numbers;"
-                //https://github.com/mbostock/d3/wiki/Time-Scales
                 let x = d3.scaleTime()
                     .range([0, width]);
 
                 let y = d3.scaleLinear()
                     .range([height, 0]);
 
-                self.svg = d3.select("#chartCovid").append("svg")
-                    .attr("class", "chartCovid")
+                self.svg = d3.select("#chartWomen").append("svg")
+                    .attr("class", "chartWomen")
                     .attr("width", width + margin.left + margin.right+25)
                     .attr("height", height + margin.top + margin.bottom)
                     .append("g")
                     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
                 let interval = 5;
-                let dateInterval = 20;
+                let dateInterval = 10;
 
                 d3.csv("/femaleRPs.csv").then(function (femaleRpsData) {
                     //calculate values to determine y domain
-
                     femaleRpsData.forEach(function (d) {
-                        d.ukFemalePercentage += d.ukFemalePercentage;
-                        d.usFemalePercentage += d.usFemalePercentage;
+                        d.ukFemalePercentage = Number(d.ukFemalePercentage);
+                        d.usFemalePercentage = Number(d.usFemalePercentage);
+                        d.Year = Number(d.Year);
                     });
 
                     let ukMax = d3.max(femaleRpsData, function (d) {
@@ -71,33 +61,33 @@
                     let maxY = Math.max(ukMax, usaMax);
 
                     //pick y domain based on smallest and largest number of combined import and export numbers + yInterval for more space
-                    y.domain([0, maxY + 5]);
+                    y.domain([0, maxY + 2]);
                     x.domain(d3.extent(femaleRpsData, function (d) {
                         return (d.Year);
                     }));
 
 
+
                     //returns y-axis tickmark labels formatted correctly
-                    var tickFormatterY = function (tickVal) {
-                        if (tickVal < 1000) return tickVal;
-                        return (tickVal / interval + "k");
+                    let tickFormatterY = function (tickVal) {
+                        return tickVal + "%";
                     };
 
-                    var yValues = function () {
+                    let yValues = function () {
                         var yNums = [];
-                        for (var i = 100; i <= maxY; i += interval/10) {
+                        for (var i = interval; i <= maxY; i += interval) {
                             yNums.push(i);
                         }
                         return yNums;
                     };
 
                     let tickFormatterX = function (tickVal) {
-                        return femaleRpsData[maxX - tickVal].date.substring(5, 10);
+                        return tickVal;
                     };
 
-                    var xValues = function () {
+                    let xValues = function () {
                         var xNums = [];
-                        for (var i = dateInterval; i <= maxX; i += dateInterval) {
+                        for (var i = femaleRpsData[0].Year; i <= femaleRpsData[femaleRpsData.length-1].Year; i += dateInterval) {
                             xNums.push(i);
                         }
                         return xNums;
@@ -121,25 +111,23 @@
 
                     /****LINE AND AREA FOR DEFINED DATA****/
 
-                    // total case line - yellow
-                    self.ukDeathLined = d3.area()
-                            .curve(d3.curveCardinal) //makes the line curvy
-                            .x(d => x(femaleRpsData.length - d.index))
-                            .y(d => y(d.cumDeaths28DaysByDeathDate));
+                    self.ukLined = d3.area()
+                            .curve(d3.curveCardinal)
+                            .x(d => x(d.Year))
+                            .y(d => y(d.ukFemalePercentage));
 
 
-                    //newCase line - green
-                    self.usDeathLined = d3.area()
-                        .curve(d3.curveCardinal)//makes the line curvy
-                        .x(d => x(femaleRpsData.length - d.index))
-                        .y(d => y(d.usDeath));
+                    self.usLined = d3.area()
+                        .curve(d3.curveCardinal)
+                        .x(d => x(d.Year))
+                        .y(d => y(d.usFemalePercentage));
 
 
                     let area = d3.area()
                         .curve(d3.curveCardinal) //makes the line curvy
-                        .x(d => x(femaleRpsData.length - d.index))
-                        .y1(d => y(d.usDeath))
-                        .y0(d => y(d.cumDeaths28DaysByDeathDate))
+                        .x(d => x(d.Year))
+                        .y1(d => y(d.usFemalePercentage))
+                        .y0(d => y(d.ukFemalePercentage))
                         ; //y1 makes the Imports line the baseline
 
 
@@ -163,24 +151,24 @@
 
 
                     self.svg.append("clipPath")
-                        .attr("id", "clip-above")
+                        .attr("id", "clip-above-women")
                         .append("path")
                         .attr("d", area.y0(0));
 
                     self.svg.append("clipPath")
-                        .attr("id", "clip-below")
+                        .attr("id", "clip-below-women")
                         .append("path")
                         .attr("d", area.y0(height));
 
                     self.areaGreen = self.svg.append("path")
-                        // .attr("clip-path", "url(#clip-above)")
-                        .attr("d", area.y0(d => y(d.cumDeaths28DaysByDeathDate)))
+                        .attr("clip-path", "url(#clip-above-women)")
+                        .attr("d", area.y0(d => y(d.ukFemalePercentage)))
                         .style("fill", '#ABAF7B');
 
                     self.areaPink = self.svg.append("path")
                         .attr("class", "area below")
-                        // .attr("clip-path", "url(#clip-below)")
-                        .attr("d", area.y0(d => y(d.cumDeaths28DaysByDeathDate)))
+                        .attr("clip-path", "url(#clip-below-women)")
+                        .attr("d", area.y0(d => y(d.ukFemalePercentage)))
                         .style("fill", '#E4AE95');
 
                     /**END DIFFERENCE GRAPH**/
@@ -188,13 +176,13 @@
 
                     self.svg.append("path")
                         .attr("class", "line")
-                        .attr("d", self.ukDeathLined)
+                        .attr("d", self.ukLined)
                         .style("stroke", '#D6BF24')
                         .style("stroke-width", "3px");
 
                     self.svg.append("path")
                         .attr("class", "line exports")
-                        .attr("d", self.usDeathLined)
+                        .attr("d", self.usLined)
                         .style("stroke", '#BB877F')
                         .style("stroke-width", "3px");
 
@@ -207,14 +195,6 @@
                         .style("font-family", "chancery_cursiveitalic")
                         .call(xAxis);
 
-                    // "time" label
-                    self.svg.append("text")
-                        .attr("transform", "translate(" + (width / 2) + ")")
-                        .attr("y", -7) //place label with correct space adjacent to graph
-                        .attr("class", "axis-labels")
-                        .style("text-anchor", "middle")
-                        .style("font-family", 'Times New Roman')
-                        .text("Time");
 
                     //y axis
                     self.svg.append("g")
@@ -225,19 +205,28 @@
                     //styles the grid lines based on y-axis values - integer million lines are bolded
                     self.svg.selectAll('g.tick line')
                         .style("stroke-width", function (d) {
-                            if ((d / interval*2) % 1 === 0) {
+                            if ((d / 10) % 1 === 0) {
                                 return 2;
                             } else {
                                 return 1;
                             }
                         })
                         .style("opacity", function (d) {
-                            if ((d / interval*2) % 1 === 0)
+                            if ((d / 10) % 1 === 0)
                                 return 0.4;
                             else
                                 return 0.2;
                         });
 
+
+                    // "time" label
+                    self.svg.append("text")
+                        .attr("transform", "translate(" + (width / 2) + ")")
+                        .attr("y", -7) //place label with correct space adjacent to graph
+                        .attr("class", "axis-labels")
+                        .style("text-anchor", "middle")
+                        .style("font-family", 'Times New Roman')
+                        .text("Time");
 
                     //"case" label
                     self.moneyLabel = self.svg.append("text")
@@ -248,7 +237,7 @@
                         .attr("class", "axis-labels")
                         .style("font-family", 'Times New Roman')
                         .style("text-anchor", "middle")
-                        .text("Cases per 1 Million People");
+                        .text("Percentage");
 
 
                     //outline around inner chart
@@ -260,11 +249,11 @@
                         .attr("stroke-width", 2);
 
                     //)******************************************CREATE GRAPH LABEL - borrowed from former student*******//
-                    var ellipseX = ((width * 3) / 15);
-                    var ellipseY = 100;
+                    var ellipseX = ((width * 3) / 15) + 100;
+                    var ellipseY = 120;
                     let ellipseRX = 120;
                     let ellipseRY = 70;
-                    var textX = ((width * 3) / 15) - 80;
+                    var textX = ((width * 3) / 15) + 20;
                     var textY = ellipseY - ellipseRY/4 - 5;
 
                     //add Label
@@ -280,17 +269,17 @@
                     self.title3 = self.svg.append("text")
                         .attr("id", "currValue")
                         .attr("class", "titleText")
-                        .attr("x", textX)
-                        .attr("y", textY)
+                        .attr("x", textX -32)
+                        .attr("y", textY + 10)
                         .attr("font-size", "1.25em")
                         // .style("font-size", 'x-large')
                         .style("font-family", 'maranalloregular')
-                        .text("COVID-19 Death");
+                        .text("Women Representatives");
                     self.title4 = self.svg.append("text")
                         .attr("id", "currValue")
                         .attr("class", "titleText2")
                         .attr("x", textX + 20)
-                        .attr("y", textY + 30) //adjusts vertical space between text liens
+                        .attr("y", textY + 35) //adjusts vertical space between text liens
                         .attr("font-size", "1.5em")
                         // .style("font-size", 'xx-large')
                         .style("font-family", 'chancery_cursiveitalic')
@@ -313,18 +302,18 @@
 
                     // add line labels
                     self.exportText = self.svg.append("text")
-                        .attr("transform", "translate(" + (width - 320/zoom - 250) + "," + (height - 250/zoom - 90) + ") rotate(" + (-5) + ")")
+                        .attr("transform", "translate(" + (width - 320/zoom - 25) + "," + (height - 250/zoom - 90) + ") rotate(" + (-5) + ")")
                         .attr("dy", ".35em")
                         .attr("text-anchor", "start")
                         // .attr("visibility","hidden")
                         .style("fill", "black")
-                        .text("U.K. Death");
+                        .text("U.K.");
                     self.importText = self.svg.append("text")
-                        .attr("transform", "translate(" + (width - 690/zoom - 130) + "," + (height - 55/zoom - 90) + ") rotate(" + (-11) + ")")
+                        .attr("transform", "translate(" + (width - 690/zoom + 100) + "," + (height - 55/zoom - 95) + ") rotate(" + (-11) + ")")
                         .attr("dy", ".35em")
                         .attr("text-anchor", "start")
                         .style("fill", "black")
-                        .text("U.S. Death");
+                        .text("U.S.");
 
 
                 });
@@ -382,7 +371,7 @@
   }
 
   /*outermost border*/
-  .chartCovid{
+  .chartWomen{
     background: #FCE2B0;
     opacity: 1;
     border-style: solid;
