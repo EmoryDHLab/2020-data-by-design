@@ -1,7 +1,8 @@
 import axios from 'axios'
 
+const remote = process.env.VUE_APP_SERVER;
 const dev = process.env.NODE_ENV == 'development'
-const url = dev ? '/api/' : 'https://server.dataxdesign.io/api/';
+const url = remote || (dev ? '/api/' : 'https://server.dataxdesign.io/api/');
 console.warn("We're in " + (dev ? 'development' : 'production') + " mode, calling our api at " + url);
 
 function setAuthorization (token) {
