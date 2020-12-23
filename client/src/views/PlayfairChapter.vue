@@ -119,11 +119,11 @@
       </template>
 
       <template v-slot:[slots.newCharts]>
-        <D3ImplCovid key="1"/>
+        <DataSetsVis key="1"/>
       </template>
 
       <template v-slot:[slots.sideBySide]>
-        <StackedBar key="1"/>
+        <StackedBar key="2"/>
       </template>
 
     </DocRenderer>
@@ -142,12 +142,8 @@
   import Footnotes from "../components/general/Footnotes"
   import FootnoteReference from "../components/general/FootnoteReference";
   import d3Impl from "../components/vis/playfair/creationProcess/D3Impl";
-  import D3ImplCovid
-    from "../components/vis/playfair/creationProcess/D3ImplCovid";
-  import D3ImplWomen
-      from "../components/vis/playfair/creationProcess/D3ImplWomen";
-  import D3ImplIncome
-      from "../components/vis/playfair/creationProcess/D3ImplIncome";
+  import DataSetsVis
+    from "../components/vis/playfair/creationProcess/DataSetsVis";
   import StackedBar
       from "../components/vis/playfair/creationProcess/StackedBar";
   import DocRenderer from "../docs-integration/DocRenderer";
@@ -156,7 +152,7 @@
     name: "PlayfairChapter",
     components: {
       DocRenderer,
-      D3ImplCovid, D3ImplWomen, D3ImplIncome,
+      DataSetsVis,
       StackedBar,
       d3Impl,
       ChapterScaffold,

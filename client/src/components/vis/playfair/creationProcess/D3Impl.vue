@@ -408,8 +408,8 @@
                     self.importDots = self.svg.selectAll("dot")
                         .data(csvData)
                         .enter().append("circle")
-                        .attr("r", 3)
-                        .attr("fill", "#444444")
+                        .attr("r", 2)
+                        .attr("fill", "#616161")
                         .attr("cx", function (d) {
                             return x(d.Years);
                         })
@@ -422,8 +422,8 @@
                     self.exportDots = self.svg.selectAll("dot")
                         .data(csvData)
                         .enter().append("circle")
-                        .attr("r", 3)
-                        .attr("fill", "#444444")
+                        .attr("r", 2)
+                        .attr("fill", "#616161")
                         .attr("cx", function (d) {
                             return x(d.Years);
                         })

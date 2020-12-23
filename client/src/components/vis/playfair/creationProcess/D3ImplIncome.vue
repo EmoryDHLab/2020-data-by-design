@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div id="chartWomen" style="background-color: #F3ECCB; font-family: 'Dancing Script', cursive"></div>
+    <div id="chartIncome" style="background-color: #F3ECCB; font-family: 'Dancing Script', cursive"></div>
   </div>
 </template>
 
@@ -8,7 +8,7 @@
     import * as d3 from "d3";
 
     export default {
-        name: "D3ImplWomen",
+        name: "D3ImplIncome",
         mounted() {
             this.generateSvg();
         },
@@ -32,8 +32,8 @@
                 let y = d3.scaleLinear()
                     .range([height, 0]);
 
-                self.svg = d3.select("#chartWomen").append("svg")
-                    .attr("class", "chartWomen")
+                self.svg = d3.select("#chartIncome").append("svg")
+                    .attr("class", "chartIncome")
                     .attr("width", width + margin.left + margin.right+25)
                     .attr("height", height + margin.top + margin.bottom)
                     .append("g")
