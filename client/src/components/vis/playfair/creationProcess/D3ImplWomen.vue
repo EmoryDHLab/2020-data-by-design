@@ -75,7 +75,7 @@
 
                     let yValues = function () {
                         var yNums = [];
-                        for (var i = interval; i <= maxY; i += interval) {
+                        for (var i = interval/2; i <= maxY; i += interval/2) {
                             yNums.push(i);
                         }
                         return yNums;
