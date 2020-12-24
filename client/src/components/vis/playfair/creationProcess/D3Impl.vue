@@ -57,10 +57,12 @@
                     this.importLineFirstDraft.transition()
                         .attr("d", this.importLined)
                         .attr("transform", "")
+                        .attr("opacity", 1)
                         .duration(800);
                     this.changeOpacity(this.importText);
                     this.exportLineFirstDraft.transition()
                         .attr("d", this.exportLined)
+                        .attr("opacity", 1)
                         .attr("transform", "")
                         .duration(800);
                     this.changeOpacity(this.exportText);

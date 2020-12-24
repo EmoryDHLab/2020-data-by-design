@@ -23,8 +23,8 @@
                 let self = this;
                 let zoom = 3.5;
                 let margin = {top: 25, right: 50, bottom: 25, left: 25},
-                    width = window.innerWidth/zoom/1 - margin.left - margin.right,
-                    height = window.innerWidth/zoom/1.6 - margin.top - margin.bottom;
+                    width = window.innerWidth/zoom/1.1 - margin.left - margin.right,
+                    height = window.innerWidth/zoom/1.5 - margin.top - margin.bottom;
 
                 let x = d3.scaleTime()
                     .range([0, width]);
@@ -35,7 +35,7 @@
 
                 self.svg = d3.select("#chartStacked").append("svg")
                     .attr("class", "chartStacked")
-                    .attr("width", width + margin.left + margin.right+280)
+                    .attr("width", width + margin.left + margin.right+380)
                     .attr("height", height + margin.top + margin.bottom)
                     .append("g")
                     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -124,8 +124,9 @@
 
                     let exportArcs = [];
                     let importArcs = [];
-                    let yearAngle = 3.32;
-                    let radiusScale = 12;
+                    let yearAngle = 3.27;
+                    let radiusScale = 8.25;
+                    // let radiusScale = 12;
                     for (let idx = 0; idx < playfairData.length; idx++) {
                         let endAng;
                         let startAng = (playfairData[idx].Years - 1700)*yearAngle * Math.PI/180;
@@ -146,28 +147,88 @@
                         importArcs.push(ia);
                     }
 
+                    let outlineArcs = [];
+                    let maxOuterR = (maxY/(interval)+1)*radiusScale;
+                    for (let i = 0; i < 11; i++) {
+                        let startAng = 2*Math.PI/11*i;
+                        let endAng = 2*Math.PI/11*(i+1);
+                        let oa = d3.arc()
+                            .innerRadius(0)
+                            .outerRadius(maxOuterR)
+                            .startAngle(startAng)
+                            .endAngle(endAng);
+                        outlineArcs.push(oa);
+                    }
 
                     /*************************append all of the graphics to the canvas**************************************/
 
 
                     self.svg.datum(playfairData); //binds data, makes static and not interactive
 
-                    let coxXposition = 630;
-                    let coxYPosition = height/2 + 55;
+                    //coxcomb sectors
+                    let coxXposition = width/2*3+30;
+                    let coxYPosition = height/2;
+                    // let coxXposition = width/2*3+50;
+                    // let coxYPosition = height/2+45;
                     for (let idx = 0; idx < playfairData.length; idx++) {
                         self.svg.append("path")
                             .attr("transform", "translate(" + coxXposition + "," + coxYPosition + ") ")
                             .style("fill", "#E4AE95")
-                            .style("stroke", "#c0c0c0")
-                            .style("stroke-width", 0.2)
                             .attr("d", importArcs[idx]);
                         self.svg.append("path")
                             .attr("transform", "translate(" + coxXposition + "," + coxYPosition + ") ")
                             .style("fill", "#ABAF7B")
-                            .style("stroke", "#969696")
-                            .style("stroke-width", 0.2)
                             .attr("d", exportArcs[idx]);
                     }
+
+                    //cox outline
+                    for (let i = 0; i < 11; i++) {
+                        self.svg.append("path")
+                            .attr("transform", "translate(" + coxXposition + "," + coxYPosition + ") ")
+                            .style("fill-opacity", 0)
+                            .attr("stroke", "#7e7e7e")
+                            .attr("d", outlineArcs[i]);
+                        self.svg.append("text")
+                            .attr("transform", "translate(" +
+                                (coxXposition + Math.sin(2*Math.PI/11*(i+0.4))*(maxOuterR + 6)) + "," +
+                                (coxYPosition - Math.cos(2*Math.PI/11*(i+0.4))*(maxOuterR + 6)) +
+                                ") rotate(" + ((i+0.4)*360/11) + ")")
+                            .attr("dy", ".35em")
+                            .attr("text-anchor", "start")
+                            .style("fill", "black")
+                            .style("font-size", 'large')
+                            .style("font-family", "chancery_cursiveitalic")
+                            .text(1700+i*10);
+                    }
+
+                    //cox scale
+                    for (let i = 0; i <= maxY; i += interval) {
+                        self.svg.append("circle")
+                            .attr("fill-opacity", 0)
+                            .attr("stroke", "#9c9c9c")
+                            .style("stroke-width", function (d) {
+                                if (i%(2*interval) == 0) return 0.7;
+                                else return 0.3;
+                            })
+                            // .attr("stroke-width", 0.5)
+                            .attr("cx", coxXposition)
+                            .attr("cy", coxYPosition)
+                            .attr("r", i/interval*radiusScale);
+                    }
+
+                    //add cox labels
+                    self.svg.append("text")
+                        .attr("transform", "translate(" + (coxXposition - 10) + "," + (coxYPosition - 30) + ") rotate(" + (0) + ")")
+                        .attr("dy", ".35em")
+                        .attr("text-anchor", "start")
+                        .style("fill", "black")
+                        .text("Imports");
+                    self.svg.append("text")
+                        .attr("transform", "translate(" + (coxXposition - 30) + "," + (coxYPosition - 90) + ") rotate(" + (0) + ")")
+                        .attr("dy", ".35em")
+                        .attr("text-anchor", "start")
+                        .style("fill", "black")
+                        .text("Exports");
 
 
                     //bg color borrowed from former student
@@ -178,6 +239,7 @@
                         .attr("fill", "white")
                         .attr("opacity", .2);
 
+                    let barXscale = 3.27;
                     //stacked bar vis
                     self.svg.append("g")
                         .selectAll("g")
@@ -189,7 +251,7 @@
                         // enter a second time = loop subgroup per subgroup to add all rectangles
                           .data(function(d) { return d; })
                           .enter().append("rect")
-                          .attr("x", function(d) { return (2.5 + d.data.Years - 1700) * 3.61; })
+                          .attr("x", function(d) { return (2.5 + d.data.Years - 1700) * barXscale; })
                           .attr("y", function(d) { return y(d[1]); })
                           .attr("height", function(d) { return y(d[0]) - y(d[1]); })
                           .attr("width",20);
@@ -319,22 +381,6 @@
                         .attr("text-anchor", "start")
                         .style("fill", "black")
                         .text("Exports");
-
-                    //add cox labels
-                    self.svg.append("text")
-                        .attr("transform", "translate(" + (width - 320/zoom + 300) + "," + (height - 250/zoom - 50) + ") rotate(" + (0) + ")")
-                        .attr("dy", ".35em")
-                        .attr("text-anchor", "start")
-                        // .attr("visibility","hidden")
-                        .style("fill", "black")
-                        .text("Imports");
-                    self.svg.append("text")
-                        .attr("transform", "translate(" + (width - 690/zoom + 400) + "," + (height - 55/zoom - 200) + ") rotate(" + (0) + ")")
-                        .attr("dy", ".35em")
-                        .attr("text-anchor", "start")
-                        .style("fill", "black")
-                        .text("Exports");
-
 
                 });
 
