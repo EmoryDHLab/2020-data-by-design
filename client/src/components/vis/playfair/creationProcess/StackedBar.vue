@@ -125,8 +125,8 @@
                     let exportArcs = [];
                     let importArcs = [];
                     let yearAngle = 3.27;
-                    let radiusScale = 8.25;
-                    // let radiusScale = 12;
+                    // let radiusScale = 8.25;
+                    let radiusScale = 12;
                     for (let idx = 0; idx < playfairData.length; idx++) {
                         let endAng;
                         let startAng = (playfairData[idx].Years - 1700)*yearAngle * Math.PI/180;
@@ -148,7 +148,7 @@
                     }
 
                     let outlineArcs = [];
-                    let maxOuterR = (maxY/(interval)+1)*radiusScale;
+                    let maxOuterR = (maxY/(interval)+1)*radiusScale/2;
                     for (let i = 0; i < 11; i++) {
                         let startAng = 2*Math.PI/11*i;
                         let endAng = 2*Math.PI/11*(i+1);
@@ -166,10 +166,10 @@
                     self.svg.datum(playfairData); //binds data, makes static and not interactive
 
                     //coxcomb sectors
-                    let coxXposition = width/2*3+30;
-                    let coxYPosition = height/2;
-                    // let coxXposition = width/2*3+50;
-                    // let coxYPosition = height/2+45;
+                    // let coxXposition = width/2*3+30;
+                    // let coxYPosition = height/2;
+                    let coxXposition = width/2*3+50;
+                    let coxYPosition = height/2+45;
                     for (let idx = 0; idx < playfairData.length; idx++) {
                         self.svg.append("path")
                             .attr("transform", "translate(" + coxXposition + "," + coxYPosition + ") ")
@@ -202,7 +202,7 @@
                     }
 
                     //cox scale
-                    for (let i = 0; i <= maxY; i += interval) {
+                    for (let i = 0; i <= maxY/2; i += interval) {
                         self.svg.append("circle")
                             .attr("fill-opacity", 0)
                             .attr("stroke", "#9c9c9c")
