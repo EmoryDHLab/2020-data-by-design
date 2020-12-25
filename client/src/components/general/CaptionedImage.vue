@@ -1,6 +1,6 @@
 <template>
-  <div :style="{width: width, height: height}">
-    <img :src="require(`@/views/img/${src}`)" width="100%" height="100%">
+  <div>
+    <img :src="require(`@/views/img/${src}`)" :width="width">
     <p><slot></slot></p>
   </div>
 </template>
@@ -10,19 +10,17 @@
     props: {
       src: String,
       width: {
-        default: '50%'
+        default: '50%',
       },
-      height: {
-        default: '50%'
-      }
     }
   }
 </script>
 
 <style scoped>
-  div {
-    margin: auto;
-  }
+div {
+  margin: auto;
+  text-align: center;
+}
 p {
   text-align: center;
   font-family: Consolas;

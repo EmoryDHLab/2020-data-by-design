@@ -5,9 +5,6 @@
       Complete”
     </template>
     <DocRenderer doc-id="1V6BiTxJw0vGc-AApW4PHAckbzqRKi8sJ6VT0bu7BBXU">
-            <template v-slot:[slots.bookImg]>
-              <img class="centered-image" src="./img/ch1-1-tufte.jpg" width="80%"/>
-            </template>
 
             <template v-slot:[slots.chartImages]>
               <div>
