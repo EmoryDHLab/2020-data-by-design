@@ -26,6 +26,6 @@
 p {
   text-align: center;
   font-family: Consolas;
-  font-size: 80%;
+  font-size: 90%;
 }
 </style>
