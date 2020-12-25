@@ -122,17 +122,21 @@ export default {
           const componentName = data.headers[1];
           if (componentName in this.components) {
             const component = registeredComponents[componentName];
+            const realLength = row => row.filter(cell => cell.length > 0).length;
+            const slotIndex = data.rows.findIndex(row => realLength(row) == 1);
+            const propRows = slotIndex > -1 ? data.rows.slice(0, slotIndex) : data.rows;
             let props = {};
-            data.rows.forEach(([propName, value]) => {
+            propRows.forEach(([propName, value]) => {
               if (propName in component.props) {
                 const constructor = component.props[propName].type || component.props[propName];
                 const coerced = constructor();
                 props[propName] = coerced;
               }
             })
+            const children = data.rows[slotIndex][0].map(createFromObj);
             return h(component, {
               props
-            });
+            }, children);
           }
         }
       }

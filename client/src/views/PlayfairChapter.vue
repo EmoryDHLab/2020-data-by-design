@@ -26,18 +26,6 @@
               <img class="centered-image" src="./img/ch1-6-data.png" width="80%"/>
             </template>
 
-            <template v-slot:[slots.blockquote(1)]>
-              <blockquote>
-                The advantage proposed by this method, is not that of giving a more
-                accurate statement than by figures, but it is to give a more simple
-                and permanent idea of the gradual progress and comparative amounts, at
-                different periods, by presenting to the eye a figure, the proportions
-                of which correspond with the amount of the sums intended to be
-                expressed.
-                <FootnoteRef :number="18"></FootnoteRef>
-              </blockquote>
-            </template>
-
       <template v-slot:[slots.d3Impl]>
         <Scrollytell collect bottom-break :scrollSlots="9">
           <template v-slot:fixed="{ scrolled, progress }">
@@ -95,16 +83,6 @@
         <img class="centered-image" src="./img/ch1-7-minard.png" width="80%"/>
       </template>
 
-      <template v-slot:[slots.blockquote(2)]>
-        <blockquote key="blockquote2">
-          “If [a future of war] turns out so, a picture of the past will be a
-          valuable thing, if, on the contrary, commerce should still continue
-          its progress, this will make the first part of a great whole, which,
-          when completed on some future day, will be a most valuable work.”
-          <FootnoteRef :number="23"></FootnoteRef>
-        </blockquote>
-      </template>
-
       <!--            <template v-slot:[slots.sideBySide]>-->
       <!--put new viz here-->
       <!--            </template>-->
@@ -147,6 +125,7 @@
   import StackedBar
       from "../components/vis/playfair/creationProcess/StackedBar";
   import DocRenderer from "../docs-integration/DocRenderer";
+  import Blockquote from "../components/general/Blockquote";
 
   export default {
     name: "PlayfairChapter",
@@ -159,6 +138,7 @@
       EventKey,
       TimelineVis,
       Section,
+      Blockquote,
       Scrollytell,
       PeabodyCanvas,
       MapScroller,
@@ -173,7 +153,6 @@
           chartImages: "Original Chart Images",
           errorViz: "Playfair Error",
           dataImg: "Original Data Table",
-          blockquote: num => `Playfair Blockquote ${num}`,
           d3Impl: "Difference Visualization",
           minardImg: "Image of Minard Chart",
           sideBySide: "Side-by-side",
