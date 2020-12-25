@@ -96,7 +96,7 @@
       </template>
 
       <template v-slot:[slots.blockquote(2)]>
-        <blockquote :key="blockquote2">
+        <blockquote key="blockquote2">
           “If [a future of war] turns out so, a picture of the past will be a
           valuable thing, if, on the contrary, commerce should still continue
           its progress, this will make the first part of a great whole, which,
@@ -185,7 +185,6 @@
     computed: {},
     methods: {},
     created() {
-      debugger;
       this.setChapter({title: "Playfair"});
     },
     mounted() {
