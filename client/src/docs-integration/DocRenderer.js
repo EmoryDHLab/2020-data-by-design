@@ -126,10 +126,12 @@ export default {
             const slotIndex = data.rows.findIndex(row => realLength(row) == 1);
             const propRows = slotIndex > -1 ? data.rows.slice(0, slotIndex) : data.rows;
             let props = {};
-            propRows.forEach(([propName, value]) => {
+            propRows.forEach(([nameP, valueP]) => {
+              const propName = nameP[0].p;
+              const propValue = valueP[0].p;
               if (propName in component.props) {
                 const constructor = component.props[propName].type || component.props[propName];
-                const coerced = constructor();
+                const coerced = constructor(propValue);
                 props[propName] = coerced;
               }
             })
