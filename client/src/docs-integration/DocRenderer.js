@@ -131,7 +131,7 @@ export default {
               const propValue = valueP[0].p;
               if (propName in component.props) {
                 const constructor = component.props[propName].type || component.props[propName];
-                const coerced = constructor(propValue);
+                const coerced = typeof constructor === "function" ? constructor(propValue) : propValue;
                 props[propName] = coerced;
               }
             })
