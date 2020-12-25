@@ -2,6 +2,7 @@ import api from "../api";
 import registeredComponents from "./registered-components";
 import {register} from "register-service-worker";
 import FootnoteReference from "../components/general/FootnoteReference";
+import Footnotes from "../components/general/Footnotes";
 import Section from "../components/chapters/Section";
 
 export default {
@@ -24,6 +25,10 @@ export default {
     sectionTitleProp: {
       type: String,
       default: "title"
+    },
+    footnotesComponent: {
+      type: Object,
+      default: () => Footnotes,
     },
     footnoteRefComponent: {
       type: Object,
@@ -147,9 +152,15 @@ export default {
 
       const content = this.docJson.content.filter(obj => obj.p !== "")
 
+      const firstFootnoteIndex = content.findIndex(obj => obj.footnote);
+      const footnotes = firstFootnoteIndex > -1 ? content.slice(firstFootnoteIndex) : false;
+
+      const bodyContent = footnotes ? content.slice(0, firstFootnoteIndex) : content;
+
+      const renderArray = [];
       if (this.sectionRegex && this.sectionComponent) {
         const sections = [];
-        content.forEach((el, index) => {
+        bodyContent.forEach((el, index) => {
           const [key, value] = Object.entries(el)[0];
           if (typeof value == "string") {
             const firstMatch = this.sectionRegex.exec(value);
@@ -163,28 +174,36 @@ export default {
           }
         });
         if (sections.length > 0) {
-          // if (sections[0].)
-          console.log(sections);
-          const renderArr = [];
+          const lastSectionEnd = bodyContent.length;
+          //If there isn't an initial section, create one and put the preceding content in it
           if (sections[0].index != 0) {
-            renderArr.push(...(content.slice(0, sections[0].index).map(createFromObj)));
+            renderArray.push(...(bodyContent.slice(0, sections[0].index).map(createFromObj)));
           }
-          renderArr.push(...sections.map(({index, title}, arrIndex) =>
+          renderArray.push(...sections.map(({index, title}, arrIndex) =>
             (
               h(this.sectionComponent, {
                   props: {[this.sectionTitleProp]: title}
                 },
-                content
-                  .slice(index + 1, sections[arrIndex + 1] ? sections[arrIndex + 1].index : content.length)
+                bodyContent
+                  .slice(index + 1, sections[arrIndex + 1] ? sections[arrIndex + 1].index : lastSectionEnd)
                   .map(createFromObj)
               )
             )
           ));
-          return h('div', renderArr);
         }
+      } else {
+        //No sections
+        renderArray.push(bodyContent.map(createFromObj));
       }
 
-      return h('div', content.map(createFromObj))
+      if (footnotes) {
+        const slots = footnotes.map(obj => obj.footnote).map( ({number, text}, index) => {
+          return h('template', {slot: number || String(index + 1)}, parseInner(text))
+        });
+        renderArray.push(h(this.footnotesComponent, slots));
+      }
+
+      return h('div', renderArray);
     }
   },
   created() {
