@@ -42,30 +42,19 @@
         <g v-if="point.year % 2 == 0"
            :transform="`translate(${point.yearCount * 10 - styles.frame.width/2 + posAdjust(point.year)},${(styles.height + styles.margin.bottom)/2 - 10})`"
            @mouseover="hover = point"
-           @mouseleave="hover = null">
+        >
 
-          <g v-if="hover == point">
-            <rect x="-15" width="60" :height="point.height*2" rx="1" fill="#989898"></rect>
-            <polygon points="15,-5 10,1 20,1" style="fill:#989898"></polygon>
+          <g v-if = "hover != point">
+            <rect x="0" width="30" :height="point.height" rx="1" fill="#989898"></rect>
+            <g :transform="`translate(0)`">
+              <polygon points="15,-5 10,1 20,1" style="fill:#989898"></polygon>
+            </g>
             <image
                     :xlink:href="point.href"
-                    :width="56"
-                    :x="point.x - (point.width)/2"
+                    :width="26"
+                    :x="point.x"
                     :y="point.y"
-            ></image>
-          </g>
-
-          <g v-else>
-          <rect x="0" width="30" :height="point.height" rx="1" fill="#989898"></rect>
-          <g :transform="`translate(0)`">
-            <polygon points="15,-5 10,1 20,1" style="fill:#989898"></polygon>
-          </g>
-          <image
-                  :xlink:href="point.href"
-                  :width="26"
-                  :x="point.x"
-                  :y="point.y"
-                  ></image>
+                    ></image>
           </g>
 
           <g v-show="hover == point">
@@ -77,23 +66,9 @@
 
         <g v-if="point.year % 2 != 0"
            :transform="`translate(${22 + point.yearCount * 10 + posAdjust(point.year)},${(styles.margin.top + styles.margin.bottom - styles.framepadding)/2})`"
-           @mouseover="hover = point"
-           @mouseleave="hover = null">
-
-          <g v-if="hover == point">
-            <g :transform="`translate(-40,0)`">
-              <rect x="-15" :y="40-point.height*2" width="60" :height="point.height*2" rx="1" fill="#989898"></rect>
-              <g :transform="`translate(30, 40) rotate(180)`">
-                <polygon points="15,-5 10,1 20,1" style="fill:#989898"></polygon>
-              </g>
-            </g>
-            <image
-                    :xlink:href="point.href"
-                    :width="56"
-                    :x="point.x - 40 - (point.width)/2"
-                    :y="42.5-point.height*2"></image>
-          </g>
-          <g v-else>
+           @mouseover="hover = point, hoverx = point.x, hovery = point.y"
+        >
+          <g v-if="hover != point">
           <g :transform="`translate(-40, 20)`">
             <rect :x="0"
                   :y="20-point.height"
@@ -116,6 +91,38 @@
             <line x1="-25" y1="45" x2="-25" y2="120" style="stroke:#4A90E2;stroke-width:2"></line>
             <polygon points="-25,130 -20,120 -30,120" style="fill:#4A90E2"></polygon>
           </g>
+        </g>
+      </g>
+
+      <g v-if="hover != null" :style = positionPointX(hover)>
+        <g v-if="hover.year % 2 == 0"
+           @mouseleave="hover = null"
+           :transform="`translate(${hover.yearCount * 10 - styles.frame.width/2 + posAdjust(hover.year)},${(styles.height + styles.margin.bottom)/2 - 10})`">
+          <rect x="-15" width="60" :height="hover.height*2" rx="1" fill="#989898"></rect>
+          <polygon points="15,-5 10,1 20,1" style="fill:#989898"></polygon>
+          <image
+                  :xlink:href="hover.href"
+                  :width="56"
+                  :x="hoverx - (hover.width)/2"
+                  :y="hovery"
+          ></image>
+        </g>
+
+        <g v-if="hover.year % 2 != 0"
+           @mouseleave="hover = null"
+           :transform="`translate(${22 + hover.yearCount * 10 + posAdjust(hover.year)},${(styles.margin.top + styles.margin.bottom - styles.framepadding)/2})`">
+          <g :transform="`translate(-40,0)`">
+            <rect x="-15" :y="40-hover.height*2" width="60" :height="hover.height*2" rx="1" fill="#989898"></rect>
+            <g :transform="`translate(30, 40) rotate(180)`">
+              <polygon points="15,-5 10,1 20,1" style="fill:#989898"></polygon>
+            </g>
+          </g>
+          <image
+                  :xlink:href="hover.href"
+                  :width="56"
+                  :x="hover.x - 40 - (hover.width)/2"
+                  :y="42.5-hover.height*2"
+          ></image>
         </g>
       </g>
 
@@ -165,6 +172,8 @@ export default {
   data() {
       return {
           hover: null,
+          hoverx: 0,
+          hovery: 0,
       };
   },
   props: {
