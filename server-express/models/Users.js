@@ -5,8 +5,6 @@ const notebookTypes = require('dxd-common').notebookTypes;
 
 const { Schema } = mongoose;
 
-console.log(notebookTypes);
-
 const NotebookSchema = new Schema({
   html: String,
   notebookId: Number,
