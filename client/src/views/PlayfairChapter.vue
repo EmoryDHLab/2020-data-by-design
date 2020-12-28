@@ -5,23 +5,22 @@
       Complete”
     </template>
     <DocRenderer doc-id="1V6BiTxJw0vGc-AApW4PHAckbzqRKi8sJ6VT0bu7BBXU">
+      <template v-slot:[slots.chartImages]>
+        <div>
+          <img class="centered-image" src="./img/ch1-2-wheat.jpg" width="30%"/>
+          <img class="centered-image" src="./img/ch1-3-northamerica.jpg"
+               width="30%"/>
+          <img class="centered-image" src="./img/ch1-4-pie.jpg" width="30%"/>
+        </div>
+      </template>
 
-            <template v-slot:[slots.chartImages]>
-              <div>
-                <img class="centered-image" src="./img/ch1-2-wheat.jpg" width="30%"/>
-                <img class="centered-image" src="./img/ch1-3-northamerica.jpg"
-                     width="30%"/>
-                <img class="centered-image" src="./img/ch1-4-pie.jpg" width="30%"/>
-              </div>
-            </template>
+      <template v-slot:[slots.errorViz]>
+        <img class="centered-image" src="./img/ch1-5-error.jpg" width="80%"/>
+      </template>
 
-            <template v-slot:[slots.errorViz]>
-              <img class="centered-image" src="./img/ch1-5-error.jpg" width="80%"/>
-            </template>
-
-            <template v-slot:[slots.dataImg]>
-              <img class="centered-image" src="./img/ch1-6-data.png" width="80%"/>
-            </template>
+      <template v-slot:[slots.dataImg]>
+        <img class="centered-image" src="./img/ch1-6-data.png" width="80%"/>
+      </template>
 
       <template v-slot:[slots.d3Impl]>
         <Scrollytell collect bottom-break :scrollSlots="9">
@@ -120,9 +119,10 @@
   import DataSetsVis
     from "../components/vis/playfair/creationProcess/DataSetsVis";
   import StackedBar
-      from "../components/vis/playfair/creationProcess/StackedBar";
+    from "../components/vis/playfair/creationProcess/StackedBar";
   import DocRenderer from "../docs-integration/DocRenderer";
   import Blockquote from "../components/general/Blockquote";
+  import {mapActions} from "vuex";
 
   export default {
     name: "PlayfairChapter",
@@ -159,7 +159,9 @@
       };
     },
     computed: {},
-    methods: {},
+    methods: {
+      ...mapActions("chapters", ["setChapter"]),
+    },
     created() {
       this.setChapter({title: "Playfair"});
     },
