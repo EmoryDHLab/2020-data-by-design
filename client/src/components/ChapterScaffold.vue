@@ -5,8 +5,6 @@
         <component v-bind:is="currentChapter"
           id="nav-timeline"
           class="chapter__timeline-col__timeline --stick"
-          width="100%"
-          height="90vh"
           :dataset="timelineData"
         ></component>
       </aside>
@@ -175,8 +173,8 @@ a.blue-hover:hover {
 .chapter__timeline-col__timeline {
   position: sticky;
   top: 10vh;
-  /*width: 100%;*/
-  /*height: 100vh;*/
+  width: 100%;
+  height: 90vh;
 }
 
 .chapter__notebook-col {

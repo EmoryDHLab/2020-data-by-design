@@ -11,7 +11,7 @@
       <text x="340" y="2150" class="number" fill="#4A4A4A">LEGENDS</text>
       <text x="320" y="2220" class="small">Highlights</text>
       <text x="520" y="2220" class="small">Images</text>
-      <text x="520" y="2275" class="small">Static Vis.</text>
+      <text x="520" y="2275" class="small">Visualization</text>
       <text x="320" y="2275" class="small">Scrollytell</text>
     </g>
 
@@ -113,10 +113,9 @@
  * It shares a lot of code with the the timeline vis
  */
 
-import MetaVisualization from '@/mixins/vis/MetaVisualization'
 import NavlineBucket from './NavlineBucket'
+import NavlineMixin from "../../../../mixins/vis/NavlineMixin";
 import ch_mut from '@/store/chapters-old/types'
-import { VisTypes } from '@/store/chapters/index'
 import { mapState, mapGetters, mapActions } from 'vuex'
 
 // import * as d3 from 'd3'
@@ -163,188 +162,35 @@ const DEFAULT_OPTIONS = {
   showTicks: true // whether to show the axis ticks
 };
 export default {
-  data() {
-    return {hover: null, click: null, scroll: 0, VisTypes}
-  },
   components: {
     NavlineBucket
   },
-  mixins: [MetaVisualization],
-  props: {
-    width: String,
-    height: String,
-    options: {
-      type: Object,
-      required: false,
-      default: () => DEFAULT_OPTIONS
-    },
-  },
-  mounted () {
-    window.addEventListener('scroll', event => this.scroll = window.scrollY)
-  },
-  computed: {
-    /**
-     * Formats the data for use by the navline
-     * @return {Array} the formattedData
-     */
-    formattedData () {
-      return this.dataFormatter(this.dataset.data || {})
-    },
-    /**
-     * get the internal width (width - margins on left and right) of the vis
-     * @return {Number} the width of the navline without margins
-     */
-    innerWidth () {
-      return this.styles.width - this.styles.margin.left - this.styles.margin.right
-    },
-    /**
-     * get the internal height (height - margins on top and bottom) of the vis
-     * @return {Number} the height of the navline without margins
-     */
-    innerHeight () {
-      return this.styles.height - this.styles.margin.top - this.styles.margin.bottom
-    },
-    /**
-     * calculate the margin transforation required to move the vis internal
-     * content to respect the defined marigins
-     * @return {Object} containing the transform attribute used in styling
-     */
-    marginTransform () {
-      return { transform: 'translate('
-        + this.styles.margin.left + 'px, '
-        + this.styles.margin.top + 'px)' }
-    },
-    /**
-     * Shift the axis to align it better
-     * TODO make this non-magical
-     */
-    axisTransform () {
-      return { transform: `translateX(-${5}px)` }
-    },
-    /**
-     * Get the svg viewbox attribute using the given information in options
-     */
-    getViewBox () {
-      return `0 0 ${this.styles.width} ${this.styles.height}`
-    },
-    /**
-     * get the minimum position in the vis
-     * @return {Number} the minimum position of the axis
-     */
-    startPoint () {
-      if (!this.dataset.range) {
-        return 0
-      }
-      return this.dataset.range[0]
-    },
-    /**
-     * get the maximum position in the vis
-     * @return {Number} the maximum position of the axis
-     */
-    endPoint () {
-      if (!this.dataset.range) {
-        return 0
-      }
-      return this.dataset.range[1]
-    },
-    /**
-     * get the d3 scale used for positioning in the vis
-     * @return {D3 Scale} the scale to be used for the visualization
-     */
-    getScale() {
-      return d3.scaleLinear()
-        .domain([this.startPoint, this.endPoint])
-        .range([this.styles.margin.top, this.innerHeight]);
-    },
-    getProgress() {
-      const lastOffset = this.closestPastOffset(this.scroll);
-      if (!lastOffset) return 0;
-      const prog = this.offsets[lastOffset];
-      return Number(`${prog.section}.${prog.subsection}`);
-    },
-    //...mapState('chapters', ['scrollProgress'])
-    ...mapGetters('chapters', ['offsets', 'closestPastOffset'])
-  },
+  mixins: [NavlineMixin(DEFAULT_OPTIONS)],
   methods: {
-    ...mapActions('chapters', ['scrollTo']),
-      /**
-       * calculate line positions
-       **/
-      startEndPoint: function (paragraphData) {
-          let start = this.styles.line.start;
-          let x = this.styles.line.left;
-          let arr = [];
-          for (let i = 0; i < paragraphData.length; i++) {
-              let lines = paragraphData[i];
-              let end = lines * this.styles.block.width
-                  + (lines - 1) * this.styles.block.gap + this.styles.block.verGap * 2 + start;
-              arr.push({
-                  x1: x,
-                  y1: start,
-                  x2: x,
-                  y2: end,
-                  blocks: lines,
-              });
-              start = end;
-              x = (x === this.styles.line.left) ? this.styles.line.right : this.styles.line.left;
-          }
-          return arr;
-      },
-      goto: function (section, subsection) {
-        this.scrollTo({ section, subsection})
-      },
     /**
-     * Formats the data to match the navline format
-     * [
-     *  {
-     *    id: <bucket position>
-     *    events: [
-     *      {
-     *        color:"<some color>",
-     *        position:Number(<some position>),
-     *        ...eventdata
-     *      },
-     *      ...otherEventsInThisBucket
-     *    ],
-     *  }
-     *  ...otherBuckets
-     * ]
-     * TODO make colors dynamic and configurable
-     */
-    dataFormatter (d) {
-      const data = Object.values(d)
-        .map(evt => ({
-          color: "#db882a",
-          ...evt,
-          position: Math.floor(evt.position)
-        }))
-        .reduce((buckets, evt) => {
-          if (!buckets[evt.position]) {
-            buckets[evt.position] = { id: evt.position, events: [] }
-          }
-          buckets[evt.position].events.push(evt)
-          return buckets
-        }, {})
-      return Object.values(data)
+     * calculate line positions
+     **/
+    startEndPoint: function (paragraphData) {
+      let start = this.styles.line.start;
+      let x = this.styles.line.left;
+      let arr = [];
+      for (let i = 0; i < paragraphData.length; i++) {
+        let lines = paragraphData[i];
+        let end = lines * this.styles.block.width
+          + (lines - 1) * this.styles.block.gap + this.styles.block.verGap * 2 + start;
+        arr.push({
+          x1: x,
+          y1: start,
+          x2: x,
+          y2: end,
+          blocks: lines,
+        });
+        start = end;
+        x = (x === this.styles.line.left) ? this.styles.line.right : this.styles.line.left;
+      }
+      return arr;
     },
-    placeBucket (bucket) {
-      // console.log(this.getScale(bucket.id));
-      const dx = this.getScale(bucket.id) - (this.styles.timelineEvent.width / 2)
-      const dy = this.innerHeight - (this.styles.timelineEvent.height + this.styles.timelineEvent.gap)
-      return { transform: `translate(${0}px, ${dx}px)` }
-    },
-  },
-  directives: {
-    /**
-     * allows us to use d3 axis on an element in a Vue approved way
-     */
-    axis(el, binding) {
-      const axis = binding.arg; // :x or :y
-      const axisMethod = { x: "axisBottom", y: "axisLeft" }[axis];
-      const methodArg = binding.value;
-      // console.log(d3[axisMethod]);
-      d3.select(el).call(d3[axisMethod](methodArg).tickFormat(d3.format("d")));
-    }
+
   }
 }
 </script>
