@@ -12,6 +12,9 @@
       width: {
         default: '50%',
       },
+    },
+    mounted () {
+      this.$store.dispatch('chapters/registerImage', {element: this.$el});
     }
   }
 </script>

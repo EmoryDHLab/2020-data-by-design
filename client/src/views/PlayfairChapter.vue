@@ -1,86 +1,118 @@
 <template lang="html">
-  <chapter-scaffold v-bind:curChapter="'Playfair'">
+  <chapter-scaffold v-bind:curChapter="'Playfair'"
+                    docId="1V6BiTxJw0vGc-AApW4PHAckbzqRKi8sJ6VT0bu7BBXU">
     <template slot='title'>
       Visualization as Argument: William Playfair and the View “Simple and
       Complete”
     </template>
-    <DocRenderer doc-id="1V6BiTxJw0vGc-AApW4PHAckbzqRKi8sJ6VT0bu7BBXU">
+    <template v-slot:default="{ docRendererProps }">
+      <DocRenderer v-bind="docRendererProps">
+        <template v-slot:[slots.d3Impl]>
+          <Scrollytell collect bottom-break :scrollSlots="9">
+            <template v-slot:fixed="{ scrolled, progress }">
+              <d3Impl :slideNumber="scrolled"/>
+            </template>
+            <template v-slot:1>
+              <p>
+                He began--or more likely, Neele did--by engraving the border
+                around
+                the chart.
+              </p>
+            </template>
+            <template v-slot:2>
+              <p>
+                Neele then began to add the grid lines, and either before or
+                after,
+                the labels of the axes.
+              </p>
+            </template>
+            <template v-slot:3>
+              <p>
+                Neele decided to emphasize the major grid lines of the x-axis
+                with a
+                bolder line, creating an optimal background to contrast with the
+                smooth data lines that Playfair would go on to engrave.
+              </p>
+            </template>
+            <template v-slot:4>
+              <p>
+                Playfair likely took over at this point, and set about engraving
+                the
+                lines of imports and exports.
+              </p>
+            </template>
+            <template v-slot:5>
+              <p>
+                In the first edition of the <i>Atlas</i>, these data lines are
+                quite
+                bumpy, owing to Playfair's inexpert engraving technique.
+              </p>
+            </template>
+            <template v-slot:6>
+              <p>
+                But by the third edition, the data lines are visibly smoother.
+                Having engraved dozens of plates in the five years that
+                separated
+                the first edition from this one, Playfair's technique had
+                improved.
+                Even still, he took liberties with the data lines, adding more
+                detail to the fluctuations in trade between England and North
+                America than he had the data to support.
+              </p>
+            </template>
+            <template v-slot:7>
+              <p>
+                Long after the plates had been completed and pressed upon the
+                page,
+                Playfair returned to each chart in each copy of the <i>Atlas</i>,
+                hand-staining each of the data lines, as well as the area
+                between
+                them, to add color to his charts. The warm color palate that
+                Playfair employs takes full advantage of the color theory that
+                was
+                emerging at the time.
+              </p>
+            </template>
+            <template v-slot:8>
+              <p>
+                The result is a data visualization that is deservedly
+                iconic--even
+                as it did not depend on the actual data.
+              </p>
+            </template>
+            <template v-slot:9>
+              <p>
+                There is no evidence to suggest that Playfair plotted any of the
+                original data points before engraving the data lines.
+              </p>
+            </template>
+          </Scrollytell>
+        </template>
 
-      <template v-slot:[slots.d3Impl]>
-        <Scrollytell collect bottom-break :scrollSlots="9">
-          <template v-slot:fixed="{ scrolled, progress }">
-            <d3Impl :slideNumber="scrolled"/>
-          </template>
-          <template v-slot:1>
-            <p>
-              He began--or more likely, Neele did--by engraving the border around the chart.
-            </p>
-          </template>
-          <template v-slot:2>
-            <p>
-              Neele then began to add the grid lines, and either before or after, the labels of the axes.
-            </p>
-          </template>
-          <template v-slot:3>
-            <p>
-              Neele decided to emphasize the major grid lines of the x-axis with a bolder line, creating an optimal background to contrast with the smooth data lines that Playfair would go on to engrave.
-            </p>
-          </template>
-          <template v-slot:4>
-            <p>
-              Playfair likely took over at this point, and set about engraving the lines of imports and exports.
-            </p>
-          </template>
-          <template v-slot:5>
-            <p>
-              In the first edition of the <i>Atlas</i>, these data lines are quite bumpy, owing to Playfair's inexpert engraving technique.
-            </p>
-          </template>
-          <template v-slot:6>
-            <p>
-              But by the third edition, the data lines are visibly smoother. Having engraved dozens of plates in the five years that separated the first edition from this one, Playfair's technique had improved. Even still, he took liberties with the data lines, adding more detail to the fluctuations in trade between England and North America than he had the data to support.
-            </p>
-          </template>
-          <template v-slot:7>
-            <p>
-              Long after the plates had been completed and pressed upon the page, Playfair returned to each chart in each copy of the <i>Atlas</i>, hand-staining each of the data lines, as well as the area between them, to add color to his charts. The warm color palate that Playfair employs takes full advantage of the color theory that was emerging at the time.
-            </p>
-          </template>
-          <template v-slot:8>
-            <p>
-              The result is a data visualization that is deservedly iconic--even as it did not depend on the actual data. 
-            </p>
-          </template>
-          <template v-slot:9>
-            <p>
-              There is no evidence to suggest that Playfair plotted any of the original data points before engraving the data lines.
-            </p>
-          </template>
-        </Scrollytell>
-      </template>
+        <!--            <template v-slot:[slots.sideBySide]>-->
+        <!--put new viz here-->
+        <!--            </template>-->
 
-      <!--            <template v-slot:[slots.sideBySide]>-->
-      <!--put new viz here-->
-      <!--            </template>-->
+        <template v-slot:[slots.recreations]>
+          <div>
+            <img class="centered-image" src="./img/ch1-8-lyra.png" width="30%"/>
+            <img class="centered-image" src="./img/ch1-9-protovis.png"
+                 width="30%"/>
+            <img class="centered-image" src="./img/ch1-10-camoes.png"
+                 width="30%"/>
+          </div>
+        </template>
 
-      <template v-slot:[slots.recreations]>
-        <div>
-          <img class="centered-image" src="./img/ch1-8-lyra.png" width="30%"/>
-          <img class="centered-image" src="./img/ch1-9-protovis.png" width="30%"/>
-          <img class="centered-image" src="./img/ch1-10-camoes.png"
-               width="30%"/>
-        </div>
-      </template>
+        <template v-slot:[slots.newCharts]>
+          <DataSetsVis key="1"/>
+        </template>
 
-      <template v-slot:[slots.newCharts]>
-        <DataSetsVis key="1"/>
-      </template>
+        <template v-slot:[slots.sideBySide]>
+          <StackedBar key="2"/>
+        </template>
+      </DocRenderer>
+    </template>
 
-      <template v-slot:[slots.sideBySide]>
-        <StackedBar key="2"/>
-      </template>
-
-    </DocRenderer>
   </chapter-scaffold>
 </template>
 
@@ -100,7 +132,7 @@
     from "../components/vis/playfair/creationProcess/DataSetsVis";
   import StackedBar
     from "../components/vis/playfair/creationProcess/StackedBar";
-  import DocRenderer from "../docs-integration/DocRenderer";
+  import { DocRenderer } from "doc-renderer";
   import Blockquote from "../components/general/Blockquote";
   import {mapActions} from "vuex";
 
