@@ -290,25 +290,25 @@
                         .attr("class", "titleText")
                         .attr("x", textX)
                         .attr("y", textY)
-                        .attr("font-size", "1.25em")
+                        .attr("font-size", "1.4em")
                         // .style("font-size", 'x-large')
                         .style("font-family", 'maranalloregular')
-                        .text("COVID-19 Death");
+                        .text("Covid-19 Deaths");
                     self.title4 = self.svg.append("text")
                         .attr("id", "currValue")
                         .attr("class", "titleText2")
-                        .attr("x", textX + 20)
+                        .attr("x", textX + 6)
                         .attr("y", textY + 30) //adjusts vertical space between text liens
-                        .attr("font-size", "1.5em")
+                        .attr("font-size", "1.3em")
                         // .style("font-size", 'xx-large')
                         .style("font-family", 'chancery_cursiveitalic')
-                        .text("comparison between");
+                        .text("a comparison between the");
                     self.title5 = self.svg.append("g")
                         .attr("id", "currValue")
                         .attr("class", "titleText3")
                         .attr("transform", "translate(55,0)")
                         .append("text")
-                        .attr("x", (textX - 50))
+                        .attr("x", (textX - 45))
                         .attr("y", (textY + 60))
                         .attr("font-size", "1.5em")
                         // .style("font-size", 'xx-large')
@@ -326,13 +326,13 @@
                         .attr("text-anchor", "start")
                         // .attr("visibility","hidden")
                         .style("fill", "black")
-                        .text("U.K. Death");
+                        .text("U.K. Deaths");
                     self.importText = self.svg.append("text")
                         .attr("transform", "translate(" + (width - 690/zoom - 130) + "," + (height - 55/zoom - 90) + ") rotate(" + (-11) + ")")
                         .attr("dy", ".35em")
                         .attr("text-anchor", "start")
                         .style("fill", "black")
-                        .text("U.S. Death");
+                        .text("U.S. Deaths");
 
 
                 });

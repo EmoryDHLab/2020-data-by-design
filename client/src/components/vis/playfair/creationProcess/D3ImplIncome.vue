@@ -278,12 +278,12 @@
                     self.title4 = self.svg.append("text")
                         .attr("id", "currValue")
                         .attr("class", "titleText2")
-                        .attr("x", textX + 20)
+                        .attr("x", textX + 0)
                         .attr("y", textY + 30) //adjusts vertical space between text liens
-                        .attr("font-size", "1.5em")
+                        .attr("font-size", "1.3em")
                         // .style("font-size", 'xx-large')
                         .style("font-family", 'chancery_cursiveitalic')
-                        .text("comparison between");
+                        .text("a comparison between the");
                     self.title5 = self.svg.append("g")
                         .attr("id", "currValue")
                         .attr("class", "titleText3")
