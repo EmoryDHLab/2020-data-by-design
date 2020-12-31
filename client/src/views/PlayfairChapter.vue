@@ -43,12 +43,17 @@
             </template>
             <template v-slot:5>
               <p>
+                lines of exports.
+              </p>
+            </template>
+            <template v-slot:6>
+              <p>
                 In the first edition of the <i>Atlas</i>, these data lines are
                 quite
                 bumpy, owing to Playfair's inexpert engraving technique.
               </p>
             </template>
-            <template v-slot:6>
+            <template v-slot:7>
               <p>
                 But by the third edition, the data lines are visibly smoother.
                 Having engraved dozens of plates in the five years that
@@ -60,7 +65,7 @@
                 America than he had the data to support.
               </p>
             </template>
-            <template v-slot:7>
+            <template v-slot:8>
               <p>
                 Long after the plates had been completed and pressed upon the
                 page,
@@ -73,14 +78,14 @@
                 emerging at the time.
               </p>
             </template>
-            <template v-slot:8>
+            <template v-slot:9>
               <p>
                 The result is a data visualization that is deservedly
                 iconic--even
                 as it did not depend on the actual data.
               </p>
             </template>
-            <template v-slot:9>
+            <template v-slot:10>
               <p>
                 There is no evidence to suggest that Playfair plotted any of the
                 original data points before engraving the data lines.
