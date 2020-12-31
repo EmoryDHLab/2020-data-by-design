@@ -71,7 +71,7 @@
           </div>
         </div>
         <div class="chapter-list">
-          <ChapListItem style="-webkit-filter: grayscale(1);">
+          <ChapListItem>
             <template slot="title">A View “Simple and Complete”</template>
             <template slot="tag">William Playfair and the Origins of Objectivity</template>
             Data visualization has never been neutral or objective. There is a meaning -- and an argument -- conveyed through the design of each image.
