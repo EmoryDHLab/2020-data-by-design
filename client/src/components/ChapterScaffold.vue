@@ -15,7 +15,7 @@
           </slot>
         </h1>
         <section class='chapter__main__content'>
-          <slot>
+          <slot :docRendererProps="docRendererProps">
             <p>No content found!</p>
           </slot>
         </section>
@@ -45,27 +45,64 @@ import PeabodyNavlineVis from './vis/peabody/navline/NavlineVis'
 import DuboisNavlineVis from './vis/dubois/navline/NavlineVis'
 import PlayfairNavlineVis from './vis/playfair/navline/NavlineVis'
 import Notebook from './notebook-new/Notebook'
+import Section from "./chapters/Section";
+import FootnoteReference from "./general/FootnoteReference";
+import Footnotes from "./general/Footnotes";
+import Blockquote from "./general/Blockquote";
+import CaptionedImage from "./general/CaptionedImage";
 import stickybits from 'stickybits'
 import { mapState } from 'vuex'
+import api from "../api";
+
 // polyfill for css position:sticky
 stickybits('.--stick', { useStickyClasses: true });
 
 export default {
+  data () {
+    return {
+      docObj: null
+    }
+  },
   name: 'ChapterScaffold',
   components: {
     PeabodyNavlineVis,
     DuboisNavlineVis,
     PlayfairNavlineVis,
-    Notebook
+    Notebook,
   },
   props: {
     curChapter: String,
+    docId: String,
+  },
+  created() {
+    if (this.docId) {
+      console.log("fetching")
+      api.getDoc(this.docId).then(resp => {
+        this.docObj = resp.data;
+      }).catch(err => {
+        console.error(err)
+      })
+    }
   },
   mounted () {
     //TODO: Scroll to right before the most recent scrollytell
     window.onbeforeunload = (e) => window.scrollTo({top: 0})
   },
   computed: {
+    docRendererProps () {
+      if (this.docObj) {
+        return {
+          docObj: this.docObj,
+          sectionComponent: Section,
+          footnotesComponent: Footnotes,
+          footnoteRefComponent: FootnoteReference,
+          blockComponents: {
+            Blockquote,
+            CaptionedImage
+          }
+        }
+      }
+    },
     currentChapter: function() {
       return this.curChapter + "NavlineVis";
     },
