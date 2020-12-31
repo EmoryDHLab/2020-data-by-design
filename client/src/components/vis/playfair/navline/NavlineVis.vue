@@ -1,16 +1,16 @@
 <template lang="html">
   <svg width="3309" height="2523" viewBox="70 100 600 2500" fill="none" xmlns="http://www.w3.org/2000/svg">
     <text x="250" y="210" class="heavy">Progress</text>
-    <!--LEGENDS-->
+    <!--LEGEND-->
     <rect x="240" y="2092" width="35" height="35" :fill=styles.color.visualization />
     <rect x="480" y="2092" width="35" height="35" :fill=styles.color.image />
     <rect x="240" y="2147" width="35" height="35" :fill=styles.color.scrollytell />
     <rect x="480" y="2147" width="35" height="35" :fill=styles.color.highlights />
-    <text x="320" y="2050" class="number" fill="#4A4A4A">LEGENDS</text>
+    <text x="320" y="2050" class="number" fill="#4A4A4A">LEGEND</text>
     <text x="280" y="2120" class="small">Visualization</text>
-    <text x="520" y="2120" class="small">Images</text>
-    <text x="280" y="2175" class="small">Scrollytell</text>
-    <text x="520" y="2175" class="small">Highlights</text>
+    <text x="520" y="2120" class="small">Image</text>
+    <text x="280" y="2175" class="small">Interactive</text>
+    <text x="520" y="2175" class="small">Highlight</text>
 
     <line :x1="styles.line.left" :y1="styles.line.start" :x2="styles.line.right" :y2="styles.line.start" style="stroke:black; stroke-width:5; stroke-linecap:round"></line>
 
