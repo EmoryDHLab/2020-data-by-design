@@ -1,15 +1,18 @@
 <template lang="html">
-  <DocRenderer docId="1_-FrAZVLYF74Kc1U-fpK6ugrIkqYisZEbI0Z2yVUb0I" :section-component="sectionComponent" :section-title-prop="'title'">
-    <template v-slot:TestSlot>
-      <b>Test slot!</b>
-    </template>
-    <template v-slot:AnotherSlot>
-      <p>Another slot goes here</p>
-    </template>
-    <template v-slot:InlineSlot="{inner}">
-      <TestInlineComponent :word="'a word'"></TestInlineComponent><b>{{inner}}</b>
-    </template>
+  <DocRenderer :docObj="docObj">
+
   </DocRenderer>
+<!--  <DocRenderer docId="1_-FrAZVLYF74Kc1U-fpK6ugrIkqYisZEbI0Z2yVUb0I" :section-component="sectionComponent" :section-title-prop="'title'">-->
+<!--    <template v-slot:TestSlot>-->
+<!--      <b>Test slot!</b>-->
+<!--    </template>-->
+<!--    <template v-slot:AnotherSlot>-->
+<!--      <p>Another slot goes here</p>-->
+<!--    </template>-->
+<!--    <template v-slot:InlineSlot="{inner}">-->
+<!--      <TestInlineComponent :word="'a word'"></TestInlineComponent><b>{{inner}}</b>-->
+<!--    </template>-->
+<!--  </DocRenderer>-->
 </template>
 
 <script>
@@ -20,8 +23,8 @@ import PicCollage from '@/components/vis/PicCollage'
 import EventSquare from '@/components/vis/peabody/newpeabodygrid/EventSquare'
 import PeabodyGrid from '@/components/vis/peabody/newpeabodygrid/PeabodyGrid'
 import PeabodyMutable from "../components/vis/peabody/PeabodyMutable";
-import TestInlineComponent from "../docs-integration/TestInlineComponent";
-import DocRenderer from "../docs-integration/DocRenderer"
+import { DocRenderer } from "doc-renderer";
+import api from "../api";
 
 export default {
   components: {
@@ -31,13 +34,14 @@ export default {
     Picline,
     PicCollage,
     EventSquare,
-    TestInlineComponent
   },
   data: () => ({
     sectionComponent: Section,
     newImgYear: 1858,
     newImgPic: "bad/badder",
     focusedImg: "0",
+    docId: "1V6BiTxJw0vGc-AApW4PHAckbzqRKi8sJ6VT0bu7BBXU",
+    docObj: null,
     images: {
       0: {
         id: 0,
@@ -68,6 +72,15 @@ export default {
       },
     }
   }),
+  created() {
+    if (this.docId) {
+      api.getDoc(this.docId).then(resp => {
+        this.docObj = resp.data;
+      }).catch(err => {
+        console.error(err)
+      })
+    }
+  },
   methods: {
     addDatapoint () {
       if (this.newImgPic != "" && this.newImgYear > 0)
