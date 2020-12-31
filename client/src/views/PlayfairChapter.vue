@@ -5,22 +5,6 @@
       Complete”
     </template>
     <DocRenderer doc-id="1V6BiTxJw0vGc-AApW4PHAckbzqRKi8sJ6VT0bu7BBXU">
-      <template v-slot:[slots.chartImages]>
-        <div>
-          <img class="centered-image" src="./img/ch1-2-wheat.jpg" width="30%"/>
-          <img class="centered-image" src="./img/ch1-3-northamerica.jpg"
-               width="30%"/>
-          <img class="centered-image" src="./img/ch1-4-pie.jpg" width="30%"/>
-        </div>
-      </template>
-
-      <template v-slot:[slots.errorViz]>
-        <img class="centered-image" src="./img/ch1-5-error.jpg" width="80%"/>
-      </template>
-
-      <template v-slot:[slots.dataImg]>
-        <img class="centered-image" src="./img/ch1-6-data.png" width="80%"/>
-      </template>
 
       <template v-slot:[slots.d3Impl]>
         <Scrollytell collect bottom-break :scrollSlots="9">
@@ -29,54 +13,50 @@
           </template>
           <template v-slot:1>
             <p>
-              Canvas
+              He began--or more likely, Neele did--by engraving the border around the chart.
             </p>
           </template>
           <template v-slot:2>
             <p>
-              X-axis
+              Neele then began to add the grid lines, and either before or after, the labels of the axes.
             </p>
           </template>
           <template v-slot:3>
             <p>
-              Y-axis
+              Neele decided to emphasize the major grid lines of the x-axis with a bolder line, creating an optimal background to contrast with the smooth data lines that Playfair would go on to engrave.
             </p>
           </template>
           <template v-slot:4>
             <p>
-              First Draft
+              Playfair likely took over at this point, and set about engraving the lines of imports and exports.
             </p>
           </template>
           <template v-slot:5>
             <p>
-              bumpy line
+              In the first edition of the <i>Atlas</i>, these data lines are quite bumpy, owing to Playfair's inexpert engraving technique.
             </p>
           </template>
           <template v-slot:6>
             <p>
-              smoother line
+              But by the third edition, the data lines are visibly smoother. Having engraved dozens of plates in the five years that separated the first edition from this one, Playfair's technique had improved. Even still, he took liberties with the data lines, adding more detail to the fluctuations in trade between England and North America than he had the data to support.
             </p>
           </template>
           <template v-slot:7>
             <p>
-              shapding
+              Long after the plates had been completed and pressed upon the page, Playfair returned to each chart in each copy of the <i>Atlas</i>, hand-staining each of the data lines, as well as the area between them, to add color to his charts. The warm color palate that Playfair employs takes full advantage of the color theory that was emerging at the time.
             </p>
           </template>
           <template v-slot:8>
             <p>
-              medallion
+              The result is a data visualization that is deservedly iconic--even as it did not depend on the actual data. 
             </p>
           </template>
           <template v-slot:9>
             <p>
-              original data
+              There is no evidence to suggest that Playfair plotted any of the original data points before engraving the data lines.
             </p>
           </template>
         </Scrollytell>
-      </template>
-
-      <template v-slot:[slots.minardImg]>
-        <img class="centered-image" src="./img/ch1-7-minard.png" width="80%"/>
       </template>
 
       <!--            <template v-slot:[slots.sideBySide]>-->
@@ -85,9 +65,9 @@
 
       <template v-slot:[slots.recreations]>
         <div>
-          <img class="centered-image" src="./img/ch1-8-McCune.png" width="30%"/>
-          <img class="centered-image" src="./img/ch1-9-Camoes.png" width="30%"/>
-          <img class="centered-image" src="./img/ch1-10-stevens.png"
+          <img class="centered-image" src="./img/ch1-8-lyra.png" width="30%"/>
+          <img class="centered-image" src="./img/ch1-9-protovis.png" width="30%"/>
+          <img class="centered-image" src="./img/ch1-10-camoes.png"
                width="30%"/>
         </div>
       </template>
@@ -146,12 +126,7 @@
     data() {
       return {
         slots: {
-          bookImg: "Tufte's Book",
-          chartImages: "Original Chart Images",
-          errorViz: "Playfair Error",
-          dataImg: "Original Data Table",
           d3Impl: "Difference Visualization",
-          minardImg: "Image of Minard Chart",
           sideBySide: "Side-by-side",
           recreations: "Playfair Recreations",
           newCharts: "Playfair-style Charts"
