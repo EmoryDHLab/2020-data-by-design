@@ -3,9 +3,9 @@
     <D3ImplCovid v-if="idx == 0"/>
     <D3ImplIncome v-if="idx == 1"/>
     <D3ImplWomen v-if="idx == 2"/>
-    <button @mouseover="idx = 0"> COVID-19 Death </button>
+    <button @mouseover="idx = 0"> Covid-19 Deaths </button>
     <button @mouseover="idx = 1"> Average Income </button>
-    <button @mouseover="idx = 2"> Women Representative </button>
+    <button @mouseover="idx = 2"> Women Representatives </button>
   </div>
 
 </template>
