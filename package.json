@@ -1,27 +1,26 @@
 {
   "name": "data-by-design",
   "version": "1.0.0",
-  "main": "server/server.js",
-  "engines": {
-    "node": ">=4"
-  },
+  "description": "vueback",
   "scripts": {
-    "lint": "eslint . && cd client && vue-cli-service lint",
-    "generate:env": "node scripts/env-gen",
-    "test:client": "cd client && vue-cli-service test:unit",
-    "test:api": "mocha server-express/test",
-    "posttest": "npm run lint && nsp check",
     "build": "cd client && vue-cli-service build",
+    "lint": "eslint . && cd client && vue-cli-service lint",
+    "api": "NODE_ENV=production forever start server-express/app.js",
     "api:dev": "NODE_ENV=development nodemon server-express/app.js",
     "app:dev": "cd client && vue-cli-service serve",
-    "start:dev": "run-p api:dev app:dev",
-    "api": "NODE_ENV=production forever start server-express/app.js",
+    "app:remote": "cd client && vue-cli-service serve --mode remote",
+    "generate:env": "node scripts/env-gen",
     "mongo:wsl": "sudo service mongodb start",
-    "start": "run-s build api",
-    "start:reset": "RESET_DB=true npm run start",
+    "posttest": "npm run lint && nsp check",
     "restart": "run-s stop start",
-    "stop": "forever stop server-express/app.js"
+    "start": "run-s build api",
+    "start:dev": "run-p api:dev app:dev",
+    "start:reset": "RESET_DB=true npm run start",
+    "stop": "forever stop server-express/app.js",
+    "test:api": "mocha server-express/test",
+    "test:client": "cd client && vue-cli-service test:unit"
   },
+  "main": "server/server.js",
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.8",
     "@fortawesome/fontawesome-free-solid": "^5.0.13",
@@ -33,6 +32,7 @@
     "clone-deep": "^4.0.0",
     "compression": "^1.0.3",
     "cookie-parser": "^1.4.3",
+    "core-js": "^3.6.5",
     "cors": "^2.5.2",
     "csurf": "^1.9.0",
     "csv-parse": "^2.5.0",
@@ -56,7 +56,8 @@
     "mongodb": "^3.3.2",
     "mongoose": "^5.7.3",
     "morgan": "^1.9.1",
-    "npm": "^6.4.1",
+    "npm": "^6.14.9",
+    "parse-google-docs-json": "git+https://github.com/Jutanium/parse-google-docs-json.git",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "register-service-worker": "^1.0.0",
@@ -74,11 +75,11 @@
     "waypoints": "^4.0.1"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.4.0",
-    "@vue/cli-plugin-eslint": "^3.4.0",
-    "@vue/cli-plugin-pwa": "^3.0.0-rc.5",
-    "@vue/cli-plugin-unit-mocha": "^3.4.0",
-    "@vue/cli-service": "^3.4.0",
+    "@vue/cli-plugin-babel": "^4.5.9",
+    "@vue/cli-plugin-eslint": "^4.5.9",
+    "@vue/cli-plugin-pwa": "^4.5.9",
+    "@vue/cli-plugin-unit-mocha": "^4.5.9",
+    "@vue/cli-service": "^4.5.9",
     "@vue/test-utils": "^1.0.0-beta.20",
     "chai": "^4.1.2",
     "chai-http": "^4.3.0",
@@ -90,16 +91,18 @@
     "nsp": "^2.1.0",
     "vue-template-compiler": "^2.6.11"
   },
-  "repository": {
-    "type": "",
-    "url": ""
+  "engines": {
+    "node": ">=4"
   },
+  "license": "UNLICENSED",
   "nodemonConfig": {
     "ignore": [
       "client/*"
     ],
     "delay": "2500"
   },
-  "license": "UNLICENSED",
-  "description": "vueback"
+  "repository": {
+    "type": "",
+    "url": ""
+  }
 }

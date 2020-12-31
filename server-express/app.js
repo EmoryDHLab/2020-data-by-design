@@ -50,12 +50,16 @@ else {
 mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true});
 mongoose.set('debug', true);
 
+async function start() {
+}
+
+start();
+
 //Models & routes
 require('./models/Users');
 require('./config/passport');
 app.use(require('./routes'));
 
-//Error handlers & middlewares
 if(!isProduction) {
   app.use((err, req, res, next) => {
     res.status(err.status || 500);
@@ -68,16 +72,5 @@ if(!isProduction) {
     });
   });
 }
-
-app.use((err, req, res, next) => {
-  res.status(err.status || 500);
-
-  res.json({
-    errors: {
-      message: err.message,
-      error: {},
-    },
-  });
-});
 
 module.exports = app.listen(port, () => console.log('Server running on port ' + port));

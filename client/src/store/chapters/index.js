@@ -14,9 +14,20 @@ const Mutations = {
   SCROLL_TO: "SCROLL_TO"
 }
 
-function filteredChildren (element) {
+function filteredChildren (element, childToFind = null) {
   const exclude = ['H1', 'H2', 'H3', 'H4', 'H5', 'H6'];
-  return Array.from(element.children).filter(el => !exclude.includes(el.tagName.toUpperCase()))
+  const withoutExcluded = Array.from(element.children).filter(el => !exclude.includes(el.tagName.toUpperCase()))
+  let withoutRepeatedP = [];
+  for (const currEl of withoutExcluded) {
+    if (!withoutRepeatedP.length ||
+      !(withoutRepeatedP[withoutRepeatedP.length - 1].tagName == "P" && currEl.tagName == "P")) {
+      withoutRepeatedP.push(currEl)
+    }
+    if (childToFind && childToFind == currEl) {
+      return withoutRepeatedP.length - 1;
+    }
+  }
+  return withoutRepeatedP;
 }
 
 function findParentSection (element, sections) {
@@ -36,7 +47,8 @@ function findParentSection (element, sections) {
     return false;
   }
   const section = sectionIds.indexOf(parent.id);
-  const subsection = Array.prototype.indexOf.call(filteredChildren(parent), curr);
+  const subsection = filteredChildren(parent, curr);
+  console.log("subsection", subsection);
   return {section, subsection}
 }
 
@@ -96,6 +108,7 @@ const store = {
         window.removeEventListener('load', listener)
       }
       window.addEventListener('load', listener)
+      listener(); //fixes for doc-generated pages; TODO: revisit this listener system
       for (let i = 0; i < subsections; i++) {
         const child = children[i];
         if (child.tagName.toUpperCase() === "IMG") {

@@ -1,28 +1,40 @@
 <template lang="html">
-  <div>
-    <PeabodyGrid :staticDataset="'1'" :mutableDataset="'1'">
-
-    </PeabodyGrid>
-    <PeabodyMutable :width="'400px'" :mutableDataset="'1'"></PeabodyMutable>
-  </div>
+  <DocRenderer docId="1_-FrAZVLYF74Kc1U-fpK6ugrIkqYisZEbI0Z2yVUb0I" :section-component="sectionComponent" :section-title-prop="'title'">
+    <template v-slot:TestSlot>
+      <b>Test slot!</b>
+    </template>
+    <template v-slot:AnotherSlot>
+      <p>Another slot goes here</p>
+    </template>
+    <template v-slot:InlineSlot="{inner}">
+      <TestInlineComponent :word="'a word'"></TestInlineComponent><b>{{inner}}</b>
+    </template>
+  </DocRenderer>
 </template>
 
 <script>
+
+import Section from '@/components/chapters/Section';
 import Picline from '@/components/vis/Picline'
 import PicCollage from '@/components/vis/PicCollage'
 import EventSquare from '@/components/vis/peabody/newpeabodygrid/EventSquare'
 import PeabodyGrid from '@/components/vis/peabody/newpeabodygrid/PeabodyGrid'
 import PeabodyMutable from "../components/vis/peabody/PeabodyMutable";
+import TestInlineComponent from "../docs-integration/TestInlineComponent";
+import DocRenderer from "../docs-integration/DocRenderer"
 
 export default {
   components: {
+    DocRenderer,
     PeabodyGrid,
     PeabodyMutable,
     Picline,
     PicCollage,
-    EventSquare
+    EventSquare,
+    TestInlineComponent
   },
   data: () => ({
+    sectionComponent: Section,
     newImgYear: 1858,
     newImgPic: "bad/badder",
     focusedImg: "0",

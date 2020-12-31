@@ -14,7 +14,7 @@
 
     <line :x1="styles.line.left" :y1="styles.line.start" :x2="styles.line.right" :y2="styles.line.start" style="stroke:black; stroke-width:5; stroke-linecap:round"></line>
 
-    <g v-for="(lines, index) in startEndPoint(dataset.playfair.paragraphData)">
+    <g v-for="(lines, index) in startEndPoint(dataset.paragraphData)">
         <line :x1="styles.line.left" :y1="lines.y1" :x2="styles.line.left" :y2="lines.y2"
             stroke="gray"
             stroke-dasharray="4 1 2 3"></line>
@@ -53,20 +53,20 @@
           <g v-on:click="click = goto(index, i-1)"
              @mouseover="hover = index*10 + i"
              @mouseleave="hover = null">
-            <circle v-if="dataset.playfair.vis[index][i-1] == '1' "
+            <circle v-if="dataset.highlights[index][i-1]"
                     :cx="blockcx(lines, index, i)" :cy="blockcy(lines, i)"
-                    :r="styles.block.r" :fill=styles.color.secHeader></circle>
-            <circle v-if="dataset.playfair.vis[index][i-1] == '2' "
+                    :r="styles.block.r" :fill=styles.color.highlights></circle>
+            <circle v-if="dataset.vis[index][i-1] == VisTypes.IMAGE"
                     :cx="blockcx(lines, index, i)" :cy="blockcy(lines, i)"
                     :r="styles.block.r" :fill=styles.color.image></circle>
-            <circle v-if="dataset.playfair.vis[index][i-1] == '3' "
+            <circle v-if="dataset.vis[index][i-1] == VisTypes.VISUALIZATION "
                     :cx="blockcx(lines, index, i)" :cy="blockcy(lines, i)"
-                    :r="styles.block.r" :fill=styles.color.vis></circle>
-            <circle v-if="dataset.playfair.vis[index][i-1] == '4' "
+                    :r="styles.block.r" :fill=styles.color.visualization></circle>
+            <circle v-if="dataset.vis[index][i-1] == VisTypes.INTERACTION"
                     :cx="blockcx(lines, index, i)" :cy="blockcy(lines, i)"
-                    :r="styles.block.r" :fill=styles.color.text></circle>
+                    :r="styles.block.r" :fill=styles.color.scrollytell></circle>
 
-            <circle v-if="hover == index*10 + i  && dataset.playfair.vis[index][i-1] != '0'"
+            <circle v-if="hover == index*10 + i  && dataset.vis[index][i-1] != '0'"
                     :cx="blockcx(lines, index, i)" :cy="blockcy(lines, i)"
                     :r="styles.block.r" :fill=styles.color.lightgray></circle>
           </g>
@@ -85,9 +85,10 @@
  * It shares a lot of code with the the timeline vis
  */
 
-import MetaVisualization from '@/mixins/vis/MetaVisualization'
 import NavlineBucket from './NavlineBucket'
 import ch_mut from '@/store/chapters-old/types'
+import {mapActions} from "vuex";
+import NavlineMixin from "../../../../mixins/vis/NavlineMixin";
 // import * as d3 from 'd3'
 
 const DEFAULT_OPTIONS = {
@@ -119,10 +120,10 @@ const DEFAULT_OPTIONS = {
     color: {
       defaultBlock: "#f4b84c",
       gray: "#9B9B9B",
-      secHeader:"#d4986e",
+      visualization:"#d4986e",
       image: "#BCC4B4",
-      text: "#E3B966",
-      vis: "#A76B6F",
+      highlights: "#D9B89A",
+      scrollytell: "#A76B6F",
       lightgray: "#dddddd"
     }
   },
@@ -130,192 +131,44 @@ const DEFAULT_OPTIONS = {
   showTicks: true // whether to show the axis ticks
 };
 export default {
-  data() {
-    return {hover: null, click: null}
-  },
   components: {
     NavlineBucket
   },
-  mixins: [MetaVisualization],
-  props: {
-    width: String,
-    height: String,
-    options: {
-      type: Object,
-      required: false,
-      default: () => DEFAULT_OPTIONS
-    },
-  },
-  computed: {
-    /**
-     * Formats the data for use by the navline
-     * @return {Array} the formattedData
-     */
-    formattedData () {
-      return this.dataFormatter(this.dataset.data || {})
-    },
-    /**
-     * get the internal width (width - margins on left and right) of the vis
-     * @return {Number} the width of the navline without margins
-     */
-    innerWidth () {
-      return this.styles.width - this.styles.margin.left - this.styles.margin.right
-    },
-    /**
-     * get the internal height (height - margins on top and bottom) of the vis
-     * @return {Number} the height of the navline without margins
-     */
-    innerHeight () {
-      return this.styles.height - this.styles.margin.top - this.styles.margin.bottom
-    },
-    /**
-     * calculate the margin transforation required to move the vis internal
-     * content to respect the defined marigins
-     * @return {Object} containing the transform attribute used in styling
-     */
-    marginTransform () {
-      return { transform: 'translate('
-        + this.styles.margin.left + 'px, '
-        + this.styles.margin.top + 'px)' }
-    },
-    /**
-     * Shift the axis to align it better
-     * TODO make this non-magical
-     */
-    axisTransform () {
-      return { transform: `translateX(-${5}px)` }
-    },
-    /**
-     * Get the svg viewbox attribute using the given information in options
-     */
-    getViewBox () {
-      return `0 0 ${this.styles.width} ${this.styles.height}`
-    },
-    /**
-     * get the minimum position in the vis
-     * @return {Number} the minimum position of the axis
-     */
-    startPoint () {
-      if (!this.dataset.range) {
-        return 0
-      }
-      return this.dataset.range[0]
-    },
-    /**
-     * get the maximum position in the vis
-     * @return {Number} the maximum position of the axis
-     */
-    endPoint () {
-      if (!this.dataset.range) {
-        return 0
-      }
-      return this.dataset.range[1]
-    },
-    /**
-     * get the d3 scale used for positioning in the vis
-     * @return {D3 Scale} the scale to be used for the visualization
-     */
-    getScale() {
-      return d3.scaleLinear()
-        .domain([this.startPoint, this.endPoint])
-        .range([this.styles.margin.top, this.innerHeight]);
-    },
-    getProgress() {
-        return this.$store.getters.prog_pla;
-    }
-  },
+  mixins: [NavlineMixin(DEFAULT_OPTIONS)],
+
   methods: {
-      /**
-       * calculate line positions
-       **/
-      startEndPoint: function (paragraphData) {
-          let start = this.styles.line.start;
-          let arr = [];
-          for (let i = 0; i < paragraphData.length; i++) {
-              let lines = paragraphData[i];
-              let end = lines * this.styles.block.gap +  start;
-              arr.push({
-                  y1: start,
-                  y2: end,
-                  blocks: lines,
-              });
-              start = end;
-          }
-          // console.log(arr)
-          return arr;
-      },
-      calcArc: function (lines, index) {
-          let left = (index+1) % 2;
-          let d = [
-              "M", this.styles.line.x, lines.y1,
-              "A", lines.R, lines.R, 0, 0, left, this.styles.line.x, lines.y2
-          ].join(" ");
-          return d;
-      },
-      blockcx: function (lines, index, i) {
-          let Cx = this.styles.line.left;
-          let m = this.styles.block.margin;
-          return Cx + m + Math.floor(this.dataset.playfair.highlights[index][i-1] * (this.styles.line.right - Cx - 2*m));
-      },
-      blockcy: function (lines, i) {
-          let Cy = lines.y1;
-          return Cy + i*this.styles.block.gap - this.styles.block.gap/2;
-      },
-      goto: function (index, i) {
-          let idname = "part" + index + "." + i;
-          this.$store.commit(ch_mut.SET_IDNAME, { id: idname });
-      },
-    /**
-     * Formats the data to match the navline format
-     * [
-     *  {
-     *    id: <bucket position>
-     *    events: [
-     *      {
-     *        color:"<some color>",
-     *        position:Number(<some position>),
-     *        ...eventdata
-     *      },
-     *      ...otherEventsInThisBucket
-     *    ],
-     *  }
-     *  ...otherBuckets
-     * ]
-     * TODO make colors dynamic and configurable
-     */
-    dataFormatter (d) {
-      const data = Object.values(d)
-        .map(evt => ({
-          color: "#db882a",
-          ...evt,
-          position: Math.floor(evt.position)
-        }))
-        .reduce((buckets, evt) => {
-          if (!buckets[evt.position]) {
-            buckets[evt.position] = { id: evt.position, events: [] }
-          }
-          buckets[evt.position].events.push(evt)
-          return buckets
-        }, {})
-      return Object.values(data)
+    startEndPoint: function (paragraphData) {
+      let start = this.styles.line.start;
+      let arr = [];
+      for (let i = 0; i < paragraphData.length; i++) {
+        let lines = paragraphData[i];
+        let end = lines * this.styles.block.gap +  start;
+        arr.push({
+          y1: start,
+          y2: end,
+          blocks: lines,
+        });
+        start = end;
+      }
+      // console.log(arr)
+      return arr;
     },
-    placeBucket (bucket) {
-      // console.log(this.getScale(bucket.id));
-      const dx = this.getScale(bucket.id) - (this.styles.timelineEvent.width / 2)
-      const dy = this.innerHeight - (this.styles.timelineEvent.height + this.styles.timelineEvent.gap)
-      return { transform: `translate(${0}px, ${dx}px)` }
+    calcArc: function (lines, index) {
+      let left = (index+1) % 2;
+      let d = [
+        "M", this.styles.line.x, lines.y1,
+        "A", lines.R, lines.R, 0, 0, left, this.styles.line.x, lines.y2
+      ].join(" ");
+      return d;
     },
-  },
-  directives: {
-    /**
-     * allows us to use d3 axis on an element in a Vue approved way
-     */
-    axis(el, binding) {
-      const axis = binding.arg; // :x or :y
-      const axisMethod = { x: "axisBottom", y: "axisLeft" }[axis];
-      const methodArg = binding.value;
-      // console.log(d3[axisMethod]);
-      d3.select(el).call(d3[axisMethod](methodArg).tickFormat(d3.format("d")));
+    blockcx: function (lines, index, i) {
+      let Cx = this.styles.line.left;
+      let m = this.styles.block.margin;
+      return Cx + m + Math.floor(this.dataset.highlights[index][i-1] * (this.styles.line.right - Cx - 2*m));
+    },
+    blockcy: function (lines, i) {
+      let Cy = lines.y1;
+      return Cy + i*this.styles.block.gap - this.styles.block.gap/2;
     }
   }
 }

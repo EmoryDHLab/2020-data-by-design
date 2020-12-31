@@ -13,7 +13,9 @@
           :to="{ path: '/', hash: 'chapters' }">Chapters
         </router-link>
         </template>
-        <nav-drop-down-item class="drop-down-item">A View “Simple and Complete”</nav-drop-down-item>
+        <nav-drop-down-item class="drop-down-item">
+          <router-link to="/chapters/playfair">A View “Simple and Complete”</router-link>
+        </nav-drop-down-item>
         <nav-drop-down-item class="drop-down-item">Every Datapoint a Person</nav-drop-down-item>
         <nav-drop-down-item class="drop-down-item">Narratives of Possession</nav-drop-down-item>
         <nav-drop-down-item class="drop-down-item">
