@@ -2,9 +2,9 @@
   <chapter-scaffold v-bind:curChapter="'Playfair'"
                     docId="1V6BiTxJw0vGc-AApW4PHAckbzqRKi8sJ6VT0bu7BBXU">
     <template slot='title'>
-      Visualization as Argument: William Playfair and the View “Simple and
-      Complete”
+      Visualization as Argument: William Playfair's Time-Series Charts'”
     </template>
+    
     <template v-slot:default="{ docRendererProps }">
       <DocRenderer v-bind="docRendererProps">
         <template v-slot:[slots.d3Impl]>
