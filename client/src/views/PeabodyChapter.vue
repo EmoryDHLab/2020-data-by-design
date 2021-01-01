@@ -1,7 +1,7 @@
 <template lang="html">
   <chapter-scaffold v-bind:curChapter="'Peabody'">
     <template slot='title'>
-      A Method of Making History: Elizabeth Palmer Peabody’s Chronological
+      The Work of Knowledge Production: Elizabeth Palmer Peabody’s Chronological
       Charts
     </template>
     <DocRenderer doc-id="1_-FrAZVLYF74Kc1U-fpK6ugrIkqYisZEbI0Z2yVUb0I">
@@ -169,20 +169,24 @@
       </template>
 
       <template v-slot:[slots.workbookScrolly]>
-        <Scrollytell :scroll-slots="4" :margin="'20vh'">
+        <Scrollytell :scroll-slots="3" :margin="'20vh'">
           <template v-slot:1>
-            <CaptionedImage src="peabodyblank/1994-rect.png">Caption goes here</CaptionedImage>
+          <div class="horiz-flex">
+            <CaptionedImage src="ch4-5-1993-rect.png">Caption goes here</CaptionedImage>
+            <CaptionedImage src="ch4-6-1994-rect.png">Caption goes here</CaptionedImage>
+            <CaptionedImage src="ch4-7-1997-rect.png">Caption goes here</CaptionedImage>
+            <CaptionedImage src="ch4-8-1975-rect.png">Caption goes here</CaptionedImage>
+          </div>
           </template>
           <template v-slot:2>
-            <CaptionedImage src="peabodyblank/1977-rect.png">Caption goes here</CaptionedImage>
-          </template>
-          <template v-slot:3>
             <div class="horiz-flex">
-              <CaptionedImage src="peabodyblank/1983-rect.png">Caption goes here</CaptionedImage>
-              <CaptionedImage src="peabodyblank/1984-rect.png">Caption goes here</CaptionedImage>
+              <CaptionedImage src="ch4-9-1983-rect.png">Caption goes here</CaptionedImage>
+              <CaptionedImage src="ch4-10-1984-rect.png">Caption goes here</CaptionedImage>
+              <CaptionedImage src="ch4-11-1985-rect.png">Caption goes here</CaptionedImage>
+              <CaptionedImage src="ch4-12-1986-rect.png">Caption goes here</CaptionedImage>
             </div>
           </template>
-          <template v-slot:4>
+          <template v-slot:3>
             <div style="text-align: center">
               Some sort of (simple?) editable grid goes here
             </div>
