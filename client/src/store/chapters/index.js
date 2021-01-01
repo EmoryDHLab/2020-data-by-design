@@ -7,6 +7,7 @@ const VisTypes = {
 const Mutations = {
   ADD_SECTION: "ADD_SECTION",
   ADD_HIGHLIGHT: "ADD_HIGHLIGHT",
+  ADD_IMAGE: "ADD_IMAGE",
   REMOVE_HIGHLIGHT: "REMOVE_HIGHLIGHT",
   ADD_VIS: "ADD_VIS",
   ADD_SCROLLYTELL: "ADD_SCROLLYTELL",
@@ -63,7 +64,8 @@ const store = {
     scrollTo: 0,
     highlightSpanCount: 0,
     unmatchedVis: [],
-    unmatchedScrolly: []
+    unmatchedScrolly: [],
+    unmatchedImg: []
   },
   getters: {
     currChapterTitle: state => state.currChapter.title,
@@ -123,6 +125,7 @@ const store = {
 
       state.unmatchedVis.forEach(setVisType(VisTypes.VISUALIZATION));
       state.unmatchedScrolly.forEach(setVisType(VisTypes.INTERACTION));
+      state.unmatchedImg.forEach(setVisType(VisTypes.IMAGE));
 
       state.currChapter.sections.push ({
         id,
@@ -157,6 +160,10 @@ const store = {
       state.unmatchedScrolly.push(element);
       state.currChapter.lastUpdated = Date.now();
     },
+    [Mutations.ADD_IMAGE] (state, {element}) {
+      state.unmatchedImg.push(element);
+      state.currChapter.lastUpdated = Date.now();
+    },
     [Mutations.SET_TITLE] (state, {title}) {
       state.currChapter.title = title;
       state.currChapter.lastUpdated = Date.now();
@@ -180,6 +187,11 @@ const store = {
         return false;
       }
       commit(Mutations.ADD_HIGHLIGHT, { sectionIndex: section, subsection})
+    },
+    registerImage({commit}, {element}) {
+      if (element) {
+        commit(Mutations.ADD_IMAGE, {element});
+      }
     },
     registerVisualization({commit}, {element}) {
       if (element) {

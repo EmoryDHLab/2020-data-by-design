@@ -42,9 +42,12 @@
                     this.changeOpacity(this.yLabel);
                     this.changeOpacity(this.moneyLabel);
                 } else if (this.slideNumber === 4) {
+                    this.changeOpacity(this.importText);
                     this.changeOpacity(this.importLineFirstDraft);
-                    this.changeOpacity(this.exportLineFirstDraft);
                 } else if (this.slideNumber === 5) {
+                    this.changeOpacity(this.exportText);
+                    this.changeOpacity(this.exportLineFirstDraft);
+                } else if (this.slideNumber === 6) {
                     this.importLineFirstDraft.transition()
                         .attr("d", this.importLine1801d)
                         .attr("transform", "")
@@ -53,32 +56,32 @@
                         .attr("d", this.exportLine1801d)
                         .attr("transform", "")
                         .duration(800);
-                } else if (this.slideNumber === 6) {
+                } else if (this.slideNumber === 7) {
                     this.importLineFirstDraft.transition()
                         .attr("d", this.importLined)
                         .attr("transform", "")
                         .attr("opacity", 1)
                         .duration(800);
-                    this.changeOpacity(this.importText);
+
                     this.exportLineFirstDraft.transition()
                         .attr("d", this.exportLined)
                         .attr("opacity", 1)
                         .attr("transform", "")
                         .duration(800);
-                    this.changeOpacity(this.exportText);
+
                     this.changeOpacityBack(this.areaPink);
                     this.changeOpacityBack(this.areaGreen);
-                } else if (this.slideNumber === 7) {
+                } else if (this.slideNumber === 8) {
                     this.changeOpacity(this.areaGreen);
                     this.changeOpacity(this.areaPink)
-                } else if (this.slideNumber === 8) {
+                } else if (this.slideNumber === 9) {
                     this.changeOpacity(this.title1);
                     this.changeOpacity(this.title3);
                     this.changeOpacity(this.title4);
                     this.changeOpacity(this.title5);
                     this.changeOpacityBack(this.importDots);
                     this.changeOpacityBack(this.exportDots);
-                } else if (this.slideNumber === 9) {
+                } else if (this.slideNumber === 10) {
                     //data + line adjust
                     this.changeOpacity(this.importDots);
                     this.changeOpacity(this.exportDots);
@@ -498,9 +501,9 @@
                     //)******************************************CREATE GRAPH LABEL - borrowed from former student*******//
                     var ellipseX = ((width * 3) / 10);
                     var ellipseY = 110;
-                    let ellipseRX = 120;
-                    let ellipseRY = 80;
-                    var textX = ((width * 2) / 15) - 30;
+                    let ellipseRX = 110;
+                    let ellipseRY = 70;
+                    var textX = ((width * 2) / 15) - 15;
                     var textY = ellipseY - ellipseRY/4;
 
                     //add Label
@@ -526,7 +529,7 @@
                         .attr("class", "titleText")
                         .attr("x", textX)
                         .attr("y", textY).attr("opacity", 0)
-                        .attr("font-size", "1.25em")
+                        .attr("font-size", "1.1em")
                         // .style("font-size", 'x-large')
                         .style("font-family", 'maranalloregular')
                         .text("EXPORTS & IMPORTS");
@@ -534,9 +537,9 @@
                         .attr("id", "currValue")
                         .attr("class", "titleText2")
                         .attr("x", textX + 60)
-                        .attr("y", textY + 30) //adjusts vertical space between text liens
+                        .attr("y", textY + 27) //adjusts vertical space between text liens
                         .attr("opacity", 0)
-                        .attr("font-size", "1.5em")
+                        .attr("font-size", "1.3em")
                         // .style("font-size", 'xx-large')
                         .style("font-family", 'chancery_cursiveitalic')
                         .text("to and from all");
@@ -546,8 +549,8 @@
                         .attr("transform", "translate(55,0)")
                         .append("text")
                         .attr("x", (textX - 50))
-                        .attr("y", (textY + 60)).attr("opacity", 0)
-                        .attr("font-size", "1.5em")
+                        .attr("y", (textY + 55)).attr("opacity", 0)
+                        .attr("font-size", "1.3em")
                         // .style("font-size", 'xx-large')
                         .style("font-family", 'maranalloregular')
                         .style("position", 'fixed')
