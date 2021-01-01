@@ -1,8 +1,7 @@
 <template lang="html">
   <chapter-scaffold v-bind:curChapter="'Playfair'">
     <template slot='title'>
-      Visualization as Argument: William Playfair and the View “Simple and
-      Complete”
+      Visualization as Argument: William Playfair's Time-Series Charts'”
     </template>
     <DocRenderer doc-id="1V6BiTxJw0vGc-AApW4PHAckbzqRKi8sJ6VT0bu7BBXU">
 
@@ -48,7 +47,7 @@
           </template>
           <template v-slot:8>
             <p>
-              The result is a data visualization that is deservedly iconic--even as it did not depend on the actual data. 
+              The result is a data visualization that is deservedly iconic--even as it did not depend on the actual data.
             </p>
           </template>
           <template v-slot:9>
