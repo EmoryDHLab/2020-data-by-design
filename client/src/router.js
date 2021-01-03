@@ -42,7 +42,7 @@ export default new Router({
       component: Features
     },
     {
-      path: '/chapters/shape-of-history',
+      path: '/chapters/peabody',
       name: 'PeabodyChapter',
       component: PeabodyChapter
     },

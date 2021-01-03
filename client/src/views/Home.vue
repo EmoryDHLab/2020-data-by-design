@@ -90,7 +90,7 @@
             Maps can create nations and challenge them. How have maps been used to document multiple pasts?
             <img src= "./img/navlinePic/possession.png">
           </ChapListItem>
-          <router-link to="/chapters/shape-of-history" style="text-decoration: none;">
+          <router-link to="/chapters/peabody" style="text-decoration: none;">
             <ChapListItem>
               <template slot="title">The Work of Knowledge</template>
               <template slot="tag"> Elizabeth Palmer Peabody's Chronological Grids</template>
