@@ -19,7 +19,7 @@
         <nav-drop-down-item class="drop-down-item">Every Datapoint a Person</nav-drop-down-item>
         <nav-drop-down-item class="drop-down-item">Narratives of Possession</nav-drop-down-item>
         <nav-drop-down-item class="drop-down-item">
-          <router-link to="/chapters/shape-of-history">The Work of Knowledge</router-link>
+          <router-link to="/chapters/peabody">The Work of Knowledge</router-link>
         </nav-drop-down-item>
         <nav-drop-down-item class="drop-down-item">“The Color Line” as Data and Image</nav-drop-down-item>
       </nav-drop-down>
