@@ -108,15 +108,9 @@
 </template>
 
 <script>
-/**
- * This component is a metavisualization which visualizes chapter content by
- * It shares a lot of code with the the timeline vis
- */
 
 import NavlineBucket from './NavlineBucket'
 import NavlineMixin from "../../../../mixins/vis/NavlineMixin";
-import ch_mut from '@/store/chapters-old/types'
-import { mapState, mapGetters, mapActions } from 'vuex'
 
 // import * as d3 from 'd3'
 

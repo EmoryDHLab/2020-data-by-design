@@ -75,14 +75,10 @@
 </template>
 
 <script>
-/**
- * This component is a metavisualization which visualizes chapter content by
- * It shares a lot of code with the the timeline vis
- */
 
+//TODO: fix this to use navline mixin (like peabody and playfair)
 import MetaVisualization from '@/mixins/vis/MetaVisualization'
 import NavlineBucket from './NavlineBucket'
-import ch_mut from '@/store/chapters-old/types'
 // import * as d3 from 'd3'
 
 const DEFAULT_OPTIONS = {
