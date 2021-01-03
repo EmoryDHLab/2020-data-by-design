@@ -2,8 +2,8 @@
   <chapter-scaffold v-bind:curChapter="'Peabody'"
                     docId="1_-FrAZVLYF74Kc1U-fpK6ugrIkqYisZEbI0Z2yVUb0I">
     <template slot='title'>
-      The Work of Knowledge Production: Elizabeth Palmer Peabody’s Chronological
-      Charts
+      The Work of Knowledge: Elizabeth Palmer Peabody’s Chronological
+      Grids
     </template>
     <template v-slot:default="{ docRendererProps }">
       <DocRenderer v-bind="docRendererProps">
