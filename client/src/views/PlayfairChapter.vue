@@ -36,14 +36,13 @@
             </template>
             <template v-slot:4>
               <p>
-                Playfair likely took over at this point, and set about engraving
-                the
-                lines of imports and exports.
+                Playfair likely took over at this point, and set about engraving;
+                the lines of imports,
               </p>
             </template>
             <template v-slot:5>
               <p>
-                lines of exports.
+                and lines of exports.
               </p>
             </template>
             <template v-slot:6>
