@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <div id="chartStacked" style="background-color: #F3ECCB; font-family: 'Dancing Script', cursive"></div>
+    <div style="text-align: center; font-family: Consolas; font-size: 90%;">Two different visualizations of the same data used to recreate Playfair's import-export chart.</div>
   </div>
 </template>
 

@@ -3,9 +3,12 @@
     <D3ImplCovid v-if="idx == 0"/>
     <D3ImplIncome v-if="idx == 1"/>
     <D3ImplWomen v-if="idx == 2"/>
-    <button @mouseover="idx = 0"> Covid-19 Deaths </button>
-    <button @mouseover="idx = 1"> Average Income </button>
-    <button @mouseover="idx = 2"> Women Representatives </button>
+    <div style="text-align: center">
+    <a class="blue-hover" @mouseover="idx = 0"> Covid-19 Deaths </a>
+    <a class="blue-hover" @mouseover="idx = 1"> Average Income </a>
+    <a class="blue-hover" @mouseover="idx = 2"> Women Representatives </a>
+    </div>
+    <div style="text-align: center; font-family: Consolas; font-size: 90%; margin-top: 10px">Three contemporary datasets visualized in the style of William Playfair.</div>
   </div>
 
 </template>
@@ -30,12 +33,14 @@
                 idx: 0
             }
         },
-
     }
 </script>
 
 <style scoped>
-  button {
-    margin: 5px;
+  a {
+    margin: 10px;
+  }
+  a:hover {
+    color: orange;
   }
 </style>

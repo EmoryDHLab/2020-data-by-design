@@ -93,6 +93,7 @@
           </Scrollytell>
         </template>
 
+
         <!--            <template v-slot:[slots.sideBySide]>-->
         <!--put new viz here-->
         <!--            </template>-->
