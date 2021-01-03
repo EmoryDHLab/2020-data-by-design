@@ -8,8 +8,7 @@
             An Interactive History of Data Visualization, 1786&ndash;1900
           </h1>
           <hr>
-          <h3 class="subtitle --color-grey" style="font-size: 20px; line-height: 1.5;">What is the story we tell about the emergence of modern data visualization?
-            <br>How might we tell that story differently?
+          <h3 class="subtitle --color-grey" style="font-size: 20px; line-height: 1.5;">What is the story we tell about the emergence of modern data visualization? How might we tell that story differently?
           </h3>
           <!--<div class="reading-progress">-->
           <!--<button class="&#45;&#45;uppercase btn"-->
@@ -24,10 +23,11 @@
 
       <div id="chapters" ref="chpts" class="chapters section" align="center">
         <h2 class="title subclass --bigger --color-dark-grey" style="margin-bottom: 40px;">Table of Contents</h2>
-        <h3 class="subtitle --color-grey" style="font-size: 1.25em; line-height: 1.25">Data by Design is a work in progress.
-          <br>We will release drafts of each chapter as we complete them
+        <h3 class="subtitle --color-grey" style="font-size: 1.25em; line-height: 1.25"><i>Data by Design</i> is a work in progress. We will release a draft of each chapter <br>as it is completed. Please send any feedback to <a href="mailto:lauren.klein@emory.edu">Lauren Klein</a>.
+          <br>.
         </h3>
-        <div class="chapter-links">
+
+<!--        <div class="chapter-links">
           <div class="card"
                :style="{'background-image': 'url(' + require('./img/_northamerica.jpg') + ')'}"
                style=" background-size: cover;
@@ -35,7 +35,6 @@
                background-position: center;
                background-blend-mode: lighten;">
             <h2 class="boxHeading">A View “Simple and Complete”</h2>
-            <!--<h3 style="font-size: 1em; margin-top: -1em">William Playfair and the Origins of Objective Display</h3>-->
           </div>
           <div class="card"
                :style="{'background-image': 'url(' + require('./img/_brookes.jpg') + ')'}"
@@ -69,14 +68,16 @@
                background-blend-mode: lighten;">
             <h2 class="boxHeading">“The Color Line” as Data and Image</h2>
           </div>
-        </div>
+        </div> -->
         <div class="chapter-list">
-          <ChapListItem>
-            <template slot="title">A View “Simple and Complete”</template>
-            <template slot="tag">William Playfair and the Origins of Objectivity</template>
+          <router-link to="/chapters/playfair" style="text-decoration: none;">
+            <ChapListItem>
+              <template slot="title">Visualization as Argument</template>
+              <template slot="tag">William Playfair's Time-Series Charts</template>
             Data visualization has never been neutral or objective. There is a meaning -- and an argument -- conveyed through the design of each image.
-            <img src= "./img/navlinePic/playfair.png">
-          </ChapListItem>
+              <img src= "./img/navlinePic/playfair.png">
+            </ChapListItem>
+          </router-link>
           <ChapListItem style="-webkit-filter: grayscale(1);">
             <template slot="title">Every Datapoint a Person</template>
             <template slot="tag">The Brookes Diagram and the Humanity of Data</template>
@@ -90,12 +91,12 @@
             <img src= "./img/navlinePic/possession.png">
           </ChapListItem>
           <router-link to="/chapters/shape-of-history" style="text-decoration: none;">
-          <ChapListItem>
-            <template slot="title">A Method of Making History</template>
-            <template slot="tag"> Elizabeth Palmer Peabody and the Work of Knowledge</template>
+            <ChapListItem>
+              <template slot="title">The Work of Knowledge</template>
+              <template slot="tag"> Elizabeth Palmer Peabody's Chronological Grids</template>
             We have come to believe that data visualizations should be clear and efficient. But there is value in designs that make us pause and reflect.
-            <img src= "./img/navlinePic/peabody.png">
-          </ChapListItem>
+              <img src= "./img/navlinePic/peabody.png">
+              </ChapListItem>
           </router-link>
           <ChapListItem style="-webkit-filter: grayscale(1);">
             <template slot="title">“The Color Line” as Data and Image</template>
@@ -172,10 +173,13 @@
             <h3 class="description" style="font-weight: 300">Project prototype</h3>
           </div>
         </div>
-        <p style="text-align: center">Data by Design has been generously funded by a 2018-2019
+        <p style="text-align: center">
+          <br><br>Data by Design has been generously funded by a 2018-2019
           <a href="https://www.neh.gov/grants/research/neh-mellon-fellowships-digital-publication">
             NEH-Mellon Fellowship for Digital Publication
-          </a>.</p>
+          </a>.
+          <br><br>Additional research for this project was completed through fellowships from the <br>American Antiquarian Society and the Library Company of Philadelphia.
+        </p>
       </div>
     </main>
     <footer>
@@ -217,80 +221,84 @@
             points: [
                 {
                     id: 0,
-                    img: require('./img/timeline/ch1-playfair/1786-2.jpg'),
+                 // img: require('./img/timeline/ch1-playfair/1786-2.jpg'),
+                    img: require('./img/timeline-new/1787-1-320px-playfair.png'),
                     year: 1786,
                     yearCount: 0,
-                    width:30,
-                    height: 21
+                    width: 40,
+                    height: 26
                 },
-                {
-                    id: 1,
-                    img: require('./img/timeline/ch1-playfair/1786-3.png'),
-                    year: 1786,
-                    yearCount: 1,
-                    width:30,
-                    height: 23
-                },
+          //      {
+          //          id: 1,
+          //          img: require('./img/timeline/ch1-playfair/1786-3.png'),
+          //          year: 1786,
+          //          yearCount: 1,
+          //          width:30,
+          //          height: 23
+          //      },
                 {
                     id: 2,
                     year: 1801,
                     yearCount: 0,
-                    img: require('./img/timeline/ch1-playfair/1801-0.jpg'),
-                    width:30,
-                    height: 20
+                //  img: require('./img/timeline/ch1-playfair/1801-0.jpg'),
+                    img: require('./img/timeline-new/1801-1-320px-northamerica.jpg'),
+                    width: 40,
+                    height: 24
                 },
                 {
                     id: 3,
-                    img: require('./img/timeline/ch1-playfair/1801-1(1).jpg'),
+                //  img: require('./img/timeline/ch1-playfair/1801-1(1).jpg'),
+                    img: require('./img/timeline-new/1801-2-320px-Playfair_piecharts.jpg'),
                     year: 1801,
                     yearCount: 1,
-                    width:30,
-                    height: 23
+                    width: 40,
+                    height: 22
                 },
-                {
-                    id: 4,
-                    img: require('./img/timeline/ch1-playfair/1801-1.jpg'),
-                    year: 1801,
-                    yearCount: 2,
-                    width:30,
-                    height: 20
-                },
-                {
-                    id: 5,
-                    img: require('./img/timeline/ch1-playfair/1801-2.jpg'),
-                    year: 1801,
-                    yearCount: 3,
-                    width:30,
-                    height: 19
-                },
-                {
-                    id: 6,
-                    year: 1801,
-                    yearCount: 4,
-                    img: require('./img/timeline/ch1-playfair/1801-3.jpg'),
-                    width:30,
-                    height: 20
-                },
-                {
-                    id: 7,
-                    year: 1801,
-                    yearCount: 4,
-                    img: require('./img/timeline/ch1-playfair/1801-4.jpg'),
-                    width:30,
-                    height: 20
-                },
+          //      {
+          //          id: 4,
+          //          img: require('./img/timeline/ch1-playfair/1801-1.jpg'),
+          //          year: 1801,
+          //          yearCount: 2,
+          //          width:30,
+          //          height: 20
+          //      },
+          //      {
+          //          id: 5,
+          //          img: require('./img/timeline/ch1-playfair/1801-2.jpg'),
+          //          year: 1801,
+          //          yearCount: 3,
+          //          width:30,
+          //          height: 19
+          //      },
+          //      {
+          //          id: 6,
+          //          year: 1801,
+          //          yearCount: 4,
+          //          img: require('./img/timeline/ch1-playfair/1801-3.jpg'),
+          //          width:30,
+          //          height: 20
+          //      },
+          //      {
+          //          id: 7,
+          //          year: 1801,
+          //          yearCount: 4,
+          //          img: require('./img/timeline/ch1-playfair/1801-4.jpg'),
+          //        width:30,
+          //          height: 20
+          //      },
                 {
                     id: 8,
                     year: 1821,
                     yearCount: 0,
-                    img: require('./img/timeline/ch1-playfair/1821-2.jpg'),
-                    width:30,
-                    height: 19
+                  //  img: require('./img/timeline/ch1-playfair/1821-2.jpg'),
+                    img: require('./img/timeline-new/1821-1-320px-Wheat.png'),
+                    width: 40,
+                    height: 21
                 },
                 {
                     id: 9,
                     year: 1801,
-                    yearCount: 5,
+                    yearCount: 2,
                     img: require('./img/timeline/ch2-brookes/1801-1.jpg'),
                     width:30,
                     height: 22
@@ -441,43 +449,48 @@
                 },
                 {
                     id: 30,
-                    img: require('./img/timeline/ch3-willard-shanawdithit/1846-1.jpg'),
+                    // img: require('./img/timeline/ch3-willard-shanawdithit/1846-1.jpg'),
+                    img: require('./img/timeline-new/1846-320px-willard.jpg'),
                     year: 1846,
                     yearCount: 0,
-                    width:30,
-                    height: 22
+                    width: 40,
+                    height: 28
                 },
                 {
                     id: 31,
-                    img: require('./img/timeline/ch4-peabody/1856-1.jpg'),
+                //    img: require('./img/timeline/ch4-peabody/1856-1.jpg'),
+                    img: require('./img/timeline-new/1856-1-320px-1500s-rect.jpg'),
                     year: 1856,
                     yearCount: 0,
-                    width:30,
-                    height: 30
+                    width: 40,
+                    height: 40
                 },
                 {
                     id: 32,
-                    img: require('./img/timeline/ch4-peabody/1856-2.jpg'),
+                //    img: require('./img/timeline/ch4-peabody/1856-2.jpg'),
+                    img: require('./img/timeline-new/1856-2-320px-1600s-rect.jpg'),
                     year: 1856,
                     yearCount: 1,
-                    width:30,
-                    height: 31
+                    width: 40,
+                    height: 40
                 },
                 {
                     id: 33,
-                    img: require('./img/timeline/ch4-peabody/1856-3.jpg'),
+                    // img: require('./img/timeline/ch4-peabody/1856-3.jpg'),
+                    img: require('./img/timeline-new/1856-3-320px-1700s-rect.jpg'),
                     year: 1856,
                     yearCount: 2,
-                    width:30,
-                    height: 31
+                    width: 40,
+                    height: 40
                 },
                 {
                     id: 34,
-                    img: require('./img/timeline/ch4-peabody/1856-4.jpg'),
+                //    img: require('./img/timeline/ch4-peabody/1856-4.jpg'),
+                    img: require('./img/timeline-new/1856-4-320px-1800s-rect.jpg'),
                     year: 1856,
                     yearCount: 3,
-                    width:30,
-                    height: 30
+                    width: 40,
+                    height: 40
                 },
                 {
                     id: 35,
@@ -622,6 +635,30 @@
                     yearCount: 17,
                     width:30,
                     height: 19
+                },
+            //    {
+            //        id: 53,
+            //        img: require('./img/timeline-new/1850-1-320px-map.jpg'),
+            //        year: 1850,
+            //        yearCount: 0,
+            //        width:30,
+            //        height: 24
+            //    },
+                {
+                    id: 54,
+                    img: require('./img/timeline-new/1869-1-320px-Minard.png'),
+                    year: 1869,
+                    yearCount: 0,
+                    width: 40,
+                    height: 19
+                },
+                {
+                    id: 55,
+                    img: require('./img/timeline-new/1878-1-Ibry.png'),
+                    year: 1878,
+                    yearCount: 0,
+                    width: 40,
+                    height: 23
                 },
 
 
