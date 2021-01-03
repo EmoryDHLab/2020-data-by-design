@@ -226,7 +226,7 @@
                     year: 1786,
                     yearCount: 0,
                     width: 40,
-                    height: 26
+                    height: 21
                 },
           //      {
           //          id: 1,
@@ -243,7 +243,7 @@
                 //  img: require('./img/timeline/ch1-playfair/1801-0.jpg'),
                     img: require('./img/timeline-new/1801-1-320px-northamerica.jpg'),
                     width: 40,
-                    height: 24
+                    height: 20
                 },
                 {
                     id: 3,
@@ -293,7 +293,7 @@
                   //  img: require('./img/timeline/ch1-playfair/1821-2.jpg'),
                     img: require('./img/timeline-new/1821-1-320px-Wheat.png'),
                     width: 40,
-                    height: 21
+                    height: 18
                 },
                 {
                     id: 9,
@@ -454,7 +454,7 @@
                     year: 1846,
                     yearCount: 0,
                     width: 40,
-                    height: 28
+                    height: 23
                 },
                 {
                     id: 31,
@@ -463,7 +463,7 @@
                     year: 1856,
                     yearCount: 0,
                     width: 40,
-                    height: 40
+                    height: 30
                 },
                 {
                     id: 32,
@@ -472,7 +472,7 @@
                     year: 1856,
                     yearCount: 1,
                     width: 40,
-                    height: 40
+                    height: 30
                 },
                 {
                     id: 33,
@@ -481,7 +481,7 @@
                     year: 1856,
                     yearCount: 2,
                     width: 40,
-                    height: 40
+                    height: 30
                 },
                 {
                     id: 34,
@@ -490,7 +490,7 @@
                     year: 1856,
                     yearCount: 3,
                     width: 40,
-                    height: 40
+                    height: 30
                 },
                 {
                     id: 35,
@@ -650,7 +650,7 @@
                     year: 1869,
                     yearCount: 0,
                     width: 40,
-                    height: 19
+                    height: 17
                 },
                 {
                     id: 55,
@@ -658,7 +658,7 @@
                     year: 1878,
                     yearCount: 0,
                     width: 40,
-                    height: 23
+                    height: 20
                 },
 
 

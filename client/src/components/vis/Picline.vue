@@ -103,7 +103,7 @@
           <image
                   :xlink:href="hover.href"
                   :width="56"
-                  :x="hoverx - (hover.width)/2"
+                  :x="hoverx - 15"
                   :y="hovery"
           ></image>
         </g>
@@ -120,7 +120,7 @@
           <image
                   :xlink:href="hover.href"
                   :width="56"
-                  :x="hover.x - 40 - (hover.width)/2"
+                  :x="hover.x - 40 - 15"
                   :y="42.5-hover.height*2"
           ></image>
         </g>
@@ -157,7 +157,7 @@ const DEFAULT_OPTIONS = {
       left: 50,
     },
     line: {
-      width: 1000,
+      width: 900,
       height: 10,
     },
     frame: {
