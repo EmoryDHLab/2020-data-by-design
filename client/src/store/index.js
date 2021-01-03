@@ -1,11 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import datasetOld from './dataset/index.js'
 import notebook from './notebook/index.js'
-import user from './user-old/index.js'
 import mutable from './mutable/index.js'
 import dataset from './dataset-new/index.js'
-// import chapters from './chapters-old/index.js'
 import chapters from './chapters/index.js'
 import footnotes from './footnotes/index'
 
@@ -17,10 +14,8 @@ const store = new Vuex.Store({
   modules: {
     mutable: namespaced(mutable),
     notebook,
-    user,
     chapters: namespaced(chapters),
     footnotes: namespaced(footnotes),
-    datasetOld,
     dataset: namespaced(dataset),
   },
   state: {

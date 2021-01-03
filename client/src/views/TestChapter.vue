@@ -48,7 +48,6 @@ import { mapActions, mapGetters } from 'vuex'
 import ChapterScaffold from '@/components/ChapterScaffold'
 import { EventBus } from '@/helpers/EventBus'
 import mutations from '@/store/dataset/types'
-import ch_mut from '@/store/chapters-old/types'
 
 export default {
   name: 'PlayfairChapter',
