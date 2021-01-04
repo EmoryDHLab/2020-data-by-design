@@ -1,7 +1,10 @@
 <template>
   <div class="container">
-    <div id="chartStacked" style="background-color: #F3ECCB; font-family: 'Dancing Script', cursive"></div>
-    <div style="text-align: center; font-family: Consolas; font-size: 90%; margin-top: 10px">Two different visualizations of the same data used to recreate Playfair's import-export chart.</div>
+    <div>
+    <div id="chartStacked" style="background-color: #F3ECCB; font-family: 'Dancing Script', cursive; width: 60%; float: left"></div>
+    <div id="coxcomb" style="background-color: #F3ECCB; font-family: 'Dancing Script', cursive; width: 38%; float:left; margin-left: 2%"></div>
+    </div>
+    <div style="text-align: center; font-family: Consolas; font-size: 90%">Two different visualizations of the same data used to recreate Playfair's import-export chart.</div>
   </div>
 </template>
 
@@ -30,13 +33,22 @@
                 let x = d3.scaleTime()
                     .range([0, width]);
 
+                let stackWidth = width + margin.left + margin.right + 20;
+                let coxWidth = stackWidth*(38/60);
 
                 let y = d3.scaleLinear()
                     .range([height, 0]);
 
                 self.svg = d3.select("#chartStacked").append("svg")
                     .attr("class", "chartStacked")
-                    .attr("width", width + margin.left + margin.right+380)
+                    .attr("width", stackWidth)
+                    .attr("height", height + margin.top + margin.bottom)
+                    .append("g")
+                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+                self.coxsvg = d3.select("#coxcomb").append("svg")
+                    .attr("class", "coxcomb")
+                    .attr("width", coxWidth)
                     .attr("height", height + margin.top + margin.bottom)
                     .append("g")
                     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -167,16 +179,14 @@
                     self.svg.datum(playfairData); //binds data, makes static and not interactive
 
                     //coxcomb sectors
-                    // let coxXposition = width/2*3+30;
-                    // let coxYPosition = height/2;
-                    let coxXposition = width/2*3+50;
-                    let coxYPosition = height/2+45;
+                    let coxXposition = coxWidth/2 - 20;
+                    let coxYPosition = height/2+43;
                     for (let idx = 0; idx < playfairData.length; idx++) {
-                        self.svg.append("path")
+                        self.coxsvg.append("path")
                             .attr("transform", "translate(" + coxXposition + "," + coxYPosition + ") ")
                             .style("fill", "#E4AE95")
                             .attr("d", importArcs[idx]);
-                        self.svg.append("path")
+                        self.coxsvg.append("path")
                             .attr("transform", "translate(" + coxXposition + "," + coxYPosition + ") ")
                             .style("fill", "#ABAF7B")
                             .attr("d", exportArcs[idx]);
@@ -184,12 +194,12 @@
 
                     //cox outline
                     for (let i = 0; i < 11; i++) {
-                        self.svg.append("path")
+                        self.coxsvg.append("path")
                             .attr("transform", "translate(" + coxXposition + "," + coxYPosition + ") ")
                             .style("fill-opacity", 0)
                             .attr("stroke", "#7e7e7e")
                             .attr("d", outlineArcs[i]);
-                        self.svg.append("text")
+                        self.coxsvg.append("text")
                             .attr("transform", "translate(" +
                                 (coxXposition + Math.sin(2*Math.PI/11*(i+0.4))*(maxOuterR + 6)) + "," +
                                 (coxYPosition - Math.cos(2*Math.PI/11*(i+0.4))*(maxOuterR + 6)) +
@@ -204,7 +214,7 @@
 
                     //cox scale
                     for (let i = 0; i <= maxY/2; i += interval) {
-                        self.svg.append("circle")
+                        self.coxsvg.append("circle")
                             .attr("fill-opacity", 0)
                             .attr("stroke", "#9c9c9c")
                             .style("stroke-width", function (d) {
@@ -218,13 +228,13 @@
                     }
 
                     //add cox labels
-                    self.svg.append("text")
+                    self.coxsvg.append("text")
                         .attr("transform", "translate(" + (coxXposition - 10) + "," + (coxYPosition - 30) + ") rotate(" + (0) + ")")
                         .attr("dy", ".35em")
                         .attr("text-anchor", "start")
                         .style("fill", "black")
                         .text("Imports");
-                    self.svg.append("text")
+                    self.coxsvg.append("text")
                         .attr("transform", "translate(" + (coxXposition - 30) + "," + (coxYPosition - 90) + ") rotate(" + (0) + ")")
                         .attr("dy", ".35em")
                         .attr("text-anchor", "start")
