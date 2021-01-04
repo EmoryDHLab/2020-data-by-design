@@ -7,6 +7,7 @@
     <a class="blue-hover" @mouseover="setidx(0)"> Covid-19 Deaths </a>
     <a class="blue-hover" @mouseover="setidx(1)"> Average Income </a>
     <a class="blue-hover" @mouseover="setidx(2)"> Women Representatives </a>
+
     </div>
     <div style="text-align: center; font-family: Consolas; font-size: 90%; margin-top: 10px">Three contemporary datasets visualized in the style of William Playfair.</div>
   </div>
