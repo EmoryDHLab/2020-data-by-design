@@ -109,7 +109,19 @@
         </template>
 
         <template v-slot:[slots.newCharts]>
-          <DataSetsVis key="1"/>
+          <DataSetsVis key="1" :visidx="visIdx"/>
+        </template>
+
+        <template v-slot:HoverCovid="{inner}">
+          <a class="blue-hover" @mouseover="visIdx = 0">{{inner}}</a>
+        </template>
+
+        <template v-slot:HoverIncome="{inner}">
+          <a class="blue-hover" @mouseover="visIdx = 1">{{inner}}</a>
+        </template>
+
+        <template v-slot:HoverWomen="{inner}">
+          <a class="blue-hover" @mouseover="visIdx = 2">{{inner}}</a>
         </template>
 
         <template v-slot:[slots.sideBySide]>
@@ -167,12 +179,18 @@
           sideBySide: "Side-by-side",
           recreations: "Playfair Recreations",
           newCharts: "Playfair-style Charts"
-        }
+        },
+        visIdx: 0,
       };
     },
     computed: {},
     methods: {
       ...mapActions("chapters", ["setChapter"]),
+    },
+    watch: {
+      visIdx: function (value) {
+          this.visIdx = value;
+      }
     },
     created() {
       this.setChapter({title: "Playfair"});
