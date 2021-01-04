@@ -51,6 +51,9 @@
                      {left: -140, top: -110, width: 280, height: 280},
                   ]">
           </MapScroller>
+          <div style="text-align: center; font-family: Consolas; font-size: 90%; margin-top: 10px;">
+            The range of Peabody's promotional tour, as plotted on an 1850 rail map of the United States. Image courtesy of the Library of Congress, Geography and Map Division.
+          </div>
         </template>
 
         <template v-slot:[slots.titlePageImage]>
@@ -123,6 +126,9 @@
               </p>
             </template>
           </Scrollytell>
+          <div style="text-align: center; font-family: Consolas; font-size: 90%; margin-top: 10px;">
+            An interactive explanation of the Peabody's Polish-American System.
+          </div>
         </template>
 
         <template v-slot:[slots.scrollyCentury]>
@@ -174,6 +180,9 @@
             :highlighted="overlayPos"
             @hover="num =>this.overlayPos = Number(`${num}.1`)"
             :staticDataset="staticDatasetId"/>
+          <div style="text-align: center; font-family: Consolas; font-size: 90%;">
+              Above (clockwise from top left): Peabody's original chart of the seventeenth century; the chart recreated in digital form; the same data displayed as a timeline.
+          </div>
         </template>
 
         <template v-slot:[slots.bigQuiz]>
@@ -213,6 +222,9 @@
             :actors="womensRightsActorColors"
             :mutableDataset="'womenshistory'">
           </PeabodyMutable>
+         <div style="text-align: center; font-family: Consolas; font-size: 90%; margin-top: 10px;">
+              One hundred years of US women's history, 1918 to 2018, displayed in the style of Peabody's chronological grids.
+         </div> 
         </template>
       </DocRenderer>
     </template>
