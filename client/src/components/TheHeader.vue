@@ -62,6 +62,7 @@ export default {
 <style scoped>
 header {
   padding: 8px 100px;
+  margin-top: -10px;
   width: 100%; /*Maybe not?*/
   display: flex;
   flex-flow: row wrap;
@@ -115,6 +116,10 @@ header {
   font-weight: 700;
 }
 
+.header-nav {
+  height: 54px;
+  margin-left: 50px;
+}
 
 .header-nav .header-nav-link:hover, .header-nav > *:hover .header-nav-link {
   border-bottom: 2px solid rgb(74, 144, 226);
