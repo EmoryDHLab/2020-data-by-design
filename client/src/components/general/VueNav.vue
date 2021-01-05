@@ -14,7 +14,7 @@ nav {
   display: flex;
   justify-content: flex-end;
   align-items: baseline;
-  margin: 0 -16px;
+  margin: 0 -8px;
 }
 
 nav >>> * {
