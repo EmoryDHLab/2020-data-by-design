@@ -61,14 +61,14 @@ export default {
 
 <style scoped>
 header {
-  padding: 8px 100px;
-  width: 100%; /*Maybe not?*/
+  padding: 8px 0px;
+  left: 5.2%;
+  width: 80%; /*Maybe not?*/
   display: flex;
   flex-flow: row wrap;
   align-items: baseline;
   box-sizing: border-box;
   position: fixed;
-  top: 0;
   z-index:100;
   background-color: white;
   /*Fades the bottom border. I also tried to add a horizontal fade, but they didn't stack nicely.
@@ -78,9 +78,7 @@ header {
 ;
 }
 .header-title {
-  /*flex: 1 0;*/
-  margin: 0;
-  margin-right: 70px;
+  width: 14%; /*matches the cell width for the chapter timelines*/
 }
 
 .header-title-content {
@@ -115,6 +113,9 @@ header {
   font-weight: 700;
 }
 
+.header-nav {
+  height: 54px;
+}
 
 .header-nav .header-nav-link:hover, .header-nav > *:hover .header-nav-link {
   border-bottom: 2px solid rgb(74, 144, 226);

@@ -745,7 +745,7 @@
   main {
     max-width: 1500px;
     width: 80%;
-    margin: 0px auto;
+    margin: 0px 5%;
   }
   .credits {
     margin-bottom: 50px;
