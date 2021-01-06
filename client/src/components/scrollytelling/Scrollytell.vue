@@ -1,6 +1,6 @@
 <template>
-  <div class="scrollytell">
-    <div class="scrollytell-fixed" :style="{ top: top + 'px' }">
+  <div class="scrollytell" :class="{'vertical-flex': above}">
+    <div class="scrollytell-fixed" :style="fixedDivStyles">
       <slot name="fixed" :scrolled="scrolled" :progress="progressToNext"></slot>
     </div>
     <div ref="scrollContainer" class="scrollytell-scroll">
@@ -14,7 +14,7 @@
         <!--We use conditional rendering to only generate the waypoints once the slots have been rendered
         and we're able to check their heights to generate the offsets.-->
         <!--:style="{ opacity: Number(scrolled <= index)}"-->
-        <basic-waypoint v-if="mounted" v-show="!collect || scrolled <= index"
+        <basic-waypoint v-if="mounted" v-show="showScrollItem(index)"
           @triggered:down="scrollDown(slot)"
           @triggered:up="scrollUp(slot)"
           @scrolled="scrolling"
@@ -31,6 +31,7 @@
 
 
 import BasicWaypoint from "../waypoints/BasicWaypoint";
+import * as d3 from "d3";
 export default {
   components: {BasicWaypoint},
   props: {
@@ -38,22 +39,40 @@ export default {
       type: Number,
       required: true
     },
+    above: {
+      /*situates the scroll elements above the fixed, rather than beside it.
+       Currently does *not* work with 'collect' on!
+       */
+      type: Boolean,
+      default: false
+    },
     collect: {
+      /* Stick the scrolly elements to the top, and to each other
+         ("collect" them at the top)
+       */
+      type: Boolean,
+      default: false,
+    },
+    pause: {
+      /*
+        Stick the top scrolly element to the top of the view.
+        Only works if 'collect' is off!
+       */
       type: Boolean,
       default: false,
     },
     top: {
       type: Number,
-      default: 50,
-    },
-    bottomBreak: {
-      type: Boolean,
-      default: false
+      default: 70,
     },
     margin: { //bottom margin between items
       type: String,
       default: '100vh'
-    }
+    },
+    bottomBreak: { //apply the bottom margin to the last scroll element
+      type: Boolean,
+      default: false
+    },
   },
   data () {
     return {
@@ -81,16 +100,27 @@ export default {
       this.scrolled = Number(index - 1);
     },
     offset (index) {
+      if (!this.mounted || !this.$refs["textSlots"]) return null;
       if (!this.collect) {
         return this.top;
       }
-      if (!this.mounted || !this.$refs["textSlots"]) return null;
-      const ans = this.stuckHeights().slice(0,Number(index - 1)).reduce((acc, curr) => acc + curr, 0);
+      const ans = this.top + this.stuckHeights().slice(0,Number(index - 1)).reduce((acc, curr) => acc + curr, 0);
       return ans;
     },
+    showScrollItem (index) {
+      if (this.collect) {
+        return this.scrolled <= index;
+      }
+      // if (this.pause) {
+      //   return this.scrolled == index || this.scrolled == index - 1;
+      // }
+      return true;
+    },
     scrollItemStyles (index) {
-      if (!this.bottomBreak && index >= this.scrollSlots)
-        return {}
+      if (!this.bottomBreak && index >= this.scrollSlots) {
+        return {
+        }
+      }
       if (this.collect && this.mounted && this.scrolled >= Number(index - 1)) {
         const height = this.$refs["collected"].offsetHeight;
         return {
@@ -99,12 +129,55 @@ export default {
           top: height + this.top + "px"
         }
       }
+      if (this.pause && this.mounted) {
+        let marginTop = 0;
+        if (index == this.scrolled) {
+          const curr = this.$refs["textSlots"][index - 1];
+          const myHeight = curr.offsetHeight;
+          const scale = d3.scaleLinear().domain([0.8, 1]).range([0, -myHeight - this.top]).clamp(true);
+          const adjust = scale(this.progressToNext);
+          return {
+            position: "sticky",
+            // marginTop: adjust + "px",
+            transform: `translateY(${adjust}px)`,
+            'margin-bottom': this.margin,
+            top: this.top + "px"
+          }
+        }
+        if (this.scrolled >= 1 && index == this.scrolled + 1) {
+          return {
+            position: "sticky",
+            top: this.top + "px",
+            // border: "2px solid blue",
+            'margin-bottom': this.margin,
+          }
+        }
+        return {
+          // 'margin-top': (this.scrolled + 1) * this.margin,
+          'margin-bottom': this.margin,
+          // transform: `translateY(${marginTop})`
+        }
+      }
       return {
         'margin-bottom': this.margin,
       }
     }
   },
   computed: {
+    fixedDivStyles () {
+      let top = this.top;
+      if (this.above && this.mounted) {
+        debugger;
+        const stuckHeights = this.stuckHeights();
+        if (Array.isArray(stuckHeights)) {
+          const largestScrollItemHeight = Math.max(...stuckHeights);
+          top += largestScrollItemHeight;
+        }
+      }
+      return {
+        top: top + 'px'
+      }
+    },
     progressTo() {
       return index => {
         if (this.scrolled < index - 1)
@@ -164,7 +237,9 @@ export default {
   div.scrollytell {
     display:flex;
   }
-
+  div.vertical-flex {
+    flex-direction: column;
+  }
   .scrollytell-fixed {
     flex: 0 auto;
     height: fit-content;
