@@ -10,6 +10,7 @@
         </div>
       </div>
       <div v-for="(slot, index) in scrollSlots" ref="textSlots" class="scroll-item"
+           :class="{'solid-border': itemsBackgroundColor /*&& scrolled <= index*/}"
            :style="scrollItemStyles(slot)">
         <!--We use conditional rendering to only generate the waypoints once the slots have been rendered
         and we're able to check their heights to generate the offsets.-->
@@ -61,7 +62,7 @@ export default {
       type: Boolean,
       default: false,
     },
-    top: {
+    top: { //The "offset" from top, after which an element is considered scrolled
       type: Number,
       default: 70,
     },
@@ -73,6 +74,9 @@ export default {
       type: Boolean,
       default: false
     },
+    itemsBackgroundColor: {
+      type: String,
+    }
   },
   data () {
     return {
@@ -117,57 +121,63 @@ export default {
       return true;
     },
     scrollItemStyles (index) {
-      if (!this.bottomBreak && index >= this.scrollSlots) {
-        return {
-        }
+      if (!this.mounted) return {}
+      const styles = {}
+      console.log(index, this.progressToNext);
+      if (index > 1 && index == this.scrolled + 1) {
+        styles.opacity = d3.scaleLinear()
+          .domain([0, 0.4])
+          .range([0, 1])
+          .clamp(true)
+          (this.progressToNext);
       }
+      if (this.itemsBackgroundColor) {
+        styles.backgroundColor = this.itemsBackgroundColor;
+      }
+      if (!this.bottomBreak && index >= this.scrollSlots) {
+        return styles;
+      }
+      styles['margin-bottom'] = this.margin;
       if (this.collect && this.mounted && this.scrolled >= Number(index - 1)) {
         const height = this.$refs["collected"].offsetHeight;
         return {
           position: "sticky",
-          'margin-bottom': this.margin,
-          top: height + this.top + "px"
+          top: height + this.top + "px",
+          ...styles
         }
       }
-      if (this.pause && this.mounted) {
-        let marginTop = 0;
+      if (this.pause) {
+        const curr = this.$refs["textSlots"][index - 1];
+        const myHeight = curr.offsetHeight;
+        let top = this.top;
+        if (this.above) {
+          top += (Math.max(...this.stuckHeights()) - myHeight) / 2;
+        }
+        const pauseStyles = {
+          position: "sticky",
+          top: top + "px",
+          ...styles
+        }
         if (index == this.scrolled) {
-          const curr = this.$refs["textSlots"][index - 1];
-          const myHeight = curr.offsetHeight;
           const scale = d3.scaleLinear().domain([0.8, 1]).range([0, -myHeight - this.top]).clamp(true);
           const adjust = scale(this.progressToNext);
           return {
-            position: "sticky",
-            // marginTop: adjust + "px",
             transform: `translateY(${adjust}px)`,
-            'margin-bottom': this.margin,
-            top: this.top + "px"
+            ...pauseStyles
           }
         }
         if (this.scrolled >= 1 && index == this.scrolled + 1) {
-          return {
-            position: "sticky",
-            top: this.top + "px",
-            // border: "2px solid blue",
-            'margin-bottom': this.margin,
-          }
+          return pauseStyles;
         }
-        return {
-          // 'margin-top': (this.scrolled + 1) * this.margin,
-          'margin-bottom': this.margin,
-          // transform: `translateY(${marginTop})`
-        }
+        return styles;
       }
-      return {
-        'margin-bottom': this.margin,
-      }
+      return styles;
     }
   },
   computed: {
     fixedDivStyles () {
       let top = this.top;
       if (this.above && this.mounted) {
-        debugger;
         const stuckHeights = this.stuckHeights();
         if (Array.isArray(stuckHeights)) {
           const largestScrollItemHeight = Math.max(...stuckHeights);
@@ -263,11 +273,14 @@ export default {
   }
 
   .scroll-item {
-    padding: 5px;
+    padding: 0px 14px;
     /*margin-bottom: 100vh;*/
     /*box-shadow: 1px 1px 1px 1px gray;*/
   }
 
+  .scroll-item.solid-border {
+    border: 2px solid black;
+  }
   .scroll-item-dummy {
     padding: 5px;
     margin-bottom: 50vh;
