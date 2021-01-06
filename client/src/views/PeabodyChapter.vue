@@ -224,7 +224,7 @@
           </PeabodyMutable>
          <div style="text-align: center; font-family: Consolas; font-size: 90%; margin-top: 10px;">
               One hundred years of US women's history, 1918 to 2018, displayed in the style of Peabody's chronological grids.
-         </div> 
+         </div>
         </template>
       </DocRenderer>
     </template>

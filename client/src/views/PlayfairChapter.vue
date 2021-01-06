@@ -8,7 +8,9 @@
     <template v-slot:default="{ docRendererProps }">
       <DocRenderer v-bind="docRendererProps">
         <template v-slot:[slots.d3Impl]>
-          <Scrollytell collect bottom-break :scrollSlots="9">
+          <Scrollytell bottom-break pause above
+                       itemsBackgroundColor="white"
+                       :scrollSlots="9">
             <template v-slot:fixed="{ scrolled, progress }">
               <d3Impl :slideNumber="scrolled"/>
             </template>
