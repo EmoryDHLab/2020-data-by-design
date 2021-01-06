@@ -35,19 +35,19 @@
         watch: {
             slideNumber (newValue) {
                 // console.log(this.slideNumber);
-                if (this.slideNumber === 2) {
+                if (this.slideNumber === 1) {
                     this.changeOpacity(this.xLabel);
                     this.changeOpacity(this.timeLabel);
-                } else if (this.slideNumber === 3) {
+                } else if (this.slideNumber === 2) {
                     this.changeOpacity(this.yLabel);
                     this.changeOpacity(this.moneyLabel);
-                } else if (this.slideNumber === 4) {
+                } else if (this.slideNumber === 3) {
                     this.changeOpacity(this.importText);
                     this.changeOpacity(this.importLineFirstDraft);
-                } else if (this.slideNumber === 5) {
+                } else if (this.slideNumber === 4) {
                     this.changeOpacity(this.exportText);
                     this.changeOpacity(this.exportLineFirstDraft);
-                } else if (this.slideNumber === 6) {
+                } else if (this.slideNumber === 5) {
                     this.importLineFirstDraft.transition()
                         .attr("d", this.importLine1801d)
                         .attr("transform", "")
@@ -56,7 +56,7 @@
                         .attr("d", this.exportLine1801d)
                         .attr("transform", "")
                         .duration(800);
-                } else if (this.slideNumber === 7) {
+                } else if (this.slideNumber === 6) {
                     this.importLineFirstDraft.transition()
                         .attr("d", this.importLined)
                         .attr("transform", "")
@@ -71,17 +71,17 @@
 
                     this.changeOpacityBack(this.areaPink);
                     this.changeOpacityBack(this.areaGreen);
-                } else if (this.slideNumber === 8) {
+                } else if (this.slideNumber === 7) {
                     this.changeOpacity(this.areaGreen);
                     this.changeOpacity(this.areaPink)
-                } else if (this.slideNumber === 9) {
+                } else if (this.slideNumber === 8) {
                     this.changeOpacity(this.title1);
                     this.changeOpacity(this.title3);
                     this.changeOpacity(this.title4);
                     this.changeOpacity(this.title5);
                     this.changeOpacityBack(this.importDots);
                     this.changeOpacityBack(this.exportDots);
-                } else if (this.slideNumber === 10) {
+                } else if (this.slideNumber === 9) {
                     //data + line adjust
                     this.changeOpacity(this.importDots);
                     this.changeOpacity(this.exportDots);
@@ -103,7 +103,7 @@
                 let self = this;
                 let zoom = 3;
                 let margin = {top: 25, right: 60, bottom: 25, left: 25},
-                    width = window.innerWidth/zoom - margin.left - margin.right,
+                    width = window.innerWidth/zoom/0.77 - margin.left - margin.right,
                     height = window.innerWidth/zoom/1.6 - margin.top - margin.bottom;
 
 
@@ -503,7 +503,7 @@
                     var ellipseY = 110;
                     let ellipseRX = 110;
                     let ellipseRY = 70;
-                    var textX = ((width * 2) / 15) - 15;
+                    var textX = ellipseX - ellipseRX/6*5;
                     var textY = ellipseY - ellipseRY/4;
 
                     //add Label
@@ -561,7 +561,7 @@
 
                     // add line labels
                     self.exportText = self.svg.append("text")
-                        .attr("transform", "translate(" + (width - 320/zoom - 100) + "," + (height - 250/zoom) + ") rotate(" + (-75) + ")")
+                        .attr("transform", "translate(" + (width*0.6) + "," + (height*0.6) + ") rotate(" + (-65) + ")")
                         .attr("dy", ".35em")
                         .attr("text-anchor", "start")
                         // .attr("visibility","hidden")
@@ -569,7 +569,7 @@
                         .style("fill", "black")
                         .text("Line of Exports");
                     self.importText = self.svg.append("text")
-                        .attr("transform", "translate(" + (width - 690/zoom - 120) + "," + (height - 55/zoom - 20) + ") rotate(" + (-11) + ")")
+                        .attr("transform", "translate(" + (width*0.25) + "," + (height*0.87) + ") rotate(" + (-11) + ")")
                         .attr("dy", ".35em")
                         .attr("text-anchor", "start")
                         .attr("opacity", 0)
