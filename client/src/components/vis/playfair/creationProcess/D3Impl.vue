@@ -416,7 +416,9 @@
                         .attr("r", 2)
                         .attr("fill", "#616161")
                         .attr("cx", function (d) {
-                            return x(d.Years);
+                            if (d.Years >= 1770 && d.Years <= 1782) {
+                                return x(d.Years);
+                            }
                         })
                         .attr("cy", function (d) {
                             return y(d.Imports);
@@ -430,7 +432,9 @@
                         .attr("r", 2)
                         .attr("fill", "#616161")
                         .attr("cx", function (d) {
-                            return x(d.Years);
+                            if (d.Years >= 1770 && d.Years <= 1782) {
+                                return x(d.Years);
+                            }
                         })
                         .attr("cy", function (d) {
                             return y(d.Exports);
