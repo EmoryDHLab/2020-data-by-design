@@ -130,6 +130,20 @@ export default {
 
 <style>
 
+p.caption {
+  text-align: center !important;
+  font-family: Consolas;
+  font-size: 90%;
+}
+
+div.grid-row {
+  display: flex;
+  justify-content: center;
+}
+
+img.grid-image {
+  padding: 10px;
+}
 a.blue-hover {
   text-decoration: none;
   color: #4a90e2;
