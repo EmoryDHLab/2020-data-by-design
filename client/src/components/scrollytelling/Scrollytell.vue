@@ -4,11 +4,11 @@
       <slot name="fixed" :scrolled="scrolled" :progress="progressToNext"></slot>
     </div>
     <div ref="scrollContainer" class="scrollytell-scroll">
-      <div v-if="collect" ref="collected" class="scrollytell-collected">
-        <div v-for="slot in scrolled">
-          <slot :name="slot" :scrolled="scrolled" :progress="progressTo(slot)"></slot>
-        </div>
-      </div>
+<!--      <div v-if="collect" ref="collected" class="scrollytell-collected">-->
+<!--        <div v-for="slot in scrolled">-->
+<!--          <slot :name="slot" :scrolled="scrolled" :progress="progressTo(slot)"></slot>-->
+<!--        </div>-->
+<!--      </div>-->
       <div v-for="(slot, index) in scrollSlots" ref="textSlots" class="scroll-item"
            :class="{'solid-border': itemsBackgroundColor /*&& scrolled <= index*/}"
            :style="scrollItemStyles(slot)">
@@ -37,6 +37,7 @@ export default {
   components: {BasicWaypoint},
   props: {
     scrollSlots: {
+      /*Tell the component how many scroll slots you're sending!*/
       type: Number,
       required: true
     },
@@ -53,6 +54,10 @@ export default {
        */
       type: Boolean,
       default: false,
+    },
+    collectMargin: { //gap between collected items
+      type: String,
+      default: "5%"
     },
     pause: {
       /*
@@ -112,9 +117,9 @@ export default {
       return ans;
     },
     showScrollItem (index) {
-      if (this.collect) {
-        return this.scrolled <= index;
-      }
+      // if (this.collect) {
+      //   return this.scrolled <= index;
+      // }
       // if (this.pause) {
       //   return this.scrolled == index || this.scrolled == index - 1;
       // }
@@ -138,11 +143,11 @@ export default {
         return styles;
       }
       styles['margin-bottom'] = this.margin;
-      if (this.collect && this.mounted && this.scrolled >= Number(index - 1)) {
-        const height = this.$refs["collected"].offsetHeight;
+      if (this.collect) {
+        const height = this.$refs["textSlots"].slice(0, index - 1).reduce((prev, curr) => prev + curr.offsetHeight, 0);
         return {
           position: "sticky",
-          top: height + this.top + "px",
+          top: `calc(${height + this.top + "px"} + ${this.collectMargin} * ${index - 1})`,
           ...styles
         }
       }
@@ -273,13 +278,13 @@ export default {
   }
 
   .scroll-item {
-    padding: 0px 14px;
     /*margin-bottom: 100vh;*/
     /*box-shadow: 1px 1px 1px 1px gray;*/
   }
 
   .scroll-item.solid-border {
     border: 2px solid black;
+    padding: 0px 14px;
   }
   .scroll-item-dummy {
     padding: 5px;

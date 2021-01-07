@@ -41,6 +41,67 @@
         </template>
 
         <!--Component Slots-->
+
+        <template v-slot:CenturiesGrid>
+          <div>
+            <div class="grid-row">
+              <img class="grid-image" src="./img/ch4-1-1500s-rect.jpg"
+                   width="20%"/>
+              <img class="grid-image" src="./img/ch4-2-1600s-rect.jpg"
+                   width="20%"/>
+            </div>
+            <div class="grid-row">
+              <img class="grid-image" src="./img/ch4-3-1700s-rect.jpg"
+                   width="20%"></img>
+              <img class="grid-image" src="./img/ch4-4-1800s-rect.jpg"
+                   width="20%"></img>
+            </div>
+          </div>
+          <p class="caption">
+            The four chronological charts included in Elizabeth Palmer Peabody’s
+            Chronological History of the United States (1865), which display the
+            significant events of the 1500s (top left), the 1600s (top right),
+            the 1700s (bottom left), and the 1800s (bottom right).
+          </p>
+        </template>
+
+        <template v-slot:PhysicalRecreationGrid>
+          <div>
+            <div class="grid-row">
+              <img class="grid-image" src="./img/ch4-15-fc-touch.png"
+                   width="20%"/>
+              <img class="grid-image" src="./img/ch4-16-fc-led-boards.jpg"
+                   width="20%"/>
+            </div>
+            <div class="grid-row">
+              <img class="grid-image" src="./img/ch4-17-leds.jpg"
+                   width="20%"></img>
+              <img class="grid-image" src="./img/ch4-18-rendering.png"
+                   width="20%"></img>
+            </div>
+          </div>
+          <p class="caption">
+            Above (clockwise from top left): The layers of the touch interface,
+            built with copper tape and a foam spacer; the assembled touch
+            interface; a view of the modular circuit boards for communicating
+            with the LEDs; a rendering of the completed Floor Chart; the LEDs
+            displayed on top of the quilted chart. Photos by the author.
+          </p>
+        </template>
+
+        <template v-slot:Quilts>
+          <div>
+            <div class="grid-row">
+              <img class="grid-image" src="./img/ch4-19-rachel-carey-george.jpg"
+                   width="40%"/>
+              <img class="grid-image" src="./img/ch4-20-gbq-q030-06.jpg"
+                   width="40%"/>
+            </div>
+          </div>
+          <p class="caption">
+            Above left: “Housetop,” by Rachel Carey George, ca. 1935. Above right: “Housetop” variation, design by Mary Lee Bendolph. 1998, quilted by Essie Bendolph Pettaway, 2001. Photos courtesy of Tinwood Media. Permissions pending.
+          </p>
+        </template>
         <template v-slot:[slots.mapScroller]>
           <MapScroller asset="railroadscaled.jpg" width="60vh"
                        :current-position="mapPos"
@@ -51,8 +112,11 @@
                      {left: -140, top: -110, width: 280, height: 280},
                   ]">
           </MapScroller>
-          <div style="text-align: center; font-family: Consolas; font-size: 90%; margin-top: 10px;">
-            The range of Peabody's promotional tour, as plotted on an 1850 rail map of the United States. Image courtesy of the Library of Congress, Geography and Map Division.
+          <div
+            style="text-align: center; font-family: Consolas; font-size: 90%; margin-top: 10px;">
+            The range of Peabody's promotional tour, as plotted on an 1850 rail
+            map of the United States. Image courtesy of the Library of Congress,
+            Geography and Map Division.
           </div>
         </template>
 
@@ -126,7 +190,8 @@
               </p>
             </template>
           </Scrollytell>
-          <div style="text-align: center; font-family: Consolas; font-size: 90%; margin-top: 10px;">
+          <div
+            style="text-align: center; font-family: Consolas; font-size: 90%; margin-top: 10px;">
             An interactive explanation of the Peabody's Polish-American System.
           </div>
         </template>
@@ -180,8 +245,11 @@
             :highlighted="overlayPos"
             @hover="num =>this.overlayPos = Number(`${num}.1`)"
             :staticDataset="staticDatasetId"/>
-          <div style="text-align: center; font-family: Consolas; font-size: 90%;">
-              Above (clockwise from top left): Peabody's original chart of the seventeenth century; the chart recreated in digital form; the same data displayed as a timeline.
+          <div
+            style="text-align: center; font-family: Consolas; font-size: 90%;">
+            Above (clockwise from top left): Peabody's original chart of the
+            seventeenth century; the chart recreated in digital form; the same
+            data displayed as a timeline.
           </div>
         </template>
 
@@ -189,31 +257,59 @@
           <SplitCanvasQuiz :width="'100%'"/>
         </template>
 
-      <template v-slot:[slots.workbookScrolly]>
-        <Scrollytell :scroll-slots="3" :margin="'20vh'">
-          <template v-slot:1>
-          <div class="horiz-flex">
-            <CaptionedImage src="ch4-5-1993-rect.png">Caption goes here</CaptionedImage>
-            <CaptionedImage src="ch4-6-1994-rect.png">Caption goes here</CaptionedImage>
-            <CaptionedImage src="ch4-7-1997-rect.png">Caption goes here</CaptionedImage>
-            <CaptionedImage src="ch4-8-1975-rect.png">Caption goes here</CaptionedImage>
+        <template v-slot:[slots.workbookScrolly]>
+          <div>
+            <div class="grid-row">
+              <img class="grid-image" src="./img/ch4-5-1993-rect.png"
+                   width="20%"/>
+              <img class="grid-image" src="./img/ch4-6-1994-rect.png"
+                   width="20%"/>
+              <img class="grid-image" src="./img/ch4-7-1997-rect.png"
+                   width="20%"/>
+              <img class="grid-image" src="./img/ch4-8-1975-rect.png"
+                   width="20%"/>
+            </div>
+            <div class="grid-row">
+              <img class="grid-image" src="./img/ch4-9-1983-rect.png"
+                   width="20%"></img>
+              <img class="grid-image" src="./img/ch4-10-1984-rect.png"
+                   width="20%"></img>
+              <img class="grid-image" src="./img/ch4-11-1985-rect.png"
+                   width="20%"></img>
+              <img class="grid-image" src="./img/ch4-12-1986-rect.png"
+                   width="20%"></img>
+            </div>
           </div>
-          </template>
-          <template v-slot:2>
-            <div class="horiz-flex">
-              <CaptionedImage src="ch4-9-1983-rect.png">Caption goes here</CaptionedImage>
-              <CaptionedImage src="ch4-10-1984-rect.png">Caption goes here</CaptionedImage>
-              <CaptionedImage src="ch4-11-1985-rect.png">Caption goes here</CaptionedImage>
-              <CaptionedImage src="ch4-12-1986-rect.png">Caption goes here</CaptionedImage>
-            </div>
-          </template>
-          <template v-slot:3>
-            <div style="text-align: center">
-              Some sort of (simple?) editable grid goes here
-            </div>
-          </template>
-        </Scrollytell>
-      </template>
+          <p class="caption">
+            Images of student-created charts from a copy of The
+            Polish-American System housed at the American Antiquarian Society.
+            Courtesy of the American Antiquarian Society. Photos by the
+            author.
+          </p>
+        </template>
+        <!--        <Scrollytell :scroll-slots="3" :margin="'20vh'">-->
+        <!--          <template v-slot:1>-->
+        <!--          <div class="horiz-flex">-->
+        <!--            <CaptionedImage src="ch4-5-1993-rect.png">Caption goes here</CaptionedImage>-->
+        <!--            <CaptionedImage src="ch4-6-1994-rect.png">Caption goes here</CaptionedImage>-->
+        <!--            <CaptionedImage src="ch4-7-1997-rect.png">Caption goes here</CaptionedImage>-->
+        <!--            <CaptionedImage src="ch4-8-1975-rect.png">Caption goes here</CaptionedImage>-->
+        <!--          </div>-->
+        <!--          </template>-->
+        <!--          <template v-slot:2>-->
+        <!--            <div class="horiz-flex">-->
+        <!--              <CaptionedImage src="ch4-9-1983-rect.png">Caption goes here</CaptionedImage>-->
+        <!--              <CaptionedImage src="ch4-10-1984-rect.png">Caption goes here</CaptionedImage>-->
+        <!--              <CaptionedImage src="ch4-11-1985-rect.png">Caption goes here</CaptionedImage>-->
+        <!--              <CaptionedImage src="ch4-12-1986-rect.png">Caption goes here</CaptionedImage>-->
+        <!--            </div>-->
+        <!--          </template>-->
+        <!--          <template v-slot:3>-->
+        <!--            <div style="text-align: center">-->
+        <!--              Some sort of (simple?) editable grid goes here-->
+        <!--            </div>-->
+        <!--          </template>-->
+        <!--        </Scrollytell>-->
 
         <template v-slot:[slots.womensHistory]>
           <PeabodyMutable
@@ -222,9 +318,11 @@
             :actors="womensRightsActorColors"
             :mutableDataset="'womenshistory'">
           </PeabodyMutable>
-         <div style="text-align: center; font-family: Consolas; font-size: 90%; margin-top: 10px;">
-              One hundred years of US women's history, 1918 to 2018, displayed in the style of Peabody's chronological grids.
-         </div>
+          <div
+            style="text-align: center; font-family: Consolas; font-size: 90%; margin-top: 10px;">
+            One hundred years of US women's history, 1918 to 2018, displayed in
+            the style of Peabody's chronological grids.
+          </div>
         </template>
       </DocRenderer>
     </template>
@@ -258,7 +356,7 @@
   import PeabodyQuiz from "../components/vis/peabody/quiz/PeabodyQuiz";
   import SplitCanvasQuiz
     from "../components/vis/peabody/newquiz/SplitCanvasQuiz";
-  import { DocRenderer } from "doc-renderer";
+  import {DocRenderer} from "doc-renderer";
 
   export default {
     name: "ThePeabodyChapter",
