@@ -153,27 +153,29 @@
               </p>
             </template>
             <template v-slot:3="{ progress, scrolled }">
-              <p>
-                In the top left corner is the space for wars, battles, and
-                sieges;
-                in the top middle is the space for
-                conquests and unions;
-                in the top right is the space for losses and divisions, and so
-                on.
-              </p>
-              <EventKey class="event-key" :colors=" scrolled > 4 ?
+              <div>
+                <p>
+                  In the top left corner is the space for wars, battles, and
+                  sieges;
+                  in the top middle is the space for
+                  conquests and unions;
+                  in the top right is the space for losses and divisions, and so
+                  on.
+                </p>
+                <EventKey class="event-key" :colors=" scrolled > 4 ?
                 [false, false, 'rgb(50, 91, 103)',
                 false, 'rgb(69, 136, 103)', false,
                 'rgb(141, 43, 29)', false, false] : Array(9)"
 
-                        :style="{
+                          :style="{
                   width: '20vh',
                   opacity: d3.interpolate(0,1)(progress),
                   transform: d3.interpolateString('translateX(10vh)', 'translateX(-5vh)')(d3.easeQuadOut(d3.scaleLinear([0.5,1], [0,1])(progress))),
                   marginTop: '2vh',
                   zIndex: '100'
                  }"
-                        showLegend showNumbers dropShadow></EventKey>
+                          showLegend showNumbers dropShadow></EventKey>
+              </div>
             </template>
             <template v-slot:4>
               <p>

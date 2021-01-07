@@ -55,9 +55,9 @@ export default {
       type: Boolean,
       default: false,
     },
-    collectMargin: { //gap between collected items
-      type: String,
-      default: "5%"
+    collectMargin: { //gap between collected items, in pixels
+      type: Number,
+      default: 20
     },
     pause: {
       /*
@@ -87,6 +87,7 @@ export default {
     return {
       scrolled: 0,
       progressToNext: 0,
+      done: false,
       scrollContainer: {},
       mounted: false,
     }
@@ -104,16 +105,19 @@ export default {
     },
     scrollDown (index) {
       this.scrolled = Number(index);
+      if (this.scrolled >= this.scrollSlots)
+        this.done = true;
     },
     scrollUp (index) {
       this.scrolled = Number(index - 1);
+      if (this.done) this.done = false;
     },
     offset (index) {
       if (!this.mounted || !this.$refs["textSlots"]) return null;
       if (!this.collect) {
         return this.top;
       }
-      const ans = this.top + this.stuckHeights().slice(0,Number(index - 1)).reduce((acc, curr) => acc + curr, 0);
+      const ans = this.top + this.stuckHeights().slice(0,Number(index - 1)).reduce((acc, curr) => acc + curr + this.collectMargin, 0);
       return ans;
     },
     showScrollItem (index) {
@@ -128,7 +132,8 @@ export default {
     scrollItemStyles (index) {
       if (!this.mounted) return {}
       const styles = {}
-      console.log(index, this.progressToNext);
+      // console.log(this.scrolled, this.progressToNext);
+      console.log(this.$refs["textSlots"][2].offsetHeight)
       if (index > 1 && index == this.scrolled + 1) {
         styles.opacity = d3.scaleLinear()
           .domain([0, 0.4])
@@ -144,10 +149,21 @@ export default {
       }
       styles['margin-bottom'] = this.margin;
       if (this.collect) {
-        const height = this.$refs["textSlots"].slice(0, index - 1).reduce((prev, curr) => prev + curr.offsetHeight, 0);
+        if (this.done && index !== this.scrollSlots) { //fires once per element!
+          console.log("done")
+          const curr = this.$refs["textSlots"][index - 1];
+          const myHeight = curr.offsetHeight;
+          return {
+            position: 'sticky',
+            top: `${this.offset(this.scrollSlots)}px`,
+            //TODO: break up, explain magic numbers
+            transform: `translateY(${this.offset(index) + myHeight + 5 - this.offset(this.scrollSlots) - this.offset(1)}px)`,
+            ...styles
+          };
+        }
         return {
           position: "sticky",
-          top: `calc(${height + this.top + "px"} + ${this.collectMargin} * ${index - 1})`,
+          top: this.offset(index) + "px",
           ...styles
         }
       }
