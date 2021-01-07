@@ -102,11 +102,16 @@
 
         <template v-slot:[slots.recreations]>
           <div>
-            <img class="centered-image" src="./img/ch1-8-lyra.png" width="30%"/>
-            <img class="centered-image" src="./img/ch1-9-protovis.png"
-                 width="30%"/>
+            <div style="display: flex; align-items: center; justify-content: center">
+              <img src="./img/ch1-8-lyra.png" width="30%"/>
+              <img src="./img/ch1-9-protovis.png"
+                   width="30%"/>
+            </div>
             <img class="centered-image" src="./img/ch1-10-camoes.png"
-                 width="30%"/>
+                 width="60%"/>
+            <p class="caption">
+              Caption here
+            </p>
           </div>
         </template>
 
