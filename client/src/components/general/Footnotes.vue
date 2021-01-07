@@ -1,6 +1,7 @@
 <template>
   <div>
     <hr>
+    <h1>Notes</h1>
     <p v-for="slot in footnoteSlots" >
       <sup v-if="footnotes.updated"><a class="note-link" :href="'#' + (footnotes[slot] ? footnotes[slot].refId : '')">[{{slot}}]</a></sup>
       <span :ref="slot" :id="`fn-${slot}`">
