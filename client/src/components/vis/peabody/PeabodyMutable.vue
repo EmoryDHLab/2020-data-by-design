@@ -17,27 +17,37 @@
         Click a square to edit
       </p>
       <div v-else>
+        <ActorSelect class="actor-key"
+                     :actor-colors="actors"
+                     :shown-actors="new Set(Object.keys(actors))"
+                     :square-width="'16'"
+                      vertical
+                    >
+
+        </ActorSelect>
         <h1>{{editing.year}}</h1>
         <div>
-          <h4 style="margin-left: 2vh">Event</h4>
           <h2 class="event-title">
             {{currSquareEvent.event}}
           </h2>
-          <h2>
-            <!--          <EventSquare width="16px"-->
-            <!--                       :colors="currSquareActors.length ? currSquareActors.map(actor => actors[actor]) : ['lightgray']">-->
-            <!--          </EventSquare>-->
-            Type:
-            {{squareKeys[editing.square - 1]}}
-          </h2>
+<!--          <h2>-->
+<!--                      <EventSquare width="16px"-->
+<!--                                   :colors="currSquareActors.length ? currSquareActors.map(actor => actors[actor]) : ['lightgray']">-->
+<!--                      </EventSquare>-->
+<!--            Type:-->
+<!--            {{squareKeys[editing.square - 1]}}-->
+<!--          </h2>-->
         </div>
+        <EventKey class="event-key" :legend-text="squareKeys" v-model="editing.square" :hoverable="false">
+
+        </EventKey>
+        <h1>Actors</h1>
         <div class="actor-select" v-for="(actor, index) in currSquareActors">
-          <h4>Actors</h4>
           <EventSquare class="event-square" width="16px" :colors="[actors[actor]]"></EventSquare>
           <select v-model="currSquareActors[index]">
             <optgroup>
               <option disabled value="">Actor...</option>
-              <option v-for="actorChoice in Object.keys(actors)" :style="{ color: actors[actorChoice]}">{{actorChoice}}</option>
+              <option v-for="actorChoice in Object.keys(actors)" :key="{ color: actors[actorChoice]}">{{actorChoice}}</option>
             </optgroup>
           </select>
           <a class="remove-actor blue-hover" @click="removeActor(index)" href="javascript:void(0);">Remove</a>
@@ -65,11 +75,16 @@ import {actorColors, dataToYears} from "../../../helpers/PeabodyUtils";
 
 import EventSquare from './newpeabodygrid/EventSquare'
 import PeabodyGrid from './newpeabodygrid/PeabodyGrid'
+import EventKey from "./EventKey";
+
+import ActorSelect from "./newquiz/ActorSelect";
 
 export default {
   components: {
+    EventKey,
     PeabodyGrid,
-    EventSquare
+    EventSquare,
+    ActorSelect
   },
   mixins: [Visualization({notebookName: "PeabodyMutable"})],
   props: {
@@ -85,6 +100,20 @@ export default {
       type: String,
       required: true
     },
+    squareKeys: {
+      type: Array,
+      default () {
+        return [ "Battles, Sieges, Beginning of War",
+          "Conquests, Annexations, Unions",
+          "Losses and Disasters",
+          "Falls of States",
+          "Foundations of States and Revolutions",
+          "Treaties and Sundries",
+          "Births",
+          "Deeds",
+          "Deaths, of Remarkable Individuals"]
+      }
+    },
     actors: {
       type: Object, // { actorName: "rgb(r,g,b)", actorName: "lightblue", ... }
       default () {
@@ -98,15 +127,6 @@ export default {
         year: null,
         square: null
       },
-      squareKeys: [ "Battles, Sieges, Beginning of War",
-        "Conquests, Annexations, Unions",
-        "Losses and Disasters",
-        "Falls of States",
-        "Foundations of States and Revolutions",
-        "Treaties and Sundries",
-        "Births",
-        "Deeds",
-        "Deaths, of Remarkable Individuals"]
     }
   },
   computed: {
@@ -148,14 +168,15 @@ export default {
   },
   methods: {
     addNewActor() {
+      const defaultActor = Object.keys(this.actors)[0];
       if (this.currSquareActors.length) {
-        this.currSquareActors.push("Americas");
+        this.currSquareActors.push(defaultActor);
       } else {
         const newEvent  = {
           event: `User-added event ${this.editingNumber}`,
           year: this.editing.year,
           squares: [this.editing.square],
-          actors: ["Americas"]
+          actors: [defaultActor]
         }
         this.transform(dataobj => {
           dataobj.push(newEvent);
@@ -216,9 +237,20 @@ export default {
     width: 26vh;
   }
 
+  .actor-key {
+    margin-left: -1em;
+    margin-top: 0em;
+    margin-bottom: 0em;
+  }
   .intro-text {
     margin-left: 2vh;
     font-size: 10pt;
+  }
+
+  .event-key {
+    margin-left: 2vh;
+    margin-top: 2vh;
+    width: 70%;
   }
 
   .actor-select {
@@ -228,13 +260,13 @@ export default {
 
    h1 {
     margin-left: 2vh;
-    font-family: monospace;
+     margin-top: 0.5vh;
+     margin-bottom: 1vh;
     font-size: 2vh;
     font-weight: normal;
   }
    h2 {
      margin-left: 3vh;
-     margin-top: -1.5vh;
      margin-bottom: 1vh;
      font-size: 1.5vh;
    }
