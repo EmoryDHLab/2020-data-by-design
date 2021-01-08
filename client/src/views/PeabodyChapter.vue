@@ -201,20 +201,20 @@
         <template v-slot:[slots.scrollyCentury]>
           <Scrollytell :scroll-slots="2"
                        :top="310"
-                       :margin="'70vh'"
+                       :margin="'100vh'"
                        @scroll="onOverlayScroll">
             <template v-slot:fixed="{scrolled, progress}">
               <PeabodyCanvas v-model="overlayPos"
                              :width="'40vh'"></PeabodyCanvas>
             </template>
-            <template v-slot:1>
+            <template v-slot:1="{scrolled, progress}">
               <EventKey v-model="overlayEventKeyPos"
                         :colors="overlayEventKeyColors"
                         :style="{width: '20vh', position: 'relative', top: '15vh' }"></EventKey>
 
               <div class="event-box">
                 <div class="event-box-year"> {{overlayCurrYear}}</div>
-                <ul v-if="peabodyEvents && peabodyEvents[overlayCurrYear]">
+                <ul v-if="scrolled < 1 && peabodyEvents && peabodyEvents[overlayCurrYear]">
                   <li
                     v-for="[eventName, event] in Object.entries(peabodyEvents[overlayCurrYear])"
                     :key="eventName">
@@ -222,7 +222,6 @@
                                  :colors="event.actors.map(actor => actorColors[actor])"></EventSquare>
                     <span
                       :class="{ 'selected-event': event.squares.includes(overlayEventKeyPos) }">
-                    {{ eventName }}
                   </span>
                   </li>
                 </ul>
@@ -245,7 +244,7 @@
             height='200px'
             width='100%'
             :highlighted="overlayPos"
-            @hover="num =>this.overlayPos = Number(`${num}.1`)"
+            @hover="num => overlayPos = Number(`${num}.1`)"
             :staticDataset="staticDatasetId"/>
           <div
             style="text-align: center; font-family: Consolas; font-size: 90%;">
