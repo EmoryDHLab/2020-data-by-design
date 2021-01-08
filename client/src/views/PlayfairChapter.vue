@@ -42,16 +42,14 @@
             </template>
             <template v-slot:1>
               <p>
-                He began--or more likely, Neele did--by engraving the border
-                around
-                the chart.
+                The process began with Neele engraving the border
+                around the chart.
               </p>
             </template>
             <template v-slot:2>
               <p>
-                Neele then began to add the grid lines, and either before or
-                after,
-                the labels of the axes.
+                He then began to add the grid lines, and either before or
+                after the labels of the axes.
               </p>
             </template>
             <template v-slot:3>
@@ -76,9 +74,7 @@
             </template>
             <template v-slot:6>
               <p>
-                In the first edition of the <i>Atlas</i>, these data lines are
-                quite
-                bumpy, owing to Playfair's inexpert engraving technique.
+                In the first edition of the <i>Atlas</i>, these data lines are bumpy, even in places where Playfair intended to show a constant slope--a reflection of Playfair's novice engraving technique.
               </p>
             </template>
             <template v-slot:7>
@@ -100,25 +96,23 @@
                 Playfair returned to each chart in each copy of the <i>Atlas</i>,
                 hand-staining each of the data lines, as well as the area
                 between
-                them, to add color to his charts. The warm color palate that
-                Playfair employs takes full advantage of the color theory that
-                was
-                emerging at the time.
+                them, adding color and warmth to his charts.
               </p>
             </template>
             <template v-slot:9>
               <p>
                 The result is a data visualization that is deservedly
                 iconic--even
-                as it did not depend on the actual data.
+                as it did not depend on a complete dataset. In fact, there is no evidence to suggest that Playfair plotted any of the
+                original data points before engraving the data lines on his chart.
               </p>
             </template>
-            <template v-slot:10>
+<!--            <template v-slot:10>
               <p>
                 There is no evidence to suggest that Playfair plotted any of the
                 original data points before engraving the data lines.
               </p>
-            </template>
+            </template> -->
           </Scrollytell>
         </template>
 
