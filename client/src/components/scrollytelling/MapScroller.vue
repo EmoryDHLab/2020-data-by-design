@@ -32,6 +32,10 @@
       },
       elapsePercent: { //Number between zero and 1. Overrides default animation behavior!!
         type: Number,
+      },
+      easing: {
+        type: Function,
+        default: d3.easePolyInOut
       }
     },
     data () {
@@ -45,7 +49,7 @@
         const currPos = this.positions[this.currentPosition];
 
         const interpolate = elapsed => (dimension) =>
-          d3.interpolateNumber(this.prevView[dimension], currPos[dimension])(d3.easePolyInOut(elapsed));
+          d3.interpolateNumber(this.prevView[dimension], currPos[dimension])(this.easing(elapsed));
 
         if (this.elapsePercent === 0) {
           return this.positions[this.currentPosition - 1];
