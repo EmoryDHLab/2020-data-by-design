@@ -7,6 +7,32 @@
 
     <template v-slot:default="{ docRendererProps }">
       <DocRenderer v-bind="docRendererProps">
+        <template v-slot:Scroller>
+          <BasicWaypoint @scrolled="scrollerScrolling"></BasicWaypoint>
+          <BasicWaypoint :offset="400"></BasicWaypoint>
+          <div class="centered" style="width: 80%">
+            <MapScroller
+              asset="ch1-4-northamerica.jpg"
+              width="100%"
+              :current-position="1"
+              :elapse-percent="scrollerElapsed"
+              :positions="[
+               {left: 0, top: 0, width: 100, height: 100},
+               {left: 100, top: 50, width: 200, height: 200},
+            ]"
+            >
+            </MapScroller>
+          </div>
+          <p class="caption">
+
+            Playfair's chart of “Exports & Imports to and from all
+            North-America,” from the third edition of <i>The Commercial and
+            Political Atlas</i> (1801). On the far right of the image is the
+            engraving error in the line of imports. Image courtesy of the
+            Library Company of Philadelphia, www.librarycompany.org.
+          </p>
+
+        </template>
         <template v-slot:[slots.d3Impl]>
           <Scrollytell bottom-break pause above
                        itemsBackgroundColor="white"
@@ -38,7 +64,8 @@
             </template>
             <template v-slot:4>
               <p>
-                Playfair likely took over at this point, and set about engraving;
+                Playfair likely took over at this point, and set about
+                engraving;
                 the lines of imports
               </p>
             </template>
@@ -102,7 +129,8 @@
 
         <template v-slot:[slots.recreations]>
           <div>
-            <div style="display: flex; align-items: center; justify-content: center">
+            <div
+              style="display: flex; align-items: center; justify-content: center">
               <img src="./img/ch1-8-lyra.png" width="30%"/>
               <img src="./img/ch1-9-protovis.png"
                    width="30%"/>
@@ -148,6 +176,7 @@
   import Highlightable from "@/mixins/Highlightable";
   import Scrollytell from "../components/scrollytelling/Scrollytell";
   import MapScroller from "../components/scrollytelling/MapScroller";
+  import BasicWaypoint from "../components/waypoints/BasicWaypoint";
   import PeabodyCanvas from "../components/vis/peabody/PeabodyCanvas";
   import Footnotes from "../components/general/Footnotes"
   import FootnoteReference from "../components/general/FootnoteReference";
@@ -156,7 +185,7 @@
     from "../components/vis/playfair/creationProcess/DataSetsVis";
   import StackedBar
     from "../components/vis/playfair/creationProcess/StackedBar";
-  import { DocRenderer } from "doc-renderer";
+  import {DocRenderer} from "doc-renderer";
   import Blockquote from "../components/general/Blockquote";
   import {mapActions} from "vuex";
 
@@ -175,6 +204,7 @@
       Scrollytell,
       PeabodyCanvas,
       MapScroller,
+      BasicWaypoint,
       Footnotes,
       FootnoteRef: FootnoteReference
     },
@@ -187,16 +217,24 @@
           recreations: "Playfair Recreations",
           newCharts: "Playfair-style Charts"
         },
+        scrollerElapsed: 0,
         visIdx: 0,
       };
     },
     computed: {},
     methods: {
+      scrollerScrolling(event) {
+        const last = event.lastWaypoint.triggerPoint;
+        const next = event.nextWaypoint.triggerPoint;
+        const progressToNext = (event.newScroll - last) / (next - last);
+        this.scrollerElapsed = progressToNext;
+        console.log(progressToNext);
+      },
       ...mapActions("chapters", ["setChapter"]),
     },
     watch: {
       visIdx: function (value) {
-          this.visIdx = value;
+        this.visIdx = value;
       }
     },
     created() {

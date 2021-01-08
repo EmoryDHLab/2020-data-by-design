@@ -68,16 +68,18 @@
         <template v-slot:PhysicalRecreationGrid>
           <div>
             <div class="grid-row">
-              <img class="grid-image" src="./img/ch4-15-fc-touch.png"
+              <img class="grid-image" src="./img/ch4-15a-fc-left.png"
+                   width="20%"/>
+              <img class="grid-image" src="./img/ch4-15b-fc-right.png"
                    width="20%"/>
               <img class="grid-image" src="./img/ch4-16-fc-led-boards.jpg"
                    width="20%"/>
             </div>
             <div class="grid-row">
               <img class="grid-image" src="./img/ch4-17-leds.jpg"
-                   width="20%"></img>
+                   width="31.5%"></img>
               <img class="grid-image" src="./img/ch4-18-rendering.png"
-                   width="20%"></img>
+                   width="31.5%"></img>
             </div>
           </div>
           <p class="caption">
@@ -103,7 +105,7 @@
           </p>
         </template>
         <template v-slot:[slots.mapScroller]>
-          <MapScroller asset="railroadscaled.jpg" width="60vh"
+          <MapScroller class="centered-image" asset="railroadscaled.jpg" width="60vh"
                        :current-position="mapPos"
                        :positions="[
                      {left: 0, top: 0, width: 100, height: 100},
@@ -319,11 +321,10 @@
             :actors="womensRightsActorColors"
             :mutableDataset="'womenshistory'">
           </PeabodyMutable>
-          <div
-            style="text-align: center; font-family: Consolas; font-size: 90%; margin-top: 10px;">
+          <p class="caption">
             One hundred years of US women's history, 1918 to 2018, displayed in
             the style of Peabody's chronological grids.
-          </div>
+          </p>
         </template>
       </DocRenderer>
     </template>
