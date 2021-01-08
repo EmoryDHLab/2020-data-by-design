@@ -14,6 +14,7 @@
             <MapScroller
               asset="ch1-4-northamerica.jpg"
               width="100%"
+              :easing="scrollerEase"
               :current-position="1"
               :elapse-percent="scrollerElapsed"
               :positions="[
@@ -163,6 +164,7 @@
 </template>
 
 <script>
+  import { easeLinear } from "d3"
   import ChapterScaffold from '@/components/ChapterScaffold'
   import TimelineVis from '@/components/vis/timeline/TimelineVis'
   import EventKey from "../components/vis/peabody/EventKey";
@@ -212,6 +214,7 @@
           newCharts: "Playfair-style Charts"
         },
         scrollerElapsed: 0,
+        scrollerEase: easeLinear,
         visIdx: 0,
       };
     },
