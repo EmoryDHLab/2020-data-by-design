@@ -43,7 +43,7 @@
         <!--Component Slots-->
 
         <template v-slot:CenturiesGrid>
-          <div>
+          <div class="IMG">
             <div class="grid-row">
               <img class="grid-image" src="./img/ch4-1-1500s-rect.jpg"
                    width="40%"/>
@@ -66,7 +66,7 @@
         </template>
 
         <template v-slot:PhysicalRecreationGrid>
-          <div>
+          <div class="IMG">
             <div class="grid-row">
               <img class="grid-image" src="./img/ch4-15a-fc-left.png"
                    width="26.6%"/>
@@ -92,7 +92,7 @@
         </template>
 
         <template v-slot:Quilts>
-          <div>
+          <div class="IMG">
             <div class="grid-row">
               <img class="grid-image" src="./img/ch4-19-rachel-carey-george.jpg"
                    width="40%"/>
@@ -261,7 +261,7 @@
         </template>
 
         <template v-slot:[slots.workbookScrolly]>
-          <div>
+          <div class="IMG">
             <div class="grid-row">
               <img class="grid-image" src="./img/ch4-5-1993-rect.png"
                    width="20%"/>

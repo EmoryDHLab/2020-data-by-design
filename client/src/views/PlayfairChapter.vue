@@ -123,9 +123,8 @@
         <!--            </template>-->
 
         <template v-slot:[slots.recreations]>
-          <div>
-            <div
-              style="display: flex; align-items: center; justify-content: center">
+          <div class="IMG">
+            <div class="grid-row">
               <img src="./img/ch1-8-lyra.png" width="50%"/>
               <img src="./img/ch1-9-protovis.png"
                    width="50%"/>
