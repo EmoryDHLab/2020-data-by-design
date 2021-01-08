@@ -49,7 +49,6 @@ function findParentSection (element, sections) {
   }
   const section = sectionIds.indexOf(parent.id);
   const subsection = filteredChildren(parent, curr);
-  console.log("subsection", subsection);
   return {section, subsection}
 }
 
@@ -113,11 +112,12 @@ const store = {
       listener(); //fixes for doc-generated pages; TODO: revisit this listener system
       for (let i = 0; i < subsections; i++) {
         const child = children[i];
-        if (child.tagName.toUpperCase() === "IMG") {
+        if (child.tagName.toUpperCase() === "IMG" || child.className === "IMG") {
           vis[i] = VisTypes.IMAGE;
         }
       }
       const setVisType = visType => visEl => {
+        // if (visType == VisTypes.INTERACTION) debugger;
         const results = findParentSection(visEl, [...state.currChapter.sections, {id}]);
         if (!results || results.section !== state.currChapter.sections.length) return;
         vis[results.subsection] = visType;
