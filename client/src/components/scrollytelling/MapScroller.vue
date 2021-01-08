@@ -30,6 +30,9 @@
         default: 0
         // required: true
       },
+      elapsePercent: { //Number between zero and 1. Overrides default animation behavior!!
+        type: Number,
+      }
     },
     data () {
       return {
@@ -40,13 +43,30 @@
     computed: {
       currViewport() {
         const currPos = this.positions[this.currentPosition];
-        if (this.elapsed === 0) {
+
+        const interpolate = elapsed => (dimension) =>
+          d3.interpolateNumber(this.prevView[dimension], currPos[dimension])(d3.easePolyInOut(elapsed));
+
+        if (this.elapsePercent === 0) {
+          return this.positions[this.currentPosition - 1];
+        }
+        if (this.elapsed === 0 && !this.elapsePercent) {
           return this.positions[this.currentPosition]
+        }
+        if (this.elapsePercent) {
+          this.prevView = this.positions[this.currentPosition - 1];
+          const interp = interpolate(this.elapsePercent);
+          return {
+            top: interp('top'),
+            left: interp('left'),
+            width: interp('width'),
+            height: interp('height')
+          }
         }
         else {
           if (currPos && this.prevView) {
-            const interp = (dimension) => d3.interpolateNumber(this.prevView[dimension], currPos[dimension])
-                                          (d3.easePolyInOut(this.elapsed));
+            console.log(this.elapsed);
+            const interp = interpolate(this.elapsed)
             return {
               top: interp('top'),
               left: interp('left'),

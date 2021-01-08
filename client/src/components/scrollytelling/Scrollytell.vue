@@ -273,6 +273,7 @@ export default {
     height: fit-content;
     position: sticky;
     align-items: center;
+    z-index: -100;
     /*top set in template*/
   }
 

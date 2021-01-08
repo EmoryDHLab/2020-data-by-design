@@ -18,16 +18,21 @@
       </p>
       <div v-else>
         <h1>{{editing.year}}</h1>
-        <h2 class="event-title">
-          {{currSquareEvent.event}}
-        </h2>
-        <h2>
-          <EventSquare width="16px"
-                       :colors="currSquareActors.length ? currSquareActors.map(actor => actors[actor]) : ['lightgray']">
-          </EventSquare>
-          {{squareKeys[editing.square - 1]}}
-        </h2>
+        <div>
+          <h4 style="margin-left: 2vh">Event</h4>
+          <h2 class="event-title">
+            {{currSquareEvent.event}}
+          </h2>
+          <h2>
+            <!--          <EventSquare width="16px"-->
+            <!--                       :colors="currSquareActors.length ? currSquareActors.map(actor => actors[actor]) : ['lightgray']">-->
+            <!--          </EventSquare>-->
+            Type:
+            {{squareKeys[editing.square - 1]}}
+          </h2>
+        </div>
         <div class="actor-select" v-for="(actor, index) in currSquareActors">
+          <h4>Actors</h4>
           <EventSquare class="event-square" width="16px" :colors="[actors[actor]]"></EventSquare>
           <select v-model="currSquareActors[index]">
             <optgroup>
