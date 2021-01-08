@@ -318,6 +318,7 @@
           <PeabodyMutable
             :staticDataset="'womensrights'"
             :width="'50vh'"
+            :square-keys="womensRightsSquareKey"
             :actors="womensRightsActorColors"
             :mutableDataset="'womenshistory'">
           </PeabodyMutable>
@@ -407,6 +408,17 @@
         },
         quizYears: [1619, 1620, 1629, 1630],
         womensRightsActorColors,
+        womensRightsSquareKey: [
+          "Reproductive Justice",
+          "Voting Rights",
+          "Labor Issues",
+          "Legal Issues",
+          "Domestic Life",
+          "Education",
+          "Harassment",
+          "Military",
+          "Discrimination",
+        ],
         actorColors,
       };
     },
