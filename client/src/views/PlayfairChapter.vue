@@ -125,14 +125,14 @@
           <div>
             <div
               style="display: flex; align-items: center; justify-content: center">
-              <img src="./img/ch1-8-lyra.png" width="30%"/>
+              <img src="./img/ch1-8-lyra.png" width="50%"/>
               <img src="./img/ch1-9-protovis.png"
-                   width="30%"/>
+                   width="50%"/>
             </div>
             <img class="centered-image" src="./img/ch1-10-camoes.png"
-                 width="60%"/>
+                 width="80%"/>
             <p class="caption">
-              Caption here
+              Above (clockwise from top left): Playfair's chart of wheat and wages, as recreated in Lyra, an early visualization platform designed by Arvind Satyanarayan and Jeffrey Heer; the same chart recreated in Protovis, an early JavaScript visualization library developed by Mike Bostock; the same chart recreated in Microsoft Excel by Jorge Camoes. (Camoes also recreates one of Playfair's import/export charts). Screenshots by the author.
             </p>
           </div>
         </template>
