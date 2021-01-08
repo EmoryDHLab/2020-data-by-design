@@ -1,7 +1,7 @@
 <template>
   <svg class="event-key" viewBox="0 0 250 120" :id="`event-key-${_uid}`"
     :aria-labelledby="`event-key-${_uid}-title event-key-${_uid}-desc`"
-   @mouseleave="hoveredNumber = null">
+   @mouseleave="setHovered(null)">
     <title :id="`event-key-${_uid}-title`">Event Key</title>
     <desc :id="`event-key-${_uid}-desc`"></desc>
     <filter id="shadow">
@@ -12,14 +12,14 @@
       <rect class="highlighted-text-box" v-if="hoveredNumber != null"
             x="105" :y="-40 + hoveredNumber * 20" width="375" height="20" fill="yellow"/>
       <text class="label" v-for="(label, index) in legendText" :key="label"
-          x="110" :y="-25 + index * 20" @mouseover="hoveredNumber = index"
+          x="110" :y="-25 + index * 20" @mouseover="setHovered(index);"
          >
           {{index + 1}}. {{label}}
       </text>
     </template>
 
     <g :style="{filter: dropShadow ? 'url(#shadow)' : 'none'}">
-      <g v-for="(color, index) in fixedColors" :key="index" @mouseover="hoveredNumber = index">
+      <g v-for="(color, index) in fixedColors" :key="index" @mouseover="setHovered(index)">
         <EventSquare
           :x="1 + (index % 3) * 30"
           :y="1 + (Math.floor(index / 3)) * 30"
@@ -74,6 +74,10 @@ export default {
         return num >= 1 && num <= 9;
       }
     },
+    hoverable: {
+      type: Boolean,
+      default: true,
+    },
     colors: {
       //Pass an array of colors, which are either String CSS-valid colors
       //or a falsy value for white
@@ -125,6 +129,11 @@ export default {
   methods: {
     textColor(squareColor) {
       return (!squareColor || !squareColor[0] || squareColor == [] || squareColor === 'none') ? 'black' : 'white'
+    },
+    setHovered(index) {
+      if (this.hoverable) {
+        this.hoveredNumber = index;
+      }
     }
   },
   data() {
@@ -137,11 +146,12 @@ export default {
       this.hoveredNumber = newVal - 1;
     },
     hoveredNumber (newVal, oldVal) {
-      if (oldVal && newVal === oldVal) return;
+      if (!this.hoverable || (oldVal && newVal === oldVal)) return;
       this.$emit('input', newVal + 1);
     }
   },
 };
+
 </script>
 
 <style scoped>

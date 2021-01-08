@@ -1,8 +1,8 @@
 <template>
-  <ul>
+  <ul :class="{'horizontal': !vertical}">
     <li v-for="actor in shownActors">
       <EventSquare :colors="[actorColors[actor]]"
-                   width="25" height="25"
+                   :width="squareWidth" :height="squareWidth"
                    @hover-start="hovered(actor)"
                    :highlighted="selectedActor == actor"
       >
@@ -40,6 +40,14 @@
       shownActors: {
         type: Set,
         required: true
+      },
+      squareWidth: {
+        type: String,
+        default: "25"
+      },
+      vertical: {
+        type: Boolean,
+        default: false,
       }
     },
     methods: {
@@ -52,12 +60,15 @@
 
 <style scoped>
 
-  ul {
+  ul.horizontal {
     text-align: center;
   }
+
   ul li {
-    display: inline-block;
     list-style-type: none;
+  }
+  ul.horizontal li {
+    display: inline-block;
     font-family: Consolas;
     margin-right: 5px;
   }
