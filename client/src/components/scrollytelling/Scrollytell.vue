@@ -132,8 +132,6 @@ export default {
     scrollItemStyles (index) {
       if (!this.mounted) return {}
       const styles = {}
-      // console.log(this.scrolled, this.progressToNext);
-      console.log(this.$refs["textSlots"][2].offsetHeight)
       if (index > 1 && index == this.scrolled + 1) {
         styles.opacity = d3.scaleLinear()
           .domain([0, 0.4])
@@ -150,7 +148,6 @@ export default {
       styles['margin-bottom'] = this.margin;
       if (this.collect) {
         if (this.done && index !== this.scrollSlots) { //fires once per element!
-          console.log("done")
           const curr = this.$refs["textSlots"][index - 1];
           const myHeight = curr.offsetHeight;
           return {
