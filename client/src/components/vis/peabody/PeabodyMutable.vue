@@ -242,6 +242,7 @@ export default {
     margin-top: 0.1em;
     margin-bottom: 0.5em;
   }
+
   .intro-text {
     margin-left: 2vh;
     font-size: 10pt;
