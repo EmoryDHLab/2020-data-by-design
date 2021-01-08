@@ -46,15 +46,15 @@
           <div>
             <div class="grid-row">
               <img class="grid-image" src="./img/ch4-1-1500s-rect.jpg"
-                   width="20%"/>
+                   width="40%"/>
               <img class="grid-image" src="./img/ch4-2-1600s-rect.jpg"
-                   width="20%"/>
+                   width="40%"/>
             </div>
             <div class="grid-row">
               <img class="grid-image" src="./img/ch4-3-1700s-rect.jpg"
-                   width="20%"></img>
+                   width="40%"></img>
               <img class="grid-image" src="./img/ch4-4-1800s-rect.jpg"
-                   width="20%"></img>
+                   width="40%"></img>
             </div>
           </div>
           <p class="caption">
@@ -69,17 +69,17 @@
           <div>
             <div class="grid-row">
               <img class="grid-image" src="./img/ch4-15a-fc-left.png"
-                   width="20%"/>
+                   width="26.6%"/>
               <img class="grid-image" src="./img/ch4-15b-fc-right.png"
-                   width="20%"/>
+                   width="26.6%"/>
               <img class="grid-image" src="./img/ch4-16-fc-led-boards.jpg"
-                   width="20%"/>
+                   width="26.6%"/>
             </div>
             <div class="grid-row">
               <img class="grid-image" src="./img/ch4-17-leds.jpg"
-                   width="31.5%"></img>
+                   width="40%"></img>
               <img class="grid-image" src="./img/ch4-18-rendering.png"
-                   width="31.5%"></img>
+                   width="40%"></img>
             </div>
           </div>
           <p class="caption">
