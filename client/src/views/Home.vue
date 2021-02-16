@@ -228,69 +228,26 @@
                     width: 40,
                     height: 21
                 },
-          //      {
-          //          id: 1,
-          //          img: require('./img/timeline/ch1-playfair/1786-3.png'),
-          //          year: 1786,
-          //          yearCount: 1,
-          //          width:30,
-          //          height: 23
-          //      },
                 {
                     id: 2,
                     year: 1801,
                     yearCount: 0,
-                //  img: require('./img/timeline/ch1-playfair/1801-0.jpg'),
                     img: require('./img/timeline-new/1801-1-320px-northamerica.jpg'),
                     width: 40,
                     height: 20
                 },
                 {
                     id: 3,
-                //  img: require('./img/timeline/ch1-playfair/1801-1(1).jpg'),
                     img: require('./img/timeline-new/1801-2-320px-Playfair_piecharts.jpg'),
                     year: 1801,
                     yearCount: 1,
                     width: 40,
                     height: 22
                 },
-          //      {
-          //          id: 4,
-          //          img: require('./img/timeline/ch1-playfair/1801-1.jpg'),
-          //          year: 1801,
-          //          yearCount: 2,
-          //          width:30,
-          //          height: 20
-          //      },
-          //      {
-          //          id: 5,
-          //          img: require('./img/timeline/ch1-playfair/1801-2.jpg'),
-          //          year: 1801,
-          //          yearCount: 3,
-          //          width:30,
-          //          height: 19
-          //      },
-          //      {
-          //          id: 6,
-          //          year: 1801,
-          //          yearCount: 4,
-          //          img: require('./img/timeline/ch1-playfair/1801-3.jpg'),
-          //          width:30,
-          //          height: 20
-          //      },
-          //      {
-          //          id: 7,
-          //          year: 1801,
-          //          yearCount: 4,
-          //          img: require('./img/timeline/ch1-playfair/1801-4.jpg'),
-          //        width:30,
-          //          height: 20
-          //      },
                 {
                     id: 8,
                     year: 1821,
                     yearCount: 0,
-                  //  img: require('./img/timeline/ch1-playfair/1821-2.jpg'),
                     img: require('./img/timeline-new/1821-1-320px-Wheat.png'),
                     width: 40,
                     height: 18
@@ -319,22 +276,6 @@
                     width:30,
                     height: 21
                 },
-                // {
-                //     id: 12,
-                //     img: require('./img/timeline/ch3-willard-shanawdithit/1829-01.jpg'),
-                //     year: 1829,
-                //     yearCount: 1,
-                //     width:30,
-                //     height: 43
-                // },
-                // {
-                //     id: 13,
-                //     img: require('./img/timeline/ch3-willard-shanawdithit/1829-02.jpg'),
-                //     year: 1829,
-                //     yearCount: 2,
-                //     width:30,
-                //     height: 13
-                // },
                 {
                     id: 14,
                     img: require('./img/timeline/ch3-willard-shanawdithit/1829-03.jpg'),
@@ -351,22 +292,6 @@
                     width:30,
                     height: 17
                 },
-                // {
-                //     id: 16,
-                //     img: require('./img/timeline/ch3-willard-shanawdithit/1829-05.jpg'),
-                //     year: 1829,
-                //     yearCount: 5,
-                //     width:30,
-                //     height: 21
-                // },
-                // {
-                //     id: 17,
-                //     img: require('./img/timeline/ch3-willard-shanawdithit/1829-06.gif'),
-                //     year: 1829,
-                //     yearCount: 6,
-                //     width:30,
-                //     height: 21
-                // },
                 {
                     id: 20,
                     img: require('./img/timeline/ch3-willard-shanawdithit/1829-09.jpg'),
@@ -375,14 +300,6 @@
                     width:30,
                     height: 21
                 },
-                // {
-                //     id: 21,
-                //     img: require('./img/timeline/ch3-willard-shanawdithit/1829-10.jpg'),
-                //     year: 1829,
-                //     yearCount: 8,
-                //     width:30,
-                //     height: 21
-                // },
                 {
                     id: 22,
                     img: require('./img/timeline/ch3-willard-shanawdithit/1829-11.jpg'),
@@ -431,14 +348,6 @@
                     width:30,
                     height: 37
                 },
-                // {
-                //     id: 28,
-                //     img: require('./img/timeline/ch3-willard-shanawdithit/1829-17.jpg'),
-                //     year: 1829,
-                //     yearCount: 15,
-                //     width:30,
-                //     height: 25
-                // },
                 {
                     id: 29,
                     img: require('./img/timeline/ch3-willard-shanawdithit/1829-18.jpg'),
@@ -449,7 +358,6 @@
                 },
                 {
                     id: 30,
-                    // img: require('./img/timeline/ch3-willard-shanawdithit/1846-1.jpg'),
                     img: require('./img/timeline-new/1846-320px-willard.jpg'),
                     year: 1846,
                     yearCount: 0,
@@ -458,7 +366,6 @@
                 },
                 {
                     id: 31,
-                //    img: require('./img/timeline/ch4-peabody/1856-1.jpg'),
                     img: require('./img/timeline-new/1856-1-320px-1500s-rect.jpg'),
                     year: 1856,
                     yearCount: 0,
@@ -467,7 +374,6 @@
                 },
                 {
                     id: 32,
-                //    img: require('./img/timeline/ch4-peabody/1856-2.jpg'),
                     img: require('./img/timeline-new/1856-2-320px-1600s-rect.jpg'),
                     year: 1856,
                     yearCount: 1,
@@ -476,7 +382,6 @@
                 },
                 {
                     id: 33,
-                    // img: require('./img/timeline/ch4-peabody/1856-3.jpg'),
                     img: require('./img/timeline-new/1856-3-320px-1700s-rect.jpg'),
                     year: 1856,
                     yearCount: 2,
@@ -485,7 +390,6 @@
                 },
                 {
                     id: 34,
-                //    img: require('./img/timeline/ch4-peabody/1856-4.jpg'),
                     img: require('./img/timeline-new/1856-4-320px-1800s-rect.jpg'),
                     year: 1856,
                     yearCount: 3,
@@ -494,174 +398,204 @@
                 },
                 {
                     id: 35,
-                    img: require('./img/timeline/ch5-dubois/1900-01.png'),
-                    year: 1900,
+                    img: require('./img/timeline-new/1898-07a-populations-320px.jpg'),
+                    year: 1898,
                     yearCount: 0,
-                    width:30,
-                    height: 38
+                    width: 60,
+                    height: 40
                 },
                 {
                     id: 36,
-                    img: require('./img/timeline/ch5-dubois/1900-02.png'),
-                    year: 1900,
+                    img: require('./img/timeline-new/1898-07b-gender-320px.jpg'),
+                    year: 1898,
                     yearCount: 1,
-                    width:30,
-                    height: 38
+                    width: 30,
+                    height: 40
                 },
                 {
                     id: 37,
-                    img: require('./img/timeline/ch5-dubois/1900-03.png'),
-                    year: 1900,
+                    img: require('./img/timeline-new/1898-07c-race-320px.jpg'),
+                    year: 1898,
                     yearCount: 2,
-                    width:30,
-                    height: 37
+                    width: 30,
+                    height: 40
                 },
                 {
                     id: 38,
-                    img: require('./img/timeline/ch5-dubois/1900-04.png'),
-                    year: 1900,
+                    img: require('./img/timeline-new/1898-07d-race-distrib-320px.jpg'),
+                    year: 1898,
                     yearCount: 3,
-                    width:30,
-                    height: 37
+                    width: 30,
+                    height: 40
                 },
                 {
                     id: 39,
-                    img: require('./img/timeline/ch5-dubois/1900-05.jpg'),
-                    year: 1900,
+                    img: require('./img/timeline-new/1898-07e-foreign-320px.jpg'),
+                    year: 1898,
                     yearCount: 4,
-                    width:30,
-                    height: 37
+                    width: 30,
+                    height: 40
                 },
                 {
                     id: 40,
-                    img: require('./img/timeline/ch5-dubois/1900-06.jpg'),
-                    year: 1900,
+                    img: require('./img/timeline-new/1898-07f-age-sex-320px.jpg'),
+                    year: 1898,
                     yearCount: 5,
-                    width:30,
+                    width: 30,
                     height: 40
                 },
                 {
                     id: 41,
-                    img: require('./img/timeline/ch5-dubois/1900-07.jpg'),
-                    year: 1900,
+                    img: require('./img/timeline-new/1898-07g-religion-320px.jpg'),
+                    year: 1898,
                     yearCount: 6,
-                    width:30,
-                    height: 36
+                    width: 30,
+                    height: 40
                 },
                 {
                     id: 42,
-                    img: require('./img/timeline/ch5-dubois/1900-08.jpg'),
-                    year: 1900,
+                    img: require('./img/timeline-new/1898-07h-occupation-320px.jpg'),
+                    year: 1898,
                     yearCount: 7,
-                    width:30,
-                    height: 37
+                    width: 30,
+                    height: 40
                 },
                 {
                     id: 43,
-                    img: require('./img/timeline/ch5-dubois/1900-09.jpg'),
-                    year: 1900,
+                    img: require('./img/timeline-new/1898-08a-population-320px.jpg'),
+                    year: 1898,
                     yearCount: 8,
-                    width:30,
-                    height: 37
+                    width: 30,
+                    height: 40
                 },
                 {
                     id: 44,
-                    img: require('./img/timeline/ch5-dubois/1900-10.jpg'),
-                    year: 1900,
+                    img: require('./img/timeline-new/1898-08c-conjugal-cropped-320px.jpg'),
+                    year: 1898,
                     yearCount: 9,
-                    width:30,
-                    height: 37
+                    width: 30,
+                    height: 19
                 },
                 {
                     id: 45,
-                    img: require('./img/timeline/ch5-dubois/1900-11.jpg'),
-                    year: 1900,
-                    yearCount: 10,
-                    width:30,
-                    height: 37
+                    img: require('./img/timeline-new/1899-01-phila-320px.jpg'),
+                    year: 1899,
+                    yearCount: 0,
+                    width: 30,
+                    height: 19
                 },
                 {
                     id: 46,
-                    img: require('./img/timeline/ch5-dubois/1900-12.jpg'),
+                    img: require('./img/timeline-new/1900-03-georgia-320px.jpg'),
                     year: 1900,
-                    yearCount: 11,
-                    width:30,
-                    height: 37
+                    yearCount: 0,
+                    width: 30,
+                    height: 38
                 },
                 {
                     id: 47,
-                    img: require('./img/timeline/ch5-dubois/1900-13.jpg'),
+                    img: require('./img/timeline-new/1900-04a-city-320px.jpg'),
                     year: 1900,
-                    yearCount: 12,
-                    width:30,
-                    height: 37
+                    yearCount: 1,
+                    width: 30,
+                    height: 38
                 },
                 {
                     id: 48,
-                    img: require('./img/timeline/ch5-dubois/1900-14.jpg'),
+                    img: require('./img/timeline-new/1900-04b-illiteracy-320px.jpg'),
                     year: 1900,
-                    yearCount: 13,
-                    width:30,
-                    height: 37
+                    yearCount: 2,
+                    width: 30,
+                    height: 38
                 },
                 {
                     id: 49,
-                    img: require('./img/timeline/ch5-dubois/1900-15.jpg'),
+                    img: require('./img/timeline-new/1900-04c-owners-320px.jpg'),
                     year: 1900,
-                    yearCount: 14,
-                    width:30,
-                    height: 19
+                    yearCount: 3,
+                    width: 30,
+                    height: 38
                 },
                 {
                     id: 50,
-                    img: require('./img/timeline/ch5-dubois/1900-16.jpg'),
+                    img: require('./img/timeline-new/1900-04d-value-320px.jpg'),
                     year: 1900,
-                    yearCount: 15,
-                    width:30,
-                    height: 19
+                    yearCount: 4,
+                    width: 30,
+                    height: 38
                 },
                 {
                     id: 51,
-                    img: require('./img/timeline/ch5-dubois/1900-17.jpg'),
+                    img: require('./img/timeline-new/1900-05a-countries-320px.jpg'),
                     year: 1900,
-                    yearCount: 16,
-                    width:30,
-                    height: 19
+                    yearCount: 5,
+                    width: 30,
+                    height: 38
                 },
                 {
                     id: 52,
-                    img: require('./img/timeline/ch5-dubois/1900-18.jpg'),
+                    img: require('./img/timeline-new/1900-05b-occupations-320px.jpg'),
                     year: 1900,
-                    yearCount: 17,
-                    width:30,
-                    height: 19
+                    yearCount: 6,
+                    width: 30,
+                    height: 38
                 },
-            //    {
-            //        id: 53,
-            //        img: require('./img/timeline-new/1850-1-320px-map.jpg'),
-            //        year: 1850,
-            //        yearCount: 0,
-            //        width:30,
-            //        height: 24
-            //    },
+                {
+                    id: 53,
+                    img: require('./img/timeline-new/1900-05c-freedom-320px.jpg'),
+                    year: 1900,
+                    yearCount: 7,
+                    width: 30,
+                    height: 38
+                },
                 {
                     id: 54,
-                    img: require('./img/timeline-new/1869-1-320px-Minard.png'),
-                    year: 1869,
-                    yearCount: 0,
-                    width: 40,
-                    height: 17
+                    img: require('./img/timeline-new/1900-05d-newspapers-320px.jpg'),
+                    year: 1900,
+                    yearCount: 8,
+                    width: 30,
+                    height: 38
                 },
                 {
                     id: 55,
-                    img: require('./img/timeline-new/1878-1-Ibry.png'),
-                    year: 1878,
-                    yearCount: 0,
-                    width: 40,
-                    height: 20
+                    img: require('./img/timeline-new/1900-06b-map-320px.jpg'),
+                    year: 1900,
+                    yearCount: 9,
+                    width: 30,
+                    height: 38
                 },
-
-
+                {
+                    id: 56,
+                    img: require('./img/timeline-new/1900-08b-amalg-320px.jpg'),
+                    year: 1900,
+                    yearCount: 10,
+                    width: 30,
+                    height: 38
+                },
+                {
+                    id: 57,
+                    img: require('./img/timeline-new/1900-08d-db-conjugal-320px.jpg'),
+                    year: 1900,
+                    yearCount: 11,
+                    width: 30,
+                    height: 38
+                },
+                {
+                    id: 58,
+                    img: require('./img/timeline-new/1900-11-property-320px.jpg'),
+                    year: 1900,
+                    yearCount: 12,
+                    width: 30,
+                    height: 38
+                },
+                {
+                    id: 59,
+                    img: require('./img/timeline-new/1900-12-series-320px.jpg'),
+                    year: 1900,
+                    yearCount: 13,
+                    width: 30,
+                    height: 38
+                },
 
             ].reduce((obj, item, index) => ({
                 ...obj,
