@@ -540,32 +540,62 @@
                     width: 30,
                     height: 38
                 },
-            //    { // TO HERE
-            //        id: 53,
-            //        img: require('./img/timeline-new/1850-1-320px-map.jpg'),
-            //        year: 1850,
-            //        yearCount: 0,
-            //        width:30,
-            //        height: 24
-            //    },
+                {
+                    id: 53,
+                    img: require('./img/timeline-new/1900-05c-freedom-320px.jpg'),
+                    year: 1900,
+                    yearCount: 7,
+                    width: 30,
+                    height: 38
+                },
                 {
                     id: 54,
-                    img: require('./img/timeline-new/1869-1-320px-Minard.png'),
-                    year: 1869,
-                    yearCount: 0,
-                    width: 40,
-                    height: 17
+                    img: require('./img/timeline-new/1900-05d-newspapers-320px.jpg'),
+                    year: 1900,
+                    yearCount: 8,
+                    width: 30,
+                    height: 38
                 },
                 {
                     id: 55,
-                    img: require('./img/timeline-new/1878-1-Ibry.png'),
-                    year: 1878,
-                    yearCount: 0,
-                    width: 40,
-                    height: 20
+                    img: require('./img/timeline-new/1900-06b-map-320px.jpg'),
+                    year: 1900,
+                    yearCount: 9,
+                    width: 30,
+                    height: 38
                 },
-
-
+                {
+                    id: 56,
+                    img: require('./img/timeline-new/1900-08b-amalg-320px.jpg'),
+                    year: 1900,
+                    yearCount: 10,
+                    width: 30,
+                    height: 38
+                },
+                {
+                    id: 57,
+                    img: require('./img/timeline-new/1900-08d-db-conjugal-320px.jpg'),
+                    year: 1900,
+                    yearCount: 11,
+                    width: 30,
+                    height: 38
+                },
+                {
+                    id: 58,
+                    img: require('./img/timeline-new/1900-11-property-320px.jpg'),
+                    year: 1900,
+                    yearCount: 12,
+                    width: 30,
+                    height: 38
+                },
+                {
+                    id: 59,
+                    img: require('./img/timeline-new/1900-12-series-320px.jpg'),
+                    year: 1900,
+                    yearCount: 13,
+                    width: 30,
+                    height: 38
+                },
 
             ].reduce((obj, item, index) => ({
                 ...obj,
