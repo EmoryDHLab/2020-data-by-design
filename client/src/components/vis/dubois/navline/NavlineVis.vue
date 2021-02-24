@@ -14,7 +14,7 @@
 
     <circle :cx="styles.line.x" :cy="styles.line.start" :r="styles.chapterBlock.r" :fill=styles.color.defaultBlock></circle>
 
-    <g v-for="(lines, index) in startEndPoint(dataset.dubois.paragraphData)">
+    <g v-for="(lines, index) in startEndPoint(dataset.paragraphData)">
         <g v-if="index+1 <= getProgress">
           <!--arc-->
           <path :d="calcArc(lines, index)" :stroke="styles.color.defaultBlock" stroke-width="5" fill-opacity="0"></path>
