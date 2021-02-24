@@ -37,7 +37,7 @@
     "csurf": "^1.9.0",
     "csv-parse": "^2.5.0",
     "d3": "^5.9.1",
-    "doc-renderer": "git+https://github.com/Jutanium/Docs-Integration.git",
+    "doc-renderer": "git+https://github.com/Jutanium/Docs-Integration#fea1cdb4c538d94bc491f1adbe72f98a8245beb2",
     "dotenv": "^6.2.0",
     "dxd-common": "file:common",
     "express": "^4.17.1",
