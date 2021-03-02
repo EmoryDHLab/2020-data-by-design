@@ -56,13 +56,13 @@
               <img class="grid-image" src="./img/ch4-4-1800s-rect.jpg"
                    width="40%"></img>
             </div>
+            <p class="caption">
+              The four chronological charts included in Elizabeth Palmer Peabody’s
+              Chronological History of the United States (1865), which display the
+              significant events of the 1500s (top left), the 1600s (top right),
+              the 1700s (bottom left), and the 1800s (bottom right).
+            </p>
           </div>
-          <p class="caption">
-            The four chronological charts included in Elizabeth Palmer Peabody’s
-            Chronological History of the United States (1865), which display the
-            significant events of the 1500s (top left), the 1600s (top right),
-            the 1700s (bottom left), and the 1800s (bottom right).
-          </p>
         </template>
 
         <template v-slot:PhysicalRecreationGrid>
@@ -81,14 +81,14 @@
               <img class="grid-image" src="./img/ch4-18-rendering.png"
                    width="40%"></img>
             </div>
+            <p class="caption">
+              Above (clockwise from top left): The layers of the touch interface,
+              built with copper tape and a foam spacer; the assembled touch
+              interface; a view of the modular circuit boards for communicating
+              with the LEDs; a rendering of the completed Floor Chart; the LEDs
+              displayed on top of the quilted chart. Photos by the author.
+            </p>
           </div>
-          <p class="caption">
-            Above (clockwise from top left): The layers of the touch interface,
-            built with copper tape and a foam spacer; the assembled touch
-            interface; a view of the modular circuit boards for communicating
-            with the LEDs; a rendering of the completed Floor Chart; the LEDs
-            displayed on top of the quilted chart. Photos by the author.
-          </p>
         </template>
 
         <template v-slot:Quilts>
@@ -99,26 +99,28 @@
               <img class="grid-image" src="./img/ch4-20-gbq-q030-06.jpg"
                    width="40%"/>
             </div>
+            <p class="caption">
+              Above left: “Housetop,” by Rachel Carey George, ca. 1935. Above right: “Housetop” variation, design by Mary Lee Bendolph. 1998, quilted by Essie Bendolph Pettaway, 2001. Photos courtesy of Tinwood Media. Permissions pending.
+            </p>
           </div>
-          <p class="caption">
-            Above left: “Housetop,” by Rachel Carey George, ca. 1935. Above right: “Housetop” variation, design by Mary Lee Bendolph. 1998, quilted by Essie Bendolph Pettaway, 2001. Photos courtesy of Tinwood Media. Permissions pending.
-          </p>
         </template>
         <template v-slot:[slots.mapScroller]>
-          <MapScroller class="centered-image" asset="railroadscaled.jpg" width="60vh"
-                       :current-position="mapPos"
-                       :positions="[
+          <div>
+            <MapScroller class="centered-image" asset="railroadscaled.jpg" width="60vh"
+                         :current-position="mapPos"
+                         :positions="[
                      {left: 0, top: 0, width: 100, height: 100},
                      {left: -170, top: -50, width: 300, height: 300},
                      {left: -90, top: -120, width: 300, height: 300},
                      {left: -140, top: -110, width: 280, height: 280},
                   ]">
-          </MapScroller>
-          <div
-            style="text-align: center; font-family: Consolas; font-size: 90%; margin-top: 10px;">
-            The range of Peabody's promotional tour, as plotted on an 1850 rail
-            map of the United States. Image courtesy of the Library of Congress,
-            Geography and Map Division.
+            </MapScroller>
+            <div
+              style="text-align: center; font-family: Consolas; font-size: 90%; margin-top: 10px;">
+              The range of Peabody's promotional tour, as plotted on an 1850 rail
+              map of the United States. Image courtesy of the Library of Congress,
+              Geography and Map Division.
+            </div>
           </div>
         </template>
 
@@ -282,13 +284,13 @@
               <img class="grid-image" src="./img/ch4-12-1986-rect.png"
                    width="20%"></img>
             </div>
+            <p class="caption">
+              Images of student-created charts from a copy of The
+              Polish-American System housed at the American Antiquarian Society.
+              Courtesy of the American Antiquarian Society. Photos by the
+              author.
+            </p>
           </div>
-          <p class="caption">
-            Images of student-created charts from a copy of The
-            Polish-American System housed at the American Antiquarian Society.
-            Courtesy of the American Antiquarian Society. Photos by the
-            author.
-          </p>
         </template>
         <!--        <Scrollytell :scroll-slots="3" :margin="'20vh'">-->
         <!--          <template v-slot:1>-->
