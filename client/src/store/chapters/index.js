@@ -93,6 +93,7 @@ const store = {
       const highlights = Array.from({length: subsections}).fill(0);
       const vis = Array.from({length: subsections}).fill(0);
       const offsets = Array.from({length: subsections});
+      debugger;
 
       const listener = event => {
         for (let i = 0; i < subsections; i++) {
