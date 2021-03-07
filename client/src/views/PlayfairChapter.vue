@@ -156,6 +156,12 @@
         <template v-slot:[slots.sideBySide]>
           <StackedBar key="2"/>
         </template>
+
+        <template v-slot:[slots.occupation]>
+          <Occupation key="3"/>
+        </template>
+
+
       </DocRenderer>
     </template>
 
@@ -184,9 +190,13 @@
   import Blockquote from "../components/general/Blockquote";
   import {mapActions} from "vuex";
 
+  import Occupation from "../components/vis/dubois/creationProcess/Occupation"
+
   export default {
     name: "PlayfairChapter",
     components: {
+      Occupation,
+
       DocRenderer,
       DataSetsVis,
       StackedBar,
@@ -210,7 +220,9 @@
           d3Impl: "Difference Visualization",
           sideBySide: "Side-by-side",
           recreations: "Playfair Recreations",
-          newCharts: "Playfair-style Charts"
+          newCharts: "Playfair-style Charts",
+
+          occupation: "Occupation"
         },
         scrollerElapsed: 0,
         scrollerEase: easeLinear,

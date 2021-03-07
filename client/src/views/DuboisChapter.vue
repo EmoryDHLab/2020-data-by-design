@@ -7,6 +7,10 @@
       </DocRenderer>
     </template>
 
+    <template v-slot:[slots.occupation]>
+      <StackedBar key="1"/>
+    </template>
+
   </chapter-scaffold>
 </template>
 
@@ -37,6 +41,7 @@
     data() {
       return {
         slots: {
+            occupation: "Occupation"
         },
       };
     },
