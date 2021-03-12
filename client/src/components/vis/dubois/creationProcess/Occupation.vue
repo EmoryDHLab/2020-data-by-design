@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div>
-    <div id="occupation" style="background-color: #f9edcb; width: 60%; float: left"></div>
+    <div id="occupation" style="background-color: #f9edcb; float: left"></div>
     </div>
     <div style="text-align: center; font-family: Consolas; font-size: 90%">Percentage of Occupation.</div>
   </div>
@@ -11,7 +11,7 @@
     import * as d3 from "d3";
 
     export default {
-        name: "StackedBar",
+        name: "Occupation",
         mounted() {
             this.generateSvg();
         },
@@ -24,28 +24,29 @@
         methods: {
             generateSvg() {
                 let self = this;
-                let zoom = 3.5;
-                let margin = {top: 25, right: 25, bottom: 25, left: 25},
-                    width = window.innerWidth/zoom - margin.left - margin.right,
-                    height = window.innerWidth/zoom - margin.top - margin.bottom;
-
+                let zoom = 2.5;
+                let margin = {top: 30, right: 10, bottom: 10, left: 10},
+                    // width = window.innerWidth/zoom - margin.left - margin.right,
+                    // height = window.innerWidth/zoom - margin.top - margin.bottom;
+                    width = 814/zoom,
+                    height = 1024/zoom;
 
                 let stackWidth = width + margin.left + margin.right + 20;
 
 
                 self.svg = d3.select("#occupation").append("svg")
                     .attr("class", "occupation")
-                    .attr("width", stackWidth)
-                    .attr("height", height + margin.top + margin.bottom)
-                    .append("g")
-                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+                    .attr("width", width)
+                    .attr("height", height)
+                    .append("g");
 
-                let init_x = 10;
-                let init_y = 60;
-                let bar_x = init_x + 100;
+                let init_x = 10 + margin.left;
+                let init_y = 50 + margin.top;
+                let bar_x = init_x + 80;
                 let gap = 30;
                 let bar_height = 10;
-                let bar_width = 7;
+                let bar_width = 5.8;
+                let curve_r = 2;
 
                 d3.csv("/duboisData/occupation.csv").then(function (occupationData) {
                     //calculate values to determine y domain
@@ -58,38 +59,40 @@
                     for (let idx = 0; idx < occupationData.length; idx++) {
                       self.svg.append("text")
                           .attr("transform", "translate(" + (init_x) + "," + (init_y + idx*gap) + ") rotate(" + (0) + ")")
-                          .attr("dy", ".35em")
+                          .attr("dy", ".25em")
                           .attr("text-anchor", "start")
+                          .attr("font-size", "0.8em")
                           .style("fill", "black")
+                          // .style("font-family", "Vasarely")
                           .text(occupationData[idx].occupation);
                       if (idx == 0) {
                           self.svg.append("rect")
-                              .attr("transform", "translate(" + (bar_x) + "," + (init_y + idx * gap - bar_height / 2 - gap/4) + ") rotate(" + (0) + ")")
+                              .attr("transform", "translate(" + (bar_x) + "," + (init_y + idx * gap - bar_height / 2 - 7) + ") rotate(" + (0) + ")")
                               .attr("height", bar_height)
-                              .attr("width", bar_width * occupationData[idx].prec1900 * 3/4)
+                              .attr("width", bar_width * occupationData[idx].prec1900 * 2/3)
                               .attr("fill", "#dc143c");
                           self.svg.append("rect")
-                              .attr("transform", "translate(" + (bar_x + bar_width * occupationData[idx].prec1900 * 2/4) +
-                                    "," + (init_y + idx * gap - bar_height / 2 + gap/4) + ") rotate(" + (0) + ")")
+                              .attr("transform", "translate(" + (bar_x + bar_width * occupationData[idx].prec1900 * 1/3) +
+                                    "," + (init_y + idx * gap - bar_height / 2 + 7) + ") rotate(" + (0) + ")")
                               .attr("height", bar_height)
-                              .attr("width", bar_width * occupationData[idx].prec1900 * 1/4)
+                              .attr("width", bar_width * occupationData[idx].prec1900 * 1/3)
                               .attr("fill", "#dc143c");
                           self.svg.append("circle")
-                              .attr("transform", "translate(" + (bar_x + bar_width * occupationData[idx].prec1900 * 3/4) +
+                              .attr("transform", "translate(" + (bar_x + bar_width * occupationData[idx].prec1900 * 2/3) +
                                   "," + (init_y + idx * gap) + ") rotate(" + (0) + ")")
                               .attr("fill-opacity", 1)
-                              .attr("r", 12.5)
+                              .attr("r", (bar_height + curve_r))
                               .attr("fill", "#dc143c");
                           self.svg.append("circle")
-                              .attr("transform", "translate(" + (bar_x + bar_width * occupationData[idx].prec1900 * 3/4) +
+                              .attr("transform", "translate(" + (bar_x + bar_width * occupationData[idx].prec1900 * 2/3) +
                                   "," + (init_y + idx * gap) + ") rotate(" + (0) + ")")
                               .attr("fill-opacity", 1)
-                              .attr("r", 2.5)
+                              .attr("r", curve_r)
                               .attr("fill", "#f9edcb");
                           self.svg.append("rect")
-                              .attr("transform", "translate(" + (bar_x + bar_width * occupationData[idx].prec1900 * 3/4 - 12.5) +
-                                  "," + (init_y + idx * gap - 2.5) + ") rotate(" + (0) + ")")
-                              .attr("height", 5)
+                              .attr("transform", "translate(" + (bar_x + bar_width * occupationData[idx].prec1900 * 2/3 - (bar_height + curve_r)) +
+                                  "," + (init_y + idx * gap - curve_r) + ") rotate(" + (0) + ")")
+                              .attr("height", curve_r*2)
                               .attr("width", 13)
                               .attr("fill", "#f9edcb");
                       } else {
@@ -102,7 +105,7 @@
                     }
 
                     self.svg.append("text")
-                        .attr("transform", "translate(" + (50) + "," + (5) + ") rotate(" + (0) + ")")
+                        .attr("transform", "translate(" + (40) + "," + (margin.top) + ") rotate(" + (0) + ")")
                         .attr("dy", ".35em")
                         .attr("text-anchor", "start")
                         .style("fill", "black")
@@ -125,6 +128,7 @@
       url("//db.onlinewebfonts.com/t/3e5270c9b750bc1dc12f033a0e55864d.woff") format("woff"),
       url("//db.onlinewebfonts.com/t/3e5270c9b750bc1dc12f033a0e55864d.ttf") format("truetype"),
       url("//db.onlinewebfonts.com/t/3e5270c9b750bc1dc12f033a0e55864d.svg#B52-ULCW00-ULC") format("svg"); }
+
 
   .axis path,
   .axis line {

@@ -8,7 +8,7 @@
     </template>
 
     <template v-slot:[slots.occupation]>
-      <StackedBar key="1"/>
+      <Occupation key="1"/>
     </template>
 
   </chapter-scaffold>
@@ -25,6 +25,10 @@
   import FootnoteReference from "../components/general/FootnoteReference";
   import {DocRenderer} from "doc-renderer";
   import {mapActions} from "vuex";
+  import Occupation from "../components/vis/dubois/creationProcess/Occupation"
+
+  import StackedBar
+      from "../components/vis/playfair/creationProcess/StackedBar";
 
   export default {
     name: "DuboisChapter",
@@ -33,15 +37,19 @@
       ChapterScaffold,
       EventKey,
       TimelineVis,
+      Occupation,
       Section,
       Footnotes,
-      FootnoteRef: FootnoteReference
+      FootnoteRef: FootnoteReference,
+
+      StackedBar
     },
     mixins: [Highlightable(".chapter__main")],
     data() {
       return {
         slots: {
             occupation: "Occupation"
+
         },
       };
     },

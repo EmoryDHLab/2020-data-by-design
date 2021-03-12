@@ -158,7 +158,7 @@
         </template>
 
         <template v-slot:[slots.occupation]>
-          <Occupation key="3"/>
+          <GradsBySex key="3"/>
         </template>
 
 
@@ -190,12 +190,12 @@
   import Blockquote from "../components/general/Blockquote";
   import {mapActions} from "vuex";
 
-  import Occupation from "../components/vis/dubois/creationProcess/Occupation"
+  import GradsBySex from "../components/vis/dubois/creationProcess/Business"
 
   export default {
     name: "PlayfairChapter",
     components: {
-      Occupation,
+        GradsBySex,
 
       DocRenderer,
       DataSetsVis,
