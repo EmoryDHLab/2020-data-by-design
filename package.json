@@ -10,6 +10,7 @@
     "app:dev": "cd client && vue-cli-service serve",
     "app:remote": "cd client && vue-cli-service serve --mode remote",
     "generate:env": "node scripts/env-gen",
+    "mongo:brew": "brew services start mongodb/brew/mongodb-community",
     "mongo:wsl": "sudo service mongodb start",
     "posttest": "npm run lint && nsp check",
     "restart": "run-s stop start",
