@@ -199,10 +199,8 @@
     import ChapListItem from '../components/general/ChapListItem';
     import ProgressBar from '../components/vis/ProgressBar';
     import * as d3 from 'd3';
-    import PicCollage from "../components/vis/PicCollage";
     export default {
         components: {
-            PicCollage,
             ChapListItem,
             FeatureMini,
             FeatureCard,

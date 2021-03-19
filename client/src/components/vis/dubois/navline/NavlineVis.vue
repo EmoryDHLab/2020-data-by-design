@@ -77,7 +77,6 @@
 <script>
 
 //TODO: fix this to use navline mixin (like peabody and playfair)
-import MetaVisualization from '@/mixins/vis/MetaVisualization'
 import NavlineBucket from './NavlineBucket'
 import NavlineMixin from "../../../../mixins/vis/NavlineMixin";
 // import * as d3 from 'd3'
