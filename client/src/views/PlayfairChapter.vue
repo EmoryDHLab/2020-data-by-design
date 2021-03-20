@@ -190,7 +190,7 @@
   import Blockquote from "../components/general/Blockquote";
   import {mapActions} from "vuex";
 
-  import GradsBySex from "../components/vis/dubois/creationProcess/Business"
+  import GradsBySex from "../components/vis/dubois/creationProcess/Migration"
 
   export default {
     name: "PlayfairChapter",

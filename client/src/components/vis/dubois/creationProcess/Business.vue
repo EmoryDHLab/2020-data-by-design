@@ -3,7 +3,7 @@
     <div>
     <div id="business" style="background-color: #f9edcb; float: left"></div>
     </div>
-    <div style="text-align: center; font-family: Consolas; font-size: 90%">Percentage of Occupation.</div>
+    <div style="text-align: center; font-family: Consolas; font-size: 90%">Black College Grads in Business</div>
   </div>
 </template>
 
