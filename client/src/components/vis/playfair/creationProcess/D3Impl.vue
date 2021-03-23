@@ -7,9 +7,11 @@
 
 <script>
     import * as d3 from "d3";
+    import Visualization from "../../../../mixins/vis/Visualization";
 
     export default {
         name: "d3Impl",
+        mixins: [Visualization()],
         mounted() {
             this.generateSvg();
         },
