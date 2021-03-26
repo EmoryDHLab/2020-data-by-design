@@ -6,6 +6,7 @@
     "peabody1700": "peabody1700s.json",
     "peabody1800": "peabody1800s.json",
     "womensrights": "womensrights.json",
+    "playfair_nums_def": "playfair_nums_def.csv",
     "longId": "jsontest.json"
   }
 }
