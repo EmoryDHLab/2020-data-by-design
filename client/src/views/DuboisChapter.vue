@@ -4,12 +4,25 @@
 
     <template v-slot:default="{ docRendererProps }">
       <DocRenderer v-bind="docRendererProps">
+        <template v-slot:[slots.occupation]>
+          <Occupation key="1"/>
+        </template>
+
+        <template v-slot:[slots.business]>
+          <Business key="2"/>
+        </template>
+
+        <template v-slot:[slots.gradsBySex]>
+          <GradsBySex key="3"/>
+        </template>
+
+        <template v-slot:[slots.migration]>
+          <Migration key="4"/>
+        </template>
+
       </DocRenderer>
     </template>
 
-    <template v-slot:[slots.occupation]>
-      <Occupation key="1"/>
-    </template>
 
   </chapter-scaffold>
 </template>
@@ -26,9 +39,9 @@
   import {DocRenderer} from "doc-renderer";
   import {mapActions} from "vuex";
   import Occupation from "../components/vis/dubois/creationProcess/Occupation"
-
-  import StackedBar
-      from "../components/vis/playfair/creationProcess/StackedBar";
+  import Business from "../components/vis/dubois/creationProcess/Business"
+  import GradsBySex from "../components/vis/dubois/creationProcess/GradsBySex"
+  import Migration from "../components/vis/dubois/creationProcess/Migration"
 
   export default {
     name: "DuboisChapter",
@@ -37,18 +50,19 @@
       ChapterScaffold,
       EventKey,
       TimelineVis,
-      Occupation,
+      Occupation, Business, GradsBySex, Migration,
       Section,
       Footnotes,
       FootnoteRef: FootnoteReference,
-
-      StackedBar
     },
     mixins: [Highlightable(".chapter__main")],
     data() {
       return {
         slots: {
-            occupation: "Occupation"
+            occupation: "Occupation",
+            business: "Business",
+            gradsBySex: "Grads by sex",
+            migration: "Migration"
 
         },
       };

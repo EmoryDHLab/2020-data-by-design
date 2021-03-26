@@ -157,10 +157,6 @@
           <StackedBar key="2"/>
         </template>
 
-        <template v-slot:[slots.occupation]>
-          <GradsBySex key="3"/>
-        </template>
-
 
       </DocRenderer>
     </template>
@@ -190,13 +186,10 @@
   import Blockquote from "../components/general/Blockquote";
   import {mapActions} from "vuex";
 
-  import GradsBySex from "../components/vis/dubois/creationProcess/Migration"
 
   export default {
     name: "PlayfairChapter",
     components: {
-        GradsBySex,
-
       DocRenderer,
       DataSetsVis,
       StackedBar,
@@ -221,8 +214,6 @@
           sideBySide: "Side-by-side",
           recreations: "Playfair Recreations",
           newCharts: "Playfair-style Charts",
-
-          occupation: "Occupation"
         },
         scrollerElapsed: 0,
         scrollerEase: easeLinear,

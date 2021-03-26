@@ -1,9 +1,9 @@
 <template>
-  <div class="container">
+  <div class="container" style="display: grid">
     <div>
-    <div id="occupation" style="background-color: #f9edcb; float: left"></div>
+      <div id="occupation" style="background-color: #f9edcb; float: left"></div>
     </div>
-    <div style="text-align: center; font-family: Consolas; font-size: 90%">Percentage of Occupation.</div>
+    <div style="text-align: left; font-family: Consolas; font-size: 90%">Percentage of Occupation.</div>
   </div>
 </template>
 
