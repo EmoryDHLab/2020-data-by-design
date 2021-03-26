@@ -173,8 +173,8 @@
   import MapScroller from "../components/scrollytelling/MapScroller";
   import BasicWaypoint from "../components/waypoints/BasicWaypoint";
   import PeabodyCanvas from "../components/vis/peabody/PeabodyCanvas";
-  import Footnotes from "../components/general/Footnotes"
-  import FootnoteReference from "../components/general/FootnoteReference";
+  import Footnotes from "../components/chapters/Footnotes"
+  import FootnoteReference from "../components/chapters/FootnoteReference";
   import d3Impl from "../components/vis/playfair/creationProcess/D3Impl";
   import DataSetsVis
     from "../components/vis/playfair/creationProcess/DataSetsVis";

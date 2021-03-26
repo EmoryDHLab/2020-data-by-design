@@ -347,8 +347,8 @@
   import Scrollytell from "../components/scrollytelling/Scrollytell";
   import MapScroller from "../components/scrollytelling/MapScroller";
   import PeabodyCanvas from "../components/vis/peabody/PeabodyCanvas";
-  import Footnotes from "../components/general/Footnotes"
-  import FootnoteReference from "../components/general/FootnoteReference";
+  import Footnotes from "../components/chapters/Footnotes"
+  import FootnoteReference from "../components/chapters/FootnoteReference";
   import CaptionedImage from "../components/general/CaptionedImage";
   import EventSquare
     from "../components/vis/peabody/newpeabodygrid/EventSquare";

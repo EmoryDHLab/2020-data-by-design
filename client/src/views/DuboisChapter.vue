@@ -17,8 +17,8 @@
   import EventKey from "../components/vis/peabody/EventKey";
   import Section from '@/components/chapters/Section'
   import Highlightable from "@/mixins/Highlightable";
-  import Footnotes from "../components/general/Footnotes"
-  import FootnoteReference from "../components/general/FootnoteReference";
+  import Footnotes from "../components/chapters/Footnotes"
+  import FootnoteReference from "../components/chapters/FootnoteReference";
   import {DocRenderer} from "doc-renderer";
   import {mapActions} from "vuex";
 
