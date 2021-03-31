@@ -9,13 +9,6 @@ const parse = require("csv-parse")
 const datasets = require("../../datasets.json")
 const datasetFile = id => datasets.datasets[id] ? "/../../" + datasets.path + datasets.datasets[id] : false;
 
-const peabodify = data => {
-  let [year, color, actor, eventType, desc] = data
-  year = parseInt(year)
-  eventType = parseInt(eventType)
-  return { year, color, actor, eventType, desc }
-}
-
 const loadDataset = function(datasetId) {
   const filePath = datasetFile(datasetId)
   return new Promise(function(resolve, reject) {
@@ -28,19 +21,24 @@ const loadDataset = function(datasetId) {
     }
     const extension = path.extname(filePath)
     if (extension === ".csv") {
+      //Assumes first row is property names
       const parser = parse({ delimiter: "," })
       const dataStream = fs.createReadStream(path.join(__dirname, filePath))
+      let dataObjProps = []
       const dataList = []
       dataStream
         .pipe(parser)
         .on("data", data => {
-          dataList.push(peabodify(data))
+          if (dataObjProps.length == 0) {
+            dataObjProps = data;
+          } else {
+            const newObj = {};
+            data.forEach( (propValue, index) => newObj[dataObjProps[index]] = propValue);
+            dataList.push(newObj)
+          }
         })
         .on("end", () => {
-          let output = dataList.reduce((out, dat, i) => {
-            out[i] = { ...dat, id: i }
-            return out
-          }, {})
+          let output = dataList;
           resolve({ id: datasetId, output })
         })
         .on("error", err => {

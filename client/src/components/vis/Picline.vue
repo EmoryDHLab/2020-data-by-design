@@ -131,7 +131,6 @@
 </template>
 
 <script>
-import MetaVisualization from "@/mixins/vis/MetaVisualization"
 
 const max = function (arr) {
   return arr.reduce((currMax, curr) => {
@@ -168,7 +167,7 @@ const DEFAULT_OPTIONS = {
 }
 
 export default {
-  mixins: [MetaVisualization],
+  mixins: [],
   data() {
       return {
           hover: null,
@@ -181,9 +180,19 @@ export default {
       type: Object,
       required: false,
       default: () => DEFAULT_OPTIONS
-    }
+    },
+    dataset: {
+      type: Object,
+      required: true
+    },
   },
   computed: {
+    formattedData () {
+      return this.dataFormatter(this.dataset)
+    },
+    styles () {
+      return this.options.styles || {}
+    },
     earliestDate () {
       let years = this.formattedData
         .map(point => point.year)

@@ -37,20 +37,20 @@
                     <g v-on:click="click = goto(index, i-1)"
                        @mouseover="hover = index*10 + i"
                        @mouseleave="hover = null">
-                      <circle v-if="dataset.dubois.vis[index][i-1] == '1' "
+                      <circle v-if="dataset.vis[index][i-1] == '1' "
                               :cx="blockcx(lines, index, i)" :cy="blockcy(lines, i)"
                               :r="styles.block.r" :fill=styles.color.secHeader></circle>
-                      <circle v-if="dataset.dubois.vis[index][i-1] == '2' "
+                      <circle v-if="dataset.vis[index][i-1] == '2' "
                               :cx="blockcx(lines, index, i)" :cy="blockcy(lines, i)"
                               :r="styles.block.r" :fill=styles.color.image></circle>
-                      <circle v-if="dataset.dubois.vis[index][i-1] == '3' "
+                      <circle v-if="dataset.vis[index][i-1] == '3' "
                               :cx="blockcx(lines, index, i)" :cy="blockcy(lines, i)"
                               :r="styles.block.r" :fill=styles.color.vis></circle>
-                      <circle v-if="dataset.dubois.vis[index][i-1] == '4' "
+                      <circle v-if="dataset.vis[index][i-1] == '4' "
                               :cx="blockcx(lines, index, i)" :cy="blockcy(lines, i)"
                               :r="styles.block.r" :fill=styles.color.text></circle>
 
-                      <circle v-if="hover == index*10 + i  && dataset.dubois.vis[index][i-1] != '0'"
+                      <circle v-if="hover == index*10 + i  && dataset.vis[index][i-1] != '0'"
                               :cx="blockcx(lines, index, i)" :cy="blockcy(lines, i)"
                               :r="styles.block.r" :fill=styles.color.lightgray></circle>
                     </g>
@@ -77,7 +77,6 @@
 <script>
 
 //TODO: fix this to use navline mixin (like peabody and playfair)
-import MetaVisualization from '@/mixins/vis/MetaVisualization'
 import NavlineBucket from './NavlineBucket'
 import NavlineMixin from "../../../../mixins/vis/NavlineMixin";
 // import * as d3 from 'd3'

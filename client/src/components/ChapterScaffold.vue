@@ -46,8 +46,8 @@ import DuboisNavlineVis from './vis/dubois/navline/NavlineVis'
 import PlayfairNavlineVis from './vis/playfair/navline/NavlineVis'
 import Notebook from './notebook-new/Notebook'
 import Section from "./chapters/Section";
-import FootnoteReference from "./general/FootnoteReference";
-import Footnotes from "./general/Footnotes";
+import FootnoteReference from "./chapters/FootnoteReference";
+import Footnotes from "./chapters/Footnotes";
 import Blockquote from "./general/Blockquote";
 import CaptionedImage from "./general/CaptionedImage";
 import stickybits from 'stickybits'

@@ -27,7 +27,6 @@
 </template>
 
 <script>
-import MetaVisualization from "@/mixins/vis/MetaVisualization"
 
 const DEFAULT_OPTIONS = {
   styles: {
@@ -37,7 +36,7 @@ const DEFAULT_OPTIONS = {
 }
 
 export default {
-  mixins: [MetaVisualization],
+  mixins: [],
   props: {
     focusedImg: {
       required: true
