@@ -156,6 +156,8 @@
         <template v-slot:[slots.sideBySide]>
           <StackedBar key="2"/>
         </template>
+
+
       </DocRenderer>
     </template>
 
@@ -210,7 +212,7 @@
           d3Impl: "Difference Visualization",
           sideBySide: "Side-by-side",
           recreations: "Playfair Recreations",
-          newCharts: "Playfair-style Charts"
+          newCharts: "Playfair-style Charts",
         },
         scrollerElapsed: 0,
         scrollerEase: easeLinear,
