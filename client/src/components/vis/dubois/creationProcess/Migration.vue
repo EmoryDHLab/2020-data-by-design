@@ -38,7 +38,7 @@
                 self.svg2 = d3.select("#migration2").append("svg")
                     // .attr("class", "migration")
                     .attr("width", width)
-                    .attr("height", height/2 - 20)
+                    .attr("height", height/2 - 26)
                     .append("g");
 
 

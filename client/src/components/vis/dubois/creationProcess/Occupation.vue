@@ -35,6 +35,7 @@
                 bend_y: null,
                 curve_r: 2,
                 bar_x: null,
+                title: null,
             }
         },
         watch: {
@@ -49,7 +50,8 @@
                         .attr("transform", "translate(" + (this.bar_x + this.bar_width * (this.dataset[0].prec1910 - this.max_width) - (this.curve_r + this.bar_height)) +
                           "," + (this.bend_y) + ") rotate(" + (0) + ")")
                         .attr("width", this.bar_width * (this.dataset[0].prec1910 - this.max_width))
-                        .duration(800)
+                        .duration(800);
+                    this.title.text("Occupation of College Graduates in 1910")
                 } else {
                     for (let i = 1; i < this.bars.length; i++) {
                         this.bars[i].transition()
@@ -60,7 +62,8 @@
                         .attr("transform", "translate(" + (this.bar_x + this.bar_width * (this.dataset[0].prec1900 - this.max_width) - (this.curve_r + this.bar_height)) +
                             "," + (this.bend_y) + ") rotate(" + (0) + ")")
                         .attr("width", this.bar_width * (this.dataset[0].prec1900 - this.max_width))
-                        .duration(800)
+                        .duration(800);
+                    this.title.text("Occupation of College Graduates in 1900")
                 }
             }
         },
@@ -155,7 +158,7 @@
                         }
                     }
 
-                    self.svg.append("text")
+                    self.title = self.svg.append("text")
                         .attr("transform", "translate(" + (40) + "," + (margin.top) + ") rotate(" + (0) + ")")
                         .attr("dy", ".35em")
                         .attr("text-anchor", "start")
