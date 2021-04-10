@@ -4,20 +4,9 @@
 
     <template v-slot:default="{ docRendererProps }">
       <DocRenderer v-bind="docRendererProps">
-        <template v-slot:[slots.occupation]>
-          <Occupation key="1"/>
-        </template>
 
-        <template v-slot:[slots.business]>
-          <Business key="2"/>
-        </template>
-
-        <template v-slot:[slots.gradsBySex]>
-          <GradsBySex key="3"/>
-        </template>
-
-        <template v-slot:[slots.migration]>
-          <Migration key="4"/>
+        <template v-slot:[slots.dubois_recreation_set]>
+          <DuboisRecreationSet key="1"/>
         </template>
 
       </DocRenderer>
@@ -38,10 +27,7 @@
   import FootnoteReference from "../components/chapters/FootnoteReference";
   import {DocRenderer} from "doc-renderer";
   import {mapActions} from "vuex";
-  import Occupation from "../components/vis/dubois/creationProcess/Occupation"
-  import Business from "../components/vis/dubois/creationProcess/Business"
-  import GradsBySex from "../components/vis/dubois/creationProcess/GradsBySex"
-  import Migration from "../components/vis/dubois/creationProcess/Migration"
+  import DuboisRecreationSet from '../components/vis/dubois/creationProcess/DuboisRecreationSet'
 
 
   export default {
@@ -51,7 +37,7 @@
       ChapterScaffold,
       EventKey,
       TimelineVis,
-      Occupation, Business, GradsBySex, Migration,
+      DuboisRecreationSet,
       Section,
       Footnotes,
       FootnoteRef: FootnoteReference,
@@ -60,11 +46,7 @@
     data() {
       return {
         slots: {
-            occupation: "Occupation",
-            business: "Business",
-            gradsBySex: "Grads by sex",
-            migration: "Migration"
-
+            dubois_recreation_set: "Dubois Recreation Set"
         },
       };
     },
