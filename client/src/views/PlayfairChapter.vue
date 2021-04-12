@@ -226,7 +226,6 @@
         const next = event.nextWaypoint.triggerPoint;
         const progressToNext = (event.newScroll - last) / (next - last);
         this.scrollerElapsed = progressToNext;
-        console.log(progressToNext);
       },
       ...mapActions("chapters", ["setChapter"]),
     },

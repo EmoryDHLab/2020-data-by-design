@@ -79,7 +79,6 @@ export default {
       }
       // actually create the waypoint (store it in component data)
       const waypoint = new window.Waypoint(conf);
-      console.log("created waypoint");
       Object.assign(this.waypoint, {}, waypoint)
     }
   },
