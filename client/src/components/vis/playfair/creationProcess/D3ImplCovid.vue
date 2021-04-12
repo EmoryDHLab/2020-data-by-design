@@ -68,7 +68,6 @@ export default {
       const ukData = this.data;
 
       var idx = 0;
-      debugger;
       ukData.forEach(function (d) {
         // d.cumCasesByPublishDate = self.perCapita(capita, ukPopulation, d.cumCasesByPublishDate);
         d.cumDeaths28DaysByDeathDate = self.perCapita(capita, ukPopulation, d.cumDeaths28DaysByDeathDate);

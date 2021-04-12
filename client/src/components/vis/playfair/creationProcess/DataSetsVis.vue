@@ -2,7 +2,7 @@
   <div>
     <D3ImplCovid :width="'100vh'" v-if="shows(0)"/>
     <D3ImplIncome :width="'100vh'" v-if="shows(1)"/>
-    <D3ImplWomen v-if="shows(2)"/>
+    <D3ImplWomen  :width="'100vh'" v-if="shows(2)"/>
     <div style="text-align: center">
       <a class="blue-hover" @mouseover="selected(0)"> Covid-19 Deaths </a>
       <a class="blue-hover" @mouseover="selected(1)"> Average Income </a>
