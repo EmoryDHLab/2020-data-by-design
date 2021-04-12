@@ -138,7 +138,7 @@
         </template>
 
         <template v-slot:[slots.newCharts]>
-          <DataSetsVis key="1" :visidx="visIdx"/>
+          <DataSetsVis key="1" :visidx="visIdx" @selected="(idx) => visIdx = idx"/>
         </template>
 
         <template v-slot:HoverCovid="{inner}">
