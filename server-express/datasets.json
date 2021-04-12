@@ -7,6 +7,10 @@
     "peabody1800": "peabody1800s.json",
     "womensrights": "womensrights.json",
     "playfair_nums_def": "playfair_nums_def.csv",
+    "usa-covid": "usa-covid.csv",
+    "uk-covid": "uk-covid.csv",
+    "femaleRPs": "femaleRPS.csv",
+    "income": "income.csv",
     "longId": "jsontest.json"
   }
 }
