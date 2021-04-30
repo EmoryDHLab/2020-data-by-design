@@ -9,6 +9,10 @@
           <DuboisRecreationSet key="1"/>
         </template>
 
+        <template v-slot:[slots.names]>
+          <Names key="2"/>
+        </template>
+
       </DocRenderer>
     </template>
 
@@ -28,6 +32,7 @@
   import {DocRenderer} from "doc-renderer";
   import {mapActions} from "vuex";
   import DuboisRecreationSet from '../components/vis/dubois/creationProcess/DuboisRecreationSet'
+  import Names from '../components/vis/dubois/creationProcess/Names'
 
 
   export default {
@@ -38,6 +43,7 @@
       EventKey,
       TimelineVis,
       DuboisRecreationSet,
+      Names,
       Section,
       Footnotes,
       FootnoteRef: FootnoteReference,
@@ -46,7 +52,8 @@
     data() {
       return {
         slots: {
-            dubois_recreation_set: "Dubois Recreation Set"
+            dubois_recreation_set: "Dubois Recreation Set",
+            names: "Names Set"
         },
       };
     },
