@@ -36,6 +36,7 @@
 
 <script>
 import { gsap } from "gsap";
+import Vue, {nextTick} from "vue"
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
@@ -105,25 +106,42 @@ export default {
         laidOutTill = leader.offsetTop;
       }
       leader.style.top = laidOutTill + "px";
-      follower.style.top = laidOutTill + leader.scrollHeight / 2 + - follower.scrollHeight / 2 + "px";
+      // follower.style.top = laidOutTill + leader.scrollHeight / 2 + - follower.scrollHeight / 2 + "px";
+      follower.style.top = laidOutTill + "px";
       laidOutTill += leader.scrollHeight;
 
-      gsap.from(follower, {
-        top: leader.style.top,
-        scrollTrigger: {
-           trigger: leader,
-           scrub: true,
-           markers: true,
-           end: `${leader.scrollHeight / 2}px bottom`
-        }
-      });
+      // gsap.from(follower, {
+      //   top: leader.style.top,
+      //   scrollTrigger: {
+      //      trigger: leader,
+      //      scrub: true,
+      //      markers: true,
+      //      end: `${leader.scrollHeight / 2}px bottom`
+      //   }
+      // });
+      Vue.nextTick( () => {
 
+        ScrollTrigger.create({
+          trigger: follower,
+          start: "bottom bottom",
+          pin: true,
+          // endTrigger: leader,
+          end: `${leader.scrollHeight / 2 + follower.scrollHeight / 2}px bottom`,
+          markers: true
+        })
+
+        // ScrollTrigger.create({
+        //   trigger: leader,
+        //   start: "top 50px",
+        //   pin: true,
+        //   endTrigger: follower,
+        //   end: "top 50px",
+        //   // end: `${leader.scrollHeight / 2 + follower.scrollHeight / 2}px bottom`,
+        //   // markers: true
+        // })
+      })
     })
 
-
-
-    ScrollTrigger.create({
-    })
   }
 }
 </script>
@@ -133,6 +151,7 @@ export default {
 
 .columns {
   width: 900px;
+  height: 3000px;
   margin-left: 200px;
   display: flex;
   gap: 100px;
