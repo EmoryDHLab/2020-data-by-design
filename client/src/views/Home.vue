@@ -5,7 +5,7 @@
         <div class="text-content">
           <h1 class="title --biggest --color-grey">Data by Design</h1>
           <h1 class="subtitle --color-grey">
-            An Interactive History of Data Visualization, 1786&ndash;1900
+            An Interactive History of Data Visualization, 1788&ndash;1900
           </h1>
           <hr>
           <h3 class="subtitle --color-grey" style="font-size: 20px; line-height: 1.5;">What is the story we tell about the emergence of modern data visualization? How might we tell that story differently?
@@ -27,63 +27,21 @@
           <br>.
         </h3>
 
-<!--        <div class="chapter-links">
-          <div class="card"
-               :style="{'background-image': 'url(' + require('./img/_northamerica.jpg') + ')'}"
-               style=" background-size: cover;
-               background-color: rgba(255, 255, 255, 0.7);
-               background-position: center;
-               background-blend-mode: lighten;">
-            <h2 class="boxHeading">A View “Simple and Complete”</h2>
-          </div>
-          <div class="card"
-               :style="{'background-image': 'url(' + require('./img/_brookes.jpg') + ')'}"
-          style = "background-size: cover;
-               background-color: rgba(255, 255, 255, 0.7);
-               background-position: center;
-               background-blend-mode: lighten;">
-            <h2 class="boxHeading">Every Datapoint a Person</h2>
-          </div>
-          <div class="card"
-               :style="{'background-image': 'url(' + require('./img/sketch2.jpg') + ')'}"
-               style=" background-size: cover;
-               background-color: rgba(255, 255, 255, 0.7);
-               background-position: center;
-               background-blend-mode: lighten;">
-            <h2 class="boxHeading">Narratives of Possession</h2>
-          </div>
-          <div class="card"
-               :style="{'background-image': 'url(' + require('./img/_fig2.jpg') + ')'}"
-               style=" background-size: cover;
-               background-color: rgba(255, 255, 255, 0.7);
-               background-position: center;
-               background-blend-mode: lighten;">
-            <h2 class="boxHeading">A Method of Making History</h2>
-          </div>
-          <div class="card"
-               :style="{'background-image': 'url(' + require('./img/duboisdata04.jpg') + ')'}"
-               style=" background-size: cover;
-               background-color: rgba(255, 255, 255, 0.7);
-               background-position: center;
-               background-blend-mode: lighten;">
-            <h2 class="boxHeading">“The Color Line” as Data and Image</h2>
-          </div>
-        </div> -->
         <div class="chapter-list">
+          <ChapListItem style="-webkit-filter: grayscale(1);">
+            <template slot="title">Every Datapoint a Person</template>
+            <template slot="tag">The Brooks Diagram and the Humanity of Data</template>
+            Before there are data, there are people. People who offer up their lives to be counted as data -- or whose lives become data without their consent.
+            <img src= "./img/navlinePic/everyData.png">
+          </ChapListItem>
           <router-link to="/chapters/playfair" style="text-decoration: none;">
             <ChapListItem>
-              <template slot="title">Visualization as Argument</template>
+              <template slot="title">What Visualization Reveals</template>
               <template slot="tag">William Playfair's Time-Series Charts</template>
             Data visualization has never been neutral or objective. There is a meaning -- and an argument -- conveyed through the design of each image.
               <img src= "./img/navlinePic/playfair.png">
             </ChapListItem>
           </router-link>
-          <ChapListItem style="-webkit-filter: grayscale(1);">
-            <template slot="title">Every Datapoint a Person</template>
-            <template slot="tag">The Brookes Diagram and the Humanity of Data</template>
-            Before there are data, there are people. People who offer up their lives to be counted as data -- or whose lives become data without consent.
-            <img src= "./img/navlinePic/everyData.png">
-          </ChapListItem>
           <ChapListItem style="-webkit-filter: grayscale(1);">
             <template slot="title">Narratives of Possession</template>
             <template slot="tag"> Emma Willard, Shanawdithit, and the Power of Maps</template>
@@ -98,12 +56,14 @@
               <img src= "./img/navlinePic/peabody.png">
               </ChapListItem>
           </router-link>
-          <ChapListItem style="-webkit-filter: grayscale(1);">
-            <template slot="title">“The Color Line” as Data and Image</template>
-            <template slot="tag"> W. E. B. Du Bois and the Argument of Visual Display</template>
+          <router-link to="/chapters/dubois" style="text-decoration: none;">
+            <ChapListItem style="-webkit-filter: grayscale(1);">
+              <template slot="title">Between Data and Truth</template>
+              <template slot="tag"> W. E. B. Du Bois and the Argument of Visual Display</template>
             Data has always been wielded as a tool of the state. How can it be used for liberation instead?
-            <img src= "./img/navlinePic/dubois.png">
-          </ChapListItem>
+              <img src= "./img/navlinePic/dubois.png">
+              </ChapListItem>
+          </router-link>
         </div>
       </div>
 
