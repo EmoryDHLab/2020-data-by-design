@@ -95,7 +95,7 @@ export default {
         this.enable();
       } else if (newVal === false) {
         this.disable();
-      }
+      t }
     },
     offset (newVal, oldVal) {
       // this.createWaypoint();

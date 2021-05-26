@@ -35,11 +35,14 @@
 
         </template>
         <template v-slot:[slots.d3Impl]>
+
           <Scrollytell bottom-break pause above
                        itemsBackgroundColor="white"
                        :scrollSlots="9">
             <template v-slot:fixed="{ scrolled, progress }">
+
               <d3Impl width="60vh" :slideNumber="scrolled"/>
+
             </template>
             <template v-slot:1>
               <p>

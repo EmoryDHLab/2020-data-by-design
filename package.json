@@ -59,7 +59,7 @@
     "mongoose": "^5.7.3",
     "morgan": "^1.9.1",
     "npm": "^6.14.9",
-    "parse-google-docs-json": "^1.1.1",
+    "parse-google-docs-json": "git+https://github.com/Jutanium/Docs-Integration",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "register-service-worker": "^1.0.0",
