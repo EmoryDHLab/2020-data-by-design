@@ -61,29 +61,35 @@
           <Scrollytell collect bottom-breaks :scroll-slots="5">
 
             <template v-slot:fixed="{scrolled, progress}">
-
-              <img v-if="scrolled == 1" src="./img/ch5-04a-city.jpg" width="50%">
-              <img v-if="scrolled == 2" src="./img/ch5-04b-illiteracy.jpg" width="50%">
-              <img v-if="scrolled == 3" src="./img/ch5-04c-owners.jpg" width="50%">
-              <img v-if="scrolled == 4" src="./img/ch5-04d-value.jpg" width="50%">
-
+              <div class="scrollytell-image">
+                <img v-if="scrolled == 0" src="./img/ch5-04a-city.jpg">
+                <img v-if="scrolled == 1" src="./img/ch5-04b-illiteracy.jpg">
+                <img v-if="scrolled == 2" src="./img/ch5-04c-owners.jpg">
+                <img v-if="scrolled >= 3" src="./img/ch5-04d-value.jpg">
+              </div>
             </template>
 
             <template v-slot:1>
-
+              <div>
               In his comparative representation of the places where Georgia’s Black citizens reside, for example, Du Bois brings together aspects of the bar chart and the line chart along with a new form of spiral graph in order to give animacy to the presence of Black people in each of type of locale
+              </div>
             </template>
 
             <template v-slot:2>
+              <div>
               In a later chart, which documents the decrease in illiteracy rates in the years between 1860 and 1900, Du Bois makes use of what graphic designer Silas Munro describes as a “lattice-like arrangement,” in which an otherwise standard bar is folded at a right angle in order to further accentuate the decreasing rate of illiteracy
+              </div>
             </template>
 
             <template v-slot:3>
+              <div>
               Du Bois elaborates upon this technique in a later chart, which compares the numbers of Black property owners, and the value of their properties, in two Georgia cities.
+              </div>
             </template>
-            Another unique chart in this series, which plots the “assessed value of household and kitchen furniture” owned by Black Georgians, takes the standard bar chart and bends it into a spiral, concentrating the viewer’s focus on the cumulative value of the population’s material possessions in addition to its growth in time
             <template v-slot:4>
-
+              <div>
+              Another unique chart in this series, which plots the “assessed value of household and kitchen furniture” owned by Black Georgians, takes the standard bar chart and bends it into a spiral, concentrating the viewer’s focus on the cumulative value of the population’s material possessions in addition to its growth in time.
+              </div>
             </template>
           </Scrollytell>
         </template>
@@ -161,5 +167,13 @@
 
   p {
     text-align: justify;
+  }
+
+  .scrollytell-image {
+
+  }
+
+  .scrollytell-image img {
+    width: 100%;
   }
 </style>
