@@ -29,7 +29,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.5.0",
     "@fortawesome/vue-fontawesome": "^0.1.2",
     "axios": "^0.18.0",
-    "bcrypt": "^3.0.0",
+    "bcrypt": "^5.0.0",
     "clone-deep": "^4.0.0",
     "compression": "^1.0.3",
     "cookie-parser": "^1.4.3",
